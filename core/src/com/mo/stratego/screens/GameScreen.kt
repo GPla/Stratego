@@ -1,7 +1,10 @@
-package com.mo.stratego
+package com.mo.stratego.screens
 
 import com.badlogic.gdx.Screen
 
+/**
+ * Screen that renders the game
+ */
 class GameScreen : Screen {
     override fun hide() {
     }

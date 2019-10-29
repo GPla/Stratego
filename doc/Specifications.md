@@ -64,6 +64,39 @@ A simple android game version of the popular strategic game [Stratego](https://e
   - Settings
   - Rules
 
+### Main Menu
+- Use scene2d for the UI of the menus
+
+### Game
+#### Map
+- Tiled map (Orthographic or Isometric?)
+- Tile set and art style to be determined
+- Size: 12 x 12, Game: 10x10
+- One tile = one grid square, one piece = one tile
+
+Optional: 
+- Animated water tiles
+
+#### Pieces
+Placement:
+- All placeable pieces should be shown in a list
+- Tap a piece and the square to place it, all available/valid squares should show be highlighted
+
+Movement: 
+- Tap on a piece and all movable square are highligted
+- Tap on a highlighted square to move a piece
+- If a highlighted square with an opponents piece is selected, the pieces will attack each other
+
+Attack: 
+- Both pieces involed will be revealed 
+- Outcome: see rules
+(Idea: show popup with pictures and rank and a little animation)
+
+Implementation: 
+- Base class for all pieces
+  - Method : isMovable ...
+
 ## Libraries
 
-- [LibGDX](www.libgdx.com)
+- [LibGDX](https://github.com/libgdx/libgdx)
+- [Ashley](https://github.com/libgdx/ashley)

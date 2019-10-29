@@ -1,6 +1,7 @@
 package com.mo.stratego
 
 import com.badlogic.gdx.Game
+import com.mo.stratego.screens.GameScreen
 
 class StrategoGame : Game(){
     override fun create() {

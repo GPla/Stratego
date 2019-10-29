@@ -68,16 +68,21 @@ A simple android game version of the popular strategic game [Stratego](https://e
 - Use scene2d for the UI of the menus
 
 ### Game
+Game orientation: landscape( ) or portrait(x)?
+
 #### Map
 - Tiled map (Orthographic or Isometric?)
 - Tile set and art style to be determined
-- Size: 12 x 12, Game: 10x10
+- Size: 14 x 12 (portrait), Game: 10x10
 - One tile = one grid square, one piece = one tile
 
 Optional: 
 - Animated water tiles
+- Animate border tiles (non game tiles)     
 
 #### Pieces
+Sprite set: https://pipoya.itch.io/pipoya-free-rpg-character-sprites-32x32
+
 Placement:
 - All placeable pieces should be shown in a list
 - Tap a piece and the square to place it, all available/valid squares should show be highlighted

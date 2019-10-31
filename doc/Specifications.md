@@ -65,49 +65,95 @@ A simple android game version of the popular strategic game [Stratego](https://e
   - Rules
 
 ### Main Menu
+
 - Use scene2d for the UI of the menus
 
 ### Game
+
 Game orientation: landscape( ) or portrait(x)?
 
 #### Map
+
 - Tiled map (Orthographic or Isometric?)
 - Tile set and art style to be determined
 - Size: 14 x 12 (portrait), Game: 10x10
 - One tile = one grid square, one piece = one tile
 
-Optional: 
+Optional:
+
 - Animated water tiles
-- Animate border tiles (non game tiles)   
-- Water reflections (https://gamedev.stackexchange.com/questions/102940/how-to-achieve-sprite-reflection-effect-in-libgdx)  
+- Animate border tiles (non game tiles)
+- [Water reflections](https://gamedev.stackexchange.com/questions/102940/how-to-achieve-sprite-reflection-effect-in-libgdx)  
 
+#### Unit
 
-#### Pieces
-Sprite set: https://pipoya.itch.io/pipoya-free-rpg-character-sprites-32x32  
+[Sprite set](https://pipoya.itch.io/pipoya-free-rpg-character-sprites-32x32)  
 modify to show rank
 
 Placement:
+
 - All placeable pieces should be shown in a list
 - Tap a piece and the square to place it, all available/valid squares should show be highlighted
 
-Movement: 
+Movement:
+
 - Tap on a piece and all movable square are highligted
 - Tap on a highlighted square to move a piece
 - If a highlighted square with an opponents piece is selected, the pieces will attack each other
 
-Attack: 
-- Both pieces involed will be revealed 
+Attack:
+
+- Both pieces involed will be revealed
 - Outcome: see rules
 (Idea: show popup with pictures and rank and a little animation)
 
-Implementation: 
-- Base class for all pieces
-  - Method : isMovable ...
+Implementation:
+ECS mit Command pattern :)
 
-- World class -> contains all units
-- Unit : Rectangle() 
+- Entity
+  - Data
+    - Name
+    - Texture
+
+- Unit
+  - Behaviour:
+    - Move (0, 1, line)
+    - Attack (triggers effect: KILL, KILL_DEAD)
+    - Highlight (possible moves)
+  - Data:
+    - Rank (F, B, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    - Position (x, y)
+    - Ownership (player, opponent)
+
+Systems:
+
+- Game States:
+  1. Preparation (Unit Placement)
+  2. GamePlay
+     1. Players turn
+     2. Enemys turn
+
+For Gameplay:  
+Player 1 <- Referee -> Proxy - Network - Proxy <- Referee --> Player 2  
+Enables easy single player and multiplayer without chaging the engine [see](https://pdfs.semanticscholar.org/f35c/df2b5cb1a36d703ab6c4a4d80cbaaf3cc603.pdf)  
+
+- [InputHandlerSystem](https://stackoverflow.com/questions/38278201/libgdx-ashley-how-do-i-control-a-player-the-proper-way-ecs-framework)
+- RefereeSystem -> PlayerComponent / InputHandler
+- RenderSystem (based on ownership and rank?, list of all units?)
+  - loads all textures
+- MoveSystem (commands)
+- AttackSystem (commands, MoveSytem adds attack component if collided with opponent)
+- PlacementSystem (commands)
+- HighlightSystem (highlights possible moves for a unit)
+
+Input Handling (4 Layer) [see](https://javadocmd.com/blog/libgdx-ashley-on-the-stage/):  
+
+## Architecture
+
+- [Command pattern](http://gameprogrammingpatterns.com/command.html)
 
 ## Libraries
 
 - [LibGDX](https://github.com/libgdx/libgdx)
 - [Ashley](https://github.com/libgdx/ashley)
+- [GreenRobot EventBus](https://github.com/greenrobot/EventBus)

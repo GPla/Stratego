@@ -1,12 +1,8 @@
 package com.mo.stratego.systems
 
-import com.badlogic.ashley.core.ComponentMapper
-import com.badlogic.ashley.core.Entity
-import com.badlogic.ashley.core.Family
-import com.badlogic.ashley.systems.SortedIteratingSystem
+import com.badlogic.ashley.core.*
+import com.badlogic.ashley.utils.ImmutableArray
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.utils.Array
-import com.mo.stratego.comparators.ZComparator
 import com.mo.stratego.components.PositionComponent
 import com.mo.stratego.components.TextureComponent
 
@@ -15,12 +11,7 @@ import com.mo.stratego.components.TextureComponent
  * [TextureComponent]. The render order is specified through the z value
  * of the [PositionComponent].
  */
-class RenderSystem(var batch: SpriteBatch) :
-        SortedIteratingSystem(
-                Family.all(PositionComponent::class.java,
-                        TextureComponent::class.java).get(),
-                ZComparator()
-        ) {
+class RenderSystem(private var batch: SpriteBatch) : EntitySystem() {
 
     // component mapper to retrieve components of an entity
     private val pm: ComponentMapper<PositionComponent> =
@@ -28,14 +19,26 @@ class RenderSystem(var batch: SpriteBatch) :
     private val tm: ComponentMapper<TextureComponent> =
             ComponentMapper.getFor(TextureComponent::class.java)
 
+    // family, filter engine for entities with these components
+    private val family: Family = Family.all(PositionComponent::class.java,
+            TextureComponent::class.java).get()
+
     // entities that need to be rendered
-    private val renderQueue: Array<Entity> = Array()
+    private lateinit var entities: ImmutableArray<Entity>
+
+    override fun addedToEngine(engine: Engine?) {
+        var ent = engine?.getEntitiesFor(family)
+        if (ent != null)
+            entities = ent
+    }
 
     override fun update(deltaTime: Float) {
+
         // render entities for frame
         batch.begin()
+
         // loop through each entity in the queue
-        for (entity in renderQueue) {
+        for (entity in entities) {
             val pos = pm.get(entity)
             val tex = tm.get(entity)
 
@@ -46,13 +49,5 @@ class RenderSystem(var batch: SpriteBatch) :
             batch.draw(tex.region, pos.position.x, pos.position.y)
         }
         batch.end()
-
-        // reset queue
-        renderQueue.clear()
-    }
-
-    override fun processEntity(entity: Entity?, deltaTime: Float) {
-        // add to queue render them all at once with a SpriteBatch
-        renderQueue.add(entity)
     }
 }

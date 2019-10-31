@@ -10,4 +10,4 @@ import com.mo.stratego.systems.RenderSystem
  * @property position Vector2 map position
  * @property z Int specifies the render order for the [RenderSystem].
  */
-class PositionComponent(var position: Vector2, var z: Int) : Component
+class PositionComponent(var position: Vector2, var z: Int = 0) : Component

@@ -1,5 +1,6 @@
 package com.mo.stratego.screens
 
+import com.badlogic.ashley.core.Engine
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.GL20
@@ -10,12 +11,15 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 
 /**
- * Screen that renders the game
+ * Game screen
+ *
+ * game logic implemented using ECS (Entity - Component - System) design pattern
  */
 class GameScreen : Screen {
     private var camera : OrthographicCamera = OrthographicCamera()
-    private lateinit var map : TiledMap
-    private lateinit var mapRenderer: TiledMapRenderer
+    private val map : TiledMap
+    private val mapRenderer: TiledMapRenderer
+    private val engine : Engine
 
     init {
         // load map
@@ -24,8 +28,11 @@ class GameScreen : Screen {
         mapRenderer = OrthogonalTiledMapRenderer(map, 1/32f)
 
         // set camera to map dimensions
-        // TODO: adjust map dimensions
         camera.setToOrtho(false, 12f, 21f)
+
+        // create ashley engine
+        engine = Engine()
+
     }
 
 
@@ -47,6 +54,9 @@ class GameScreen : Screen {
         //render map for this frame
         mapRenderer.setView(camera)
         mapRenderer.render()
+
+        // update engine systems
+        engine.update(Gdx.graphics.deltaTime)
     }
 
     override fun pause() {

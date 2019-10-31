@@ -78,10 +78,13 @@ Game orientation: landscape( ) or portrait(x)?
 
 Optional: 
 - Animated water tiles
-- Animate border tiles (non game tiles)     
+- Animate border tiles (non game tiles)   
+- Water reflections (https://gamedev.stackexchange.com/questions/102940/how-to-achieve-sprite-reflection-effect-in-libgdx)  
+
 
 #### Pieces
-Sprite set: https://pipoya.itch.io/pipoya-free-rpg-character-sprites-32x32
+Sprite set: https://pipoya.itch.io/pipoya-free-rpg-character-sprites-32x32  
+modify to show rank
 
 Placement:
 - All placeable pieces should be shown in a list
@@ -100,6 +103,9 @@ Attack:
 Implementation: 
 - Base class for all pieces
   - Method : isMovable ...
+
+- World class -> contains all units
+- Unit : Rectangle() 
 
 ## Libraries
 

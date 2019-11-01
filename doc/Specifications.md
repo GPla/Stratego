@@ -78,6 +78,7 @@ Game orientation: landscape( ) or portrait(x)?
 - Tile set and art style to be determined
 - Size: 14 x 12 (portrait), Game: 10x10
 - One tile = one grid square, one piece = one tile
+- Top down or 3d like
 
 Optional:
 

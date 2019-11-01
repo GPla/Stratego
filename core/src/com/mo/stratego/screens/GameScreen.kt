@@ -26,7 +26,7 @@ import com.mo.stratego.systems.RenderSystem
 class GameScreen : Screen {
     private var camera : OrthographicCamera = OrthographicCamera()
     private val map : TiledMap
-    private val mapRenderer: TiledMapRenderer
+    private val mapRenderer: OrthogonalTiledMapRenderer
     private val engine : Engine
     private val batch: SpriteBatch
 
@@ -36,22 +36,23 @@ class GameScreen : Screen {
         // render map with unit scale 1/32, as one tile is 32x32
         mapRenderer = OrthogonalTiledMapRenderer(map, 1/32f)
 
-        // set camera to map dimensions
-        camera.setToOrtho(false, 12f, 21f)
+        // set camera to map dimensions 12 x 21
+        camera.setToOrtho(true, 12f, 21f)
+        camera.position.set(Vector2(camera.viewportWidth / 2f, camera.viewportHeight / 2f), 0f)
 
         batch = SpriteBatch()
 
         // create ashley engine
         engine = Engine()
-        engine.addSystem(RenderSystem(batch))
+        engine.addSystem(RenderSystem(batch, camera))
 
         engine.addEntity(Entity()
                 .add(TextureComponent(TextureRegion(Texture("tilesets/female/Female 01-2.png"), 32, 32)))
-                .add(PositionComponent(Vector2(10f, 10f))))
+                .add(PositionComponent(Vector2(0f, 0f))))
 
         engine.addEntity(Entity()
                 .add(TextureComponent(TextureRegion(Texture("tilesets/female/Female 02-2.png"), 32, 32)))
-                .add(PositionComponent(Vector2(12f, 12f))))
+                .add(PositionComponent(Vector2(0f, 0f))))
     }
 
 

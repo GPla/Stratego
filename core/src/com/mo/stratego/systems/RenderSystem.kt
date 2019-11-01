@@ -21,7 +21,7 @@ class RenderSystem(private val batch: SpriteBatch, private val camera: Orthograp
                 ZComparator()
         ) {
 
-    // scale pixel to game unit, 32 pixel = 1 game unit
+    // scale pixels to game units, 32 pixels = 1 game unit
     private val unitScale : Float = 1/32f
 
     // component mapper to retrieve components of an entity
@@ -48,17 +48,11 @@ class RenderSystem(private val batch: SpriteBatch, private val camera: Orthograp
         if (texture == null || texture.isHidden)
             return
 
-
-        // origin = center of texture
-        val originX = texture.region.regionWidth / 2f
-        val originY = texture.region.regionHeight / 2f
-
-        //TODO: fix position
-        // draw entity
+        // draw sprite
         batch.draw(
                 texture.region,
                 position.position.x, position.position.y,
-                originX, originY,
+                0f, 0f, // origin for position and rotation in bottom left corner
                 texture.region.regionWidth.toFloat(), texture.region.regionHeight.toFloat(),
                 pixelToUnit(texture.scale.x) , pixelToUnit(texture.scale.y),
                 texture.rotation
@@ -67,9 +61,9 @@ class RenderSystem(private val batch: SpriteBatch, private val camera: Orthograp
     }
 
     /**
-     * Translates pixel to game unit
+     * Translates pixels to game units
      * @param pixel
-     * @return corresponding game unit
+     * @return corresponding game units
      */
     private fun pixelToUnit(pixel : Float) = pixel * unitScale
 

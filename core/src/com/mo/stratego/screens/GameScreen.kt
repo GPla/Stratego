@@ -37,7 +37,7 @@ class GameScreen : Screen {
         mapRenderer = OrthogonalTiledMapRenderer(map, 1/32f)
 
         // set camera to map dimensions 12 x 21
-        camera.setToOrtho(true, 12f, 21f)
+        camera.setToOrtho(false, 12f, 21f)
         camera.position.set(Vector2(camera.viewportWidth / 2f, camera.viewportHeight / 2f), 0f)
 
         batch = SpriteBatch()
@@ -48,11 +48,23 @@ class GameScreen : Screen {
 
         engine.addEntity(Entity()
                 .add(TextureComponent(TextureRegion(Texture("tilesets/female/Female 01-2.png"), 32, 32)))
-                .add(PositionComponent(Vector2(0f, 0f))))
+                .add(PositionComponent(Vector2(4f, 7f))))
 
         engine.addEntity(Entity()
                 .add(TextureComponent(TextureRegion(Texture("tilesets/female/Female 02-2.png"), 32, 32)))
-                .add(PositionComponent(Vector2(0f, 0f))))
+                .add(PositionComponent(Vector2(8f, 14f))))
+        engine.addEntity(Entity()
+                .add(TextureComponent(TextureRegion(Texture("tilesets/female/Female 03-2.png"), 32, 32)))
+                .add(PositionComponent(Vector2(7f, 14f))))
+        engine.addEntity(Entity()
+                .add(TextureComponent(TextureRegion(Texture("tilesets/female/Female 04-2.png"), 32, 32)))
+                .add(PositionComponent(Vector2(9f, 14f))))
+        engine.addEntity(Entity()
+                .add(TextureComponent(TextureRegion(Texture("tilesets/female/Female 05-2.png"), 32, 32)))
+                .add(PositionComponent(Vector2(8f, 15f))))
+        engine.addEntity(Entity()
+                .add(TextureComponent(TextureRegion(Texture("tilesets/female/Female 06-2.png"), 32, 32)))
+                .add(PositionComponent(Vector2(8f, 13f))))
     }
 
 

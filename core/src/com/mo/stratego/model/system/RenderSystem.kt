@@ -1,13 +1,14 @@
-package com.mo.stratego.systems
+package com.mo.stratego.model.system
 
-import com.badlogic.ashley.core.*
+import com.badlogic.ashley.core.ComponentMapper
+import com.badlogic.ashley.core.Entity
+import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.SortedIteratingSystem
-import com.badlogic.ashley.utils.ImmutableArray
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.mo.stratego.comparators.ZComparator
-import com.mo.stratego.components.PositionComponent
-import com.mo.stratego.components.TextureComponent
+import com.mo.stratego.model.component.PositionComponent
+import com.mo.stratego.model.component.TextureComponent
+import com.mo.stratego.util.ZComparator
 
 /**
  * System that renders all entities with a [PositionComponent] and a

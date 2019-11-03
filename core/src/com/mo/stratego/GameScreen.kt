@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.viewport.StretchViewport
 import com.mo.stratego.model.Piece
 import com.mo.stratego.model.Rank
+import com.mo.stratego.model.component.PieceComponent
 import com.mo.stratego.model.component.PositionComponent
 import com.mo.stratego.model.component.TextureComponent
 import com.mo.stratego.ui.FieldController
@@ -52,8 +53,8 @@ class GameScreen : Screen {
         // create ashley engine
         engine = Engine()
 
-        //trigger listener if relevant components added
-        val family = Family.all(TextureComponent::class.java, PositionComponent::class.java).get()
+        //trigger listener if piece component is added / removed
+        val family = Family.all(PieceComponent::class.java).get()
         engine.addEntityListener(family, FieldController.init(this, stage))
         //engine.addSystem(RenderSystem(batch, camera))
 

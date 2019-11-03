@@ -10,6 +10,10 @@ public class AndroidLauncher extends AndroidApplication {
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+		//disable not needed features to save battery
+		config.useCompass = false;
+		config.useAccelerometer = false;
+		// run game
 		initialize(new StrategoGame(), config);
 	}
 }

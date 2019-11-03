@@ -1,4 +1,4 @@
-package com.mo.stratego.components
+package com.mo.stratego.model.component
 
 import com.badlogic.ashley.core.Component
 

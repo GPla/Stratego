@@ -28,8 +28,8 @@ class FieldController(val screen : GameScreen,
 
     }
 
-
     override fun entityAdded(entity: Entity?) {
+        // add if class = piece
         if(entity is Piece){
             stage.addActor(PieceActor(entity))
         }

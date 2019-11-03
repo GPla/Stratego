@@ -1,4 +1,4 @@
-package com.mo.stratego.ui.screen
+package com.mo.stratego.screens
 
 import com.badlogic.ashley.core.Engine
 import com.badlogic.ashley.core.Entity
@@ -10,12 +10,13 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.maps.tiled.TiledMap
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer
 import com.badlogic.gdx.maps.tiled.TmxMapLoader
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.math.Vector2
-import com.mo.stratego.model.component.PositionComponent
-import com.mo.stratego.model.component.TextureComponent
-import com.mo.stratego.model.system.RenderSystem
+import com.mo.stratego.components.PositionComponent
+import com.mo.stratego.components.TextureComponent
+import com.mo.stratego.systems.RenderSystem
 
 /**
  * Game screen
@@ -23,17 +24,17 @@ import com.mo.stratego.model.system.RenderSystem
  * game logic implemented using ECS (Entity - Component - System) design pattern
  */
 class GameScreen : Screen {
-    private var camera: OrthographicCamera = OrthographicCamera()
-    private val map: TiledMap
+    private var camera : OrthographicCamera = OrthographicCamera()
+    private val map : TiledMap
     private val mapRenderer: OrthogonalTiledMapRenderer
-    private val engine: Engine
+    private val engine : Engine
     private val batch: SpriteBatch
 
     init {
         // load map
         map = TmxMapLoader().load("maps/map.tmx")
         // render map with unit scale 1/32, as one tile is 32x32
-        mapRenderer = OrthogonalTiledMapRenderer(map, 1 / 32f)
+        mapRenderer = OrthogonalTiledMapRenderer(map, 1/32f)
 
         // set camera to map dimensions 12 x 21
         camera.setToOrtho(false, 12f, 21f)

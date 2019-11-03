@@ -1,8 +1,8 @@
-package com.mo.stratego.model.component
+package com.mo.stratego.components
 
 import com.badlogic.ashley.core.Component
 import com.badlogic.gdx.math.Vector2
-import com.mo.stratego.model.system.RenderSystem
+import com.mo.stratego.systems.RenderSystem
 
 /**
  * A component that specifies the map position at which an entity

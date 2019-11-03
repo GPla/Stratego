@@ -149,8 +149,7 @@ Enables easy single player and multiplayer without chaging the engine [see](http
 
 Input Handling (4 Layer) [see](https://javadocmd.com/blog/libgdx-ashley-on-the-stage/)
 
-Animation:
-
+Animation: 
 - 12 different units
   - 2 moveing frames, 1 standing
 - highlights should blink

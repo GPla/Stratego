@@ -1,8 +1,8 @@
-package com.mo.stratego.util
+package com.mo.stratego.comparators
 
 import com.badlogic.ashley.core.ComponentMapper
 import com.badlogic.ashley.core.Entity
-import com.mo.stratego.model.component.PositionComponent
+import com.mo.stratego.components.PositionComponent
 
 
 /**

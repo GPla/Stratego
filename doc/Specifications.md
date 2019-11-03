@@ -147,7 +147,12 @@ Enables easy single player and multiplayer without chaging the engine [see](http
 - PlacementSystem (commands)
 - HighlightSystem (highlights possible moves for a unit)
 
-Input Handling (4 Layer) [see](https://javadocmd.com/blog/libgdx-ashley-on-the-stage/):  
+Input Handling (4 Layer) [see](https://javadocmd.com/blog/libgdx-ashley-on-the-stage/)
+
+Animation: 
+- 12 different units
+  - 2 moveing frames, 1 standing
+- highlights should blink
 
 ## Architecture
 
@@ -157,4 +162,4 @@ Input Handling (4 Layer) [see](https://javadocmd.com/blog/libgdx-ashley-on-the-s
 
 - [LibGDX](https://github.com/libgdx/libgdx)
 - [Ashley](https://github.com/libgdx/ashley)
-- [GreenRobot EventBus](https://github.com/greenrobot/EventBus)
+(- [GreenRobot EventBus](https://github.com/greenrobot/EventBus) )

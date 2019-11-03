@@ -1,21 +1,24 @@
-package com.mo.stratego.ui.screen
+package com.mo.stratego
 
 import com.badlogic.ashley.core.Engine
-import com.badlogic.ashley.core.Entity
+import com.badlogic.ashley.core.Family
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.maps.tiled.TmxMapLoader
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.utils.viewport.StretchViewport
+import com.mo.stratego.model.Piece
+import com.mo.stratego.model.Rank
 import com.mo.stratego.model.component.PositionComponent
 import com.mo.stratego.model.component.TextureComponent
-import com.mo.stratego.model.system.RenderSystem
+import com.mo.stratego.ui.FieldController
 
 /**
  * Game screen
@@ -27,7 +30,8 @@ class GameScreen : Screen {
     private val map: TiledMap
     private val mapRenderer: OrthogonalTiledMapRenderer
     private val engine: Engine
-    private val batch: SpriteBatch
+    //private val batch: SpriteBatch
+    private val stage: Stage
 
     init {
         // load map
@@ -39,31 +43,45 @@ class GameScreen : Screen {
         camera.setToOrtho(false, 12f, 21f)
         camera.position.set(Vector2(camera.viewportWidth / 2f, camera.viewportHeight / 2f), 0f)
 
-        batch = SpriteBatch()
+
+        //batch = SpriteBatch()
+
+        //stage for ui
+        stage = Stage(StretchViewport(camera.viewportWidth, camera.viewportHeight))
 
         // create ashley engine
         engine = Engine()
-        engine.addSystem(RenderSystem(batch, camera))
 
-        engine.addEntity(Entity()
+        //trigger listener if relevant components added
+        val family = Family.all(TextureComponent::class.java, PositionComponent::class.java).get()
+        engine.addEntityListener(family, FieldController.init(this, stage))
+        //engine.addSystem(RenderSystem(batch, camera))
+
+        engine.addEntity(Piece(Rank.MARSHAL)
                 .add(TextureComponent(TextureRegion(Texture("tilesets/female/Female 01-2.png"), 32, 32)))
                 .add(PositionComponent(Vector2(4f, 7f))))
-
-        engine.addEntity(Entity()
+        engine.addEntity(Piece(Rank.SCOUT)
                 .add(TextureComponent(TextureRegion(Texture("tilesets/female/Female 02-2.png"), 32, 32)))
                 .add(PositionComponent(Vector2(8f, 14f))))
-        engine.addEntity(Entity()
+        engine.addEntity(Piece(Rank.SCOUT)
                 .add(TextureComponent(TextureRegion(Texture("tilesets/female/Female 03-2.png"), 32, 32)))
                 .add(PositionComponent(Vector2(7f, 14f))))
-        engine.addEntity(Entity()
+        engine.addEntity(Piece(Rank.SCOUT)
                 .add(TextureComponent(TextureRegion(Texture("tilesets/female/Female 04-2.png"), 32, 32)))
                 .add(PositionComponent(Vector2(9f, 14f))))
-        engine.addEntity(Entity()
+        engine.addEntity(Piece(Rank.SCOUT)
                 .add(TextureComponent(TextureRegion(Texture("tilesets/female/Female 05-2.png"), 32, 32)))
                 .add(PositionComponent(Vector2(8f, 15f))))
-        engine.addEntity(Entity()
+        engine.addEntity(Piece(Rank.SCOUT)
                 .add(TextureComponent(TextureRegion(Texture("tilesets/female/Female 06-2.png"), 32, 32)))
                 .add(PositionComponent(Vector2(8f, 13f))))
+    }
+
+    companion object {
+        // scale: 32 pixels equals 1 game unit
+        val unitscale: Float = 1 / 32f
+
+        fun getPixelToUnit(pixel: Float) = pixel * unitscale
     }
 
 
@@ -88,6 +106,11 @@ class GameScreen : Screen {
 
         // update engine systems
         engine.update(Gdx.graphics.deltaTime)
+
+        stage.batch.projectionMatrix = camera.combined
+
+        stage.act(delta)
+        stage.draw()
     }
 
     override fun pause() {

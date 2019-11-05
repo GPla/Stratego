@@ -20,6 +20,7 @@ import com.mo.stratego.model.component.PieceComponent
 import com.mo.stratego.model.component.PositionComponent
 import com.mo.stratego.model.component.TextureComponent
 import com.mo.stratego.ui.FieldController
+import com.mo.stratego.util.Scale
 
 /**
  * Game screen
@@ -37,11 +38,11 @@ class GameScreen : Screen {
     init {
         // load map
         map = TmxMapLoader().load("maps/map2.tmx")
-        // render map with unit scale 1/32, as one tile is 32x32
-        mapRenderer = OrthogonalTiledMapRenderer(map, 1 / 32f)
+        // render map with unit scale, one unit = one tile
+        mapRenderer = OrthogonalTiledMapRenderer(map, Scale.unitscale)
 
-        // set camera to map dimensions 12 x 21
-        camera.setToOrtho(false, 12f, 21f)
+        // set camera to map dimensions 10 x 18
+        camera.setToOrtho(false, 10f, 18f)
         camera.position.set(Vector2(camera.viewportWidth / 2f, camera.viewportHeight / 2f), 0f)
 
 
@@ -63,7 +64,7 @@ class GameScreen : Screen {
                 .add(PositionComponent(Vector2(4f, 7f))))
         engine.addEntity(Piece(Rank.SCOUT)
                 .add(TextureComponent(TextureRegion(Texture("ranks/9_general_1.png"), 64, 64)))
-                .add(PositionComponent(Vector2(8f, 14f))))
+                .add(PositionComponent(Vector2(8f, 12f))))
 
         // handle user input
         Gdx.input.inputProcessor = stage

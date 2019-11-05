@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.maps.tiled.TmxMapLoader
@@ -19,6 +20,7 @@ import com.mo.stratego.model.Rank
 import com.mo.stratego.model.component.PieceComponent
 import com.mo.stratego.model.component.PositionComponent
 import com.mo.stratego.model.component.TextureComponent
+import com.mo.stratego.model.system.RenderSystem
 import com.mo.stratego.ui.FieldController
 import com.mo.stratego.util.Scale
 
@@ -32,7 +34,7 @@ class GameScreen : Screen {
     private val map: TiledMap
     private val mapRenderer: OrthogonalTiledMapRenderer
     private val engine: Engine
-    //private val batch: SpriteBatch
+    private val batch: SpriteBatch
     private val stage: Stage
 
     init {
@@ -46,7 +48,7 @@ class GameScreen : Screen {
         camera.position.set(Vector2(camera.viewportWidth / 2f, camera.viewportHeight / 2f), 0f)
 
 
-        //batch = SpriteBatch()
+        batch = SpriteBatch()
 
         //stage for ui
         stage = Stage(StretchViewport(camera.viewportWidth, camera.viewportHeight))
@@ -56,14 +58,14 @@ class GameScreen : Screen {
 
         //trigger listener if piece component is added / removed
         val family = Family.all(PieceComponent::class.java).get()
-        engine.addEntityListener(family, FieldController.init(this, stage))
-        //engine.addSystem(RenderSystem(batch, camera))
+        engine.addEntityListener(family, FieldController.init(this, stage, engine))
+        engine.addSystem(RenderSystem(batch, camera))
 
         engine.addEntity(Piece(Rank.MARSHAL)
-                .add(TextureComponent(TextureRegion(Texture("ranks/10_marshal_1.png"), 64, 64)))
+                .add(TextureComponent(TextureRegion(Texture("pics/10_marshal_1.png"), 64, 64)))
                 .add(PositionComponent(Vector2(4f, 7f))))
         engine.addEntity(Piece(Rank.SCOUT)
-                .add(TextureComponent(TextureRegion(Texture("ranks/9_general_1.png"), 64, 64)))
+                .add(TextureComponent(TextureRegion(Texture("pics/9_general_1.png"), 64, 64)))
                 .add(PositionComponent(Vector2(8f, 12f))))
 
         // handle user input

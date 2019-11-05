@@ -50,7 +50,7 @@ A simple android game version of the popular strategic game [Stratego](https://e
 | 7    |  Major      |               3 |                                                                             |
 | 6    |  Captain    |               4 |                                                                             |
 | 5    |  Lieutenant |               4 |                                                                             |
-| 4    |  Sergant    |               4 |                                                                             |
+| 4    |  Sergeant   |               4 |                                                                             |
 | 3    |  Miner      |               5 |  Can defuse bombs                                                           |
 | 2    |  Scout      |               8 |  Can move any distance in a straight line without leaping over pieces/lakes |
 | 1    |  Spy        |               1 |  Can defeat the Marshal but only if the Spy makes the attack                |

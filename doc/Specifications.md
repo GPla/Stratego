@@ -163,4 +163,4 @@ Animation:
 
 - [LibGDX](https://github.com/libgdx/libgdx)
 - [Ashley](https://github.com/libgdx/ashley)
-(- [GreenRobot EventBus](https://github.com/greenrobot/EventBus) )
+- [GreenRobot EventBus](https://github.com/greenrobot/EventBus)

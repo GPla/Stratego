@@ -36,7 +36,7 @@ class GameScreen : Screen {
 
     init {
         // load map
-        map = TmxMapLoader().load("maps/map.tmx")
+        map = TmxMapLoader().load("maps/map2.tmx")
         // render map with unit scale 1/32, as one tile is 32x32
         mapRenderer = OrthogonalTiledMapRenderer(map, 1 / 32f)
 

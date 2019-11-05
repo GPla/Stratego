@@ -4,10 +4,14 @@ import com.badlogic.ashley.core.ComponentMapper
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.SortedIteratingSystem
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.mo.stratego.model.Piece
+import com.mo.stratego.model.component.PieceComponent
 import com.mo.stratego.model.component.PositionComponent
 import com.mo.stratego.model.component.TextureComponent
+import com.mo.stratego.util.Scale
 import com.mo.stratego.util.ZComparator
 
 /**
@@ -18,12 +22,10 @@ import com.mo.stratego.util.ZComparator
 class RenderSystem(private val batch: SpriteBatch, private val camera: OrthographicCamera) :
         SortedIteratingSystem(
                 Family.all(PositionComponent::class.java,
-                        TextureComponent::class.java).get(),
+                        TextureComponent::class.java)
+                        .exclude(PieceComponent::class.java).get(),
                 ZComparator()
         ) {
-
-    // scale pixels to game units, 32 pixels = 1 game unit
-    private val unitScale : Float = 1/32f
 
     // component mapper to retrieve components of an entity
     private val pm : ComponentMapper<PositionComponent> =
@@ -32,6 +34,7 @@ class RenderSystem(private val batch: SpriteBatch, private val camera: Orthograp
             ComponentMapper.getFor(TextureComponent::class.java)
 
     override fun update(deltaTime: Float) {
+        Gdx.app.log("dtag", "${entities.size()}")
         batch.projectionMatrix = camera.combined
         // render entities in one batch
         batch.begin()
@@ -53,19 +56,12 @@ class RenderSystem(private val batch: SpriteBatch, private val camera: Orthograp
         batch.draw(
                 texture.region,
                 position.position.x, position.position.y,
-                0f, 0f, // origin for position and rotation in bottom left corner
+                texture.origin.x, texture.origin.y,
                 texture.region.regionWidth.toFloat(), texture.region.regionHeight.toFloat(),
-                pixelToUnit(texture.scale.x) , pixelToUnit(texture.scale.y),
+                Scale.getPixelToUnit(texture.scale.x) , Scale.getPixelToUnit(texture.scale.y),
                 texture.rotation
                 )
 
     }
-
-    /**
-     * Translates pixels to game units
-     * @param pixel
-     * @return corresponding game units
-     */
-    private fun pixelToUnit(pixel : Float) = pixel * unitScale
 
 }

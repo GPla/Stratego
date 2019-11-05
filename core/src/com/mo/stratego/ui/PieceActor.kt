@@ -1,5 +1,6 @@
 package com.mo.stratego.ui
 
+import com.badlogic.ashley.core.Engine
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.mo.stratego.GameScreen
@@ -12,10 +13,10 @@ import com.mo.stratego.util.Scale
 /**
  * Actor that draws the linked [Piece] on the screen and handles the user input
  */
-class PieceActor(val piece: Piece) : Actor() {
+class PieceActor(val piece: Piece, val engine : Engine) : Actor() {
 
     init {
-        addListener(PieceActorInputListener(this))
+        addListener(PieceActorInputListener(this, engine))
     }
 
     override fun draw(batch: Batch?, parentAlpha: Float) {

@@ -59,30 +59,14 @@ class GameScreen : Screen {
         //engine.addSystem(RenderSystem(batch, camera))
 
         engine.addEntity(Piece(Rank.MARSHAL)
-                .add(TextureComponent(TextureRegion(Texture("tilesets/female/Female 01-2.png"), 32, 32)))
+                .add(TextureComponent(TextureRegion(Texture("ranks/10_marshal_1.png"), 64, 64)))
                 .add(PositionComponent(Vector2(4f, 7f))))
         engine.addEntity(Piece(Rank.SCOUT)
-                .add(TextureComponent(TextureRegion(Texture("tilesets/female/Female 02-2.png"), 32, 32)))
+                .add(TextureComponent(TextureRegion(Texture("ranks/9_general_1.png"), 64, 64)))
                 .add(PositionComponent(Vector2(8f, 14f))))
-        engine.addEntity(Piece(Rank.SCOUT)
-                .add(TextureComponent(TextureRegion(Texture("tilesets/female/Female 03-2.png"), 32, 32)))
-                .add(PositionComponent(Vector2(7f, 14f))))
-        engine.addEntity(Piece(Rank.SCOUT)
-                .add(TextureComponent(TextureRegion(Texture("tilesets/female/Female 04-2.png"), 32, 32)))
-                .add(PositionComponent(Vector2(9f, 14f))))
-        engine.addEntity(Piece(Rank.SCOUT)
-                .add(TextureComponent(TextureRegion(Texture("tilesets/female/Female 05-2.png"), 32, 32)))
-                .add(PositionComponent(Vector2(8f, 15f))))
-        engine.addEntity(Piece(Rank.SCOUT)
-                .add(TextureComponent(TextureRegion(Texture("tilesets/female/Female 06-2.png"), 32, 32)))
-                .add(PositionComponent(Vector2(8f, 13f))))
-    }
 
-    companion object {
-        // scale: 32 pixels equals 1 game unit
-        val unitscale: Float = 1 / 32f
-
-        fun getPixelToUnit(pixel: Float) = pixel * unitscale
+        // handle user input
+        Gdx.input.inputProcessor = stage
     }
 
 

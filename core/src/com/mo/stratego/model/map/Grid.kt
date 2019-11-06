@@ -36,11 +36,11 @@ object Grid : EntityListener {
         // check for movement
         val move = mm.get(entity)
         if (move != null)
-            update()
+            updateMovement()
         else{
             val pos = pm.get(entity)
             if (pos != null)
-                update()
+                updatePosition()
         }
     }
 
@@ -52,9 +52,16 @@ object Grid : EntityListener {
     }
 
     /**
-     * Updates the changes.
+     * Updates for position.
      */
-    private fun update(){
+    private fun updatePosition(){
         //TODO: implement
+    }
+
+    /**
+     * Updates for movement.
+     */
+    private fun updateMovement(){
+
     }
 }

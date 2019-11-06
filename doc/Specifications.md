@@ -70,15 +70,12 @@ A simple android game version of the popular strategic game [Stratego](https://e
 
 ### Game
 
-Game orientation: landscape( ) or portrait(x)?
+Orientation: portrait 
 
 #### Map
 
-- Tiled map (Orthographic or Isometric?)
-- Tile set and art style to be determined
-- Size: 14 x 12 (portrait), Game: 10x10
-- One tile = one grid square, one piece = one tile
-- Top down or 3d like
+- Tiled map (Orthographic)
+- Size: 10 x 18, Game: 10x10
 
 Optional:
 
@@ -87,9 +84,6 @@ Optional:
 - [Water reflections](https://gamedev.stackexchange.com/questions/102940/how-to-achieve-sprite-reflection-effect-in-libgdx)  
 
 #### Unit
-
-[Sprite set](https://pipoya.itch.io/pipoya-free-rpg-character-sprites-32x32)  
-modify to show rank
 
 Placement:
 
@@ -155,9 +149,21 @@ Animation:
   - 2 moveing frames, 1 standing
 - highlights should blink
 
+- [Command pattern](http://gameprogrammingpatterns.com/command.html)
+
 ## Architecture
 
-- [Command pattern](http://gameprogrammingpatterns.com/command.html)
+The architectural pattern used in the project is the Entity-Component-System
+(ECS) pattern. An entity is a general purpose object without any functionality
+or behaviour. A component is raw data class for one aspect of the entity, and
+how it interacts with the world. A system contains the logic and performs
+actions, in each frame, on entities that posess specific components. For
+instance in this project the RenderSystem processes all entities with a
+TextureComponent and a PositionComponent. The TextureComponent the texture and
+the PositionComponent defines the x and y position.The RenderSystem does not
+need any other information about the entity to correctly draw the texture. 
+
+
 
 ## Libraries
 

@@ -1,6 +1,6 @@
 package com.mo.stratego.model.map
 
-import com.badlogic.gdx.Gdx
+import com.badlogic.ashley.core.Engine
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer
@@ -9,7 +9,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.mo.stratego.util.Constants
 
 /**
- * Singleton Class that holds and loads the TiledMap
+ * Singleton Class that loads and renders the Map
  */
 object GameMap {
     private val path : String = "maps/map2.tmx"
@@ -19,6 +19,8 @@ object GameMap {
 
     val width : Int     // width of loaded map
     val height : Int    // height of loaded map
+
+    var engine : Engine? = null
 
     init {
         // load map and init renderer
@@ -34,13 +36,13 @@ object GameMap {
     }
 
     /**
-     * @return Scaled in regard to tiledimension and unitscale
+     * @return Scaled dimension in regard to the tiledimension and unitscale
      */
     private fun scaleDimension(dim : Int, tiledim: Int) =
             (dim * tiledim * Constants.UNITSCALE ).toInt()
 
     /**
-     * Renders the loaded map
+     * Renders the map
      */
     fun render(camera : OrthographicCamera){
         mapRenderer.setView(camera)

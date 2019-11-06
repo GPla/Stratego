@@ -3,27 +3,30 @@ package com.mo.stratego.ui
 import com.badlogic.ashley.core.Engine
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.scenes.scene2d.Actor
-import com.mo.stratego.GameScreen
 import com.mo.stratego.model.Piece
 import com.mo.stratego.model.component.PositionComponent
 import com.mo.stratego.model.component.TextureComponent
 import com.mo.stratego.ui.input.PieceActorInputListener
-import com.mo.stratego.util.Scale
+import com.mo.stratego.model.system.RenderSystem
 
 /**
- * Actor that draws the linked [Piece] on the screen and handles the user input
+ * Scene2d actor for the [Piece] class. This class links an [Piece] instance
+ * with an [Actor] instance to handle the user input. It does not draw on the
+ * screen.
  */
 class PieceActor(val piece: Piece, val engine : Engine) : Actor() {
 
     init {
+        // add listener to handle user input
         addListener(PieceActorInputListener(this, engine))
     }
 
+    /**
+     * This method updates the bounds to the position and dimensions of the [Piece],
+     * so that the[PieceActorInputListener] receives the relevant user input, i.e touch events.
+     * It does not draw the texture of the [Piece], this is done by the [RenderSystem].
+     */
     override fun draw(batch: Batch?, parentAlpha: Float) {
-        //check if drawing is possible
-        if (batch == null)
-            return
-
         // get necessary components for drawing
         val position = piece.getComponent(PositionComponent::class.java)
         val texture = piece.getComponent(TextureComponent::class.java)
@@ -32,33 +35,8 @@ class PieceActor(val piece: Piece, val engine : Engine) : Actor() {
         if (position == null || texture == null)
             return
 
-        //update actor
-        update(position, texture)
-
-        // draw piece
-        batch.draw(texture.region,
-                    x, y,
-                    originX, originY,
-                    width, height,
-                    scaleX, scaleY,
-                    rotation)
-
+        // update bounds, listener will only receive events in this area
+        setBounds(position.position.x, position.position.y,
+                texture.region.regionWidth.toFloat(), texture.region.regionHeight.toFloat())
     }
-
-    /**
-     * Copies the data from the [PositionComponent] and [TextureComponent] into this class.
-     */
-    //FIXME: use eventbus instead of polling?
-    fun update(pos : PositionComponent, tex : TextureComponent){
-        setPosition(pos.position.x, pos.position.y)
-        setOrigin(tex.origin.x, tex.origin.y)
-        setSize(tex.region.regionWidth.toFloat(), tex.region.regionHeight.toFloat())
-        setScale(Scale.getPixelToUnit(tex.scale.x), Scale.getPixelToUnit(tex.scale.y))
-        rotation = tex.rotation
-        setBounds(pos.position.x, pos.position.y,
-                tex.region.regionWidth.toFloat(), tex.region.regionHeight.toFloat())
-    }
-
-
-
 }

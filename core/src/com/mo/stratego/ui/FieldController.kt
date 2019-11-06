@@ -13,24 +13,19 @@ import com.mo.stratego.model.Piece
  * Implements [EntityListener] to add a [PieceActor] to the [Stage] if
  * a [Piece] is added to the [Engine].
  */
-class FieldController(val screen : GameScreen,
-                      val stage : Stage,
-                      val engine : Engine) : EntityListener {
+object FieldController : EntityListener {
 
+    private lateinit var stage : Stage
+    private lateinit var engine : Engine
 
-    // Singleton
-    companion object{
-        var instance : FieldController? = null
-        fun init(screen : GameScreen, stage : Stage, engine : Engine) : FieldController {
-            return when{
-                instance != null -> instance!!
-                else -> synchronized(this){
-                    instance = FieldController(screen, stage, engine)
-                    return instance!!
-                }
-            }
-        }
-
+    /**
+     * Init the object with this method. If not called before usage
+     * an error will be thrown.
+     */
+    fun init(stage : Stage, engine : Engine) : FieldController {
+        this.stage = stage
+        this.engine = engine
+        return this
     }
 
     override fun entityAdded(entity: Entity?) {
@@ -41,7 +36,7 @@ class FieldController(val screen : GameScreen,
     }
 
     override fun entityRemoved(entity: Entity?) {
-
+        // TODO: remove actor?
     }
 
 

@@ -20,9 +20,10 @@ import com.mo.stratego.model.Rank
 import com.mo.stratego.model.component.PieceComponent
 import com.mo.stratego.model.component.PositionComponent
 import com.mo.stratego.model.component.TextureComponent
+import com.mo.stratego.model.map.GameMap
 import com.mo.stratego.model.system.RenderSystem
 import com.mo.stratego.ui.FieldController
-import com.mo.stratego.util.Scale
+import com.mo.stratego.util.Constants
 
 /**
  * Game screen
@@ -31,29 +32,19 @@ import com.mo.stratego.util.Scale
  */
 class GameScreen : Screen {
     private var camera: OrthographicCamera = OrthographicCamera()
-    private val map: TiledMap
-    private val mapRenderer: OrthogonalTiledMapRenderer
     private val engine: Engine
     private val batch: SpriteBatch
     private val stage: Stage
 
     init {
-        // load map
-        map = TmxMapLoader().load("maps/map2.tmx")
-        // render map with unit scale, one unit = one tile
-        mapRenderer = OrthogonalTiledMapRenderer(map, Scale.unitscale)
-
-        // set camera to map dimensions 10 x 18
-        camera.setToOrtho(false, 10f, 18f)
+        //set camera to map dimensions, to show full map
+        camera.setToOrtho(false, GameMap.width.toFloat(), GameMap.height.toFloat())
         camera.position.set(Vector2(camera.viewportWidth / 2f, camera.viewportHeight / 2f), 0f)
-
 
         batch = SpriteBatch()
 
-        //stage for ui
         stage = Stage(StretchViewport(camera.viewportWidth, camera.viewportHeight))
 
-        // create ashley engine
         engine = Engine()
 
         //trigger listener if piece component is added / removed
@@ -68,7 +59,7 @@ class GameScreen : Screen {
                 .add(TextureComponent(TextureRegion(Texture("pics/9_general_1.png"), 64, 64)))
                 .add(PositionComponent(Vector2(8f, 12f))))
 
-        // handle user input
+        // handle user input with stage
         Gdx.input.inputProcessor = stage
     }
 
@@ -85,18 +76,16 @@ class GameScreen : Screen {
         Gdx.gl.glClearColor(1f, 1f, 1f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
-        // update camera
         camera.update()
 
-        //render map for this frame
-        mapRenderer.setView(camera)
-        mapRenderer.render()
+        // render map
+        GameMap.render(camera)
 
-        // update engine systems
+        // update ashley engine
         engine.update(Gdx.graphics.deltaTime)
 
+        // render stage
         stage.batch.projectionMatrix = camera.combined
-
         stage.act(delta)
         stage.draw()
     }

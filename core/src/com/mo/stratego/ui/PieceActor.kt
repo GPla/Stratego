@@ -8,6 +8,7 @@ import com.mo.stratego.model.component.PositionComponent
 import com.mo.stratego.model.component.TextureComponent
 import com.mo.stratego.ui.input.PieceActorInputListener
 import com.mo.stratego.model.system.RenderSystem
+import com.mo.stratego.util.Constants
 
 /**
  * Scene2d actor for the [Piece] class. This class links an [Piece] instance
@@ -37,6 +38,7 @@ class PieceActor(val piece: Piece, val engine : Engine) : Actor() {
 
         // update bounds, listener will only receive events in this area
         setBounds(position.position.x, position.position.y,
-                texture.region.regionWidth.toFloat(), texture.region.regionHeight.toFloat())
+                Constants.getPixelToUnit(texture.region.regionWidth.toFloat()),
+                Constants.getPixelToUnit(texture.region.regionHeight.toFloat()))
     }
 }

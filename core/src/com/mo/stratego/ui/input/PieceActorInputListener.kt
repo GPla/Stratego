@@ -19,7 +19,7 @@ class PieceActorInputListener(val actor : PieceActor, val engine: Engine) : Inpu
     companion object{
         val entity : Entity = Entity()
         init {
-            entity.add(PositionComponent(Vector2(10f, 10f)))
+            entity.add(PositionComponent(Vector2(10f, 10f), -1))
                         .add(TextureComponent(TextureRegion(Texture("pics/highlight_square.png"),64, 64)))
         }
         var added : Boolean = false

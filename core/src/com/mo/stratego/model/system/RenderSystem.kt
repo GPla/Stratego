@@ -4,14 +4,12 @@ import com.badlogic.ashley.core.ComponentMapper
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.SortedIteratingSystem
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.mo.stratego.model.Piece
-import com.mo.stratego.model.component.PieceComponent
+import com.mo.stratego.model.component.InvisibleComponent
 import com.mo.stratego.model.component.PositionComponent
 import com.mo.stratego.model.component.TextureComponent
-import com.mo.stratego.util.Scale
+import com.mo.stratego.util.Constants
 import com.mo.stratego.util.ZComparator
 
 /**
@@ -23,7 +21,7 @@ class RenderSystem(private val batch: SpriteBatch, private val camera: Orthograp
         SortedIteratingSystem(
                 Family.all(PositionComponent::class.java,
                         TextureComponent::class.java)
-                        .exclude(PieceComponent::class.java).get(),
+                      .exclude(InvisibleComponent::class.java).get(),
                 ZComparator()
         ) {
 
@@ -34,7 +32,6 @@ class RenderSystem(private val batch: SpriteBatch, private val camera: Orthograp
             ComponentMapper.getFor(TextureComponent::class.java)
 
     override fun update(deltaTime: Float) {
-        Gdx.app.log("dtag", "${entities.size()}")
         batch.projectionMatrix = camera.combined
         // render entities in one batch
         batch.begin()
@@ -58,7 +55,7 @@ class RenderSystem(private val batch: SpriteBatch, private val camera: Orthograp
                 position.position.x, position.position.y,
                 texture.origin.x, texture.origin.y,
                 texture.region.regionWidth.toFloat(), texture.region.regionHeight.toFloat(),
-                Scale.getPixelToUnit(texture.scale.x) , Scale.getPixelToUnit(texture.scale.y),
+                Constants.getPixelToUnit(texture.scale.x) , Constants.getPixelToUnit(texture.scale.y),
                 texture.rotation
                 )
 

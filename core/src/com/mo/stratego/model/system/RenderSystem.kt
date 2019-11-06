@@ -11,11 +11,12 @@ import com.mo.stratego.model.component.PositionComponent
 import com.mo.stratego.model.component.TextureComponent
 import com.mo.stratego.util.Constants
 import com.mo.stratego.util.ZComparator
+import com.badlogic.ashley.core.Engine
 
 /**
  * System that renders all entities with a [PositionComponent] and a
- * [TextureComponent]. The render order is specified through the z value
- * of the [PositionComponent].
+ * [TextureComponent], exclusing entities with a [InvisibleComponent].
+ * The render order is specified through the z value of the [PositionComponent].
  */
 class RenderSystem(private val batch: SpriteBatch, private val camera: OrthographicCamera) :
         SortedIteratingSystem(
@@ -31,6 +32,9 @@ class RenderSystem(private val batch: SpriteBatch, private val camera: Orthograp
     private val tm : ComponentMapper<TextureComponent> =
             ComponentMapper.getFor(TextureComponent::class.java)
 
+    /**
+     * Called every frame by the [Engine]
+     */
     override fun update(deltaTime: Float) {
         batch.projectionMatrix = camera.combined
         // render entities in one batch
@@ -40,6 +44,10 @@ class RenderSystem(private val batch: SpriteBatch, private val camera: Orthograp
         batch.end()
     }
 
+    /**
+     * Draw [Entity] on screen by the defined texture of the [TextureComponent]
+     * at the position defined by the [PositionComponent].
+     */
     override fun processEntity(entity: Entity?, deltaTime: Float) {
         // get relevant components
         val position = pm.get(entity)

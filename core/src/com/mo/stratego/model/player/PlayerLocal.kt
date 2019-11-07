@@ -1,4 +1,4 @@
 package com.mo.stratego.model.player
 
-class PlayerLocal : Player() {
+class PlayerLocal(id: Int) : Player(id) {
 }

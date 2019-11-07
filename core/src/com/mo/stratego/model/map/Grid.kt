@@ -86,6 +86,9 @@ object Grid : EntityListener {
     }
 
 
+    /**
+     * @return String of occupied cells.
+     */
     override fun toString(): String {
         val builder: StringBuilder = StringBuilder()
         for (y in 0..9) {

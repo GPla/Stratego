@@ -1,6 +1,7 @@
 package com.mo.stratego.model.system
 
 import com.badlogic.ashley.core.ComponentMapper
+import com.badlogic.ashley.core.Engine
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.SortedIteratingSystem
@@ -11,7 +12,6 @@ import com.mo.stratego.model.component.PositionComponent
 import com.mo.stratego.model.component.TextureComponent
 import com.mo.stratego.util.Constants
 import com.mo.stratego.util.ZComparator
-import com.badlogic.ashley.core.Engine
 
 /**
  * System that renders all entities with a [PositionComponent] and a
@@ -60,7 +60,7 @@ class RenderSystem(private val batch: SpriteBatch, private val camera: Orthograp
         // draw sprite
         batch.draw(
                 texture.region,
-                position.position.x, position.position.y,
+                position.position.x.toFloat(), position.position.y.toFloat(),
                 texture.origin.x, texture.origin.y,
                 texture.region.regionWidth.toFloat(), texture.region.regionHeight.toFloat(),
                 Constants.getPixelToUnit(texture.scale.x) , Constants.getPixelToUnit(texture.scale.y),

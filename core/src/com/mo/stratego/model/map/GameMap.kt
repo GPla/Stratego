@@ -17,8 +17,11 @@ object GameMap {
     private var map : TiledMap
     private val mapRenderer : TiledMapRenderer
 
+    //map properties
     val width : Int     // width of loaded map
     val height : Int    // height of loaded map
+    val gridBottom: Int // number of tiles from bottom to grid
+    val gridLeft: Int   // number of tiles from left to grid
 
     var engine : Engine? = null
 
@@ -31,14 +34,23 @@ object GameMap {
         val props = map.properties
         val tilewidth = props.get("tilewidth", Int::class.java)
         val tileheight = props.get("tileheight", Int::class.java)
-        width = scaleDimension(props.get("width", Int::class.java), tilewidth)
-        height = scaleDimension(props.get("height", Int::class.java), tileheight)
+
+        width = scale(props.get("width", Int::class.java), tilewidth)
+        height = scale(props.get("height", Int::class.java), tileheight)
+
+        gridBottom = if (props.containsKey("grid_bottom"))
+            scale(props.get("grid_bottom", Int::class.java), tileheight) else 0
+        gridLeft = if (props.containsKey("grid_left"))
+            scale(props.get("grid_left", Int::class.java), tilewidth) else 0
+
     }
 
     /**
-     * @return Scaled dimension in regard to the tiledimension and unitscale
+     * @param dim Int
+     * @param tiledim Int
+     * @return Scales input dimension in regard to tiledimension and unitscale
      */
-    private fun scaleDimension(dim : Int, tiledim: Int) =
+    private fun scale(dim: Int, tiledim: Int) =
             (dim * tiledim * Constants.UNITSCALE ).toInt()
 
     /**

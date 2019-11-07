@@ -26,9 +26,8 @@ enum class Rank(val rank: String,
      */
     fun beats(r1: Rank, r2: Rank): Result {
         // illegal moves
-        when (r1) {
-            BOMB, FLAG -> return Result.ILLEGAL
-        }
+        if (r1 == BOMB || r1 == FLAG)
+            return Result.ILLEGAL
 
         // draw, equal rank
         if (r1 == r2)

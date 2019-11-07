@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="20" height="36" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="1">
+ <properties>
+  <property name="grid_bottom" type="int" value="9"/>
+  <property name="grid_left" type="int" value="0"/>
+ </properties>
  <tileset firstgid="1" source="terrain_atlas.tsx"/>
  <layer id="9" name="background" width="20" height="36">
   <data encoding="base64">

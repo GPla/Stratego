@@ -1,4 +1,4 @@
 package com.mo.stratego.model.player
 
-abstract class Player {
+abstract class Player(val id: Int) {
 }

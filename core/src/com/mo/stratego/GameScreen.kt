@@ -9,9 +9,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
-import com.badlogic.gdx.maps.tiled.TiledMap
-import com.badlogic.gdx.maps.tiled.TmxMapLoader
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
+import com.badlogic.gdx.math.GridPoint2
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.viewport.StretchViewport
@@ -28,7 +26,6 @@ import com.mo.stratego.model.player.PlayerLocal
 import com.mo.stratego.model.player.PlayerProxy
 import com.mo.stratego.model.system.RenderSystem
 import com.mo.stratego.ui.FieldController
-import com.mo.stratego.util.Constants
 
 /**
  * Game screen
@@ -60,24 +57,26 @@ class GameScreen : Screen {
         var family = Family.all(PieceComponent::class.java).get()
         engine.addEntityListener(family, FieldController.init(stage, engine))
         family = Family.all(PieceComponent::class.java).one(PositionComponent::class.java,
-                            MoveComponent::class.java).get()
+                MoveComponent::class.java).get()
         engine.addEntityListener(family, Grid)
 
         GameMap.engine = engine
-        GameController.init(engine, PlayerLocal(), PlayerProxy())
+        GameController.init(engine, PlayerLocal(1), PlayerProxy(2))
 
         // add systems to engine
         engine.addSystem(RenderSystem(batch, camera))
 
         engine.addEntity(Piece(Rank.MARSHAL, GameController.players[0])
                 .add(TextureComponent(TextureRegion(Texture("pics/10_marshal_1.png"), 64, 64)))
-                .add(PositionComponent(Vector2(4f, 7f))))
+                .add(PositionComponent(GridPoint2(4, 7))))
         engine.addEntity(Piece(Rank.SCOUT, GameController.players[0])
                 .add(TextureComponent(TextureRegion(Texture("pics/9_general_1.png"), 64, 64)))
-                .add(PositionComponent(Vector2(8f, 12f))))
+                .add(PositionComponent(GridPoint2(8, 12))))
 
         // handle user input with stage
         Gdx.input.inputProcessor = stage
+
+        Gdx.app.log("dtag", Grid.toString())
     }
 
 
@@ -89,6 +88,7 @@ class GameScreen : Screen {
     }
 
     override fun render(delta: Float) {
+
         // clear screen
         Gdx.gl.glClearColor(1f, 1f, 1f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)

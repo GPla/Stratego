@@ -6,8 +6,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor
 import com.mo.stratego.model.Piece
 import com.mo.stratego.model.component.PositionComponent
 import com.mo.stratego.model.component.TextureComponent
-import com.mo.stratego.ui.input.PieceActorInputListener
 import com.mo.stratego.model.system.RenderSystem
+import com.mo.stratego.ui.input.PieceActorInputListener
 import com.mo.stratego.util.Constants
 
 /**
@@ -37,7 +37,7 @@ class PieceActor(val piece: Piece, val engine : Engine) : Actor() {
             return
 
         // update bounds, listener will only receive events in this area
-        setBounds(position.position.x, position.position.y,
+        setBounds(position.position.x.toFloat(), position.position.y.toFloat(),
                 Constants.getPixelToUnit(texture.region.regionWidth.toFloat()),
                 Constants.getPixelToUnit(texture.region.regionHeight.toFloat()))
     }

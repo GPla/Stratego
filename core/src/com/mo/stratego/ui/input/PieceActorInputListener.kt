@@ -5,7 +5,7 @@ import com.badlogic.ashley.core.Entity
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.TextureRegion
-import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.math.GridPoint2
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.mo.stratego.model.component.PositionComponent
@@ -19,7 +19,7 @@ class PieceActorInputListener(val actor : PieceActor, val engine: Engine) : Inpu
     companion object{
         val entity : Entity = Entity()
         init {
-            entity.add(PositionComponent(Vector2(10f, 10f), -1))
+            entity.add(PositionComponent(GridPoint2(10, 10), -1))
                         .add(TextureComponent(TextureRegion(Texture("pics/highlight_square.png"),64, 64)))
         }
         var added : Boolean = false
@@ -36,8 +36,8 @@ class PieceActorInputListener(val actor : PieceActor, val engine: Engine) : Inpu
         Gdx.app.log("dtag", "touched")
         val pos = entity.getComponent(PositionComponent::class.java)
 
-        pos.position.x = actor.x
-        pos.position.y = actor.y
+        pos.position.x = actor.x.toInt()
+        pos.position.y = actor.y.toInt()
 
         return  true
     }

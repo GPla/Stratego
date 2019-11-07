@@ -1,4 +1,4 @@
 package com.mo.stratego.model.player
 
-class PlayerProxy : Player() {
+class PlayerProxy(id: Int) : Player(id) {
 }

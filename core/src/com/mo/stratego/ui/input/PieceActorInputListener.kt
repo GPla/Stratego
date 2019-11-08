@@ -31,6 +31,7 @@ class PieceActorInputListener(val actor: PieceActor, val engine: PooledEngine) :
         return true
     }
 
+    //FIXME: textures
     private fun createHighlight() {
         val standpoint = posMapper.get(actor.piece)?.position ?: return
         val allowedMoves = Grid.getAllowedMoves(actor.piece)

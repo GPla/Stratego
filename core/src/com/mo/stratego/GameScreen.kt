@@ -2,6 +2,7 @@ package com.mo.stratego
 
 import com.badlogic.ashley.core.Engine
 import com.badlogic.ashley.core.Family
+import com.badlogic.ashley.core.PooledEngine
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.GL20
@@ -54,7 +55,7 @@ class GameScreen : Screen {
         stage = Stage(StretchViewport(camera.viewportWidth,
                                       camera.viewportHeight))
 
-        engine = Engine()
+        engine = PooledEngine()
 
         // add listeners to engine
         //listener is triggered if entity component is added / removed from the family
@@ -82,14 +83,20 @@ class GameScreen : Screen {
                 TextureComponent(
                         TextureRegion(Texture("pics/10_marshal_1.png"), 64,
                                       64)))
-                .add(PositionComponent(GridPoint2(4, 7)))
+                .add(PositionComponent(GridPoint2(3, 7)))
 
         engine.addEntity(piece)
 
         engine.addEntity(
                 Piece(Rank.SCOUT, GameController.players[1])
                         .add(TextureComponent(TextureRegion(
-                                Texture("pics/9_general_2.png"), 64, 64)))
+                                Texture("pics/2_scout_2.png"), 64, 64)))
+                        .add(PositionComponent(GridPoint2(7, 12))))
+
+        engine.addEntity(
+                Piece(Rank.SCOUT, GameController.players[1])
+                        .add(TextureComponent(TextureRegion(
+                                Texture("pics/2_scout_2.png"), 64, 64)))
                         .add(PositionComponent(GridPoint2(8, 12))))
 
         // handle user input with stage

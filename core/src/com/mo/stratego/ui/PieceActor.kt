@@ -1,6 +1,6 @@
 package com.mo.stratego.ui
 
-import com.badlogic.ashley.core.Engine
+import com.badlogic.ashley.core.PooledEngine
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.mo.stratego.model.Piece
@@ -15,7 +15,7 @@ import com.mo.stratego.util.Constants
  * with an [Actor] instance to handle the user input. It does not draw on the
  * screen.
  */
-class PieceActor(val piece: Piece, val engine: Engine) : Actor() {
+class PieceActor(val piece: Piece, val engine: PooledEngine) : Actor() {
 
     init {
         // add listener to handle user input
@@ -39,8 +39,8 @@ class PieceActor(val piece: Piece, val engine: Engine) : Actor() {
         // update bounds, listener will only receive events in this area
         setBounds(position.position.x.toFloat(), position.position.y.toFloat(),
                   Constants.getPixelToUnit(
-                      texture.region.regionWidth.toFloat()),
+                          texture.region.regionWidth.toFloat()),
                   Constants.getPixelToUnit(
-                      texture.region.regionHeight.toFloat()))
+                          texture.region.regionHeight.toFloat()))
     }
 }

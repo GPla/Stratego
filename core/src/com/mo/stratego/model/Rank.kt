@@ -2,10 +2,13 @@ package com.mo.stratego.model
 
 /**
  * Enum with of all piece ranks
+ * @property rank short title
+ * @property r_int internal use
+ * @property title long title
  */
 enum class Rank(val rank: String,
-                private val rank_int: Int,
-                val titel: String) {
+                private val r_int: Int,
+                val title: String) {
 
     BOMB("B", 11, "Bomb"),
     MARSHAL("10", 10, "Marshal"),
@@ -35,10 +38,10 @@ enum class Rank(val rank: String,
 
         // won or lost
         return when (r2) {
-            FLAG -> Result.GAME_WON
-            BOMB -> if (r1 == MINER) Result.WON else Result.LOST
+            FLAG    -> Result.GAME_WON
+            BOMB    -> if (r1 == MINER) Result.WON else Result.LOST
             MARSHAL -> if (r1 == SPY) Result.WON else Result.LOST
-            else -> if (r1.rank_int > r2.rank_int) Result.WON else Result.LOST
+            else    -> if (r1.r_int > r2.r_int) Result.WON else Result.LOST
         }
 
     }

@@ -88,16 +88,32 @@ class GameScreen : Screen {
         engine.addEntity(piece)
 
         engine.addEntity(
-                Piece(Rank.SCOUT, GameController.players[1])
+                Piece(Rank.GENERAL, GameController.players[1])
                         .add(TextureComponent(TextureRegion(
-                                Texture("pics/2_scout_2.png"), 64, 64)))
+                                Texture("pics/9_general_2.png"), 64, 64)))
                         .add(PositionComponent(GridPoint2(7, 12))))
 
+        engine.addEntity(
+                Piece(Rank.GENERAL, GameController.players[1])
+                        .add(TextureComponent(TextureRegion(
+                                Texture("pics/9_general_2.png"), 64, 64)))
+                        .add(PositionComponent(GridPoint2(8, 12))))
         engine.addEntity(
                 Piece(Rank.SCOUT, GameController.players[1])
                         .add(TextureComponent(TextureRegion(
                                 Texture("pics/2_scout_2.png"), 64, 64)))
-                        .add(PositionComponent(GridPoint2(8, 12))))
+                        .add(PositionComponent(GridPoint2(6, 12))))
+        engine.addEntity(
+                Piece(Rank.GENERAL, GameController.players[1])
+                        .add(TextureComponent(TextureRegion(
+                                Texture("pics/9_general_2.png"), 64, 64)))
+                        .add(PositionComponent(GridPoint2(7, 13))))
+        engine.addEntity(
+                Piece(Rank.GENERAL, GameController.players[1])
+                        .add(TextureComponent(TextureRegion(
+                                Texture("pics/9_general_2.png"), 64, 64)))
+                        .add(PositionComponent(GridPoint2(7, 11))))
+
 
         // handle user input with stage
         Gdx.input.inputProcessor = stage

@@ -43,21 +43,32 @@ class GameScreen : Screen {
     //TODO: fix comments
     init {
         //set camera to map dimensions, to show full map
-        camera.setToOrtho(false, GameMap.width.toFloat(), GameMap.height.toFloat())
-        camera.position.set(Vector2(camera.viewportWidth / 2f, camera.viewportHeight / 2f), 0f)
+        camera.setToOrtho(false, GameMap.width.toFloat(),
+                          GameMap.height.toFloat())
+        camera.position.set(
+                Vector2(camera.viewportWidth / 2f, camera.viewportHeight / 2f),
+                0f)
 
         batch = SpriteBatch()
 
-        stage = Stage(StretchViewport(camera.viewportWidth, camera.viewportHeight))
+        stage = Stage(StretchViewport(camera.viewportWidth,
+                                      camera.viewportHeight))
 
         engine = Engine()
 
         // add listeners to engine
-        //trigger listener if piece component is added / removed
+        //listener is triggered if entity component is added / removed from the family
+        // FieldController
         var family = Family.all(PieceComponent::class.java).get()
         engine.addEntityListener(family, FieldController.init(stage, engine))
-        family = Family.all(PieceComponent::class.java).one(PositionComponent::class.java,
-                MoveComponent::class.java).get()
+
+        // Grid
+        family = Family.all(PieceComponent::class.java,
+                            PositionComponent::class.java).get()
+        engine.addEntityListener(family, Grid)
+        family = Family.all(PieceComponent::class.java,
+                            PositionComponent::class.java,
+                            MoveComponent::class.java).get()
         engine.addEntityListener(family, Grid)
 
         GameMap.engine = engine
@@ -66,17 +77,26 @@ class GameScreen : Screen {
         // add systems to engine
         engine.addSystem(RenderSystem(batch, camera))
 
-        engine.addEntity(Piece(Rank.MARSHAL, GameController.players[0])
-                .add(TextureComponent(TextureRegion(Texture("pics/10_marshal_1.png"), 64, 64)))
-                .add(PositionComponent(GridPoint2(4, 7))))
-        engine.addEntity(Piece(Rank.SCOUT, GameController.players[0])
-                .add(TextureComponent(TextureRegion(Texture("pics/9_general_1.png"), 64, 64)))
-                .add(PositionComponent(GridPoint2(8, 12))))
+
+        val piece = Piece(Rank.MARSHAL, GameController.players[0]).add(
+                TextureComponent(
+                        TextureRegion(Texture("pics/10_marshal_1.png"), 64,
+                                      64)))
+                .add(PositionComponent(GridPoint2(4, 7)))
+
+        engine.addEntity(piece)
+
+        engine.addEntity(
+                Piece(Rank.SCOUT, GameController.players[1])
+                        .add(TextureComponent(TextureRegion(
+                                Texture("pics/9_general_2.png"), 64, 64)))
+                        .add(PositionComponent(GridPoint2(8, 12))))
 
         // handle user input with stage
         Gdx.input.inputProcessor = stage
 
         Gdx.app.log("dtag", Grid.toString())
+
     }
 
 

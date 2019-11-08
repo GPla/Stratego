@@ -15,7 +15,7 @@ import com.mo.stratego.util.Constants
  * with an [Actor] instance to handle the user input. It does not draw on the
  * screen.
  */
-class PieceActor(val piece: Piece, val engine : Engine) : Actor() {
+class PieceActor(val piece: Piece, val engine: Engine) : Actor() {
 
     init {
         // add listener to handle user input
@@ -38,7 +38,9 @@ class PieceActor(val piece: Piece, val engine : Engine) : Actor() {
 
         // update bounds, listener will only receive events in this area
         setBounds(position.position.x.toFloat(), position.position.y.toFloat(),
-                Constants.getPixelToUnit(texture.region.regionWidth.toFloat()),
-                Constants.getPixelToUnit(texture.region.regionHeight.toFloat()))
+                  Constants.getPixelToUnit(
+                      texture.region.regionWidth.toFloat()),
+                  Constants.getPixelToUnit(
+                      texture.region.regionHeight.toFloat()))
     }
 }

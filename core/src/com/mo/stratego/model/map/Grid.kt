@@ -5,7 +5,6 @@ import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.EntityListener
 import com.badlogic.gdx.math.GridPoint2
 import com.mo.stratego.model.Piece
-import com.mo.stratego.model.Range
 import com.mo.stratego.model.component.MoveComponent
 import com.mo.stratego.model.component.PositionComponent
 import com.mo.stratego.model.player.Player
@@ -18,7 +17,7 @@ import com.mo.stratego.model.player.Player
 //TODO: piece defeated
 object Grid : EntityListener {
 
-    // playing grid with origin in the bottom left corner, same as camera
+    // playing grid, origin is top left, camera/map has bottom left
     private val matrix: Array<Array<Piece?>> =
             Array(10) { arrayOfNulls<Piece?>(10) }
 
@@ -106,7 +105,7 @@ object Grid : EntityListener {
      */
     override fun toString(): String {
         val builder: StringBuilder = StringBuilder()
-        for (y in 0..9) {
+        for (y in 9 downTo 0) {
             for (x in 0..9) {
                 builder.append("${matrix[x][y]?.owner?.id ?: 0} ")
             }
@@ -133,43 +132,46 @@ object Grid : EntityListener {
         return matrix[point.x][point.y]
     }
 
-
     /**
-     * @param piece Piece
-     * @return A list of allowed moves for the piece.
+     * Checks for possible moves for a [Piece] in horizontal
+     * and vertical direction.
+     * @param standpoint Standpoint of the [Piece]
+     * @param range Range of the [Piece]
+     * @param owner Owner of the [Piece]
+     * @return A list of allowed moves in horizontal and vertical direction.
      */
     fun getAllowedMoves(piece: Piece): List<GridPoint2> {
+
         // check if piece is on board
         val position = posMapper.get(piece)?.position ?: return emptyList()
-
         val standpoint = translatePositionToCell(position)
-        val moves = getPossibleMoves(piece.range)
 
-        val allowedMoves = mutableListOf<GridPoint2>()
+        val allowedMoves: MutableList<GridPoint2> = mutableListOf()
+        var blocked = BooleanArray(4) // blocked direction
 
-        for (move in moves) {
-            val point = standpoint.cpy().add(move)
-            if (isCellAllowed(point, piece.owner))
-                allowedMoves.add(move)
-        }
-        return allowedMoves
-    }
-
-    /**
-     * @param range Range
-     * @return A list of possible moves in horizontal and vertical direction.
-     */
-    private fun getPossibleMoves(range: Range): List<GridPoint2> {
-        val list: MutableList<GridPoint2> = mutableListOf()
-        for (r in 1..range.range) {
-            //FIXME: stay in bound
-            //FIXME: go on after lake
-            val directions =
+        for (r in 1..piece.range.range) {
+            // possible moves in all directions
+            val moves =
                     listOf(GridPoint2(r, 0), GridPoint2(-r, 0),
                            GridPoint2(0, r), GridPoint2(0, -r))
-            list.addAll(directions)
+
+            // check which moves are valid
+            moves.forEachIndexed { index, move ->
+                if (!blocked[index] &&
+                    isCellAllowed(standpoint.cpy().add(move), piece.owner)) {
+                    allowedMoves.add(move)
+                } else {
+                    blocked[index] = true
+                }
+
+            }
+
+            // all directions blocked
+            if (blocked.all { b -> b })
+                break
+
         }
-        return list
+        return allowedMoves
     }
 
     /**
@@ -178,13 +180,17 @@ object Grid : EntityListener {
      * @return Whether or not the cell can be occupied by a [Piece].
      */
     private fun isCellAllowed(point: GridPoint2, owner: Player): Boolean {
+        //out of bound
+        if (point.x < 0 || point.x >= matrix.size ||
+            point.y < 0 || point.y >= matrix.size)
+            return false
+
         // lakes
         if ((point.x in 2..3 || point.x in 6..7) && point.y in 4..5)
             return false
 
         // check if cell is blocked by a piece of the same owner
-        //FIXME: owner check not working
-        val owner2 = Grid[point]?.owner ?: return true
+        val owner2 = matrix[point.x][point.y]?.owner ?: return true
         return owner != owner2
     }
 

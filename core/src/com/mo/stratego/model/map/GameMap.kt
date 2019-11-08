@@ -12,18 +12,18 @@ import com.mo.stratego.util.Constants
  * Singleton Class that loads and renders the Map
  */
 object GameMap {
-    private val path : String = "maps/map2.tmx"
+    private val path: String = "maps/map2.tmx"
 
-    private var map : TiledMap
-    private val mapRenderer : TiledMapRenderer
+    private var map: TiledMap
+    private val mapRenderer: TiledMapRenderer
 
     //map properties
-    val width : Int     // width of loaded map
-    val height : Int    // height of loaded map
+    val width: Int     // width of loaded map
+    val height: Int    // height of loaded map
     val gridBottom: Int // number of tiles from bottom to grid
     val gridLeft: Int   // number of tiles from left to grid
 
-    var engine : Engine? = null
+    var engine: Engine? = null
 
     init {
         // load map and init renderer
@@ -51,12 +51,12 @@ object GameMap {
      * @return Scales input dimension in regard to tiledimension and unitscale
      */
     private fun scale(dim: Int, tiledim: Int) =
-            (dim * tiledim * Constants.UNITSCALE ).toInt()
+            (dim * tiledim * Constants.UNITSCALE).toInt()
 
     /**
      * Renders the map
      */
-    fun render(camera : OrthographicCamera){
+    fun render(camera: OrthographicCamera) {
         mapRenderer.setView(camera)
         mapRenderer.render()
     }

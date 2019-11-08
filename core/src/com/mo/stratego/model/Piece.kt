@@ -9,8 +9,12 @@ import com.mo.stratego.model.player.Player
  * Class that represents a playing piece. It has a rank and an owner.
  */
 class Piece(val rank: Rank, val owner : Player) : Entity() {
+    val range: Range
+    
     init {
         add(PieceComponent(this))
         add(OwnerComponent(owner))
+
+        range = Range.getRange(rank)
     }
 }

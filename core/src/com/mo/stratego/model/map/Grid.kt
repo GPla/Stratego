@@ -96,7 +96,7 @@ object Grid : EntityListener {
      */
     private fun translatePositionToCell(position: GridPoint2): GridPoint2 {
         return GridPoint2(position.x - GameMap.gridLeft,
-                          matrix.size - (position.y - GameMap.gridBottom) - 1)
+                          position.y - GameMap.gridBottom)
     }
 
 
@@ -148,7 +148,8 @@ object Grid : EntityListener {
         val allowedMoves = mutableListOf<GridPoint2>()
 
         for (move in moves) {
-            if (isCellAllowed(standpoint.add(move), piece.owner))
+            val point = standpoint.cpy().add(move)
+            if (isCellAllowed(point, piece.owner))
                 allowedMoves.add(move)
         }
         return allowedMoves
@@ -161,6 +162,8 @@ object Grid : EntityListener {
     private fun getPossibleMoves(range: Range): List<GridPoint2> {
         val list: MutableList<GridPoint2> = mutableListOf()
         for (r in 1..range.range) {
+            //FIXME: stay in bound
+            //FIXME: go on after lake
             val directions =
                     listOf(GridPoint2(r, 0), GridPoint2(-r, 0),
                            GridPoint2(0, r), GridPoint2(0, -r))
@@ -180,7 +183,8 @@ object Grid : EntityListener {
             return false
 
         // check if cell is blocked by a piece of the same owner
-        val owner2 = Grid[point]?.owner ?: false
+        //FIXME: owner check not working
+        val owner2 = Grid[point]?.owner ?: return true
         return owner != owner2
     }
 

@@ -24,8 +24,10 @@ class MoveSystem : IteratingSystem(Family.all(PositionComponent::class.java,
             move == null)
             return
 
+        // check if move is valid 
+        if ()
         // move entity to target position
-        position.position.add(move.move)
+            position.position.add(move.move)
 
         entity.remove(MoveComponent::class.java)
 

@@ -3,6 +3,7 @@ package com.mo.stratego.model.map
 import com.badlogic.ashley.core.ComponentMapper
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.EntityListener
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.GridPoint2
 import com.mo.stratego.model.Piece
 import com.mo.stratego.model.component.MoveComponent
@@ -32,6 +33,7 @@ object Grid : EntityListener {
      * @param entity Entity
      */
     override fun entityRemoved(entity: Entity?) {
+        Gdx.app.log("dtag1", "${entity == null}")
         // safety check
         if (entity !is Piece)
             return
@@ -102,7 +104,7 @@ object Grid : EntityListener {
      * @param position Position
      * @return the grid position of the piece.
      */
-    private fun translatePositionToCell(position: GridPoint2): GridPoint2 {
+    fun translatePositionToCell(position: GridPoint2): GridPoint2 {
         return GridPoint2(position.x - GameMap.gridLeft,
                           position.y - GameMap.gridBottom)
     }
@@ -127,7 +129,7 @@ object Grid : EntityListener {
     }
 
     /**
-     * Overload of the bracket operator. Expects the tilemap coordinates.
+     * Overload of the bracket operator. Expects map coordinates.
      * Call: Grid[Gridpoint2(x, y)]
      * @param position GridPoint2
      * @return [Piece] in the grid cell. Returns null if cell is empty or
@@ -211,6 +213,4 @@ object Grid : EntityListener {
         // the 2 indicates that the next move in this direction is blocked
         return if (owner != owner2) 2 else 0
     }
-
-
 }

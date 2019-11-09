@@ -24,24 +24,24 @@ enum class Rank(val rank: String,
     FLAG("F", 0, "Flag");
 
     /**
-     * Returns the [Result] of r1 attacking r2.
-     * @return [Result] of r1 attacking r2.
+     * @param rank opponent's rank
+     * @return [Result] of this attacking rank.
      */
-    fun beats(r1: Rank, r2: Rank): Result {
+    fun attacks(rank: Rank): Result {
         // illegal moves
-        if (r1 == BOMB || r1 == FLAG)
+        if (this == BOMB || this == FLAG)
             return Result.ILLEGAL
 
         // draw, equal rank
-        if (r1 == r2)
+        if (this == rank)
             return Result.DRAW
 
         // won or lost
-        return when (r2) {
+        return when (rank) {
             FLAG    -> Result.GAME_WON
-            BOMB    -> if (r1 == MINER) Result.WON else Result.LOST
-            MARSHAL -> if (r1 == SPY) Result.WON else Result.LOST
-            else    -> if (r1.r_int > r2.r_int) Result.WON else Result.LOST
+            BOMB    -> if (this == MINER) Result.WON else Result.LOST
+            MARSHAL -> if (this == SPY) Result.WON else Result.LOST
+            else    -> if (this.r_int > rank.r_int) Result.WON else Result.LOST
         }
 
     }

@@ -81,20 +81,7 @@ class GameScreen : Screen {
         engine.addSystem(MoveSystem())
         engine.addSystem(AttackSystem())
 
-
-        val piece = Piece(Rank.MARSHAL, GameController.players[0])
-                .add(PositionComponent(GridPoint2(3, 7)))
-
-        engine.addEntity(piece)
-
-        engine.addEntity(
-                Piece(Rank.GENERAL, GameController.players[1])
-                        .add(PositionComponent(GridPoint2(7, 12))))
-
-        engine.addEntity(
-                Piece(Rank.SCOUT, GameController.players[1])
-                        .add(PositionComponent(GridPoint2(8, 12))))
-
+        testPieces()
 
         // handle user input with stage
         // objectStage receive events, if not handled they get passed to
@@ -144,5 +131,21 @@ class GameScreen : Screen {
     }
 
     override fun dispose() {
+    }
+
+    fun testPieces() {
+        var y = 6
+        Rank.values().forEachIndexed { index, rank ->
+            engine.addEntity(
+                    Piece(rank, GameController.players[0])
+                            .add(PositionComponent(GridPoint2(index % 10, y))))
+
+            engine.addEntity(
+                    Piece(rank, GameController.players[1])
+                            .add(PositionComponent(
+                                    GridPoint2(index % 10, y + 6))))
+            if (index % 10 >= 9)
+                ++y
+        }
     }
 }

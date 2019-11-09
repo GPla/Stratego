@@ -1,8 +1,7 @@
 package com.mo.stratego.model.component
 
 import com.badlogic.ashley.core.Component
+import com.badlogic.gdx.math.GridPoint2
 
 
-class MoveComponent : Component {
-// TODO: implement with command pattern
-}
+class MoveComponent(val move: GridPoint2) : Component

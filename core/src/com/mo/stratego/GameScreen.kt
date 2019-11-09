@@ -23,6 +23,7 @@ import com.mo.stratego.model.component.PositionComponent
 import com.mo.stratego.model.map.GameMap
 import com.mo.stratego.model.map.Grid
 import com.mo.stratego.model.player.PlayerType
+import com.mo.stratego.model.system.AttackSystem
 import com.mo.stratego.model.system.MoveSystem
 import com.mo.stratego.model.system.RenderSystem
 import com.mo.stratego.ui.FieldController
@@ -78,6 +79,7 @@ class GameScreen : Screen {
         // add systems to engine
         engine.addSystem(RenderSystem(batch, camera))
         engine.addSystem(MoveSystem())
+        engine.addSystem(AttackSystem())
 
 
         val piece = Piece(Rank.MARSHAL, GameController.players[0])

@@ -194,9 +194,9 @@ object Grid : EntityListener {
      * @param point Grid position of the [Piece]
      * @param owner owner of the [Piece]
      * @return Whether or not the cell can be occupied by a [Piece].
-     * A 2 indicates that the next move in that direction isn't allowed.
+     * A 2 indicates that the cell is occupied by an opponent's [Piece].
      */
-    private fun isCellAllowed(point: GridPoint2, owner: Player): Int {
+    fun isCellAllowed(point: GridPoint2, owner: Player): Int {
         //out of bound
         if (point.x < 0 || point.x >= matrix.size ||
             point.y < 0 || point.y >= matrix.size)

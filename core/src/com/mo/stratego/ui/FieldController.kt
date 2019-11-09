@@ -11,9 +11,9 @@ import com.mo.stratego.ui.input.HighlightInputListener
 import com.mo.stratego.ui.input.PieceInputListener
 
 /**
- * Singleton class that controls the [Actor]s displayed on the [Stage].
- * Implements [EntityListener] to add a [PieceActor] to the [Stage] if
- * a [Piece] is added to the [Engine].
+ * Singleton class that controls the [Actor]'s displayed on the [Stage].
+ * Implements [EntityListener] to add a [FieldActor]'s to the [Stage] if
+ * a [Piece] or [HighlightComponent] is added to the [Engine].
  */
 object FieldController : EntityListener {
 

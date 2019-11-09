@@ -16,12 +16,14 @@ import com.badlogic.gdx.utils.viewport.StretchViewport
 import com.mo.stratego.model.GameController
 import com.mo.stratego.model.Piece
 import com.mo.stratego.model.Rank
+import com.mo.stratego.model.component.HighlightComponent
 import com.mo.stratego.model.component.MoveComponent
 import com.mo.stratego.model.component.PieceComponent
 import com.mo.stratego.model.component.PositionComponent
 import com.mo.stratego.model.map.GameMap
 import com.mo.stratego.model.map.Grid
 import com.mo.stratego.model.player.PlayerType
+import com.mo.stratego.model.system.MoveSystem
 import com.mo.stratego.model.system.RenderSystem
 import com.mo.stratego.ui.FieldController
 import com.mo.stratego.ui.input.MapListener
@@ -57,7 +59,8 @@ class GameScreen : Screen {
         //listener is triggered if entity component is added / removed from the family
         // FieldController
         FieldController.init(objectStage, engine)
-        var family = Family.all(PieceComponent::class.java).get()
+        var family = Family.one(PieceComponent::class.java,
+                                HighlightComponent::class.java).get()
         engine.addEntityListener(family, FieldController)
 
         // Grid
@@ -74,6 +77,7 @@ class GameScreen : Screen {
 
         // add systems to engine
         engine.addSystem(RenderSystem(batch, camera))
+        engine.addSystem(MoveSystem())
 
 
         val piece = Piece(Rank.MARSHAL, GameController.players[0])

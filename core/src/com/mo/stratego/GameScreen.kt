@@ -79,40 +79,18 @@ class GameScreen : Screen {
         engine.addSystem(RenderSystem(batch, camera))
 
 
-        val piece = Piece(Rank.MARSHAL, GameController.players[0]).add(
-                TextureComponent(
-                        TextureRegion(Texture("pics/10_marshal_1.png"), 64,
-                                      64)))
-                .add(PositionComponent(GridPoint2(3, 7)))
+        val piece = Piece(Rank.MARSHAL, GameController.players[0])
+                        .add(PositionComponent(GridPoint2(3, 7)))
 
         engine.addEntity(piece)
 
         engine.addEntity(
                 Piece(Rank.GENERAL, GameController.players[1])
-                        .add(TextureComponent(TextureRegion(
-                                Texture("pics/9_general_2.png"), 64, 64)))
                         .add(PositionComponent(GridPoint2(7, 12))))
 
         engine.addEntity(
-                Piece(Rank.GENERAL, GameController.players[1])
-                        .add(TextureComponent(TextureRegion(
-                                Texture("pics/9_general_2.png"), 64, 64)))
-                        .add(PositionComponent(GridPoint2(8, 12))))
-        engine.addEntity(
                 Piece(Rank.SCOUT, GameController.players[1])
-                        .add(TextureComponent(TextureRegion(
-                                Texture("pics/2_scout_2.png"), 64, 64)))
-                        .add(PositionComponent(GridPoint2(6, 12))))
-        engine.addEntity(
-                Piece(Rank.GENERAL, GameController.players[1])
-                        .add(TextureComponent(TextureRegion(
-                                Texture("pics/9_general_2.png"), 64, 64)))
-                        .add(PositionComponent(GridPoint2(7, 13))))
-        engine.addEntity(
-                Piece(Rank.GENERAL, GameController.players[1])
-                        .add(TextureComponent(TextureRegion(
-                                Texture("pics/9_general_2.png"), 64, 64)))
-                        .add(PositionComponent(GridPoint2(7, 11))))
+                        .add(PositionComponent(GridPoint2(8, 12))))
 
 
         // handle user input with stage

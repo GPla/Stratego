@@ -12,5 +12,6 @@ class Piece(val rank: Rank, val owner: Player) : Entity() {
 
     init {
         add(PieceComponent(this))
+        add(Atlas.getPieceTexture(rank, owner))
     }
 }

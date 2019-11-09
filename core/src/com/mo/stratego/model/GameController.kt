@@ -2,6 +2,7 @@ package com.mo.stratego.model
 
 import com.badlogic.ashley.core.Engine
 import com.mo.stratego.model.player.Player
+import com.mo.stratego.model.player.PlayerType
 
 /**
  * TODO: add description
@@ -16,9 +17,10 @@ object GameController {
      * Init the object with this method. If not called before usage
      * an exception is thrown.
      */
-    fun init(engine: Engine, player1: Player, player2: Player): GameController {
+    fun init(engine: Engine, player1: PlayerType, player2: PlayerType): GameController {
         this.engine = engine
-        players = arrayOf(player1, player2)
+        players = arrayOf(PlayerType.createPlayer(player1, 1),
+                          PlayerType.createPlayer(player2, 2))
         return this
     }
 

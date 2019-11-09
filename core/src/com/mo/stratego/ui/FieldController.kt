@@ -1,12 +1,14 @@
 package com.mo.stratego.ui
 
-import com.badlogic.ashley.core.Engine
-import com.badlogic.ashley.core.Entity
-import com.badlogic.ashley.core.EntityListener
-import com.badlogic.ashley.core.PooledEngine
+import com.badlogic.ashley.core.*
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.mo.stratego.model.HighlightType
 import com.mo.stratego.model.Piece
+import com.mo.stratego.model.component.HighlightComponent
+import com.mo.stratego.ui.input.HighlightInputListener
+import com.mo.stratego.ui.input.PieceInputListener
 
 /**
  * Singleton class that controls the [Actor]s displayed on the [Stage].
@@ -17,12 +19,14 @@ object FieldController : EntityListener {
 
     lateinit var stage: Stage
     private lateinit var engine: PooledEngine
+    private val highMapper =
+            ComponentMapper.getFor(HighlightComponent::class.java)
 
     /**
      * Init the object with this method. If not called before usage
      * an error will be thrown.
      * @param objectStage Stage
-     * @param engine PooledEngine
+     * @param engine PooledEngines
      * @return This for chaining.
      */
     fun init(objectStage: Stage, engine: PooledEngine): FieldController {
@@ -31,15 +35,33 @@ object FieldController : EntityListener {
         return this
     }
 
+    //TODO: add description
     override fun entityAdded(entity: Entity?) {
-        // add if class = piece
+        if (entity == null)
+            return
+        val highlight = highMapper.get(entity)
+
         if (entity is Piece) {
-            stage.addActor(PieceActor(entity, engine))
+            FieldActor(entity).also {
+                stage.addActor(it)
+                it.addListener(PieceInputListener(entity, engine))
+            }
+        } else if (highlight != null && highlight.type == HighlightType.CIRCLE) {
+            FieldActor(entity).also {
+                stage.addActor(it)
+                it.addListener(HighlightInputListener(entity, engine))
+            }
         }
     }
 
+    //TODO: add description
     override fun entityRemoved(entity: Entity?) {
-        // TODO: remove actor?
+        stage.actors.forEach {
+            if ((it as FieldActor).entity == entity) {
+                it.remove()
+                Gdx.app.log("dtag", "removed")
+            }
+        }
     }
 
 

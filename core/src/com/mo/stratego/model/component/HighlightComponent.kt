@@ -1,10 +1,11 @@
 package com.mo.stratego.model.component
 
 import com.badlogic.ashley.core.Component
+import com.badlogic.gdx.math.GridPoint2
 import com.mo.stratego.model.HighlightType
+import com.mo.stratego.model.Piece
 
 
-/**
- * This component serves no other purpose than as flag for filtering.
- */
-class HighlightComponent(val type: HighlightType) : Component
+//TODO: add description
+class HighlightComponent(val type: HighlightType, val piece: Piece,
+                         val move: GridPoint2?) : Component

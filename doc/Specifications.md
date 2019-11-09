@@ -163,8 +163,6 @@ TextureComponent and a PositionComponent. The TextureComponent the texture and
 the PositionComponent defines the x and y position.The RenderSystem does not
 need any other information about the entity to correctly draw the texture. 
 
-
-
 ## Libraries
 
 - [LibGDX](https://github.com/libgdx/libgdx)

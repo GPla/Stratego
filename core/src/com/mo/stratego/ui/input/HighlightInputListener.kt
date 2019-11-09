@@ -19,7 +19,6 @@ class HighlightInputListener(private val entity: Entity,
 
     override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int,
                            button: Int): Boolean {
-
         moveEntity()
         return true
     }

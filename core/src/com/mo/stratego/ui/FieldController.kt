@@ -15,15 +15,18 @@ import com.mo.stratego.model.Piece
  */
 object FieldController : EntityListener {
 
-    private lateinit var stage: Stage
+    lateinit var stage: Stage
     private lateinit var engine: PooledEngine
 
     /**
      * Init the object with this method. If not called before usage
      * an error will be thrown.
+     * @param objectStage Stage
+     * @param engine PooledEngine
+     * @return This for chaining.
      */
-    fun init(stage: Stage, engine: PooledEngine): FieldController {
-        this.stage = stage
+    fun init(objectStage: Stage, engine: PooledEngine): FieldController {
+        this.stage = objectStage
         this.engine = engine
         return this
     }

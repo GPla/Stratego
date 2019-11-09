@@ -28,7 +28,8 @@ object Atlas {
 
         // get texture region from the atlas
         val atlasRegion =
-                atlas.findRegions("${rank.rank}_${rank.title.toLowerCase()}")
+                atlas.findRegions(
+                        "${rank.rank.toLowerCase()}_${rank.title.toLowerCase()}")
 
         // no valid texture
         if (atlasRegion == null ||

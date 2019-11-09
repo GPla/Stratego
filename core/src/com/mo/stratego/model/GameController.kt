@@ -1,6 +1,7 @@
 package com.mo.stratego.model
 
 import com.badlogic.ashley.core.Engine
+import com.badlogic.gdx.Gdx
 import com.mo.stratego.model.player.Player
 import com.mo.stratego.model.player.PlayerType
 
@@ -23,6 +24,11 @@ object GameController {
         players = arrayOf(PlayerType.createPlayer(player1, 0),
                           PlayerType.createPlayer(player2, 1))
         return this
+    }
+
+    //TODO: do something
+    fun win(player: Player) {
+        Gdx.app.log("dtag", "player ${player.id} won the game!")
     }
 
 

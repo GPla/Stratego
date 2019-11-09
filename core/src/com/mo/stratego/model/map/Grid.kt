@@ -100,14 +100,14 @@ object Grid : EntityListener {
 
 
     /**
-     * @return  A string representation of the grid. A zero indicates an
+     * @return  A string representation of the grid. A '#' indicates an
      * empty cell otherwise the [Player]'s id.
      */
     override fun toString(): String {
         val builder: StringBuilder = StringBuilder()
         for (y in 9 downTo 0) {
             for (x in 0..9) {
-                builder.append("${matrix[x][y]?.owner?.id ?: 0} ")
+                builder.append("${matrix[x][y]?.owner?.id ?: '#'} ")
             }
             builder.appendln()
         }

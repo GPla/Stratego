@@ -3,7 +3,9 @@ package com.mo.stratego.model
 import com.badlogic.ashley.core.Engine
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
+import com.badlogic.gdx.math.GridPoint2
 import com.mo.stratego.model.component.HighlightComponent
+import com.mo.stratego.model.component.TextureComponent
 
 
 /**
@@ -21,8 +23,9 @@ enum class HighlightType(val fileName: String) {
          * @param entity Entity
          * @param type HighlightType
          */
-        fun createHightlight(entity: Entity, type: HighlightType) {
-            entity.add(HighlightComponent(type))
+        fun createHightlight(entity: Entity, piece: Piece, type: HighlightType,
+                             move: GridPoint2?) {
+            entity.add(HighlightComponent(type, piece, move))
             entity.add(Atlas.getHighlightTexture(type))
         }
 

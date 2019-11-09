@@ -73,15 +73,24 @@ object Grid : EntityListener {
         if (position != null) { // entered family
             // add piece to board
             val point = translatePositionToCell(position)
+            // remove old position
+            removePiece(piece)
             matrix[point.x][point.y] = piece
-        } else { // removed from family
-            // remove piece from board
-            for (y in 0..9) {
-                for (x in 0..9) {
-                    if (matrix[x][y] == piece) {
-                        matrix[x][y] = null
-                        break
-                    }
+        } else { // removed from board
+            removePiece(piece)
+        }
+    }
+
+    /**
+     * Removes [Piece] from the grid.
+     * @param piece Piece
+     */
+    private fun removePiece(piece: Piece) {
+        for (y in 0..9) {
+            for (x in 0..9) {
+                if (matrix[x][y] == piece) {
+                    matrix[x][y] = null
+                    break
                 }
             }
         }
@@ -101,13 +110,16 @@ object Grid : EntityListener {
 
     /**
      * @return  A string representation of the grid. A '#' indicates an
-     * empty cell otherwise the [Player]'s id.
+     * empty cell, 'o' the lake and otherwise the [Player]'s id.
      */
     override fun toString(): String {
         val builder: StringBuilder = StringBuilder()
         for (y in 9 downTo 0) {
             for (x in 0..9) {
-                builder.append("${matrix[x][y]?.owner?.id ?: '#'} ")
+                if ((x in 2..3 || x in 6..7) && y in 4..5)
+                    builder.append("o ")
+                else
+                    builder.append("${matrix[x][y]?.owner?.id ?: '#'} ")
             }
             builder.appendln()
         }
@@ -157,13 +169,17 @@ object Grid : EntityListener {
 
             // check which moves are valid
             moves.forEachIndexed { index, move ->
-                if (!blocked[index] &&
-                    isCellAllowed(standpoint.cpy().add(move), piece.owner)) {
-                    allowedMoves.add(move)
-                } else {
-                    blocked[index] = true
+                if (!blocked[index]) {
+                    when (isCellAllowed(standpoint.cpy().add(move),
+                                        piece.owner)) {
+                        0 -> blocked[index] = true
+                        1 -> allowedMoves.add(move)
+                        2 -> {
+                            blocked[index] = true
+                            allowedMoves.add(move)
+                        }
+                    }
                 }
-
             }
 
             // all directions blocked
@@ -178,20 +194,22 @@ object Grid : EntityListener {
      * @param point Grid position of the [Piece]
      * @param owner owner of the [Piece]
      * @return Whether or not the cell can be occupied by a [Piece].
+     * A 2 indicates that the next move in that direction isn't allowed.
      */
-    private fun isCellAllowed(point: GridPoint2, owner: Player): Boolean {
+    private fun isCellAllowed(point: GridPoint2, owner: Player): Int {
         //out of bound
         if (point.x < 0 || point.x >= matrix.size ||
             point.y < 0 || point.y >= matrix.size)
-            return false
+            return 0
 
         // lakes
         if ((point.x in 2..3 || point.x in 6..7) && point.y in 4..5)
-            return false
+            return 0
 
         // check if cell is blocked by a piece of the same owner
-        val owner2 = matrix[point.x][point.y]?.owner ?: return true
-        return owner != owner2
+        val owner2 = matrix[point.x][point.y]?.owner ?: return 1
+        // the 2 indicates that the next move in this direction is blocked
+        return if (owner != owner2) 2 else 0
     }
 
 

@@ -35,7 +35,11 @@ object FieldController : EntityListener {
         return this
     }
 
-    //TODO: add description
+    /**
+     * Added an [FieldActor] for [Piece] instances and entities with a
+     * [HighlightComponent].
+     * @param entity
+     */
     override fun entityAdded(entity: Entity?) {
         if (entity == null)
             return
@@ -54,7 +58,10 @@ object FieldController : EntityListener {
         }
     }
 
-    //TODO: add description
+    /**
+     * Removes the actor of the [Entity]
+     * @param entity
+     */
     override fun entityRemoved(entity: Entity?) {
         stage.actors.forEach {
             if ((it as FieldActor).entity == entity) {

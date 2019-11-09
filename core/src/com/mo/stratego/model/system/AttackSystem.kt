@@ -12,7 +12,8 @@ import com.mo.stratego.model.component.PieceComponent
 import com.mo.stratego.model.component.PositionComponent
 
 /**
- * System that evaluates battles.
+ * A system that processes entities with a [PieceComponent] and a
+ * [AttackComponent].
  */
 class AttackSystem :
     IteratingSystem(Family.all(PieceComponent::class.java,
@@ -23,7 +24,7 @@ class AttackSystem :
     val attackMapper = ComponentMapper.getFor(AttackComponent::class.java)
 
     /**
-     * Processes the attack.
+     * Performs the attack, depending on the [Result], actions are taken.
      */
     override fun processEntity(entity: Entity?, deltaTime: Float) {
         if (entity == null)

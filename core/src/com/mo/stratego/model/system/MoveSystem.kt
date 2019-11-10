@@ -18,7 +18,8 @@ import com.mo.stratego.model.map.Grid
  */
 class MoveSystem : IteratingSystem(
         Family.all(PieceComponent::class.java, PositionComponent::class.java,
-                   MoveComponent::class.java).get()) {
+                   MoveComponent::class.java)
+                .exclude(AttackComponent::class.java).get()) {
 
     // component mapper
     private val posMapper =

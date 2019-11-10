@@ -5,10 +5,7 @@ import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.IteratingSystem
 import com.mo.stratego.model.Piece
-import com.mo.stratego.model.component.AttackComponent
-import com.mo.stratego.model.component.MoveComponent
-import com.mo.stratego.model.component.PieceComponent
-import com.mo.stratego.model.component.PositionComponent
+import com.mo.stratego.model.component.*
 import com.mo.stratego.model.map.Grid
 
 /**
@@ -19,7 +16,8 @@ import com.mo.stratego.model.map.Grid
 class MoveSystem : IteratingSystem(
         Family.all(PieceComponent::class.java, PositionComponent::class.java,
                    MoveComponent::class.java)
-                .exclude(AttackComponent::class.java).get()) {
+                .exclude(AttackComponent::class.java,
+                         WaitComponent::class.java).get()) {
 
     // component mapper
     private val posMapper =
@@ -27,6 +25,11 @@ class MoveSystem : IteratingSystem(
     private val movMapper = ComponentMapper.getFor(MoveComponent::class.java)
     private val pieceMapper = ComponentMapper.getFor(PieceComponent::class.java)
 
+    /**
+     * Process the movement.
+     * @param entity Entity
+     * @param deltaTime Float
+     */
     override fun processEntity(entity: Entity?, deltaTime: Float) {
         val position = posMapper.get(entity)?.position
         val move = movMapper.get(entity)?.move
@@ -40,7 +43,6 @@ class MoveSystem : IteratingSystem(
 
         val newPoint = position.cpy().add(move)
 
-        //FIXME: beautify
         // check if move is valid
         // the removal of the movecomponent triggers an update of the gamegrid
         when (Grid.isCellAllowed(Grid.translatePositionToCell(newPoint),
@@ -52,8 +54,11 @@ class MoveSystem : IteratingSystem(
             }
             2 -> {
                 val enemy = Grid[newPoint]
-                if (enemy != null)
+                if (enemy != null) {
+                    enemy.showFront()
+                    piece.add(WaitComponent(0.4f))
                     piece.add(AttackComponent(enemy))
+                }
             }
         }
     }

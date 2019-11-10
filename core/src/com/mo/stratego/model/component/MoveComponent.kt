@@ -8,5 +8,4 @@ import com.mo.stratego.model.Piece
  * This component defines a move action for a [Piece]. The
  * move property will be added to the [Piece]'s position.
  */
-//FIXME: change to command
 class MoveComponent(val move: GridPoint2) : Component

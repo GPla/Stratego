@@ -9,22 +9,16 @@ import com.mo.stratego.model.component.TextureComponent
  * Object that loads the [TextureAtlas] with all game assets.
  */
 object Atlas {
-    val atlas: TextureAtlas
-
-    init {
-        atlas = TextureAtlas("pics.atlas")
-    }
+    private val atlas: TextureAtlas = TextureAtlas("pics.atlas")
 
     /**
      * Loads the appropriate texture from the atlas.
      * @param rank Rank
      * @param owner Player
-     * @param backside if true the backside is shown
      * @return A [TextureComponent] with the [Piece]'s texture.
      * Returns null if no texture was found.
      */
-    fun getPieceTexture(rank: Rank, playerId: Int,
-                        backside: Boolean = false): TextureComponent {
+    fun getPieceTexture(rank: Rank, playerId: Int): TextureComponent {
 
         // get texture region from the atlas
         val atlasRegion =

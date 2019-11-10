@@ -132,24 +132,18 @@ For Gameplay:
 Player 1 <- Referee -> Proxy - Network - Proxy <- Referee --> Player 2  
 Enables easy single player and multiplayer without chaging the engine [see](https://pdfs.semanticscholar.org/f35c/df2b5cb1a36d703ab6c4a4d80cbaaf3cc603.pdf)  
 
-- [InputHandlerSystem](https://stackoverflow.com/questions/38278201/libgdx-ashley-how-do-i-control-a-player-the-proper-way-ecs-framework)
 - RefereeSystem -> PlayerComponent / InputHandler
 - RenderSystem (based on ownership and rank?, list of all units?)
   - loads all textures
 - MoveSystem (commands)
 - AttackSystem (commands, MoveSytem adds attack component if collided with opponent)
 - PlacementSystem (commands)
-- HighlightSystem (highlights possible moves for a unit)
-
-Input Handling (4 Layer) [see](https://javadocmd.com/blog/libgdx-ashley-on-the-stage/)
-
-Animation:
-
-- 12 different units
-  - 2 moveing frames, 1 standing
-- highlights should blink
 
 - [Command pattern](http://gameprogrammingpatterns.com/command.html)
+
+## Input Handling
+
+User touches a piece. PieceInputHandler receives the event. With the help of the gamegrid all allowed moves are caculated and then highlights are generated. A click on a hightlight triggers the HighlightInputListener, that adds a MoveComponent to the piece and the MoveSystem will move the piece to the selected position. If an opponent's piece occupies the target position an AttackComponent is added to the piece. Depending on the result, different actions are taken. The removal of the MoveComponent triggers an update of the gamegrid.
 
 ## Architecture
 
@@ -161,7 +155,7 @@ actions, in each frame, on entities that posess specific components. For
 instance in this project the RenderSystem processes all entities with a
 TextureComponent and a PositionComponent. The TextureComponent the texture and
 the PositionComponent defines the x and y position.The RenderSystem does not
-need any other information about the entity to correctly draw the texture. 
+need any other information about the entity to correctly draw the texture.
 
 ## Libraries
 

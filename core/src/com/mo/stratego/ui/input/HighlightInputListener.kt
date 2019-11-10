@@ -24,6 +24,7 @@ class HighlightInputListener(private val entity: Entity,
     }
 
     //TODO: remove, see architecture
+    //TODO: put move into owner of piece
     private fun moveEntity() {
         val highlight = highMapper.get(entity) ?: return
         if (highlight.move == null)

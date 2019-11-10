@@ -26,6 +26,7 @@ import com.mo.stratego.model.player.PlayerType
 import com.mo.stratego.model.system.AttackSystem
 import com.mo.stratego.model.system.MoveSystem
 import com.mo.stratego.model.system.RenderSystem
+import com.mo.stratego.model.system.WaitSystem
 import com.mo.stratego.ui.FieldController
 import com.mo.stratego.ui.input.MapListener
 
@@ -79,6 +80,7 @@ class GameScreen : Screen {
         // add systems to engine
         engine.addSystem(RenderSystem(batch, camera))
         engine.addSystem(MoveSystem())
+        engine.addSystem(WaitSystem())
         engine.addSystem(AttackSystem())
 
         testPieces()

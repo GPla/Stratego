@@ -10,6 +10,7 @@ import com.mo.stratego.model.Result
 import com.mo.stratego.model.component.AttackComponent
 import com.mo.stratego.model.component.PieceComponent
 import com.mo.stratego.model.component.PositionComponent
+import com.mo.stratego.model.component.WaitComponent
 
 /**
  * A system that processes entities with a [PieceComponent] and a
@@ -17,7 +18,8 @@ import com.mo.stratego.model.component.PositionComponent
  */
 class AttackSystem :
     IteratingSystem(Family.all(PieceComponent::class.java,
-                               AttackComponent::class.java).get()) {
+                               AttackComponent::class.java)
+                            .exclude(WaitComponent::class.java).get()) {
 
     // component mapper
     val pieceMapper = ComponentMapper.getFor(PieceComponent::class.java)
@@ -47,6 +49,7 @@ class AttackSystem :
             }
         }
 
+        enemy.showDefault()
         entity.remove(AttackComponent::class.java)
     }
 

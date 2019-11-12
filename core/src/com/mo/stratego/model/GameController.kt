@@ -7,6 +7,8 @@ import com.mo.stratego.model.player.PlayerType
 
 /**
  * This object handles the game flow and [GameState].
+ * It represents the referee mentioned in this paper,
+ * see https://pdfs.semanticscholar.org/f35c/df2b5cb1a36d703ab6c4a4d80cbaaf3cc603.pdf
  */
 object GameController {
 
@@ -33,9 +35,11 @@ object GameController {
 
     /**
      * This method runs and updates the [GameState].
+     * It should be called every frame by the game loop.
      */
     //TODO: starting player has to be synced with other device
     //TODO: show who's turn
+    //TODO: !! make event based?
     fun run() {
         val result = when (state) {
             GameState.TURN_PLAYER_1 -> makePlayersTurn(0)

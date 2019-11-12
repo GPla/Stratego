@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.viewport.StretchViewport
 import com.mo.stratego.model.GameController
+import com.mo.stratego.model.GameState
 import com.mo.stratego.model.Piece
 import com.mo.stratego.model.Rank
 import com.mo.stratego.model.component.HighlightComponent
@@ -41,8 +42,6 @@ class GameScreen : Screen {
     private var camera: OrthographicCamera = OrthographicCamera()
     private val engine: Engine
     private val batch: SpriteBatch
-    //TODO: freeze engine
-    val gameFreeze: Boolean = false
 
     //TODO: fix comments and cleanup
     init {
@@ -104,6 +103,9 @@ class GameScreen : Screen {
 
     override fun render(delta: Float) {
         Gdx.app.log("dtag", Grid.toString())
+        Gdx.app.log("state", GameController.state.toString())
+
+        GameController.run()
 
         // clear screen
         Gdx.gl.glClearColor(1f, 1f, 1f, 1f)
@@ -111,19 +113,20 @@ class GameScreen : Screen {
 
         camera.update()
 
-
         // render map
         GameMap.render(camera)
 
-        // update ashley engine
-        engine.update(Gdx.graphics.deltaTime)
+        // update ashley engine if game is running
+        if (GameController.state != GameState.GAME_OVER)
+            engine.update(Gdx.graphics.deltaTime)
 
-        // render stages
+        // render stage
         FieldController.stage.run {
             batch.projectionMatrix = camera.combined
             act(delta)
             draw()
         }
+
     }
 
     override fun pause() {

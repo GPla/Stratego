@@ -1,6 +1,8 @@
 package com.mo.stratego.model.player
 
 import com.mo.stratego.model.Move
+import com.mo.stratego.model.component.MoveComponent
+import com.mo.stratego.model.map.Grid
 
 //TODO desc
 /**
@@ -14,7 +16,7 @@ abstract class Player(val id: Int) {
     /**
      * Whether or not the player is allowed to make his move.
      */
-    var allow: Boolean = false
+    var allow: Boolean = true
 
     /**
      * The move made by the player.
@@ -29,7 +31,13 @@ abstract class Player(val id: Int) {
     /**
      * Presents the other players move.
      */
-    abstract fun present()
+    fun present() {
+        // get piece from grid and add move
+        othersMove?.run {
+            val piece = Grid[this.position] ?: return
+            piece.add(MoveComponent(this.move))
+        }
+    }
 
     //TODO: outcome??
 

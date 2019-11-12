@@ -1,22 +1,22 @@
 package com.mo.stratego.model.player
 
+import com.mo.stratego.model.GameController
 import com.mo.stratego.model.Move
 import com.mo.stratego.model.component.MoveComponent
 import com.mo.stratego.model.map.Grid
 
-//TODO desc
+
 /**
  * Inspired by https://pdfs.semanticscholar.org/f35c/df2b5cb1a36d703ab6c4a4d80cbaaf3cc603.pdf
- * @property id Int
- * @property allowTouch Boolean
- * @constructor
+ * The [GameController] corresponds to the referee in the paper.
+ * This class is a blueprint for a player.
  */
 abstract class Player(val id: Int) {
 
     /**
      * Whether or not the player is allowed to make his move.
      */
-    var allow: Boolean = true
+    var allow: Boolean = false
 
     /**
      * The move made by the player.

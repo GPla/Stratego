@@ -55,6 +55,6 @@ class Piece(val rank: Rank, val owner: Player) : Entity() {
      */
     //TODO: disable touch when moving and piece has move selected
     fun isTouchable(): Boolean {
-        return owner.allowTouch
+        return owner.allow
     }
 }

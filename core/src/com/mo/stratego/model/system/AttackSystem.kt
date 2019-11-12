@@ -37,6 +37,7 @@ class AttackSystem :
 
         val result = piece.rank.attacks(enemy.rank)
 
+        //TODO: remove
         Gdx.app.log("attack", "result: $result")
 
         when (result) {

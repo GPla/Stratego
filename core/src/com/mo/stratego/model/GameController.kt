@@ -14,6 +14,8 @@ object GameController {
 
     lateinit var players: Array<Player> // array of players
 
+    val state: GameState = GameState.INIT
+
     /**
      * Init the object with this method. If not called before usage
      * an exception is thrown.

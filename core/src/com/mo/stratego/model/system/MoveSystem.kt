@@ -31,15 +31,12 @@ class MoveSystem : IteratingSystem(
      * @param deltaTime Float
      */
     override fun processEntity(entity: Entity?, deltaTime: Float) {
-        val position = posMapper.get(entity)?.position
-        val move = movMapper.get(entity)?.move
-        val piece = pieceMapper.get(entity)?.piece
-
-        if (entity == null ||
-            position == null ||
-            move == null ||
-            piece == null)
+        if (entity == null)
             return
+
+        val position = posMapper.get(entity)?.position ?: return
+        val move = movMapper.get(entity)?.move ?: return
+        val piece = pieceMapper.get(entity)?.piece ?: return
 
         val newPoint = position.cpy().add(move)
 
@@ -54,10 +51,10 @@ class MoveSystem : IteratingSystem(
             }
             2 -> {
                 val enemy = Grid[newPoint]
-                if (enemy != null) {
-                    enemy.showFront()
+                enemy?.run {
+                    showFront()
                     piece.add(WaitComponent(0.4f))
-                    piece.add(AttackComponent(enemy))
+                    piece.add(AttackComponent(this))
                 }
             }
         }

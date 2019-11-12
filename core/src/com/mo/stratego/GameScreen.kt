@@ -41,6 +41,8 @@ class GameScreen : Screen {
     private var camera: OrthographicCamera = OrthographicCamera()
     private val engine: Engine
     private val batch: SpriteBatch
+    //TODO: freeze engine
+    val gameFreeze: Boolean = false
 
     //TODO: fix comments and cleanup
     init {
@@ -108,6 +110,7 @@ class GameScreen : Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
         camera.update()
+
 
         // render map
         GameMap.render(camera)

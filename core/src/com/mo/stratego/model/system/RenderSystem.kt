@@ -18,18 +18,19 @@ import com.mo.stratego.util.ZComparator
  * [TextureComponent], exclusing entities with a [InvisibleComponent].
  * The render order is specified through the z value of the [PositionComponent].
  */
-class RenderSystem(private val batch: SpriteBatch, private val camera: OrthographicCamera) :
-        SortedIteratingSystem(
-                Family.all(PositionComponent::class.java,
-                        TextureComponent::class.java)
-                      .exclude(InvisibleComponent::class.java).get(),
-                ZComparator()
-        ) {
+class RenderSystem(private val batch: SpriteBatch,
+                   private val camera: OrthographicCamera) :
+    SortedIteratingSystem(
+            Family.all(PositionComponent::class.java,
+                       TextureComponent::class.java)
+                    .exclude(InvisibleComponent::class.java).get(),
+            ZComparator()
+                         ) {
 
     // component mapper to retrieve components of an entity
-    private val pm : ComponentMapper<PositionComponent> =
+    private val pm: ComponentMapper<PositionComponent> =
             ComponentMapper.getFor(PositionComponent::class.java)
-    private val tm : ComponentMapper<TextureComponent> =
+    private val tm: ComponentMapper<TextureComponent> =
             ComponentMapper.getFor(TextureComponent::class.java)
 
     /**
@@ -49,23 +50,24 @@ class RenderSystem(private val batch: SpriteBatch, private val camera: Orthograp
      * at the position defined by the [PositionComponent].
      */
     override fun processEntity(entity: Entity?, deltaTime: Float) {
-        // get relevant components
-        val position = pm.get(entity)
-        val texture = tm.get(entity)
-
-        // nothing to draw
-        if (texture == null || texture.isHidden)
+        if (entity == null)
             return
+
+        // get relevant components
+        val position = pm.get(entity) ?: return
+        val texture = tm.get(entity) ?: return
 
         // draw sprite
         batch.draw(
                 texture.region,
                 position.position.x.toFloat(), position.position.y.toFloat(),
                 texture.origin.x, texture.origin.y,
-                texture.region.regionWidth.toFloat(), texture.region.regionHeight.toFloat(),
-                Constants.getPixelToUnit(texture.scale.x) , Constants.getPixelToUnit(texture.scale.y),
+                texture.region.regionWidth.toFloat(),
+                texture.region.regionHeight.toFloat(),
+                Constants.getPixelToUnit(texture.scale.x),
+                Constants.getPixelToUnit(texture.scale.y),
                 texture.rotation
-                )
+                  )
 
     }
 

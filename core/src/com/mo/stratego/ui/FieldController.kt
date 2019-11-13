@@ -1,7 +1,6 @@
 package com.mo.stratego.ui
 
 import com.badlogic.ashley.core.*
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.mo.stratego.model.HighlightType
@@ -21,6 +20,7 @@ object FieldController : EntityListener {
     private lateinit var engine: PooledEngine
     private val highMapper =
             ComponentMapper.getFor(HighlightComponent::class.java)
+    private val entityActors: HashMap<Entity, Actor> = HashMap()
 
     /**
      * Init the object with this method. If not called before usage
@@ -47,11 +47,13 @@ object FieldController : EntityListener {
 
         if (entity is Piece) {
             FieldActor(entity).also {
+                entityActors[entity] = it
                 stage.addActor(it)
                 it.addListener(PieceInputListener(entity, engine))
             }
         } else if (highlight != null && highlight.type == HighlightType.CIRCLE) {
             FieldActor(entity).also {
+                entityActors[entity] = it
                 stage.addActor(it)
                 it.addListener(HighlightInputListener(entity, engine))
             }
@@ -59,15 +61,13 @@ object FieldController : EntityListener {
     }
 
     /**
-     * Removes the actor of the [Entity]
+     * Removes the actor that corresponds to the entity
      * @param entity
      */
     override fun entityRemoved(entity: Entity?) {
-        stage.actors.forEach {
-            if ((it as FieldActor).entity == entity) {
-                it.remove()
-                Gdx.app.log("dtag", "removed")
-            }
+        if (entityActors.containsKey(entity ?: return)) {
+            val actor = entityActors.remove(entity)
+            actor?.remove()
         }
     }
 

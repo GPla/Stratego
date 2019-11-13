@@ -50,7 +50,10 @@ class AttackSystem :
             }
         }
 
+        // show default texture
+        piece.showDefault()
         enemy.showDefault()
+
         entity.remove(AttackComponent::class.java)
     }
 

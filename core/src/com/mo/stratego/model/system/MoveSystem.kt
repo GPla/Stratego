@@ -44,15 +44,19 @@ class MoveSystem : IteratingSystem(
         // the removal of the movecomponent triggers an update of the gamegrid
         when (Grid.isCellAllowed(Grid.translatePositionToCell(newPoint),
                                  piece.owner)) {
-            0 -> piece.remove(MoveComponent::class.java)
+            0 -> piece.remove(MoveComponent::class.java) // invalid move
             1 -> {
+                //move to new position
                 position.add(move)
                 piece.remove(MoveComponent::class.java)
             }
             2 -> {
                 val enemy = Grid[newPoint]
                 enemy?.run {
+                    // show front side texture
                     showFront()
+                    piece.showFront()
+                    // perform attack
                     piece.add(WaitComponent(0.4f))
                     piece.add(AttackComponent(this))
                 }

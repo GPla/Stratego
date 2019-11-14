@@ -29,6 +29,7 @@ import com.mo.stratego.model.system.MoveSystem
 import com.mo.stratego.model.system.RenderSystem
 import com.mo.stratego.model.system.WaitSystem
 import com.mo.stratego.ui.FieldController
+import com.mo.stratego.ui.HudController
 import com.mo.stratego.ui.input.MapListener
 
 /**
@@ -56,6 +57,8 @@ class GameScreen : Screen {
 
         val objectStage = Stage(StretchViewport(camera.viewportWidth,
                                                 camera.viewportHeight))
+        val hudStage = Stage(StretchViewport(camera.viewportWidth,
+                                             camera.viewportHeight))
         engine = PooledEngine()
 
         // add listeners to engine
@@ -65,6 +68,9 @@ class GameScreen : Screen {
         var family = Family.one(PieceComponent::class.java,
                                 HighlightComponent::class.java).get()
         engine.addEntityListener(family, FieldController)
+
+        // HudController
+        HudController.init(hudStage, engine)
 
         // Grid
         family = Family.all(PieceComponent::class.java,
@@ -127,6 +133,11 @@ class GameScreen : Screen {
             draw()
         }
 
+        HudController.stage.run {
+            batch.projectionMatrix = camera.combined
+            act(delta)
+            draw()
+        }
     }
 
     override fun pause() {

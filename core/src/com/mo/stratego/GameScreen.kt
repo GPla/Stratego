@@ -134,7 +134,7 @@ class GameScreen : Screen {
         }
 
         HudController.stage.run {
-            batch.projectionMatrix = camera.combined
+            //batch.projectionMatrix = camera.combined
             act(delta)
             draw()
         }

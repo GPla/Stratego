@@ -5,8 +5,8 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
-import com.mo.stratego.model.Piece
-import com.mo.stratego.ui.control.ImageList
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton
+
 
 //TODO: implement piece placer
 object HudController {
@@ -35,12 +35,17 @@ object HudController {
         val skin =
                 Skin(Gdx.files.internal("ui/default/skin/uiskin.json"), atlas)
 
-        val pieces = ImageList(skin)
-        pieces.setPosition(0f, 0f)
-        pieces.height = 10f
-        pieces.width = 10f
-        engine.entities.filter { it is Piece }
-                .forEach { pieces.items.add(it as Piece) }
-        stage.addActor(pieces)
+        //val pieces = ImageList(skin)
+        //pieces.setPosition(0f, 0f)
+        //pieces.height = 10f
+        //pieces.width = 10f
+        //engine.entities.filter { it is Piece }
+        //.forEach { pieces.items.add(it as Piece) }
+        //stage.addActor(pieces)
+
+        val button = TextButton("Click Me", skin, "default")
+        button.width = 2f
+        button.height = 1f
+        stage.addActor(button)
     }
 }

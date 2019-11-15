@@ -15,7 +15,7 @@ import com.mo.stratego.util.ZComparator
 
 /**
  * System that renders all entities with a [PositionComponent] and a
- * [TextureComponent], exclusing entities with a [InvisibleComponent].
+ * [TextureComponent], excluding entities with a [InvisibleComponent].
  * The render order is specified through the z value of the [PositionComponent].
  */
 class RenderSystem(private val batch: SpriteBatch,
@@ -60,7 +60,8 @@ class RenderSystem(private val batch: SpriteBatch,
         // draw sprite
         batch.draw(
                 texture.region,
-                position.position.x.toFloat(), position.position.y.toFloat(),
+                position.position.x.toFloat(),
+                position.position.y.toFloat(),
                 texture.origin.x, texture.origin.y,
                 texture.region.regionWidth.toFloat(),
                 texture.region.regionHeight.toFloat(),

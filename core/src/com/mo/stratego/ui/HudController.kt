@@ -43,9 +43,11 @@ object HudController {
         //.forEach { pieces.items.add(it as Piece) }
         //stage.addActor(pieces)
 
-        val button = TextButton("Click Me", skin, "default")
-        button.width = 2f
+        val button = TextButton("Click", skin, "default")
         button.height = 1f
+        button.width = 2f
+
         stage.addActor(button)
+
     }
 }

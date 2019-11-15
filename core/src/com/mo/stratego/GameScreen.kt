@@ -57,8 +57,8 @@ class GameScreen : Screen {
 
         val objectStage = Stage(StretchViewport(camera.viewportWidth,
                                                 camera.viewportHeight))
-        val hudStage = Stage(StretchViewport(camera.viewportWidth,
-                                             camera.viewportHeight))
+        val hudStage = Stage(StretchViewport(Gdx.graphics.width.toFloat(),
+                                             Gdx.graphics.height.toFloat()))
         engine = PooledEngine()
 
         // add listeners to engine
@@ -73,12 +73,11 @@ class GameScreen : Screen {
         HudController.init(hudStage, engine)
 
         // Grid
+        // Grid is updated if piece witWh position component is added / removed
+        // or a move component is added/ removed
         family = Family.all(PieceComponent::class.java,
-                            PositionComponent::class.java).get()
-        engine.addEntityListener(family, Grid)
-        family = Family.all(PieceComponent::class.java,
-                            PositionComponent::class.java,
-                            MoveComponent::class.java).get()
+                            PositionComponent::class.java)
+                .exclude(MoveComponent::class.java).get()
         engine.addEntityListener(family, Grid)
 
         GameMap.engine = engine
@@ -128,7 +127,7 @@ class GameScreen : Screen {
 
         // render stage
         FieldController.stage.run {
-            batch.projectionMatrix = camera.combined
+            //batch.projectionMatrix = camera.combined
             act(delta)
             draw()
         }
@@ -153,7 +152,7 @@ class GameScreen : Screen {
     }
 
     fun testPieces() {
-        var y = 6
+        var y = 3
         Rank.values().forEachIndexed { index, rank ->
             engine.addEntity(
                     Piece(rank, GameController.players[0])
@@ -166,5 +165,6 @@ class GameScreen : Screen {
             if (index % 10 >= 9)
                 ++y
         }
+
     }
 }

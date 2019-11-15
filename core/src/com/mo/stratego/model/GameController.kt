@@ -14,7 +14,7 @@ object GameController {
 
     private lateinit var engine: Engine
     lateinit var players: Array<Player>
-    var state: GameState = GameState.TURN_PLAYER_1
+    var state: GameState = GameState.PREPARATION_PLAYER_1
         private set
 
     /**
@@ -42,9 +42,13 @@ object GameController {
     //TODO: !! make event based?
     fun run() {
         val result = when (state) {
-            GameState.TURN_PLAYER_1 -> makePlayersTurn(0)
-            GameState.TURN_PLAYER_2 -> makePlayersTurn(1)
-            else                    -> false
+            GameState.PREPARATION_PLAYER_1 -> {
+                players[0].allow = true
+                false
+            }
+            GameState.TURN_PLAYER_1        -> makePlayersTurn(0)
+            GameState.TURN_PLAYER_2        -> makePlayersTurn(1)
+            else                           -> false
         }
 
         // goto next state

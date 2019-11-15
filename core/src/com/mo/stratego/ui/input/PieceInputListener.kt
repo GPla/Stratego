@@ -5,8 +5,7 @@ import com.badlogic.ashley.core.Engine
 import com.badlogic.gdx.math.GridPoint2
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
-import com.mo.stratego.model.HighlightType
-import com.mo.stratego.model.Piece
+import com.mo.stratego.model.*
 import com.mo.stratego.model.component.PieceComponent
 import com.mo.stratego.model.component.PositionComponent
 import com.mo.stratego.model.map.Grid
@@ -21,19 +20,30 @@ class PieceInputListener(private val piece: Piece,
             ComponentMapper.getFor(PositionComponent::class.java)
     private val pieceMapper = ComponentMapper.getFor(PieceComponent::class.java)
 
+    // TODO desc
     override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int,
                            button: Int): Boolean {
 
+
         HighlightType.deleteHighlight(engine)
-        createHighlight()
+
+        //TODO: react depending on game state
+        when (GameController.state) {
+            GameState.PREPARATION_PLAYER_1 -> createPlacementHighlight()
+            GameState.TURN_PLAYER_1,
+            GameState.TURN_PLAYER_2        -> {
+                HighlightType.deleteHighlight(engine)
+                createMoveHighlight()
+            }
+        }
 
         return true
     }
 
     /**
-     * Creates the highlight for the possible moves of the entity.
+     * Creates the highlights for the possible [Move]s of the [Piece].
      */
-    private fun createHighlight() {
+    private fun createMoveHighlight() {
         val standpoint = posMapper.get(piece)?.position ?: return
         val allowedMoves = Grid.getAllowedMoves(piece)
 
@@ -45,14 +55,37 @@ class PieceInputListener(private val piece: Piece,
         HighlightType.createHightlight(square, piece, HighlightType.SQUARE,
                                        null)
 
-        // highlight circle
+        // highlight circles
         for (move in allowedMoves) {
+            // position of highlight
             val point = GridPoint2(standpoint).add(move)
             val circle = engine.createEntity().add(PositionComponent(point, 1))
             engine.addEntity(circle)
             HighlightType.createHightlight(circle, piece, HighlightType.CIRCLE,
                                            move)
         }
+    }
+
+    //TODO desc
+    private fun createPlacementHighlight() {
+        val cells = Grid.getFreeCellsInPlayerZone(piece.owner.id)
+        val position = posMapper.get(piece)
+
+        // selected highlight square
+        val square = engine.createEntity()
+                .add(PositionComponent(position.position.cpy(), -1))
+        engine.addEntity(square)
+        HighlightType.createHightlight(square, piece, HighlightType.SQUARE,
+                                       null)
+
+        for (cell in cells) {
+            val circle = engine.createEntity().add(PositionComponent(cell, 1))
+            engine.addEntity(circle)
+            HighlightType.createHightlight(circle, piece, HighlightType.CIRCLE,
+                                           null)
+
+        }
+
     }
 
 

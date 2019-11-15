@@ -15,7 +15,6 @@ import com.mo.stratego.model.player.Player
  * triggered if a [Piece] has a [PositionComponent] and
  * independently, another time, if it has a [MoveComponent].
  */
-//TODO: piece defeated
 object Grid : EntityListener {
 
     // playing grid, origin is top left, camera/map has bottom left
@@ -73,14 +72,13 @@ object Grid : EntityListener {
      */
     private fun update(piece: Piece) {
         val position = posMapper.get(piece)?.position
-        if (position != null) { // entered family
+        removePiece(piece)
+        position?.let {
             // add piece to board
             val point = translatePositionToCell(position)
-            // remove old position
-            removePiece(piece)
-            matrix[point.x][point.y] = piece
-        } else { // removed from board
-            removePiece(piece)
+            // update new position
+            if (inBound(point))
+                matrix[point.x][point.y] = piece
         }
     }
 
@@ -110,6 +108,23 @@ object Grid : EntityListener {
                           position.y - GameMap.gridBottom)
     }
 
+    /**
+     * Calculates the [GameMap] position; the origin is in the bottom
+     * left corner.
+     * @param cell Cell
+     * @return the [GameMap] position of the piece.
+     */
+    fun translateCellToPosition(cell: GridPoint2): GridPoint2 {
+        return GridPoint2(cell.x + GameMap.gridLeft,
+                          cell.y + GameMap.gridBottom)
+    }
+
+    /**
+     * @param position Position
+     * @return Whether or not the position is in bound of the game map.
+     */
+    private fun inBound(position: GridPoint2) =
+            position.x in (0..9) && position.y in (0..9)
 
     /**
      * @return  A string representation of the grid. A '#' indicates an
@@ -213,5 +228,37 @@ object Grid : EntityListener {
         val owner2 = matrix[point.x][point.y]?.owner ?: return 1
         // the 2 indicates that the next move in this direction is blocked
         return if (owner != owner2) 2 else 0
+    }
+
+    /**
+     * Collects the free cells in the [Player]'s placement zone.
+     * @param playerId Id of the [Player]
+     * @return A List of free cells in the [Player]'s zone.
+     */
+    fun getFreeCellsInPlayerZone(playerId: Int): List<GridPoint2> {
+        val cells = mutableListOf<GridPoint2>()
+
+        // iterate over players zone
+        for (y in getPlayersZone(playerId)) {
+            for (x in 0..9) {
+                // check if cell is empty
+                if (matrix[x][y] == null)
+                    cells.add(translateCellToPosition(GridPoint2(x, y)))
+            }
+        }
+
+        return cells
+    }
+
+    /**
+     * @param playerId Id of the [Player]
+     * @return The y-axis range of the [Player]'s placement zone.
+     */
+    private fun getPlayersZone(playerId: Int): IntRange {
+        return when (playerId) {
+            0    -> 0..3
+            1    -> 6..9 // nice
+            else -> throw Exception("Unsupported Player Id: $playerId")
+        }
     }
 }

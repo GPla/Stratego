@@ -4,6 +4,8 @@ import com.badlogic.ashley.core.ComponentMapper
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.IteratingSystem
+import com.badlogic.gdx.math.GridPoint2
+import com.mo.stratego.model.MoveType
 import com.mo.stratego.model.Piece
 import com.mo.stratego.model.component.*
 import com.mo.stratego.model.map.Grid
@@ -35,13 +37,31 @@ class MoveSystem : IteratingSystem(
             return
 
         val position = posMapper.get(entity)?.position ?: return
-        val move = movMapper.get(entity)?.move ?: return
+        val move = movMapper.get(entity) ?: return
         val piece = pieceMapper.get(entity)?.piece ?: return
 
+        when (move.type) {
+            MoveType.RELATIVE -> moveRelative(piece, position, move.move)
+            MoveType.ABSOLUTE -> moveAbsolute(piece, move.move)
+        }
+
+        piece.remove(MoveComponent::class.java)
+    }
+
+    /**
+     * Moves the [Piece] relative to the current [PositionComponent].
+     * The move is validated with the [Grid] class.
+     *
+     * @param piece Piece to move
+     * @param position Current position
+     * @param move Move
+     */
+    private fun moveRelative(piece: Piece, position: GridPoint2,
+                             move: GridPoint2) {
         val newPoint = position.cpy().add(move)
 
         // check if move is valid
-        // the removal of the movecomponent triggers an update of the gamegrid
+        // the removal of the move component triggers an update of the game grid
         when (Grid.isCellAllowed(Grid.translatePositionToCell(newPoint),
                                  piece.owner)) {
             0 -> piece.remove(MoveComponent::class.java) // invalid move
@@ -62,5 +82,16 @@ class MoveSystem : IteratingSystem(
                 }
             }
         }
+    }
+
+    /**
+     * Moves the [Piece] to the position. No validation is made.
+     * @param piece Piece to move
+     * @param move New position
+     */
+    private fun moveAbsolute(piece: Piece, move: GridPoint2) {
+        // An entity can only have one instance of each component
+        // adding one, that is already existing, overwrites it.
+        piece.add(PositionComponent(move))
     }
 }

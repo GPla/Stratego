@@ -2,6 +2,7 @@ package com.mo.stratego.model
 
 import com.badlogic.ashley.core.Entity
 import com.badlogic.gdx.math.GridPoint2
+import com.mo.stratego.model.component.MoveComponent
 import com.mo.stratego.model.component.PieceComponent
 import com.mo.stratego.model.component.PositionComponent
 import com.mo.stratego.model.player.Player
@@ -58,8 +59,7 @@ class Piece(val rank: Rank, val owner: Player, val startPosition: GridPoint2) :
      * Returns the piece to the start position.
      */
     fun returnToStartPosition() {
-        remove(PositionComponent::class.java)
-        add(PositionComponent(startPosition))
+        add(MoveComponent(startPosition, MoveType.ABSOLUTE))
     }
 
 

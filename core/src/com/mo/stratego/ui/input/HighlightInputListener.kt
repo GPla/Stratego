@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.mo.stratego.model.*
 import com.mo.stratego.model.component.HighlightComponent
+import com.mo.stratego.model.component.MoveComponent
 import com.mo.stratego.model.component.PositionComponent
 import com.mo.stratego.model.system.MoveSystem
 
@@ -65,14 +66,11 @@ class HighlightInputListener(private val entity: Entity,
      * is updated to the position of the [HighlightComponent].
      */
     private fun placeEntity() {
-        val highlight = highMapper.get(entity)
+        val highlight = highMapper.get(entity) ?: return
         // position of the piece
-        val position = posMapper.get(entity)
+        val position = posMapper.get(entity)?.position ?: return
 
         // place piece on grid
-        highlight.piece.let {
-            it.remove(PositionComponent::class.java)
-            it.add(PositionComponent(position.position.cpy()))
-        }
+        highlight.piece.add(MoveComponent(position, MoveType.ABSOLUTE))
     }
 }

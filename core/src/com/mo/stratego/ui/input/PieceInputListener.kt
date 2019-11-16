@@ -4,9 +4,8 @@ import com.badlogic.ashley.core.ComponentMapper
 import com.badlogic.ashley.core.Engine
 import com.badlogic.gdx.math.GridPoint2
 import com.badlogic.gdx.scenes.scene2d.InputEvent
-import com.badlogic.gdx.scenes.scene2d.InputListener
+import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener
 import com.mo.stratego.model.*
-import com.mo.stratego.model.component.PieceComponent
 import com.mo.stratego.model.component.PositionComponent
 import com.mo.stratego.model.map.Grid
 
@@ -14,30 +13,37 @@ import com.mo.stratego.model.map.Grid
  * Input listener that handles the user input for the [Piece] class.
  */
 class PieceInputListener(private val piece: Piece,
-                         private val engine: Engine) : InputListener() {
+                         private val engine: Engine) :
+    ActorGestureListener() {
 
     private val posMapper =
             ComponentMapper.getFor(PositionComponent::class.java)
-    private val pieceMapper = ComponentMapper.getFor(PieceComponent::class.java)
 
-    // TODO desc
-    override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int,
-                           button: Int): Boolean {
+    /**
+     * Handles tap events on the [Piece].
+     */
+    override fun tap(event: InputEvent?, x: Float, y: Float, count: Int,
+                     button: Int) {
 
-
+        // delete old highlights
         HighlightType.deleteHighlight(engine)
 
-        //TODO: react depending on game state
+
+        // react depending on game state
         when (GameController.state) {
-            GameState.PREPARATION_PLAYER_1 -> createPlacementHighlight()
+            GameState.PREPARATION_PLAYER_1,
+            GameState.PREPARATION_PLAYER_2 -> {
+                when (count) {
+                    1 -> createPlacementHighlight()
+                    2 -> piece.returnToStartPosition()
+                }
+            }
             GameState.TURN_PLAYER_1,
             GameState.TURN_PLAYER_2        -> {
                 HighlightType.deleteHighlight(engine)
                 createMoveHighlight()
             }
         }
-
-        return true
     }
 
     /**
@@ -66,7 +72,9 @@ class PieceInputListener(private val piece: Piece,
         }
     }
 
-    //TODO desc
+    /**
+     * Creates highlights for possible placements on the [Grid].
+     */
     private fun createPlacementHighlight() {
         val cells = Grid.getFreeCellsInPlayerZone(piece.owner.id)
         val position = posMapper.get(piece)
@@ -87,6 +95,4 @@ class PieceInputListener(private val piece: Piece,
         }
 
     }
-
-
 }

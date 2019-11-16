@@ -155,13 +155,13 @@ class GameScreen : Screen {
         var y = 3
         Rank.values().forEachIndexed { index, rank ->
             engine.addEntity(
-                    Piece(rank, GameController.players[0])
-                            .add(PositionComponent(GridPoint2(index % 10, y))))
+                    Piece(rank, GameController.players[0],
+                          GridPoint2(index % 10, y)))
 
             engine.addEntity(
-                    Piece(rank, GameController.players[1])
-                            .add(PositionComponent(
-                                    GridPoint2(index % 10, y + 6))))
+                    Piece(rank, GameController.players[1],
+                          GridPoint2(index % 10, y + 6)))
+            
             if (index % 10 >= 9)
                 ++y
         }

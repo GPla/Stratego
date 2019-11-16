@@ -2,6 +2,8 @@ package com.mo.stratego.model.player
 
 import com.mo.stratego.model.GameController
 import com.mo.stratego.model.Move
+import com.mo.stratego.model.MoveType
+import com.mo.stratego.model.Piece
 import com.mo.stratego.model.component.MoveComponent
 import com.mo.stratego.model.map.Grid
 
@@ -29,16 +31,31 @@ abstract class Player(val id: Int) {
     var othersMove: Move? = null
 
     /**
+     * Counts the number of [Piece]s that have been removed from the
+     * [Grid] of this player.
+     */
+    var deathCounter: Int = 0
+
+    /**
      * Presents the other players move.
      */
     fun present() {
         // get piece from grid and add move
         othersMove?.run {
             val piece = Grid[this.position] ?: return
-            piece.add(MoveComponent(this.move))
+            piece.add(MoveComponent(this.move, MoveType.RELATIVE))
         }
     }
 
-    //TODO: outcome??
+    /**
+     * Resets the player to the initial state, so that a
+     * new game can be started.
+     */
+    fun reset() {
+        move = null
+        othersMove = null
+        allow = false
+        deathCounter = 0
+    }
 
 }

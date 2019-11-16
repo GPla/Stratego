@@ -3,7 +3,6 @@ package com.mo.stratego.model.map
 import com.badlogic.ashley.core.ComponentMapper
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.EntityListener
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.GridPoint2
 import com.mo.stratego.model.Piece
 import com.mo.stratego.model.component.MoveComponent
@@ -28,11 +27,11 @@ object Grid : EntityListener {
             ComponentMapper.getFor(MoveComponent::class.java)
 
     /**
-     * Updates the grid if a [MoveComponent] from a [Piece] is removed.
+     * Updates the grid if a [MoveComponent] or [PositionComponent] from
+     * a [Piece] is removed.
      * @param entity Entity
      */
     override fun entityRemoved(entity: Entity?) {
-        Gdx.app.log("dtag1", "${entity == null}")
         // safety check
         if (entity !is Piece)
             return
@@ -67,7 +66,7 @@ object Grid : EntityListener {
     }
 
     /**
-     * Updates the grid.
+     * Updates the position of the [Piece] on the grid.
      * @param piece Piece
      */
     private fun update(piece: Piece) {
@@ -165,9 +164,7 @@ object Grid : EntityListener {
     /**
      * Checks for possible moves for a [Piece] in horizontal
      * and vertical direction.
-     * @param standpoint Standpoint of the [Piece]
-     * @param range Range of the [Piece]
-     * @param owner Owner of the [Piece]
+     * @param piece Piece
      * @return A list of allowed moves in horizontal and vertical direction.
      */
     fun getAllowedMoves(piece: Piece): List<GridPoint2> {

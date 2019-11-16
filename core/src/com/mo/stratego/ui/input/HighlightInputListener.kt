@@ -22,10 +22,10 @@ class HighlightInputListener(private val entity: Entity,
     private val posMapper =
             ComponentMapper.getFor(PositionComponent::class.java)
 
-    //TODO: double tap remove
     override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int,
                            button: Int): Boolean {
 
+        // react depending on game state
         when (GameController.state) {
             GameState.PREPARATION_PLAYER_1,
             GameState.PREPARATION_PLAYER_2 -> placeEntity()
@@ -35,8 +35,10 @@ class HighlightInputListener(private val entity: Entity,
 
         // delete highlights
         HighlightType.deleteHighlight(engine)
+
         return true
     }
+
 
     /**
      * Moves the [Piece] to the position of the [HighlightComponent].

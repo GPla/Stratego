@@ -16,6 +16,7 @@ class MapListener(val engine: Engine) : InputAdapter() {
     override fun touchDown(screenX: Int, screenY: Int, pointer: Int,
                            button: Int): Boolean {
 
+        // remove highlights
         HighlightType.deleteHighlight(engine)
         return true
     }

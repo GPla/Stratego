@@ -9,14 +9,11 @@ import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.math.GridPoint2
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.viewport.StretchViewport
 import com.mo.stratego.model.GameController
 import com.mo.stratego.model.GameState
-import com.mo.stratego.model.Piece
-import com.mo.stratego.model.Rank
 import com.mo.stratego.model.component.HighlightComponent
 import com.mo.stratego.model.component.MoveComponent
 import com.mo.stratego.model.component.PieceComponent
@@ -152,7 +149,7 @@ class GameScreen : Screen {
     }
 
     fun testPieces() {
-        var y = 6
+        /*var y = 6
         Rank.values().forEachIndexed { index, rank ->
             engine.addEntity(
                     Piece(rank, GameController.players[0],
@@ -164,7 +161,11 @@ class GameScreen : Screen {
 
             if (index % 10 >= 9)
                 ++y
+        }*/
+        GameController.players[0].let {
+            it.pieces.forEach { p -> engine.addEntity(p) }
         }
+
 
     }
 }

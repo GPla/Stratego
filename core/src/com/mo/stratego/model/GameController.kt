@@ -38,7 +38,7 @@ object GameController {
      * It should be called every frame by the game loop.
      */
     //TODO: starting player has to be synced with other device
-    //TODO: show who's turn
+    //TODO: show who's turn / hints
     //TODO: !! make event based?
     fun run() {
         val result = when (state) {
@@ -80,6 +80,17 @@ object GameController {
         players[otherId].present()
 
         return true
+    }
+
+    // TODO finish
+    private fun makePlayersPreparation(id: Int): Boolean {
+        if (id >= players.size)
+            return false
+
+        // allow player to move pieces
+        players[id].allow = true
+
+        return false
     }
 
     /**

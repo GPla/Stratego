@@ -49,16 +49,15 @@ class AttackSystem :
         when (result) {
             Result.GAME_WON -> GameController.win(piece.owner)
             Result.WON      -> removePiece(enemy)
-            Result.LOST     -> removePiece(piece)
+            Result.LOST     -> {
+                enemy.showDefault()
+                removePiece(piece)
+            }
             Result.DRAW     -> {
                 removePiece(enemy)
                 removePiece(piece)
             }
         }
-
-        // show default texture
-        piece.showDefault()
-        enemy.showDefault()
 
         entity.remove(AttackComponent::class.java)
     }

@@ -1,9 +1,6 @@
 package com.mo.stratego.model.player
 
-import com.mo.stratego.model.GameController
-import com.mo.stratego.model.Move
-import com.mo.stratego.model.MoveType
-import com.mo.stratego.model.Piece
+import com.mo.stratego.model.*
 import com.mo.stratego.model.component.MoveComponent
 import com.mo.stratego.model.map.Grid
 
@@ -13,7 +10,13 @@ import com.mo.stratego.model.map.Grid
  * The [GameController] corresponds to the referee in the paper.
  * This class is a blueprint for a player.
  */
+// TODO ready when pieces placed
+// TODO exchange pieces
 abstract class Player(val id: Int) {
+    /**
+     * Pieces of the player.
+     */
+    val pieces: List<Piece> = PieceFactory.generateSet(this)
 
     /**
      * Whether or not the player is allowed to make his move.

@@ -10,7 +10,8 @@ import com.mo.stratego.model.player.Player
 /**
  * Class that represents a playing piece. It has a rank and an owner.
  */
-class Piece(val rank: Rank, val owner: Player, val startPosition: GridPoint2) :
+class Piece(val rank: Rank, val owner: Player,
+            private val startPosition: GridPoint2) :
     Entity() {
     val range: Range = Range.getRange(rank)
     private var frontSide: Boolean = owner.id == 0 // true if front is shown

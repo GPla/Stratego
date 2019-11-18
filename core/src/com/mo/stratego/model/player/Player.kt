@@ -1,8 +1,12 @@
 package com.mo.stratego.model.player
 
-import com.mo.stratego.model.*
+import com.mo.stratego.model.GameController
+import com.mo.stratego.model.Move
+import com.mo.stratego.model.MoveType
+import com.mo.stratego.model.Piece
 import com.mo.stratego.model.component.MoveComponent
 import com.mo.stratego.model.map.Grid
+import com.mo.stratego.model.map.StartingGrid
 
 
 /**
@@ -13,11 +17,6 @@ import com.mo.stratego.model.map.Grid
 // TODO ready when pieces placed
 // TODO exchange pieces
 abstract class Player(val id: Int) {
-    /**
-     * Pieces of the player.
-     */
-    val pieces: List<Piece> = PieceFactory.generateSet(this)
-
     /**
      * Whether or not the player is allowed to make his move.
      */
@@ -49,6 +48,19 @@ abstract class Player(val id: Int) {
             piece.add(MoveComponent(this.move, MoveType.RELATIVE))
         }
     }
+
+    /**
+     * Grid with the starting position of the players [Piece]s.
+     */
+    var startingGrid: StartingGrid? = null
+
+    /**
+     * Process the other players grid.
+     * @param othersPieces The [Piece]s from the other [Player]
+     * @param otherGrid The [StartingGrid] from the other [Player]
+     */
+    abstract fun processOthersGrid(othersPieces: List<Piece>,
+                                   otherGrid: StartingGrid)
 
     /**
      * Resets the player to the initial state, so that a

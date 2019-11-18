@@ -7,14 +7,17 @@ import com.mo.stratego.model.player.PlayerType
 
 /**
  * This object handles the game flow and [GameState].
- * It represents the referee mentioned in this paper,
+ * This class represents the referee mentioned in this paper,
  * see https://pdfs.semanticscholar.org/f35c/df2b5cb1a36d703ab6c4a4d80cbaaf3cc603.pdf
  */
 object GameController {
 
     private lateinit var engine: Engine
     lateinit var players: Array<Player>
+        private set
     var state: GameState = GameState.PREPARATION_PLAYER_1
+        private set
+    lateinit var playerPieces: Map<Player, List<Piece>>
         private set
 
     /**
@@ -27,8 +30,14 @@ object GameController {
     fun init(engine: Engine, player1: PlayerType,
              player2: PlayerType): GameController {
         this.engine = engine
+
+        // create players of given type
         players = arrayOf(PlayerType.createPlayer(player1, 0),
                           PlayerType.createPlayer(player2, 1))
+
+        // create pieces for player
+        playerPieces = mapOf(players[0] to PieceFactory.generateSet(players[0]),
+                             players[1] to PieceFactory.generateSet(players[1]))
         return this
     }
 
@@ -59,6 +68,7 @@ object GameController {
     /**
      * Make players turn.
      * @param id Id of active player
+     * @return True if the move is completed.
      */
     private fun makePlayersTurn(id: Int): Boolean {
         // id out of bound
@@ -82,7 +92,12 @@ object GameController {
         return true
     }
 
-    // TODO finish
+    // TODO: make rdy btn that puts starting grid into player
+    /**
+     * Make [Player]s preparation.
+     * @param id Id of the [Player]
+     * @return True if the preparation is completed.
+     */
     private fun makePlayersPreparation(id: Int): Boolean {
         if (id >= players.size)
             return false
@@ -90,7 +105,18 @@ object GameController {
         // allow player to move pieces
         players[id].allow = true
 
-        return false
+        // all pieces are placed
+        val grid = players[id].startingGrid ?: return false
+
+
+        players[id].allow = false
+
+        // process the other players grid
+        val otherId = (id + 1) % players.size
+        players[otherId].processOthersGrid(playerPieces.getValue(players[id]),
+                                           grid)
+
+        return true
     }
 
     /**

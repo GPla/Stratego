@@ -16,11 +16,14 @@ import com.mo.stratego.model.player.Player
  */
 object Grid : EntityListener {
 
-    // playing grid, origin is top left, camera/map has bottom left
+    /**
+     * Playing grid (10x10), with the origin in the top left corner.
+     * The y-axis is flipped compared to the camera, which has the origin
+     * in the bottom left corner.
+     */
     private val matrix: Array<Array<Piece?>> =
             Array(10) { arrayOfNulls<Piece?>(10) }
 
-    // component mapper for faster access
     private val posMapper: ComponentMapper<PositionComponent> =
             ComponentMapper.getFor(PositionComponent::class.java)
     private val moveMapper: ComponentMapper<MoveComponent> =
@@ -126,8 +129,9 @@ object Grid : EntityListener {
             position.x in (0..9) && position.y in (0..9)
 
     /**
-     * @return  A string representation of the grid. A '#' indicates an
-     * empty cell, 'o' the lake and otherwise the [Player]'s id.
+     * @return  A string representation of the grid, with the origin in
+     * bottom left corner. A '#' indicates an empty cell,
+     * 'o' the lake and otherwise the [Player]'s id.
      */
     override fun toString(): String {
         val builder: StringBuilder = StringBuilder()

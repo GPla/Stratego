@@ -162,9 +162,6 @@ class GameScreen : Screen {
             if (index % 10 >= 9)
                 ++y
         }*/
-        GameController.players[0].let {
-            it.pieces.forEach { p -> engine.addEntity(p) }
-        }
 
 
     }

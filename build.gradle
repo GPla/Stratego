@@ -79,5 +79,6 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
         api "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
         implementation "com.badlogicgames.ashley:ashley:1.7.3"
+        implementation 'org.greenrobot:eventbus:3.1.1'
     }
 }

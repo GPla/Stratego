@@ -78,7 +78,7 @@ object PieceFactory {
      * @param point Point
      * @param yDown Orientation
      */
-    private fun incrementPoint(point: GridPoint2, yDown: Boolean = false) {
+    fun incrementPoint(point: GridPoint2, yDown: Boolean = false) {
         if (point.x >= 9) {
             if (yDown)
                 point.set(0, point.y - 1)

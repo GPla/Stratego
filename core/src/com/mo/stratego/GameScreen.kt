@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.utils.viewport.ScreenViewport
 import com.badlogic.gdx.utils.viewport.StretchViewport
 import com.mo.stratego.model.GameController
 import com.mo.stratego.model.GameState
@@ -28,6 +29,7 @@ import com.mo.stratego.model.system.WaitSystem
 import com.mo.stratego.ui.FieldController
 import com.mo.stratego.ui.HudController
 import com.mo.stratego.ui.input.MapListener
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Game screen
@@ -54,8 +56,7 @@ class GameScreen : Screen {
 
         val objectStage = Stage(StretchViewport(camera.viewportWidth,
                                                 camera.viewportHeight))
-        val hudStage = Stage(StretchViewport(Gdx.graphics.width.toFloat(),
-                                             Gdx.graphics.height.toFloat()))
+        val hudStage = Stage(ScreenViewport())
         engine = PooledEngine()
 
         // add listeners to engine
@@ -78,7 +79,7 @@ class GameScreen : Screen {
         engine.addEntityListener(family, Grid)
 
         GameMap.engine = engine
-        GameController.init(engine, PlayerType.LOCAL, PlayerType.PROXY)
+        GameController.init(engine, PlayerType.PROXY)
 
         // add systems to engine
         engine.addSystem(RenderSystem(batch, camera))
@@ -101,11 +102,12 @@ class GameScreen : Screen {
 
     override fun show() {
         camera.update()
+        EventBus.getDefault().register(HudController)
     }
 
     override fun render(delta: Float) {
-        Gdx.app.log("dtag", Grid.toString())
-        Gdx.app.log("state", GameController.state.toString())
+        Gdx.app.log("field", Grid.toString())
+        //Gdx.app.log("state", GameController.state.toString())
 
         GameController.run()
 
@@ -146,6 +148,7 @@ class GameScreen : Screen {
     }
 
     override fun dispose() {
+        EventBus.getDefault().unregister(HudController)
     }
 
     fun testPieces() {

@@ -9,11 +9,10 @@ import com.mo.stratego.model.player.Player
  * It has the size of an 4 x 10 array.
  */
 class StartingGrid {
-
-    private val matrix = Array(4) { arrayOfNulls<Rank?>(10) }
+    var matrix = Array(4) { arrayOfNulls<Rank?>(10) }
+        private set
     val sizeX = matrix[0].size
     val sizeY = matrix.size
-
 
     /**
      * Overload of [] operator. Sets the value at point.x, point.y.
@@ -31,7 +30,7 @@ class StartingGrid {
      */
     operator fun set(x: Int, y: Int, value: Rank?) {
         checkBounds(x, y)
-        matrix[x][y] = value
+        matrix[y][x] = value
     }
 
     /**
@@ -49,9 +48,47 @@ class StartingGrid {
      */
     operator fun get(x: Int, y: Int): Rank? {
         checkBounds(x, y)
-        return matrix[x][y]
+        return matrix[y][x]
     }
 
+    /**
+     * ForEachIndexed extension method. Iterates through the grid with
+     * the parameters being x, y, [Rank]?.
+     * @param action Function3<Int, Int, Rank?, Unit>
+     */
+    inline fun forEachIndexed(action: (Int, Int, Rank?) -> Unit) {
+        for (y in 0.until(sizeY)) {
+            for (x in 0.until(sizeX)) {
+                action(x, y, matrix[y][x])
+            }
+        }
+    }
+
+    /**
+     * ForEachIndexed extension method. The Grid can be fully initialized
+     * with this method. Parameters are x, y with return value of [Rank].
+     * @param action Function2<Int, Int, Rank>
+     */
+    inline fun forEachIndexedSet(action: (Int, Int) -> Rank) {
+        for (y in 0.until(sizeY)) {
+            for (x in 0.until(sizeX)) {
+                matrix[y][x] = action(x, y)
+            }
+        }
+    }
+
+    /**
+     * ForEachIndexed extension method. Iterates through the transposed matrix.
+     * Parameters are x, y, [Rank]?.
+     * @param action Function3<Int, Int, Rank?, Unit>
+     */
+    inline fun forEachIndexedTransposed(action: (Int, Int, Rank?) -> Unit) {
+        for (y in 0.until(sizeY)) {
+            for (x in 0.until(sizeX)) {
+                action(x, y, matrix[sizeY - (y + 1)][sizeX - (x + 1)])
+            }
+        }
+    }
 
     /**
      * Check if index is in bound of array dimensions.
@@ -59,14 +96,30 @@ class StartingGrid {
      * @param y Y
      */
     private fun checkBounds(x: Int, y: Int) {
-        if (x >= matrix[0].size)
+        if (x >= sizeX)
             throw Exception("Index out of bound: x = $x")
-        if (y >= matrix.size)
+        if (y >= sizeY)
             throw Exception("Index out of bound: y = $y")
     }
 
     /**
      * @return Returns if all values are set.
      */
+    // TODO check for number per piece
     fun isValid() = matrix.all { it.all { r -> r != null } }
+
+
+    /**
+     * Transposes the grid.
+     * @return This for chaining.
+     */
+    fun transpose(): StartingGrid {
+        val temp = Array(4) { arrayOfNulls<Rank>(10) }
+        forEachIndexed { x, y, rank ->
+            temp[sizeY - (y + 1)][sizeX - (x + 1)] = rank
+        }
+        matrix = temp
+        return this
+    }
+
 }

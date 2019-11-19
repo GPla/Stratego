@@ -4,6 +4,8 @@ import com.badlogic.ashley.core.Engine
 import com.badlogic.gdx.Gdx
 import com.mo.stratego.model.player.Player
 import com.mo.stratego.model.player.PlayerType
+import com.mo.stratego.util.StateEvent
+import org.greenrobot.eventbus.EventBus
 
 /**
  * This object handles the game flow and [GameState].
@@ -27,12 +29,11 @@ object GameController {
      * @param player1 Type of player 1
      * @param player2 Type of player 2
      */
-    fun init(engine: Engine, player1: PlayerType,
-             player2: PlayerType): GameController {
+    fun init(engine: Engine, player2: PlayerType): GameController {
         this.engine = engine
 
         // create players of given type
-        players = arrayOf(PlayerType.createPlayer(player1, 0),
+        players = arrayOf(PlayerType.createPlayer(PlayerType.LOCAL, 0),
                           PlayerType.createPlayer(player2, 1))
 
         // create pieces for player
@@ -62,8 +63,13 @@ object GameController {
         }
 
         // goto next state
-        if (result)
+        if (result) {
             state++
+            // post state change to hudcontroller
+            state.title?.run {
+                EventBus.getDefault().post(StateEvent(this))
+            }
+        }
     }
 
     /**
@@ -88,7 +94,7 @@ object GameController {
         players[id].allow = false
 
         // present move to gui
-        players[otherId].present()
+        players[otherId].presentOthersMove()
 
         return true
     }
@@ -108,13 +114,15 @@ object GameController {
 
         // all pieces are placed
         val grid = players[id].startingGrid ?: return false
+        if (!grid.isValid())
+            return false
 
         players[id].allow = false
+        players[id].presentGrid(playerPieces.getValue(players[id]))
 
         // process the other players grid
         val otherId = (id + 1) % players.size
-        players[otherId].processOthersGrid(playerPieces.getValue(players[id]),
-                                           grid)
+        players[otherId].processOthersGrid(grid)
 
         return true
     }

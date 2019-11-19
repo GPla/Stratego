@@ -41,7 +41,7 @@ abstract class Player(val id: Int) {
     /**
      * Presents the other players move.
      */
-    fun present() {
+    fun presentOthersMove() {
         // get piece from grid and add move
         othersMove?.run {
             val piece = Grid[this.position] ?: return
@@ -55,12 +55,16 @@ abstract class Player(val id: Int) {
     var startingGrid: StartingGrid? = null
 
     /**
+     * Present own starting grid.
+     * @param pieces [Piece]s of the player
+     */
+    abstract fun presentGrid(pieces: List<Piece>)
+
+    /**
      * Process the other players grid.
-     * @param othersPieces The [Piece]s from the other [Player]
      * @param otherGrid The [StartingGrid] from the other [Player]
      */
-    abstract fun processOthersGrid(othersPieces: List<Piece>,
-                                   otherGrid: StartingGrid)
+    abstract fun processOthersGrid(otherGrid: StartingGrid)
 
     /**
      * Resets the player to the initial state, so that a

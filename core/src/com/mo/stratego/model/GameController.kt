@@ -93,6 +93,7 @@ object GameController {
     }
 
     // TODO: make rdy btn that puts starting grid into player
+    // TODO: add pieces to engine (hide and show in player with invis comp. ?)
     /**
      * Make [Player]s preparation.
      * @param id Id of the [Player]

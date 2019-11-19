@@ -5,12 +5,12 @@ import com.mo.stratego.model.map.StartingGrid
 
 //TODO desc
 class PlayerLocal(id: Int) : Player(id) {
-    override fun processOthersGrid(othersPieces: List<Piece>,
-                                   otherGrid: StartingGrid) {
+    override fun presentGrid(pieces: List<Piece>) {
         // do nothing
-        // for local players the pieces are already placed and shown
+        // pieces are already in place for local players
+    }
 
-        // TODO present for proxy
-
+    override fun processOthersGrid(otherGrid: StartingGrid) {
+        // do nothing
     }
 }

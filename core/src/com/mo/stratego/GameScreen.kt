@@ -93,7 +93,7 @@ class GameScreen : Screen {
         // objectStage receive events, if not handled they get passed to
         // the map stage
         Gdx.input.inputProcessor =
-                InputMultiplexer(objectStage, MapListener(engine))
+                InputMultiplexer(objectStage, hudStage, MapListener(engine))
     }
 
 

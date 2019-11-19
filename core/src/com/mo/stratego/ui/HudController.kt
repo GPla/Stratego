@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.mo.stratego.util.StateEvent
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -43,6 +44,18 @@ object HudController {
 
         stage.addActor(lab)
         actorMap.put("label", lab)
+
+        val button = TextButton("Ready!", skin)
+        button.setPosition(Gdx.graphics.width - 100 - button.width,
+                           Gdx.graphics.height / 2f)
+        button.setScale(2f)
+        button.isTransform = true
+        button.addListener {
+        }
+        //TODO impl
+
+        actorMap.put("btnReady", button)
+        stage.addActor(button)
 
         // TODO add button
         // TODO add animation and make text fancier

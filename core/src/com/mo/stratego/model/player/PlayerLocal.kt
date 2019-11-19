@@ -9,5 +9,8 @@ class PlayerLocal(id: Int) : Player(id) {
                                    otherGrid: StartingGrid) {
         // do nothing
         // for local players the pieces are already placed and shown
+
+        // TODO present for proxy
+
     }
 }

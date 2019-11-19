@@ -3,15 +3,15 @@ package com.mo.stratego.model
 /**
  * Enum of game states
  */
-enum class GameState {
-    INIT,                   // Initialization
-    INIT_PREP_PLAYER_1,     // Init preparation for player 1
-    PREPARATION_PLAYER_1,   // Preparation player 1
-    INIT_PREP_PLAYER_2,      // Init preparation for player 2
-    PREPARATION_PLAYER_2,   // Preparation player 2
-    TURN_PLAYER_1,          // Turn player 1
-    TURN_PLAYER_2,          // Turn player 2
-    GAME_OVER;              // Game ended
+enum class GameState(val title: String?) {
+    INIT(null),
+    INIT_PREP_PLAYER_1(null),
+    PREPARATION_PLAYER_1("Preparation Player 1"),
+    INIT_PREP_PLAYER_2(null),
+    PREPARATION_PLAYER_2("Preparation Player 2"),
+    TURN_PLAYER_1("Turn Player 1"),
+    TURN_PLAYER_2("Turn Player 2"),
+    GAME_OVER("Game Over!");
 
     /**
      * Overrides the ++ operator.

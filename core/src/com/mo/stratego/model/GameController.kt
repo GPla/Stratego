@@ -15,7 +15,7 @@ object GameController {
     private lateinit var engine: Engine
     lateinit var players: Array<Player>
         private set
-    var state: GameState = GameState.PREPARATION_PLAYER_1
+    var state: GameState = GameState.INIT
         private set
     lateinit var playerPieces: Map<Player, List<Piece>>
         private set
@@ -51,13 +51,14 @@ object GameController {
     //TODO: !! make event based?
     fun run() {
         val result = when (state) {
-            GameState.PREPARATION_PLAYER_1 -> {
-                players[0].allow = true
-                false
-            }
+            GameState.INIT                 -> true
+            GameState.INIT_PREP_PLAYER_1   -> spawnPieces(players[0])
+            GameState.PREPARATION_PLAYER_1 -> makePlayersPreparation(0)
+            GameState.INIT_PREP_PLAYER_2   -> spawnPieces(players[1])
+            GameState.PREPARATION_PLAYER_2 -> makePlayersPreparation(1)
             GameState.TURN_PLAYER_1        -> makePlayersTurn(0)
             GameState.TURN_PLAYER_2        -> makePlayersTurn(1)
-            else                           -> false
+            GameState.GAME_OVER            -> false
         }
 
         // goto next state
@@ -93,7 +94,6 @@ object GameController {
     }
 
     // TODO: make rdy btn that puts starting grid into player
-    // TODO: add pieces to engine (hide and show in player with invis comp. ?)
     /**
      * Make [Player]s preparation.
      * @param id Id of the [Player]
@@ -109,7 +109,6 @@ object GameController {
         // all pieces are placed
         val grid = players[id].startingGrid ?: return false
 
-
         players[id].allow = false
 
         // process the other players grid
@@ -117,6 +116,17 @@ object GameController {
         players[otherId].processOthersGrid(playerPieces.getValue(players[id]),
                                            grid)
 
+        return true
+    }
+
+    /**
+     * Adds [Piece]s for the given [Player] to the engine.
+     * @param player Player
+     */
+    private fun spawnPieces(player: Player): Boolean {
+        for (piece in playerPieces.getValue(player)) {
+            engine.addEntity(piece)
+        }
         return true
     }
 

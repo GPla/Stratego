@@ -5,7 +5,9 @@ package com.mo.stratego.model
  */
 enum class GameState {
     INIT,                   // Initialization
+    INIT_PREP_PLAYER_1,     // Init preparation for player 1
     PREPARATION_PLAYER_1,   // Preparation player 1
+    INIT_PREP_PLAYER_2,      // Init preparation for player 2
     PREPARATION_PLAYER_2,   // Preparation player 2
     TURN_PLAYER_1,          // Turn player 1
     TURN_PLAYER_2,          // Turn player 2
@@ -18,8 +20,10 @@ enum class GameState {
      */
     operator fun inc(): GameState {
         return when (this) {
-            INIT                 -> PREPARATION_PLAYER_1
-            PREPARATION_PLAYER_1 -> PREPARATION_PLAYER_2
+            INIT                 -> INIT_PREP_PLAYER_1
+            INIT_PREP_PLAYER_1   -> PREPARATION_PLAYER_1
+            PREPARATION_PLAYER_1 -> INIT_PREP_PLAYER_2
+            INIT_PREP_PLAYER_2   -> PREPARATION_PLAYER_2
             PREPARATION_PLAYER_2 -> TURN_PLAYER_1
             TURN_PLAYER_1        -> TURN_PLAYER_2
             TURN_PLAYER_2        -> TURN_PLAYER_1

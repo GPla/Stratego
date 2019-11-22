@@ -1,7 +1,6 @@
 package com.mo.stratego.model
 
 import com.badlogic.ashley.core.Entity
-import com.badlogic.gdx.math.GridPoint2
 import com.mo.stratego.model.component.MoveComponent
 import com.mo.stratego.model.component.PieceComponent
 import com.mo.stratego.model.component.PositionComponent
@@ -10,8 +9,7 @@ import com.mo.stratego.model.player.Player
 /**
  * Class that represents a playing piece. It has a rank and an owner.
  */
-class Piece(val rank: Rank, val owner: Player,
-            private val startPosition: GridPoint2) :
+class Piece(val rank: Rank, val owner: Player) :
     Entity() {
     val range: Range = Range.getRange(rank)
     private var frontSide: Boolean = owner.id == 0 // true if front is shown
@@ -19,7 +17,7 @@ class Piece(val rank: Rank, val owner: Player,
 
     init {
         add(PieceComponent(this))
-        add(PositionComponent(startPosition))
+        add(PositionComponent(rank.getDefaultPosition(owner.id)))
 
         // add texture
         when (owner.id) {
@@ -59,8 +57,8 @@ class Piece(val rank: Rank, val owner: Player,
     /**
      * Returns the piece to the start position.
      */
-    fun returnToStartPosition() {
-        add(MoveComponent(startPosition, MoveType.ABSOLUTE))
+    fun returnToDefaultPosition() {
+        add(MoveComponent(rank.getDefaultPosition(owner.id), MoveType.ABSOLUTE))
     }
 
 

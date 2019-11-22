@@ -1,31 +1,12 @@
 package com.mo.stratego.model
 
 import com.badlogic.gdx.math.GridPoint2
-import com.mo.stratego.model.map.GameMap
 import com.mo.stratego.model.player.Player
 
 /**
  * Factory for generating [Piece]s
  */
 object PieceFactory {
-    /**
-     * A map of [Rank] and the number per player.
-     */
-    private val countRanks: Map<Rank, Int> =
-            mapOf(Rank.BOMB to 6,
-                  Rank.MARSHAL to 1,
-                  Rank.GENERAL to 1,
-                  Rank.COLONEL to 2,
-                  Rank.MAJOR to 3,
-                  Rank.CAPTAIN to 4,
-                  Rank.LIEUTENANT to 4,
-                  Rank.SERGEANT to 4,
-                  Rank.MINER to 5,
-                  Rank.SCOUT to 8,
-                  Rank.SPY to 1,
-                  Rank.FLAG to 1)
-
-
     /**
      * Generates a full set of [Piece]s for a given [Player].
      * @param owner Player
@@ -35,16 +16,10 @@ object PieceFactory {
         if (owner.id !in 0..1)
             throw Exception("Unsupported Player Id: ${owner.id}")
 
-        val initialPos = GridPoint2(0,
-                                    if (owner.id == 0) 0
-                                    else GameMap.height - 1)
-
         val pieces = mutableListOf<Piece>()
 
-        for (entry in countRanks) {
-            pieces.addAll(generatePieces(entry.key, owner,
-                                         initialPos, entry.value))
-
+        for (rank in Rank.values()) {
+            pieces.addAll(generatePieces(rank, owner, rank.count))
         }
 
         return pieces
@@ -54,19 +29,16 @@ object PieceFactory {
      * Generates the given amount of [Piece]s of the same [Rank].
      * @param rank Rank
      * @param owner Owner
-     * @param initialPos Initial position
      * @param count Amount to generate
      * @return A list of the generated [Piece]s.
      */
-    fun generatePieces(rank: Rank, owner: Player, initialPos: GridPoint2,
-                       count: Int): List<Piece> {
+    fun generatePieces(rank: Rank, owner: Player, count: Int): List<Piece> {
         if (owner.id !in 0..1)
             return emptyList()
 
         val list = mutableListOf<Piece>()
         for (it in 1.rangeTo(count)) {
-            list.add(Piece(rank, owner, initialPos.cpy()))
-            incrementPoint(initialPos, owner.id == 1)
+            list.add(Piece(rank, owner))
         }
         return list
     }

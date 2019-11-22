@@ -12,16 +12,18 @@ import com.mo.stratego.util.Constants
  * Singleton Class that loads and renders the Map
  */
 object GameMap {
-    private val path: String = "maps/map2.tmx"
+    private const val path: String = "maps/map2.tmx"
 
     private var map: TiledMap
     private val mapRenderer: TiledMapRenderer
 
     //map properties
-    val width: Int     // width of loaded map
-    val height: Int    // height of loaded map
+    val width: Int      // width of loaded map
+    val height: Int     // height of loaded map
     val gridBottom: Int // number of tiles from bottom to grid
     val gridLeft: Int   // number of tiles from left to grid
+    val tilewidth: Int
+    val tileheight: Int
 
     var engine: Engine? = null
 
@@ -32,8 +34,8 @@ object GameMap {
 
         // get properties of map
         val props = map.properties
-        val tilewidth = props.get("tilewidth", Int::class.java)
-        val tileheight = props.get("tileheight", Int::class.java)
+        tilewidth = props.get("tilewidth", Int::class.java)
+        tileheight = props.get("tileheight", Int::class.java)
 
         width = scale(props.get("width", Int::class.java), tilewidth)
         height = scale(props.get("height", Int::class.java), tileheight)
@@ -48,9 +50,9 @@ object GameMap {
     /**
      * @param dim Int
      * @param tiledim Int
-     * @return Scales input dimension in regard to tiledimension and unitscale
+     * @return Scales input dimension in regard to tile dimension and unit scale
      */
-    private fun scale(dim: Int, tiledim: Int) =
+    fun scale(dim: Int, tiledim: Int) =
             (dim * tiledim * Constants.UNITSCALE).toInt()
 
     /**

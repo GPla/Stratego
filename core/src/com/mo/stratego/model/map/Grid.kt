@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.EntityListener
 import com.badlogic.gdx.math.GridPoint2
 import com.mo.stratego.model.Piece
+import com.mo.stratego.model.Rank
 import com.mo.stratego.model.component.MoveComponent
 import com.mo.stratego.model.component.PositionComponent
 import com.mo.stratego.model.player.Player
@@ -24,6 +25,25 @@ object Grid : EntityListener {
     private val matrix: Array<Array<Piece?>> =
             Array(10) { arrayOfNulls<Piece?>(10) }
 
+    /**
+     * A map that maps the rank to the number of pieces in their default
+     * position, off game grid, for both [Player]s.
+     */
+    val spawnMap: Map<Rank, Array<Int>> = mapOf(
+            Rank.BOMB to arrayOf(0, 0),
+            Rank.MARSHAL to arrayOf(0, 0),
+            Rank.GENERAL to arrayOf(0, 0),
+            Rank.COLONEL to arrayOf(0, 0),
+            Rank.MAJOR to arrayOf(0, 0),
+            Rank.CAPTAIN to arrayOf(0, 0),
+            Rank.LIEUTENANT to arrayOf(0, 0),
+            Rank.SERGEANT to arrayOf(0, 0),
+            Rank.MINER to arrayOf(0, 0),
+            Rank.SCOUT to arrayOf(0, 0),
+            Rank.SPY to arrayOf(0, 0),
+            Rank.BOMB to arrayOf(0, 0),
+            Rank.FLAG to arrayOf(0, 0))
+
     private val posMapper: ComponentMapper<PositionComponent> =
             ComponentMapper.getFor(PositionComponent::class.java)
     private val moveMapper: ComponentMapper<MoveComponent> =
@@ -39,7 +59,7 @@ object Grid : EntityListener {
         if (entity !is Piece)
             return
 
-        update(entity)
+        update(entity, 1)
     }
 
     /**
@@ -57,7 +77,7 @@ object Grid : EntityListener {
         if (move != null)
             return
 
-        update(entity)
+        update(entity, 0)
     }
 
     /**
@@ -71,16 +91,27 @@ object Grid : EntityListener {
     /**
      * Updates the position of the [Piece] on the grid.
      * @param piece Piece
+     * @param type 0 - added, 1 - removed
      */
-    private fun update(piece: Piece) {
+    private fun update(piece: Piece, type: Int) {
         val position = posMapper.get(piece)?.position
         removePiece(piece)
-        position?.let {
+
+        position?.also {
             // add piece to board
             val point = translatePositionToCell(position)
+
             // update new position
-            if (inBound(point))
+            if (inBound(point)) {
                 matrix[point.x][point.y] = piece
+            }
+
+            // update spawn counter on added event
+            if (piece.owner.id in 0..1 && type == 0) {
+                var sign = if (position == piece.rank.getDefaultPosition(
+                                piece.owner.id)) 1 else -1
+                spawnMap.getValue(piece.rank)[piece.owner.id] += sign
+            }
         }
     }
 

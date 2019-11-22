@@ -35,7 +35,7 @@ class PieceInputListener(private val piece: Piece,
             GameState.PREPARATION_PLAYER_2 -> {
                 when (count) {
                     1 -> createPlacementHighlight()
-                    2 -> piece.returnToStartPosition()
+                    2 -> returnToDefaultPosition()
                 }
             }
             GameState.TURN_PLAYER_1,
@@ -94,5 +94,16 @@ class PieceInputListener(private val piece: Piece,
 
         }
 
+    }
+
+    /**
+     * Returns [Piece] to default position.
+     */
+    private fun returnToDefaultPosition() {
+        val pos = posMapper.get(piece)?.position ?: return
+
+        // avoid unnecessary movement
+        if (pos != piece.rank.getDefaultPosition(piece.owner.id))
+            piece.returnToDefaultPosition()
     }
 }

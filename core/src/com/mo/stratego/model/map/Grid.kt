@@ -108,6 +108,7 @@ object Grid : EntityListener {
             }
 
             // FIXME moving a piece falsely trigger decrement
+            // FIXME buggy for defeated pieces, label not showing
             // update spawn counter on added-entity event
             if (type == 0) {
                 var sign = if (position == piece.rank.getDefaultPosition(

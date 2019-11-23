@@ -53,8 +53,12 @@ enum class Rank(val rank: String,
     }
 
 
+    /**
+     * @param ownerId PlayerId
+     * @return The ranks default off grid position.
+     */
     fun getDefaultPosition(ownerId: PlayerId): GridPoint2 {
-        val yOffset = ownerId.id * (GameMap.height - 4)
+        val yOffset = ownerId.id * (GameMap.height - 3)
         return when (this) {
             BOMB -> GridPoint2(0, 2 + ownerId.id * -2 + yOffset)
             FLAG -> GridPoint2(1, 2 + ownerId.id * -2 + yOffset)

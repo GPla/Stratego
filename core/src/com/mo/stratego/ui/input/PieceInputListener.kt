@@ -27,8 +27,7 @@ class PieceInputListener(private val piece: Piece,
 
         // delete old highlights
         HighlightType.deleteHighlight(engine)
-
-
+ 
         // react depending on game state
         when (GameController.state) {
             GameState.PREPARATION_PLAYER_1,

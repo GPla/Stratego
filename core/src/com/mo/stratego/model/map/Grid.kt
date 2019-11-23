@@ -107,6 +107,7 @@ object Grid : EntityListener {
                 matrix[point.x][point.y] = piece
             }
 
+            // FIXME moving a piece falsely trigger decrement
             // update spawn counter on added-entity event
             if (type == 0) {
                 var sign = if (position == piece.rank.getDefaultPosition(
@@ -172,7 +173,7 @@ object Grid : EntityListener {
                 if ((x in 2..3 || x in 6..7) && y in 4..5)
                     builder.append("o ")
                 else
-                    builder.append("${matrix[x][y]?.owner?.id ?: '#'} ")
+                    builder.append("${matrix[x][y]?.owner?.id?.id ?: '#'} ")
             }
             builder.appendln()
         }
@@ -195,6 +196,23 @@ object Grid : EntityListener {
             return null
 
         return matrix[point.x][point.y]
+    }
+
+    /**
+     * Overload of the bracket operator. Expects matrix coordinates.
+     * Call: Grid[x, y]
+     * @param x X
+     * @param y Y
+     * @return [Piece] in the grid cell. Returns null if cell is empty or
+     * indices are out of bound.
+     */
+    operator fun get(x: Int, y: Int): Piece? {
+        // out of bound
+        if (x < 0 || x >= matrix.size ||
+            y < 0 || y >= matrix.size)
+            return null
+
+        return matrix[x][y]
     }
 
     /**

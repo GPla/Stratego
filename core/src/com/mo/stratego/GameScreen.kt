@@ -131,13 +131,13 @@ class GameScreen : Screen {
 
         // render stage
         FieldController.stage.run {
-            //batch.projectionMatrix = camera.combined
             act(delta)
             draw()
         }
 
         HudController.stage.run {
-            //batch.projectionMatrix = camera.combined
+            setDebugInvisible(false)
+            isDebugAll = true
             act(delta)
             draw()
         }

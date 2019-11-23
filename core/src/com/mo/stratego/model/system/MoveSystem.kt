@@ -44,8 +44,6 @@ class MoveSystem : IteratingSystem(
             MoveType.RELATIVE -> moveRelative(piece, position, move.move)
             MoveType.ABSOLUTE -> moveAbsolute(piece, move.move)
         }
-
-        piece.remove(MoveComponent::class.java)
     }
 
     /**
@@ -93,5 +91,6 @@ class MoveSystem : IteratingSystem(
         // An entity can only have one instance of each component
         // adding one, that is already existing, overwrites it.
         piece.add(PositionComponent(move))
+        piece.remove(MoveComponent::class.java)
     }
 }

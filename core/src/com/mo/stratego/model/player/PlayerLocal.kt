@@ -4,7 +4,7 @@ import com.mo.stratego.model.Piece
 import com.mo.stratego.model.map.StartingGrid
 
 //TODO desc
-class PlayerLocal(id: Int) : Player(id) {
+class PlayerLocal(id: PlayerId) : Player(id) {
     override fun presentGrid(pieces: List<Piece>) {
         // do nothing
         // pieces are already in place for local players

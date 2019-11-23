@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.mo.stratego.model.component.TextureComponent
+import com.mo.stratego.model.player.PlayerId
 
 /**
  * Object that loads the [TextureAtlas] with all game assets.
@@ -18,7 +19,7 @@ object Atlas {
      * @return A [TextureComponent] with the [Piece]'s texture.
      * Returns null if no texture was found.
      */
-    fun getPieceTexture(rank: Rank, playerId: Int): TextureComponent {
+    fun getPieceTexture(rank: Rank, playerId: PlayerId): TextureComponent {
 
         // get texture region from the atlas
         val atlasRegion =
@@ -27,11 +28,11 @@ object Atlas {
 
         // no valid texture
         if (atlasRegion == null ||
-            playerId >= atlasRegion.size ||
+            playerId.id >= atlasRegion.size ||
             atlasRegion.size == 0)
             return returnNotFound()
 
-        return TextureComponent(atlasRegion[playerId])
+        return TextureComponent(atlasRegion[playerId.id])
     }
 
     /**
@@ -40,17 +41,17 @@ object Atlas {
      * @return A [TextureComponent] with the backside texture for the playerId.
      * Returns dummy texture if no texture was found.
      */
-    fun getPieceBacksideTexture(playerId: Int): TextureComponent {
+    fun getPieceBacksideTexture(playerId: PlayerId): TextureComponent {
         // get texture from atlas
         val atlasRegion = atlas.findRegions("backside")
 
         // no valid texture
         if (atlasRegion == null ||
-            playerId >= atlasRegion.size ||
+            playerId.id >= atlasRegion.size ||
             atlasRegion.size == 0)
             return returnNotFound()
 
-        return TextureComponent(atlasRegion[playerId])
+        return TextureComponent(atlasRegion[playerId.id])
     }
 
 

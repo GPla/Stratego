@@ -9,6 +9,7 @@ import com.mo.stratego.model.Rank
 import com.mo.stratego.model.component.MoveComponent
 import com.mo.stratego.model.component.PositionComponent
 import com.mo.stratego.model.player.Player
+import com.mo.stratego.model.player.PlayerId
 
 /**
  * This class represents the game grid. The [EntityListener] is
@@ -106,11 +107,11 @@ object Grid : EntityListener {
                 matrix[point.x][point.y] = piece
             }
 
-            // update spawn counter on added event
-            if (piece.owner.id in 0..1 && type == 0) {
+            // update spawn counter on added-entity event
+            if (type == 0) {
                 var sign = if (position == piece.rank.getDefaultPosition(
                                 piece.owner.id)) 1 else -1
-                spawnMap.getValue(piece.rank)[piece.owner.id] += sign
+                spawnMap.getValue(piece.rank)[piece.owner.id.id] += sign
             }
         }
     }
@@ -267,7 +268,7 @@ object Grid : EntityListener {
      * @param playerId Id of the [Player]
      * @return A List of free cells in the [Player]'s zone.
      */
-    fun getFreeCellsInPlayerZone(playerId: Int): List<GridPoint2> {
+    fun getFreeCellsInPlayerZone(playerId: PlayerId): List<GridPoint2> {
         val cells = mutableListOf<GridPoint2>()
 
         // iterate over players zone
@@ -286,11 +287,10 @@ object Grid : EntityListener {
      * @param playerId Id of the [Player]
      * @return The y-axis range of the [Player]'s placement zone.
      */
-    private fun getPlayersZone(playerId: Int): IntRange {
+    private fun getPlayersZone(playerId: PlayerId): IntRange {
         return when (playerId) {
-            0    -> 0..3
-            1    -> 6..9 // nice
-            else -> throw Exception("Unsupported Player Id: $playerId")
+            PlayerId.PLAYER1 -> 0..3
+            PlayerId.PLAYER2 -> 6..9 // nice
         }
     }
 }

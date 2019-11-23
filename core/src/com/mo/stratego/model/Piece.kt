@@ -5,6 +5,7 @@ import com.mo.stratego.model.component.MoveComponent
 import com.mo.stratego.model.component.PieceComponent
 import com.mo.stratego.model.component.PositionComponent
 import com.mo.stratego.model.player.Player
+import com.mo.stratego.model.player.PlayerId
 
 /**
  * Class that represents a playing piece. It has a rank and an owner.
@@ -12,8 +13,10 @@ import com.mo.stratego.model.player.Player
 class Piece(val rank: Rank, val owner: Player) :
     Entity() {
     val range: Range = Range.getRange(rank)
-    private var frontSide: Boolean = owner.id == 0 // true if front is shown
-    private val defaultSide: Side = if (owner.id == 0) Side.FRONT else Side.BACK
+    private var frontSide: Boolean =
+            owner.id == PlayerId.PLAYER1 // true if front is shown
+    private val defaultSide: Side =
+            if (owner.id == PlayerId.PLAYER1) Side.FRONT else Side.BACK
 
     init {
         add(PieceComponent(this))
@@ -21,8 +24,8 @@ class Piece(val rank: Rank, val owner: Player) :
 
         // add texture
         when (owner.id) {
-            0 -> add(Atlas.getPieceTexture(rank, 0))
-            1 -> add(Atlas.getPieceBacksideTexture(1))
+            PlayerId.PLAYER1 -> add(Atlas.getPieceTexture(rank, owner.id))
+            PlayerId.PLAYER2 -> add(Atlas.getPieceBacksideTexture(owner.id))
         }
     }
 

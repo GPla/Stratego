@@ -9,7 +9,7 @@ import com.mo.stratego.model.map.Grid
 import com.mo.stratego.model.map.StartingGrid
 
 //TODO desc
-class PlayerProxy(id: Int) : Player(id) {
+class PlayerProxy(id: PlayerId) : Player(id) {
     //TODO exchange othersmove
 
     override fun presentGrid(pieces: List<Piece>) {
@@ -20,7 +20,7 @@ class PlayerProxy(id: Int) : Player(id) {
         val origin = GridPoint2(0, 6)
 
         // place pieces on grid
-        startingGrid?.forEachIndexedTransposed { x, y, rank ->
+        startingGrid?.forEachIndexedTransposed { _, _, rank ->
             rankPieces[rank]?.let {
                 val piece = it.removeAt(0)
                 val move = Grid.translateCellToPosition(origin.cpy())

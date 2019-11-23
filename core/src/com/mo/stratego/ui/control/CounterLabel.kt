@@ -4,12 +4,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.mo.stratego.model.Rank
 import com.mo.stratego.model.map.Grid
+import com.mo.stratego.model.player.PlayerId
 import com.mo.stratego.util.Constants
 
 /**
  * Custom label class, that display the count of stacked pieces.
  */
-class CounterLabel(val rank: Rank, val ownerId: Int, style: Skin)
+class CounterLabel(val rank: Rank, val ownerId: PlayerId, style: Skin)
     : Label("0x", style) {
 
     init {
@@ -23,7 +24,7 @@ class CounterLabel(val rank: Rank, val ownerId: Int, style: Skin)
     var counter: Int = 0
 
     override fun act(delta: Float) {
-        counter = Grid.spawnMap.getValue(rank)[ownerId]
+        counter = Grid.spawnMap.getValue(rank)[ownerId.id]
         isVisible = counter > 0
         setText("${counter}x")
         super.act(delta)

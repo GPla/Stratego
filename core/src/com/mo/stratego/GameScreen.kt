@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.utils.viewport.ScreenViewport
 import com.badlogic.gdx.utils.viewport.StretchViewport
 import com.mo.stratego.model.GameController
 import com.mo.stratego.model.GameState
@@ -29,6 +28,7 @@ import com.mo.stratego.model.system.WaitSystem
 import com.mo.stratego.ui.FieldController
 import com.mo.stratego.ui.HudController
 import com.mo.stratego.ui.input.MapListener
+import com.mo.stratego.util.Constants
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -56,7 +56,9 @@ class GameScreen : Screen {
 
         val objectStage = Stage(StretchViewport(camera.viewportWidth,
                                                 camera.viewportHeight))
-        val hudStage = Stage(ScreenViewport())
+        val hudStage = Stage(StretchViewport(
+                Constants.getUnitToPixel(GameMap.width.toFloat()),
+                Constants.getUnitToPixel(GameMap.height.toFloat())))
         engine = PooledEngine()
 
         // add listeners to engine
@@ -107,7 +109,10 @@ class GameScreen : Screen {
 
     override fun render(delta: Float) {
         Gdx.app.log("field", Grid.toString())
-        //Gdx.app.log("state", GameController.state.toString())
+        Gdx.app.log("state", GameController.state.toString())
+        Grid.spawnMap.forEach { it ->
+            Gdx.app.log("spawn", "${it.key}: ${it.value[0]}, ${it.value[1]}")
+        }
 
         GameController.run()
 

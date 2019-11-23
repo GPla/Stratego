@@ -17,6 +17,7 @@ import com.mo.stratego.model.component.WaitComponent
 import com.mo.stratego.model.map.GameMap
 import com.mo.stratego.model.map.Grid
 import com.mo.stratego.model.player.Player
+import com.mo.stratego.model.player.PlayerId
 
 /**
  * A system that processes entities with a [PieceComponent] and a
@@ -71,10 +72,11 @@ class AttackSystem :
         // move component triggers and update of the grid
         piece.let {
             val cell = getGraveyardCell(it.owner)
-            it.add(MoveComponent(GridPoint2(cell.x,
-                                            if (it.owner.id == 0) cell.y
-                                            else GameMap.height - cell.y - 1),
-                                 MoveType.ABSOLUTE))
+            it.add(MoveComponent(
+                    GridPoint2(cell.x,
+                               if (it.owner.id == PlayerId.PLAYER1) cell.y
+                               else GameMap.height - cell.y - 1),
+                    MoveType.ABSOLUTE))
 
             // increment death counter
             it.owner.deathCounter++

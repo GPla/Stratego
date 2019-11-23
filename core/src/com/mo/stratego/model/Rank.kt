@@ -2,6 +2,7 @@ package com.mo.stratego.model
 
 import com.badlogic.gdx.math.GridPoint2
 import com.mo.stratego.model.map.GameMap
+import com.mo.stratego.model.player.PlayerId
 
 /**
  * Enum with of all piece ranks
@@ -52,11 +53,11 @@ enum class Rank(val rank: String,
     }
 
 
-    fun getDefaultPosition(ownerId: Int): GridPoint2 {
-        val yOffset = ownerId * (GameMap.height - 4)
+    fun getDefaultPosition(ownerId: PlayerId): GridPoint2 {
+        val yOffset = ownerId.id * (GameMap.height - 4)
         return when (this) {
-            BOMB -> GridPoint2(0, 2 + ownerId * -2 + yOffset)
-            FLAG -> GridPoint2(1, 2 + ownerId * -2 + yOffset)
+            BOMB -> GridPoint2(0, 2 + ownerId.id * -2 + yOffset)
+            FLAG -> GridPoint2(1, 2 + ownerId.id * -2 + yOffset)
             else -> GridPoint2(10 - r_int, 1 + yOffset)
 
         }

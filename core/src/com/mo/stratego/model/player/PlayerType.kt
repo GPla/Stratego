@@ -11,7 +11,7 @@ enum class PlayerType {
         /**
          * Factory method for [Player] types
          */
-        fun createPlayer(type: PlayerType, id: Int): Player {
+        fun createPlayer(type: PlayerType, id: PlayerId): Player {
             return when (type) {
                 LOCAL -> PlayerLocal(id)
                 PROXY -> PlayerProxy(id)

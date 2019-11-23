@@ -3,6 +3,7 @@ package com.mo.stratego.model
 import com.badlogic.ashley.core.Engine
 import com.badlogic.gdx.Gdx
 import com.mo.stratego.model.player.Player
+import com.mo.stratego.model.player.PlayerId
 import com.mo.stratego.model.player.PlayerType
 import com.mo.stratego.util.StateEvent
 import org.greenrobot.eventbus.EventBus
@@ -33,8 +34,9 @@ object GameController {
         this.engine = engine
 
         // create players of given type
-        players = arrayOf(PlayerType.createPlayer(PlayerType.LOCAL, 0),
-                          PlayerType.createPlayer(player2, 1))
+        players = arrayOf(
+                PlayerType.createPlayer(PlayerType.LOCAL, PlayerId.PLAYER1),
+                PlayerType.createPlayer(player2, PlayerId.PLAYER2))
 
         // create pieces for player
         playerPieces = mapOf(players[0] to PieceFactory.generateSet(players[0]),

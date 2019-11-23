@@ -13,9 +13,6 @@ object PieceFactory {
      * @return A list containing the appropriate number of [Piece]s per [Rank].
      */
     fun generateSet(owner: Player): List<Piece> {
-        if (owner.id !in 0..1)
-            throw Exception("Unsupported Player Id: ${owner.id}")
-
         val pieces = mutableListOf<Piece>()
 
         for (rank in Rank.values()) {
@@ -33,9 +30,6 @@ object PieceFactory {
      * @return A list of the generated [Piece]s.
      */
     fun generatePieces(rank: Rank, owner: Player, count: Int): List<Piece> {
-        if (owner.id !in 0..1)
-            return emptyList()
-
         val list = mutableListOf<Piece>()
         for (it in 1.rangeTo(count)) {
             list.add(Piece(rank, owner))

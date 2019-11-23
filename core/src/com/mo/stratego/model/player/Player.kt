@@ -16,7 +16,7 @@ import com.mo.stratego.model.map.StartingGrid
  */
 // TODO ready when pieces placed
 // TODO exchange pieces
-abstract class Player(val id: Int) {
+abstract class Player(val id: PlayerId) {
     /**
      * Whether or not the player is allowed to make his move.
      */

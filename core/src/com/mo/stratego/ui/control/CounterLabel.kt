@@ -15,9 +15,9 @@ class CounterLabel(val rank: Rank, val ownerId: PlayerId, style: Skin)
 
     init {
         val position = rank.getDefaultPosition(ownerId)
-        setPosition(Constants.getUnitToPixel(position.x + 0.7f),
+        setPosition(Constants.getUnitToPixel(position.x + 0.6f),
                     Constants.getUnitToPixel(position.y + 0.7f))
-        setScale(1.2f)
+        setFontScale(1.3f)
         setColor(1f, 1f, 1f, 1f)
     }
 

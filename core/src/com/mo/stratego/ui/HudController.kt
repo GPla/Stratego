@@ -5,10 +5,13 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.utils.Align
 import com.mo.stratego.model.Rank
+import com.mo.stratego.model.map.GameMap
 import com.mo.stratego.model.player.PlayerId
 import com.mo.stratego.ui.control.CounterLabel
 import com.mo.stratego.ui.control.ReadyButton
+import com.mo.stratego.util.Constants
 import com.mo.stratego.util.StateEvent
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -56,10 +59,12 @@ object HudController {
         stage.addActor(btn)
 
         // lblstate
-        // FIXME position
         with(lblState) {
-            setPosition(4.7f, 17f)
+            setPosition(Constants.getUnitToPixel(
+                    GameMap.width / 2f) - lblState.width * 1.3f / 2f,
+                        Constants.getUnitToPixel(17f))
             setFontScale(1.3f)
+            setAlignment(Align.center)
         }
         stage.addActor(lblState)
     }
@@ -71,8 +76,9 @@ object HudController {
     @Subscribe(threadMode = ThreadMode.ASYNC)
     fun onStateEvent(msg: StateEvent) {
         Gdx.app.log("state", "state: ${msg.state}")
-        // TODO label with state
-        lblState.setText(msg.state)
+        with(lblState) {
+            setText(msg.state)
+        }
     }
 
 }

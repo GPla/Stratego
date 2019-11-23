@@ -5,19 +5,14 @@ import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.IteratingSystem
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.math.GridPoint2
 import com.mo.stratego.model.GameController
-import com.mo.stratego.model.MoveType
 import com.mo.stratego.model.Piece
 import com.mo.stratego.model.Result
 import com.mo.stratego.model.component.AttackComponent
-import com.mo.stratego.model.component.MoveComponent
 import com.mo.stratego.model.component.PieceComponent
 import com.mo.stratego.model.component.WaitComponent
-import com.mo.stratego.model.map.GameMap
 import com.mo.stratego.model.map.Grid
 import com.mo.stratego.model.player.Player
-import com.mo.stratego.model.player.PlayerId
 
 /**
  * A system that processes entities with a [PieceComponent] and a
@@ -71,26 +66,9 @@ class AttackSystem :
         // move piece to graveyard
         // move component triggers and update of the grid
         piece.let {
-            val cell = getGraveyardCell(it.owner)
-            it.add(MoveComponent(
-                    GridPoint2(cell.x,
-                               if (it.owner.id == PlayerId.PLAYER1) cell.y
-                               else GameMap.height - cell.y - 1),
-                    MoveType.ABSOLUTE))
-
+            it.returnToDefaultPosition()
             // increment death counter
             it.owner.deathCounter++
         }
-    }
-
-    /**
-     * @param owner Player
-     * @return The next free cell in the graveyard of the [Player].
-     */
-    private fun getGraveyardCell(owner: Player): GridPoint2 {
-        val column = owner.deathCounter % 10
-        val row = owner.deathCounter / 10
-
-        return GridPoint2(column, row)
     }
 }

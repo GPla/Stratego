@@ -96,7 +96,7 @@ object Grid : EntityListener {
      */
     private fun update(piece: Piece, type: Int) {
         val position = posMapper.get(piece)?.position
-        removePiece(piece)
+        val result = removePiece(piece)
 
         position?.also {
             // add piece to board
@@ -107,12 +107,13 @@ object Grid : EntityListener {
                 matrix[point.x][point.y] = piece
             }
 
-            // FIXME moving a piece falsely trigger decrement
-            // FIXME buggy for defeated pieces, label not showing
+            val defPos = piece.rank.getDefaultPosition(piece.owner.id)
+
             // update spawn counter on added-entity event
-            if (type == 0) {
-                var sign = if (position == piece.rank.getDefaultPosition(
-                                piece.owner.id)) 1 else -1
+            // update if not moved on board(result) or if moved to
+            // default position
+            if (type == 0 && (!result || position == defPos)) {
+                var sign = if (position == defPos) 1 else -1
                 spawnMap.getValue(piece.rank)[piece.owner.id.id] += sign
             }
         }
@@ -121,16 +122,19 @@ object Grid : EntityListener {
     /**
      * Removes [Piece] from the grid.
      * @param piece Piece
+     * @return Whether or not the [Piece] was found and removed from the grid.
      */
-    private fun removePiece(piece: Piece) {
+    // TODO: improve performance?
+    private fun removePiece(piece: Piece): Boolean {
         for (y in 0..9) {
             for (x in 0..9) {
                 if (matrix[x][y] == piece) {
                     matrix[x][y] = null
-                    break
+                    return true
                 }
             }
         }
+        return false
     }
 
     /**

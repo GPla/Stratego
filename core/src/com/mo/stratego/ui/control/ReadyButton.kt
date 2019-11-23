@@ -38,7 +38,6 @@ class ReadyButton(skin: Skin) : TextButton("Ready!", skin), EventListener {
             else
                 false
         }
-        isVisible = true
         super.act(delta)
     }
 

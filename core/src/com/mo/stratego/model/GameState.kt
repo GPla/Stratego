@@ -1,17 +1,19 @@
 package com.mo.stratego.model
 
+import com.mo.stratego.model.player.PlayerId
+
 /**
  * Enum of game states
  */
-enum class GameState(val title: String?) {
-    INIT(null),
-    INIT_PREP_PLAYER_1(null),
-    PREPARATION_PLAYER_1("Preparation Player 1"),
-    INIT_PREP_PLAYER_2(null),
-    PREPARATION_PLAYER_2("Preparation Player 2"),
-    TURN_PLAYER_1("Turn Player 1"),
-    TURN_PLAYER_2("Turn Player 2"),
-    GAME_OVER("Game Over!");
+enum class GameState(val activePlayerId: PlayerId?, val title: String?) {
+    INIT(null, null),
+    INIT_PREP_PLAYER_1(PlayerId.PLAYER1, null),
+    PREPARATION_PLAYER_1(PlayerId.PLAYER1, "Preparation Player 1"),
+    INIT_PREP_PLAYER_2(PlayerId.PLAYER2, null),
+    PREPARATION_PLAYER_2(PlayerId.PLAYER2, "Preparation Player 2"),
+    TURN_PLAYER_1(PlayerId.PLAYER1, "Turn Player 1"),
+    TURN_PLAYER_2(PlayerId.PLAYER2, "Turn Player 2"),
+    GAME_OVER(null, "Game Over!");
 
     /**
      * Overrides the ++ operator.

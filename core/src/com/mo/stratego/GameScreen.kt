@@ -81,7 +81,7 @@ class GameScreen : Screen {
         engine.addEntityListener(family, Grid)
 
         GameMap.engine = engine
-        GameController.init(engine, PlayerType.PROXY)
+        GameController.init(engine, PlayerType.LOCAL)
 
         // add systems to engine
         engine.addSystem(RenderSystem(batch, camera))
@@ -109,7 +109,7 @@ class GameScreen : Screen {
 
     override fun render(delta: Float) {
         Gdx.app.log("field", Grid.toString())
-        Gdx.app.log("state", GameController.state.toString())
+        //Gdx.app.log("state", GameController.state.toString())
         Grid.spawnMap.forEach { it ->
             Gdx.app.log("spawn", "${it.key}: ${it.value[0]}, ${it.value[1]}")
         }

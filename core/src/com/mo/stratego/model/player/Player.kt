@@ -33,12 +33,6 @@ abstract class Player(val id: PlayerId) {
     var othersMove: Move? = null
 
     /**
-     * Counts the number of [Piece]s that have been removed from the
-     * [Grid] of this player.
-     */
-    var deathCounter: Int = 0
-
-    /**
      * Presents the other players move.
      */
     fun presentOthersMove() {
@@ -74,7 +68,7 @@ abstract class Player(val id: PlayerId) {
         move = null
         othersMove = null
         allow = false
-        deathCounter = 0
+        startingGrid = null
     }
 
 }

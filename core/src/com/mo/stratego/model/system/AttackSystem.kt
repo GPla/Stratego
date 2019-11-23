@@ -6,13 +6,10 @@ import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.IteratingSystem
 import com.badlogic.gdx.Gdx
 import com.mo.stratego.model.GameController
-import com.mo.stratego.model.Piece
 import com.mo.stratego.model.Result
 import com.mo.stratego.model.component.AttackComponent
 import com.mo.stratego.model.component.PieceComponent
 import com.mo.stratego.model.component.WaitComponent
-import com.mo.stratego.model.map.Grid
-import com.mo.stratego.model.player.Player
 
 /**
  * A system that processes entities with a [PieceComponent] and a
@@ -44,31 +41,20 @@ class AttackSystem :
 
         when (result) {
             Result.GAME_WON -> GameController.win(piece.owner)
-            Result.WON      -> removePiece(enemy)
+            Result.WON      -> {
+                piece.showDefault()
+                enemy.returnToDefaultPosition()
+            }
             Result.LOST     -> {
                 enemy.showDefault()
-                removePiece(piece)
+                piece.returnToDefaultPosition()
             }
             Result.DRAW     -> {
-                removePiece(enemy)
-                removePiece(piece)
+                enemy.returnToDefaultPosition()
+                piece.returnToDefaultPosition()
             }
         }
 
         entity.remove(AttackComponent::class.java)
-    }
-
-    /**
-     * Removes the [Entity] from the [Grid] and places the [Piece]
-     * in the graveyard of the [Player].
-     */
-    private fun removePiece(piece: Piece) {
-        // move piece to graveyard
-        // move component triggers and update of the grid
-        piece.let {
-            it.returnToDefaultPosition()
-            // increment death counter
-            it.owner.deathCounter++
-        }
     }
 }

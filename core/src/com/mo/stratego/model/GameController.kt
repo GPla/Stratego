@@ -145,6 +145,7 @@ object GameController {
      * The game freezes and a popup is displayed.
      * @param player Player that won the game
      */
+    // TODO sent event to hud
     fun win(player: Player) {
         Gdx.app.log("dtag", "player ${player.id} won the game!")
         state = GameState.GAME_OVER

@@ -130,12 +130,12 @@ class GameScreen : Screen {
             engine.update(Gdx.graphics.deltaTime)
 
         // render stage
-        FieldController.stage.run {
+        FieldController.stage.apply {
             act(delta)
             draw()
         }
 
-        HudController.stage.run {
+        HudController.stage.apply {
             setDebugInvisible(false)
             isDebugAll = true
             act(delta)

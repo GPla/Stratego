@@ -27,7 +27,7 @@ class PieceInputListener(private val piece: Piece,
 
         // delete old highlights
         HighlightType.deleteHighlight(engine)
- 
+
         // react depending on game state
         when (GameController.state) {
             GameState.PREPARATION_PLAYER_1,
@@ -74,6 +74,7 @@ class PieceInputListener(private val piece: Piece,
     /**
      * Creates highlights for possible placements on the [Grid].
      */
+    //TODO: after placement, select same kind
     private fun createPlacementHighlight() {
         val cells = Grid.getFreeCellsInPlayerZone(piece.owner.id)
         val position = posMapper.get(piece)

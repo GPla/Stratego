@@ -1,6 +1,5 @@
 package com.mo.stratego.ui.control
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.scenes.scene2d.Event
 import com.badlogic.gdx.scenes.scene2d.EventListener
 import com.badlogic.gdx.scenes.scene2d.InputEvent
@@ -22,7 +21,6 @@ class ReadyButton(skin: Skin) : TextButton("Ready!", skin), EventListener {
         addListener(this)
         setPosition(Constants.getUnitToPixel(8.4f),
                     Constants.getUnitToPixel(8.8f))
-        setScale(1.5f)
         isTransform = true
     }
 
@@ -57,11 +55,9 @@ class ReadyButton(skin: Skin) : TextButton("Ready!", skin), EventListener {
         // set starting grid for player
         GameController.state.activePlayerId?.let {
             GameController.players[it.id].startingGrid = sGrid
-            Gdx.app.log("button", "sent!")
         }
 
         return true
     }
-
 
 }

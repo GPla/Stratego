@@ -70,7 +70,7 @@ A simple android game version of the popular strategic game [Stratego](https://e
 
 ### Game
 
-Orientation: portrait 
+Orientation: portrait
 
 #### Map
 
@@ -103,7 +103,7 @@ Attack:
 (Idea: show popup with pictures and rank and a little animation)
 
 Implementation:
-ECS mit Command pattern :)
+ECS mit Command pattern
 
 - Entity
   - Data
@@ -158,10 +158,11 @@ actions, in each frame, on entities that posess specific components. For
 instance in this project the RenderSystem processes all entities with a
 TextureComponent and a PositionComponent. The TextureComponent the texture and
 the PositionComponent defines the x and y position.The RenderSystem does not
-need any other information about the entity to correctly draw the texture. 
+need any other information about the entity to correctly draw the texture.
 
 ## Libraries
 
 - [LibGDX](https://github.com/libgdx/libgdx)
 - [Ashley](https://github.com/libgdx/ashley)
 - [GreenRobot EventBus](https://github.com/greenrobot/EventBus)
+- [Bluetooth](https://github.com/douglasjunior/AndroidBluetoothLibrary)

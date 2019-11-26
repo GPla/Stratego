@@ -2,9 +2,9 @@ package com.mo.stratego
 
 import com.badlogic.gdx.Game
 
-class StrategoGame : Game(){
+class StrategoGame : Game() {
     override fun create() {
-        setScreen(GameScreen())
+        setScreen(MainMenuScreen(this))
     }
 
     override fun render() {

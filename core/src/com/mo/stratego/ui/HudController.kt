@@ -3,9 +3,10 @@ package com.mo.stratego.ui
 import com.badlogic.ashley.core.PooledEngine
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.scenes.scene2d.ui.Label
-import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.scenes.scene2d.Touchable
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.utils.Align
+import com.mo.stratego.model.Atlas
 import com.mo.stratego.model.Rank
 import com.mo.stratego.model.map.GameMap
 import com.mo.stratego.model.player.PlayerId
@@ -24,10 +25,9 @@ object HudController {
 
     lateinit var stage: Stage
     private lateinit var engine: PooledEngine
-    private val skin = Skin(Gdx.files.internal("ui/default/skin/uiskin.json"))
 
     // actors
-    private val lblState = Label("Init", skin)
+    private val lblState = TextButton("Init", Atlas.uiSkin)
 
     /**
      * Init the object with this method. If not called before usage
@@ -50,21 +50,20 @@ object HudController {
         // init counters for pieces off grid
         for (rank in Rank.values()) {
             for (player in PlayerId.values()) {
-                stage.addActor(CounterLabel(rank, player, skin))
+                stage.addActor(CounterLabel(rank, player, Atlas.defaultSkin))
             }
         }
 
         // ready btn
-        val btn = ReadyButton(skin)
+        val btn = ReadyButton(Atlas.uiSkin)
         stage.addActor(btn)
+
 
         // lblstate
         with(lblState) {
-            setPosition(Constants.getUnitToPixel(
-                    GameMap.width / 2f) - lblState.width * 1.3f / 2f,
-                        Constants.getUnitToPixel(17f))
-            setFontScale(1.3f)
-            setAlignment(Align.center)
+            updateState("Init")
+            this.label.setAlignment(Align.center)
+            touchable = Touchable.disabled
         }
         stage.addActor(lblState)
     }
@@ -76,9 +75,21 @@ object HudController {
     @Subscribe(threadMode = ThreadMode.ASYNC)
     fun onStateEvent(msg: StateEvent) {
         Gdx.app.log("state", "state: ${msg.state}")
-        with(lblState) {
-            setText(msg.state)
-        }
+        updateState(msg.state)
     }
 
+    /**
+     * Updates the state label's text and position.
+     * @param text Text
+     */
+    fun updateState(text: String) {
+        with(lblState) {
+            setText(text)
+            pack()
+            setPosition(Constants.getUnitToPixel(
+                    GameMap.width / 2f) - this.width / 2f,
+                        Constants.getUnitToPixel(17.3f))
+        }
+
+    }
 }

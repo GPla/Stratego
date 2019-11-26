@@ -1,8 +1,10 @@
 package com.mo.stratego.model
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.mo.stratego.model.component.TextureComponent
 import com.mo.stratego.model.player.PlayerId
 
@@ -11,6 +13,11 @@ import com.mo.stratego.model.player.PlayerId
  */
 object Atlas {
     private val atlas: TextureAtlas = TextureAtlas("pics.atlas")
+    val uiSkin =
+            Skin(Gdx.files.internal("ui/plain-james/skin/plain-james-ui.json"))
+    val defaultSkin =
+            Skin(Gdx.files.internal("ui/default/skin/uiskin.json"))
+
 
     /**
      * Loads the appropriate texture from the atlas.

@@ -25,12 +25,12 @@ object FieldController : EntityListener {
     /**
      * Init the object with this method. If not called before usage
      * an error will be thrown.
-     * @param objectStage Stage
+     * @param stage Stage
      * @param engine PooledEngines
      * @return This for chaining.
      */
-    fun init(objectStage: Stage, engine: PooledEngine): FieldController {
-        this.stage = objectStage
+    fun init(stage: Stage, engine: PooledEngine): FieldController {
+        this.stage = stage
         this.engine = engine
         return this
     }

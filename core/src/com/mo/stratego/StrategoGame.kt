@@ -1,8 +1,19 @@
 package com.mo.stratego
 
 import com.badlogic.gdx.Game
+import com.mo.stratego.model.communication.ICommunication
 
-class StrategoGame : Game() {
+class StrategoGame(com: ICommunication) : Game() {
+
+    //FIXME: architecture of com handler
+    init {
+        comHandler = com
+    }
+
+    companion object {
+        lateinit var comHandler: ICommunication
+    }
+
     override fun create() {
         setScreen(MainMenuScreen(this))
     }

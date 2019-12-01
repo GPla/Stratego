@@ -17,6 +17,11 @@ interface ICommunication {
     var isConnected: Boolean
 
     /**
+     * Event listener.
+     */
+    var listener: ICommunicationEventListener?
+
+    /**
      * Start scanning for other devices.
      *
      */
@@ -49,5 +54,4 @@ interface ICommunication {
      * DisableS service.
      */
     fun disable()
-
 }

@@ -3,7 +3,7 @@ package com.mo.stratego.ui.input
 import com.badlogic.ashley.core.Engine
 import com.badlogic.gdx.InputAdapter
 import com.mo.stratego.model.HighlightType
-import com.mo.stratego.ui.FieldController
+import com.mo.stratego.ui.controller.FieldController
 
 /**
  * Listener that is activated if a click is not handled by

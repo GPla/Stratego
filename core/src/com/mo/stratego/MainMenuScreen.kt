@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.viewport.StretchViewport
 import com.mo.stratego.model.map.GameMap
-import com.mo.stratego.ui.MenuController
+import com.mo.stratego.ui.controller.MenuController
 import com.mo.stratego.util.Constants
 
 /**

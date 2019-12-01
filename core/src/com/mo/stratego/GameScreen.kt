@@ -25,8 +25,8 @@ import com.mo.stratego.model.system.AttackSystem
 import com.mo.stratego.model.system.MoveSystem
 import com.mo.stratego.model.system.RenderSystem
 import com.mo.stratego.model.system.WaitSystem
-import com.mo.stratego.ui.FieldController
-import com.mo.stratego.ui.HudController
+import com.mo.stratego.ui.controller.FieldController
+import com.mo.stratego.ui.controller.HudController
 import com.mo.stratego.ui.input.MapListener
 import com.mo.stratego.util.Constants
 import org.greenrobot.eventbus.EventBus
@@ -67,7 +67,8 @@ class GameScreen : Screen {
         FieldController.init(objectStage, engine)
         var family = Family.one(PieceComponent::class.java,
                                 HighlightComponent::class.java).get()
-        engine.addEntityListener(family, FieldController)
+        engine.addEntityListener(family,
+                                 FieldController)
 
         // HudController
         HudController.init(hudStage, engine)
@@ -104,7 +105,8 @@ class GameScreen : Screen {
 
     override fun show() {
         camera.update()
-        EventBus.getDefault().register(HudController)
+        EventBus.getDefault().register(
+                HudController)
     }
 
     override fun render(delta: Float) {
@@ -153,7 +155,8 @@ class GameScreen : Screen {
     }
 
     override fun dispose() {
-        EventBus.getDefault().unregister(HudController)
+        EventBus.getDefault().unregister(
+                HudController)
     }
 
     fun testPieces() {

@@ -1,17 +1,14 @@
 package com.mo.stratego
 
 import com.badlogic.gdx.Game
+import com.mo.stratego.model.communication.CommunicationHandler
 import com.mo.stratego.model.communication.ICommunication
 
-class StrategoGame(com: ICommunication) : Game() {
+//todo desc
+class StrategoGame(iCom: ICommunication) : Game() {
 
-    //FIXME: architecture of com handler
     init {
-        comHandler = com
-    }
-
-    companion object {
-        lateinit var comHandler: ICommunication
+        CommunicationHandler.init(iCom)
     }
 
     override fun create() {

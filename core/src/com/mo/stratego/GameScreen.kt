@@ -36,8 +36,6 @@ import org.greenrobot.eventbus.EventBus
  *
  * game logic implemented using ECS (Entity - Component - System) design pattern
  */
-
-//TODO: fix texture loading, use atlas for all pics
 class GameScreen : Screen {
     private var camera: OrthographicCamera = OrthographicCamera()
     private val engine: Engine
@@ -112,7 +110,7 @@ class GameScreen : Screen {
     override fun render(delta: Float) {
         Gdx.app.log("field", Grid.toString())
         //Gdx.app.log("state", GameController.state.toString())
-        Grid.spawnMap.forEach { it ->
+        Grid.spawnMap.forEach {
             Gdx.app.log("spawn", "${it.key}: ${it.value[0]}, ${it.value[1]}")
         }
 

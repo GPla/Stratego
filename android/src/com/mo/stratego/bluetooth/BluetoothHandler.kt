@@ -4,10 +4,10 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.content.Context
 import com.badlogic.gdx.Gdx
-import com.github.douglasjunior.bluetoothclassiclibrary.BluetoothClassicService
 import com.github.douglasjunior.bluetoothclassiclibrary.BluetoothConfiguration
 import com.github.douglasjunior.bluetoothclassiclibrary.BluetoothService
 import com.github.douglasjunior.bluetoothclassiclibrary.BluetoothService.OnBluetoothScanCallback
+import com.github.douglasjunior.bluetoothclassiclibrary.BluetoothStatus
 import com.mo.stratego.model.communication.ICommunication
 import java.util.*
 
@@ -15,7 +15,6 @@ import java.util.*
 /**
  * Class that handles the android bluetooth communication.
  */
-//TODO desc and cleanup
 class BluetoothHandler(context: Context) :
     ICommunication {
 
@@ -32,7 +31,7 @@ class BluetoothHandler(context: Context) :
     init {
         val conf = BluetoothConfiguration()
         conf.context = context
-        conf.bluetoothServiceClass = BluetoothClassicService::class.java
+        conf.bluetoothServiceClass = BluetoothClassicExtendedService::class.java
         conf.bufferSize = 2048
         conf.characterDelimiter = '\n'
         conf.deviceName = "Stratego"
@@ -62,6 +61,31 @@ class BluetoothHandler(context: Context) :
                 Gdx.app.log("bth", "scan stopped")
             }
         })
+
+        service.setOnEventCallback(object :
+                                       BluetoothService.OnBluetoothEventCallback {
+            override fun onDataRead(buffer: ByteArray?, length: Int) {
+                Gdx.app.log("bth", "data received ($length)")
+            }
+
+            override fun onStatusChange(status: BluetoothStatus?) {
+                Gdx.app.log("bth", "status:  $status")
+            }
+
+            override fun onDataWrite(buffer: ByteArray?) {
+                Gdx.app.log("bth", "data write")
+            }
+
+            override fun onToast(message: String?) {
+                Gdx.app.log("bth", "message: $message")
+            }
+
+            override fun onDeviceName(deviceName: String?) {
+                Gdx.app.log("bth", "device name: $deviceName")
+
+            }
+        })
+
     }
 
     /**
@@ -82,7 +106,6 @@ class BluetoothHandler(context: Context) :
      * Stops the scan and leaves bluetooth in the state as is.
      */
     override fun stopScan() {
-        availableDevices.clear()
         service.stopScan()
     }
 
@@ -92,9 +115,19 @@ class BluetoothHandler(context: Context) :
     override fun getAvailableDevices(): List<String> =
             availableDevices.map { it.name }
 
-    override fun connect() {
+    override fun connect(device: String) {
+        val dev = availableDevices.find { it.name == device } ?: return
+        service.connect(dev)
     }
 
     override fun disconnect() {
+        service.disconnect()
+    }
+
+    /**
+     * Disable bluetooth.
+     */
+    override fun disable() {
+        adapter.disable()
     }
 }

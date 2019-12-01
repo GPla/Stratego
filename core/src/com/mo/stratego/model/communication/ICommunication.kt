@@ -1,5 +1,6 @@
 package com.mo.stratego.model.communication
 
+
 /**
  * Interface for inter-device communication.
  */
@@ -35,16 +36,18 @@ interface ICommunication {
 
     /**
      * Connect to another device.
-     *
+     * @param device Name of device
      */
-    // TODO add param
-    fun connect()
+    fun connect(device: String)
 
     /**
      * Disconnect from other devices.
-     *
      */
     fun disconnect()
 
+    /**
+     * DisableS service.
+     */
+    fun disable()
 
 }

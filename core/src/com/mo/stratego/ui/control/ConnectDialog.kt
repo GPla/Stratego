@@ -4,15 +4,16 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
-import com.mo.stratego.StrategoGame
 import com.mo.stratego.model.Atlas
+import com.mo.stratego.model.communication.CommunicationHandler
 import com.mo.stratego.util.Constants
 
 class ConnectDialog(skin: Skin, val titleText: String = "Select a Device") :
     Dialog("Select a Device", skin) {
 
     private val loadLabel = LoadLabel(0.33f, '.',
-                                      StrategoGame.comHandler::isScanning, skin)
+                                      CommunicationHandler.iCom::isScanning,
+                                      skin)
 
     private val deviceList = DeviceList(Atlas.uiSkin)
 
@@ -40,8 +41,8 @@ class ConnectDialog(skin: Skin, val titleText: String = "Select a Device") :
     }
 
     override fun show(stage: Stage?): Dialog {
-        if (!StrategoGame.comHandler.isScanning)
-            StrategoGame.comHandler.startScan()
+        if (!CommunicationHandler.iCom.isScanning)
+            CommunicationHandler.iCom.startScan()
 
         return super.show(stage)
     }
@@ -53,15 +54,23 @@ class ConnectDialog(skin: Skin, val titleText: String = "Select a Device") :
         super.hide()
     }
 
+    /**
+     * Processes the button result codes.
+     * @param object Result code
+     */
     override fun result(`object`: Any?) {
         var result = `object` as Int
         when (result) {
             0 -> {
-                StrategoGame.comHandler.startScan()
+                with(CommunicationHandler.iCom) {
+                    if (isScanning)
+                        stopScan()
+                    startScan()
+                }
                 cancel()
             }
             1 -> {
-                StrategoGame.comHandler.connect(deviceList.selected)
+                CommunicationHandler.iCom.connect(deviceList.selected)
             }
         }
 

@@ -269,6 +269,7 @@ public class BluetoothClassicExtendedService extends BluetoothService {
         filter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
         mConfig.context.registerReceiver(mScanReceiver, filter);
 
+        // MODIFIED: added open listener on scan
         // Create bluetooth server
         if (mAcceptThread == null) {
             mAcceptThread = new AcceptThread();
@@ -324,6 +325,9 @@ public class BluetoothClassicExtendedService extends BluetoothService {
             } catch (Exception e) {
                 Log.e(TAG, "create() failed", e);
             }
+
+            // MODIFIED: removed audio stuff
+
             mmSocket = tmp;
         }
 
@@ -357,6 +361,8 @@ public class BluetoothClassicExtendedService extends BluetoothService {
             // Reset the ConnectThread because we're done
             synchronized (BluetoothClassicExtendedService.this) {
                 mConnectThread = null;
+
+                // MODIFIED: added close listener
                 if (mAcceptThread != null)
                     mAcceptThread.cancel();
                 mAcceptThread = null;
@@ -380,8 +386,8 @@ public class BluetoothClassicExtendedService extends BluetoothService {
         }
     }
 
-
-    // from https://developer.android.com/guide/topics/connectivity/bluetooth#java
+    // MODIFIED: Added from
+    // https://developer.android.com/guide/topics/connectivity/bluetooth#java
     private class AcceptThread extends Thread {
         private final BluetoothServerSocket mmServerSocket;
 

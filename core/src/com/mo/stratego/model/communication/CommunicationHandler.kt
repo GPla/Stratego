@@ -19,25 +19,26 @@ object CommunicationHandler : ICommunicationEventListener {
      */
     fun init(iCom: ICommunication) {
         this.iCom = iCom
+        iCom.listener = this
     }
 
     override fun onDataReceived(data: ByteArray?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        EventBus.getDefault().post(DataReceivedEvent(data))
     }
 
     override fun onDataWrite() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        EventBus.getDefault().post(DataWriteEvent())
     }
 
     override fun onConnecting() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        EventBus.getDefault().post(OnConnectingEvent())
     }
 
     override fun onError(msg: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        EventBus.getDefault().post(OnErrorEvent(msg))
     }
 
     override fun onConnected(name: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        EventBus.getDefault().post(OnConnectedEvent(name))
     }
 }

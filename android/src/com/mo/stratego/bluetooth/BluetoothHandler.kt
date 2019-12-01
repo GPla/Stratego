@@ -9,6 +9,7 @@ import com.github.douglasjunior.bluetoothclassiclibrary.BluetoothService
 import com.github.douglasjunior.bluetoothclassiclibrary.BluetoothService.OnBluetoothScanCallback
 import com.github.douglasjunior.bluetoothclassiclibrary.BluetoothStatus
 import com.mo.stratego.model.communication.ICommunication
+import com.mo.stratego.model.communication.ICommunicationEventListener
 import java.util.*
 
 
@@ -20,6 +21,8 @@ class BluetoothHandler(context: Context) :
 
     override var isScanning: Boolean = false
     override var isConnected: Boolean = false
+    override var listener: ICommunicationEventListener? = null
+
     private lateinit var service: BluetoothService
     private val adapter = BluetoothAdapter.getDefaultAdapter()
     private val availableDevices = mutableListOf<BluetoothDevice>()
@@ -35,7 +38,7 @@ class BluetoothHandler(context: Context) :
         conf.bufferSize = 2048
         conf.characterDelimiter = '\n'
         conf.deviceName = "Stratego"
-        conf.callListenersInMainThread = true
+        conf.callListenersInMainThread = false
         conf.uuid = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb")
         BluetoothService.init(conf)
 
@@ -62,27 +65,34 @@ class BluetoothHandler(context: Context) :
             }
         })
 
+        // Call ICommunicationEventListener
         service.setOnEventCallback(object :
                                        BluetoothService.OnBluetoothEventCallback {
             override fun onDataRead(buffer: ByteArray?, length: Int) {
                 Gdx.app.log("bth", "data received ($length)")
+                listener?.onDataReceived(buffer)
             }
 
             override fun onStatusChange(status: BluetoothStatus?) {
                 Gdx.app.log("bth", "status:  $status")
+                when (status) {
+                    BluetoothStatus.CONNECTING -> listener?.onConnecting()
+                }
             }
 
             override fun onDataWrite(buffer: ByteArray?) {
                 Gdx.app.log("bth", "data write")
+                listener?.onDataWrite()
             }
 
             override fun onToast(message: String?) {
                 Gdx.app.log("bth", "message: $message")
+                listener?.onError(message ?: "Error")
             }
 
             override fun onDeviceName(deviceName: String?) {
                 Gdx.app.log("bth", "device name: $deviceName")
-
+                listener?.onConnected(deviceName ?: "")
             }
         })
 

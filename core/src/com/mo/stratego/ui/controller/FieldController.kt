@@ -1,4 +1,4 @@
-package com.mo.stratego.ui
+package com.mo.stratego.ui.controller
 
 import com.badlogic.ashley.core.*
 import com.badlogic.gdx.scenes.scene2d.Actor
@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.mo.stratego.model.HighlightType
 import com.mo.stratego.model.Piece
 import com.mo.stratego.model.component.HighlightComponent
+import com.mo.stratego.ui.FieldActor
 import com.mo.stratego.ui.input.HighlightInputListener
 import com.mo.stratego.ui.input.PieceInputListener
 
@@ -30,8 +31,8 @@ object FieldController : EntityListener {
      * @return This for chaining.
      */
     fun init(stage: Stage, engine: PooledEngine): FieldController {
-        this.stage = stage
-        this.engine = engine
+        FieldController.stage = stage
+        FieldController.engine = engine
         return this
     }
 
@@ -49,13 +50,15 @@ object FieldController : EntityListener {
             FieldActor(entity).also {
                 entityActors[entity] = it
                 stage.addActor(it)
-                it.addListener(PieceInputListener(entity, engine))
+                it.addListener(PieceInputListener(entity,
+                                                  engine))
             }
         } else if (highlight != null && highlight.type == HighlightType.CIRCLE) {
             FieldActor(entity).also {
                 entityActors[entity] = it
                 stage.addActor(it)
-                it.addListener(HighlightInputListener(entity, engine))
+                it.addListener(HighlightInputListener(entity,
+                                                      engine))
             }
         }
     }

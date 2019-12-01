@@ -1,15 +1,14 @@
-package com.mo.stratego.ui
+package com.mo.stratego.ui.controller
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.scenes.scene2d.ui.List
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
 import com.mo.stratego.MainMenuScreen
-import com.mo.stratego.StrategoGame
 import com.mo.stratego.model.Atlas
+import com.mo.stratego.ui.control.ConnectDialog
 
 /**
  * Controller for the stage of the [MainMenuScreen].
@@ -17,6 +16,7 @@ import com.mo.stratego.model.Atlas
 object MenuController {
 
     lateinit var stage: Stage
+    val bluetoothDialog = ConnectDialog(Atlas.uiSkin)
 
     /**
      * Init the object with this method. If not called before usage
@@ -25,7 +25,7 @@ object MenuController {
      * @return This for chaining.
      */
     fun init(stage: Stage): MenuController {
-        this.stage = stage
+        MenuController.stage = stage
         initActors()
         return this
     }
@@ -40,31 +40,30 @@ object MenuController {
             align(Align.center)
             setDebug(true)
 
+
+            // bluetooth mode
             val btnStartGame = TextButton("Bluetooth", Atlas.uiSkin)
             btnStartGame.apply {
+                // button layout
                 setScale(2f)
                 align(Align.center)
                 setOrigin(Align.center)
                 isTransform = true
+
+                // button action
                 addListener(object : ClickListener() {
                     override fun touchDown(event: InputEvent?, x: Float,
                                            y: Float, pointer: Int,
                                            button: Int): Boolean {
-                        if (!StrategoGame.comHandler.isScanning)
-                            StrategoGame.comHandler.startScan()
-                        else
-                            StrategoGame.comHandler.stopScan()
+
+                        bluetoothDialog.show(stage)
                         return true
                     }
                 })
             }
 
-
-            val list = List<String>(Atlas.uiSkin)
-
             add(btnStartGame).center()
             row()
-            add(list).center()
         }
 
 

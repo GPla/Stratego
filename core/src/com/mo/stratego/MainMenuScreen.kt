@@ -19,7 +19,7 @@ class MainMenuScreen(val game: Game) : Screen {
         val stage = Stage(StretchViewport(
                 Constants.getUnitToPixel(GameMap.width.toFloat()),
                 Constants.getUnitToPixel(GameMap.height.toFloat())))
-        MenuController.init(stage)
+        MenuController.init(stage, this)
 
         Gdx.input.inputProcessor = stage
     }
@@ -55,5 +55,15 @@ class MainMenuScreen(val game: Game) : Screen {
     }
 
     override fun dispose() {
+
+    }
+
+    /**
+     * Switches the [Screen].
+     * @param screen Screen
+     */
+    fun switchScreen(screen: Screen) {
+        game.screen = screen
+        dispose()
     }
 }

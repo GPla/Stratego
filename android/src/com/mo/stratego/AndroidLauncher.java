@@ -1,7 +1,9 @@
 package com.mo.stratego;
 
 import android.Manifest;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.multidex.MultiDex;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
@@ -55,4 +57,9 @@ public class AndroidLauncher extends AndroidApplication {
     }
 
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(newBase);
+        MultiDex.install(this);
+    }
 }

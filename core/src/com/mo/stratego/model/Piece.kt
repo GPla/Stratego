@@ -25,7 +25,8 @@ class Piece(val rank: Rank, val owner: Player) :
         // add texture
         when (owner.id) {
             PlayerId.PLAYER1 -> add(Atlas.getPieceTexture(rank, owner.id))
-            PlayerId.PLAYER2 -> add(Atlas.getPieceBacksideTexture(owner.id))
+            PlayerId.PLAYER2 -> add(Atlas.getPieceTexture(rank,
+                                                          owner.id)) // todo change to backside
         }
     }
 

@@ -76,9 +76,8 @@ object HudController {
      */
     @Subscribe(threadMode = ThreadMode.ASYNC)
     fun onStateEvent(msg: StateEvent) {
-        Gdx.app.log("state", "state: ${msg.state}")
-        updateState(
-                msg.state)
+        Gdx.app.log("game_state", "state: ${msg.state}")
+        updateState(msg.state)
     }
 
     /**

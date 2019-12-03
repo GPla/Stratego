@@ -61,6 +61,17 @@ abstract class Player(val id: PlayerId) {
     abstract fun processOthersGrid(otherGrid: StartingGrid)
 
     /**
+     * Number that determines the starting player.
+     */
+    var startNumber: StartNumber? = null
+
+    /**
+     * Process the other players starting number
+     * @param number Start number
+     */
+    abstract fun processOthersStartingNumber(number: StartNumber)
+
+    /**
      * Resets the player to the initial state, so that a
      * new game can be started.
      */

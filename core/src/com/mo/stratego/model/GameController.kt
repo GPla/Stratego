@@ -49,16 +49,18 @@ object GameController {
      * This method runs and updates the [GameState].
      * It should be called every frame by the game loop.
      */
-    //TODO: starting player has to be synced with other device
-    //TODO: show who's turn / hints
-    //TODO: !! make event based?
+    //TODO: implement init (sync starting player via random number)
     fun run() {
         val result = when (state) {
             GameState.INIT                 -> true
+            GameState.INIT_PLAYER_1        -> init(PlayerId.PLAYER1)
+            GameState.INIT_PLAYER_2        -> init(PlayerId.PLAYER2)
             GameState.INIT_PREP_PLAYER_1   -> spawnPieces(players[0])
-            GameState.PREPARATION_PLAYER_1 -> makePlayersPreparation(0)
+            GameState.PREPARATION_PLAYER_1 -> makePlayersPreparation(
+                    PlayerId.PLAYER1)
             GameState.INIT_PREP_PLAYER_2   -> spawnPieces(players[1])
-            GameState.PREPARATION_PLAYER_2 -> makePlayersPreparation(1)
+            GameState.PREPARATION_PLAYER_2 -> makePlayersPreparation(
+                    PlayerId.PLAYER2)
             GameState.TURN_PLAYER_1        -> makePlayersTurn(0)
             GameState.TURN_PLAYER_2        -> makePlayersTurn(1)
             GameState.GAME_OVER            -> false
@@ -72,6 +74,21 @@ object GameController {
                 EventBus.getDefault().post(StateEvent(this))
             }
         }
+    }
+
+    /**
+     * Init state.
+     * Exchange starting numbers.
+     */
+    private fun init(playerId: PlayerId): Boolean {
+        val id = playerId.id
+
+        return players[id].startNumber?.run {
+            val otherId = (id + 1) % players.size
+            players[otherId].processOthersStartingNumber(this)
+
+            true
+        } ?: false
     }
 
     /**
@@ -101,15 +118,13 @@ object GameController {
         return true
     }
 
-    // TODO: make rdy btn that puts starting grid into player
     /**
      * Make [Player]s preparation.
      * @param id Id of the [Player]
      * @return True if the preparation is completed.
      */
-    private fun makePlayersPreparation(id: Int): Boolean {
-        if (id >= players.size)
-            return false
+    private fun makePlayersPreparation(playerId: PlayerId): Boolean {
+        val id = playerId.id
 
         // allow player to move pieces
         players[id].allow = true

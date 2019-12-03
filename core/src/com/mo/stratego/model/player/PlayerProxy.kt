@@ -27,14 +27,17 @@ class PlayerProxy(id: PlayerId) : Player(id) {
     /**
      * Send move via [CommunicationHandler].
      */
-    // FIXME: move executed on the wrong side 
+    // FIXME: move executed on the wrong side
     override var othersMove: Move? = null
         set(value) {
             value?.also {
                 // TODO put somewhere else, prettify
-                val mov = Move(it.position,
-                               GridPoint2(it.move.x, 10 - it.move.y))
-                CommunicationHandler.serialize(it)
+                val posGrid = Grid.translatePositionToCell(it.position)
+                val pos = GridPoint2(9 - posGrid.x, 9 - posGrid.y)
+                val mov = GridPoint2(it.move.x * -1, it.move.y * -1)
+
+                CommunicationHandler.serialize(
+                        Move(Grid.translateCellToPosition(pos), mov))
             }
             field = value
         }

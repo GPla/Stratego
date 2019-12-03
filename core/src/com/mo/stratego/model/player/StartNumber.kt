@@ -8,4 +8,7 @@ import kotlinx.serialization.Serializable
  * @property number Number
  */
 @Serializable
-data class StartNumber(val number: Int) 
+data class StartNumber(val number: Int) {
+    // for serialization
+    private val className = StartNumber::class.java.name
+}

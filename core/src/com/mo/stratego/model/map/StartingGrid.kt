@@ -3,15 +3,22 @@ package com.mo.stratego.model.map
 import com.badlogic.gdx.math.GridPoint2
 import com.mo.stratego.model.Rank
 import com.mo.stratego.model.player.Player
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
 /**
  * A Grid representing the [Player]s starting formation.
  * It has the size of an 4 x 10 array.
  */
+@Serializable
 class StartingGrid {
+    // for serialization
+    private val className = StartingGrid::class.java.name
     var matrix = Array(4) { arrayOfNulls<Rank?>(10) }
         private set
+    @Transient
     val sizeX = matrix[0].size
+    @Transient
     val sizeY = matrix.size
 
     /**

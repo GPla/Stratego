@@ -1,5 +1,6 @@
 package com.mo.stratego.model.communication
 
+import com.badlogic.gdx.Gdx
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -24,6 +25,8 @@ object CommunicationHandler : ICommunicationEventListener {
 
     override fun onDataReceived(data: ByteArray?) {
         EventBus.getDefault().post(DataReceivedEvent(data))
+        Gdx.app.log("bth", "data : $data")
+
     }
 
     override fun onDataWrite() {

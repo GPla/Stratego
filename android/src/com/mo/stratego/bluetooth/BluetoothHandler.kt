@@ -140,4 +140,8 @@ class BluetoothHandler(context: Context) :
     override fun disable() {
         adapter.disable()
     }
+
+    override fun writeData(data: ByteArray) {
+        service.write(data)
+    }
 }

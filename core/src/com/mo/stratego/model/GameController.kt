@@ -18,7 +18,7 @@ object GameController {
     private lateinit var engine: Engine
     lateinit var players: Array<Player>
         private set
-    var state: GameState = GameState.INIT
+    var state: GameState = GameState.INIT_PLAYER_1
         private set
     lateinit var playerPieces: Map<Player, List<Piece>>
         private set
@@ -49,10 +49,10 @@ object GameController {
      * This method runs and updates the [GameState].
      * It should be called every frame by the game loop.
      */
+    //FIXME: bug sometimes hangs in INIT_PLAYER_2
     //TODO: implement init (sync starting player via random number)
     fun run() {
         val result = when (state) {
-            GameState.INIT                 -> true
             GameState.INIT_PLAYER_1        -> init(PlayerId.PLAYER1)
             GameState.INIT_PLAYER_2        -> init(PlayerId.PLAYER2)
             GameState.INIT_PREP_PLAYER_1   -> spawnPieces(players[0])
@@ -61,6 +61,7 @@ object GameController {
             GameState.INIT_PREP_PLAYER_2   -> spawnPieces(players[1])
             GameState.PREPARATION_PLAYER_2 -> makePlayersPreparation(
                     PlayerId.PLAYER2)
+            GameState.GAME_START           -> getFirstTurn()
             GameState.TURN_PLAYER_1        -> makePlayersTurn(0)
             GameState.TURN_PLAYER_2        -> makePlayersTurn(1)
             GameState.GAME_OVER            -> false
@@ -74,6 +75,24 @@ object GameController {
                 EventBus.getDefault().post(StateEvent(this))
             }
         }
+    }
+
+    /**
+     * Decide who's first.
+     *
+     * @return False
+     */
+    private fun getFirstTurn(): Boolean {
+        val player1Num =
+                players[PlayerId.PLAYER1.id].startNumber?.number ?: return false
+        val player2Num =
+                players[PlayerId.PLAYER2.id].startNumber?.number ?: return false
+
+        if (player2Num > player1Num) {
+            state = GameState.TURN_PLAYER_1
+            return true
+        }
+        return true
     }
 
     /**

@@ -54,4 +54,10 @@ interface ICommunication {
      * DisableS service.
      */
     fun disable()
+
+    /**
+     * Write data to the output stream.
+     * @param data Data to send
+     */
+    fun writeData(data: ByteArray)
 }

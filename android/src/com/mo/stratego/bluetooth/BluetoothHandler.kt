@@ -81,7 +81,7 @@ class BluetoothHandler(context: Context) :
             }
 
             override fun onDataWrite(buffer: ByteArray?) {
-                Gdx.app.log("bth", "data write")
+                Gdx.app.log("bth", "data write (${buffer?.size})")
                 listener?.onDataWrite()
             }
 

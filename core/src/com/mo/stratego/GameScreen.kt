@@ -36,6 +36,7 @@ import org.greenrobot.eventbus.EventBus
  *
  * game logic implemented using ECS (Entity - Component - System) design pattern
  */
+//TODO param 2nd player type
 class GameScreen : Screen {
     private var camera: OrthographicCamera = OrthographicCamera()
     private val engine: Engine
@@ -80,7 +81,7 @@ class GameScreen : Screen {
         engine.addEntityListener(family, Grid)
 
         GameMap.engine = engine
-        GameController.init(engine, PlayerType.LOCAL)
+        GameController.init(engine, PlayerType.PROXY)
 
         // add systems to engine
         engine.addSystem(RenderSystem(batch, camera))

@@ -20,7 +20,7 @@ abstract class Player(val id: PlayerId) {
     /**
      * Whether or not the player is allowed to make his move.
      */
-    var allow: Boolean = false
+    open var allow: Boolean = false
 
     /**
      * The move made by the player.
@@ -30,7 +30,7 @@ abstract class Player(val id: PlayerId) {
     /**
      * The move made by the other player.
      */
-    var othersMove: Move? = null
+    open var othersMove: Move? = null
 
     /**
      * Presents the other players move.

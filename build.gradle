@@ -87,5 +87,7 @@ project(":core") {
         implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.14.0"
         implementation "com.badlogicgames.ashley:ashley:$ashleyVersion"
         implementation 'org.greenrobot:eventbus:3.1.1'
+        implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+
     }
 }

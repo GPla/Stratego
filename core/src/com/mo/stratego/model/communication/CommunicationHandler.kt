@@ -1,6 +1,11 @@
 package com.mo.stratego.model.communication
 
 import com.badlogic.gdx.Gdx
+import com.mo.stratego.model.Move
+import com.mo.stratego.model.map.StartingGrid
+import com.mo.stratego.model.player.StartNumber
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonConfiguration
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -14,6 +19,8 @@ object CommunicationHandler : ICommunicationEventListener {
     lateinit var iCom: ICommunication
         private set
 
+    private val json = Json(JsonConfiguration.Stable)
+
     /**
      * Init.
      * @param iCom Communication Handler
@@ -25,8 +32,6 @@ object CommunicationHandler : ICommunicationEventListener {
 
     override fun onDataReceived(data: ByteArray?) {
         EventBus.getDefault().post(DataReceivedEvent(data))
-        Gdx.app.log("bth", "data : $data")
-
     }
 
     override fun onDataWrite() {
@@ -43,5 +48,44 @@ object CommunicationHandler : ICommunicationEventListener {
 
     override fun onConnected(name: String) {
         EventBus.getDefault().post(OnConnectedEvent(name))
+    }
+
+    // todo desc
+    fun serialize(obj: Any) {
+        var jsonData = when (obj) {
+            is StartNumber  -> json.stringify(StartNumber.serializer(), obj)
+            is Move         -> json.stringify(Move.serializer(), obj)
+            is StartingGrid -> json.stringify(StartingGrid.serializer(), obj)
+            else            -> null
+        }
+
+        jsonData?.also {
+            Gdx.app.log("bth", "data send: $it")
+            // add \n as delimiter
+            iCom.writeData(it.toByteArray() + '\n'.toByte())
+        }
+    }
+
+
+    // todo desc
+    fun deserialize(str: String): Any? {
+        val jsonData = json.parseJson(str).jsonObject
+        try {
+            val name = jsonData["className"]?.primitive?.contentOrNull
+            Gdx.app.log("bth", "name: $name")
+            return when (name) {
+                StartNumber::class.java.name  ->
+                    json.parse(StartNumber.serializer(), str)
+                Move::class.java.name         ->
+                    json.parse(Move.serializer(), str)
+                StartingGrid::class.java.name ->
+                    json.parse(StartingGrid.serializer(), str)
+                else                          -> null
+            }
+        } catch (e: Exception) {
+            Gdx.app.log("bth", "parse error: $e")
+            return null
+        }
+
     }
 }

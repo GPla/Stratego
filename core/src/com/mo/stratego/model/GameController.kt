@@ -2,11 +2,16 @@ package com.mo.stratego.model
 
 import com.badlogic.ashley.core.Engine
 import com.badlogic.gdx.Gdx
+import com.mo.stratego.MainMenuScreen
+import com.mo.stratego.StrategoGame
+import com.mo.stratego.model.communication.OnErrorEvent
 import com.mo.stratego.model.player.Player
 import com.mo.stratego.model.player.PlayerId
 import com.mo.stratego.model.player.PlayerType
 import com.mo.stratego.util.StateEvent
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * This object handles the game flow and [GameState].
@@ -41,6 +46,8 @@ object GameController {
         // create pieces for player
         playerPieces = mapOf(players[0] to PieceFactory.generateSet(players[0]),
                              players[1] to PieceFactory.generateSet(players[1]))
+
+        StrategoGame.register(this)
         return this
     }
 
@@ -50,17 +57,17 @@ object GameController {
      * It should be called every frame by the game loop.
      */
     //FIXME: bug sometimes hangs in INIT_PLAYER_2
-    //TODO: implement init (sync starting player via random number)
+    //TODO: error handling
     fun run() {
         val result = when (state) {
             GameState.INIT_PLAYER_1        -> init(PlayerId.PLAYER1)
             GameState.INIT_PLAYER_2        -> init(PlayerId.PLAYER2)
             GameState.INIT_PREP_PLAYER_1   -> spawnPieces(players[0])
-            GameState.PREPARATION_PLAYER_1 -> makePlayersPreparation(
-                    PlayerId.PLAYER1)
+            GameState.PREPARATION_PLAYER_1 ->
+                makePlayersPreparation(PlayerId.PLAYER1)
             GameState.INIT_PREP_PLAYER_2   -> spawnPieces(players[1])
-            GameState.PREPARATION_PLAYER_2 -> makePlayersPreparation(
-                    PlayerId.PLAYER2)
+            GameState.PREPARATION_PLAYER_2 ->
+                makePlayersPreparation(PlayerId.PLAYER2)
             GameState.GAME_START           -> getFirstTurn()
             GameState.TURN_PLAYER_1        -> makePlayersTurn(0)
             GameState.TURN_PLAYER_2        -> makePlayersTurn(1)
@@ -78,10 +85,10 @@ object GameController {
     }
 
     /**
-     * Decide who's first.
-     *
-     * @return False
+     * Evaluate who's first.
+     * @return True
      */
+    // TODO: handle error state
     private fun getFirstTurn(): Boolean {
         val player1Num =
                 players[PlayerId.PLAYER1.id].startNumber?.number ?: return false
@@ -139,7 +146,7 @@ object GameController {
 
     /**
      * Make [Player]s preparation.
-     * @param id Id of the [Player]
+     * @param playerId Id of the [Player]
      * @return True if the preparation is completed.
      */
     private fun makePlayersPreparation(playerId: PlayerId): Boolean {
@@ -185,5 +192,16 @@ object GameController {
         state = GameState.GAME_OVER
     }
 
-
+    /**
+     * TODO
+     * Returns to [MainMenuScreen] if an error occurs.
+     * @param event
+     */
+    //FIXME: switch back does not work 
+    @Subscribe(threadMode = ThreadMode.ASYNC)
+    fun onErrorEvent(event: OnErrorEvent) {
+        Gdx.app.log("bth", "connection lost: main menu")
+        StrategoGame.screen.dispose()
+        StrategoGame.screen = MainMenuScreen()
+    }
 }

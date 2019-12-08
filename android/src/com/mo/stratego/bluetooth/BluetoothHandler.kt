@@ -101,6 +101,7 @@ class BluetoothHandler(context: Context) :
     /**
      * Enables Bluetooth if disabled and scans for other devices.
      */
+    //FIXME: bugged sometimes on scan start is disables right after
     override fun startScan() {
         availableDevices.clear()
 

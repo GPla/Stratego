@@ -50,7 +50,13 @@ object CommunicationHandler : ICommunicationEventListener {
         EventBus.getDefault().post(OnConnectedEvent(name))
     }
 
-    // todo desc
+    // TODO: on error -> freeze game and show reconnect dialog
+    // need to save device, to restore connection? or just quit the game?
+
+    /**
+     * Serialize object to json object.
+     * @param obj Object
+     */
     fun serialize(obj: Any) {
         var jsonData = when (obj) {
             is StartNumber  -> json.stringify(StartNumber.serializer(), obj)
@@ -67,12 +73,16 @@ object CommunicationHandler : ICommunicationEventListener {
     }
 
 
-    // todo desc
+    /**
+     * Deserialize json object to class instance.
+     * @param str Json string
+     * @return Instance of deserialized json.
+     */
     fun deserialize(str: String): Any? {
         val jsonData = json.parseJson(str).jsonObject
         try {
             val name = jsonData["className"]?.primitive?.contentOrNull
-            Gdx.app.log("bth", "name: $name")
+
             return when (name) {
                 StartNumber::class.java.name  ->
                     json.parse(StartNumber.serializer(), str)

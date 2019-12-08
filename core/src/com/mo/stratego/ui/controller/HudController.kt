@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.utils.Align
+import com.mo.stratego.StrategoGame
 import com.mo.stratego.model.Atlas
 import com.mo.stratego.model.Rank
 import com.mo.stratego.model.map.GameMap
@@ -40,6 +41,7 @@ object HudController {
         HudController.stage = stage
         HudController.engine = engine
 
+        StrategoGame.register(this)
         initActors()
     }
 

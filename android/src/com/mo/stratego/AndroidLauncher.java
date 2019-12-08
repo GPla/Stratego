@@ -29,8 +29,9 @@ public class AndroidLauncher extends AndroidApplication {
         ICommunication handler = new BluetoothHandler(getApplicationContext());
         requestPermissions();
 
+        StrategoGame.INSTANCE.init(handler);
         // run game
-        initialize(new StrategoGame(handler), config);
+        initialize(StrategoGame.INSTANCE, config);
     }
 
     //TODO cleanup

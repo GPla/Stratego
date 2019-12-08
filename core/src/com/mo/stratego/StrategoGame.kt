@@ -6,28 +6,45 @@ import com.mo.stratego.model.communication.ICommunication
 import org.greenrobot.eventbus.EventBus
 
 //todo desc
-class StrategoGame(iCom: ICommunication) : Game() {
+object StrategoGame : Game() {
 
-    init {
+    /**
+     * Initialize.
+     * @param iCom Communication handler
+     */
+    fun init(iCom: ICommunication) {
         CommunicationHandler.init(iCom)
     }
 
-    companion object {
-        val eventBusListener: MutableList<Any> = mutableListOf()
+    /**
+     * List that contains registered [EventBus] listener, that do
+     * not manage their lifespan.
+     */
+    val eventBusListener: MutableList<Any> = mutableListOf()
 
-        fun register(any: Any) {
-            EventBus.getDefault().register(any)
-            eventBusListener.add(any)
-        }
+    /**
+     * Registers for the [EventBus].
+     * @param any Any
+     */
+    fun register(any: Any) {
+        EventBus.getDefault().register(any)
+        eventBusListener.add(any)
+    }
 
-        fun unregister(any: Any) {
-            EventBus.getDefault().unregister(any)
-            eventBusListener.remove(any)
-        }
+    /**
+     * Unregister from the [EventBus].
+     * @param any Any
+     */
+    fun unregister(any: Any) {
+        if (!EventBus.getDefault().isRegistered(any))
+            return
+
+        EventBus.getDefault().unregister(any)
+        eventBusListener.remove(any)
     }
 
     override fun create() {
-        setScreen(MainMenuScreen(this))
+        setScreen(MainMenuScreen())
     }
 
     override fun dispose() {

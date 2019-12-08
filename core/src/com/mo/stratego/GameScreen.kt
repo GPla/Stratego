@@ -29,7 +29,6 @@ import com.mo.stratego.ui.controller.FieldController
 import com.mo.stratego.ui.controller.HudController
 import com.mo.stratego.ui.input.MapListener
 import com.mo.stratego.util.Constants
-import org.greenrobot.eventbus.EventBus
 
 /**
  * Game screen
@@ -89,8 +88,6 @@ class GameScreen : Screen {
         engine.addSystem(WaitSystem())
         engine.addSystem(AttackSystem())
 
-        testPieces()
-
         // handle user input with stage
         // objectStage receive events, if not handled they get passed to
         // the map stage
@@ -104,8 +101,6 @@ class GameScreen : Screen {
 
     override fun show() {
         camera.update()
-        EventBus.getDefault().register(
-                HudController)
     }
 
     override fun render(delta: Float) {
@@ -154,25 +149,6 @@ class GameScreen : Screen {
     }
 
     override fun dispose() {
-        EventBus.getDefault().unregister(
-                HudController)
     }
 
-    fun testPieces() {
-        /*var y = 6
-        Rank.values().forEachIndexed { index, rank ->
-            engine.addEntity(
-                    Piece(rank, GameController.players[0],
-                          GridPoint2(index % 10, y)))
-
-            engine.addEntity(
-                    Piece(rank, GameController.players[1],
-                          GridPoint2(index % 10, y + 6)))
-
-            if (index % 10 >= 9)
-                ++y
-        }*/
-
-
-    }
 }

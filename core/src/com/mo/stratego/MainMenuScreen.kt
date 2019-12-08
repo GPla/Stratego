@@ -1,6 +1,5 @@
 package com.mo.stratego
 
-import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.GL20
@@ -13,7 +12,7 @@ import com.mo.stratego.util.Constants
 /**
  * Screen for the main menu.
  */
-class MainMenuScreen(val game: Game) : Screen {
+class MainMenuScreen() : Screen {
 
     init {
         val stage = Stage(StretchViewport(
@@ -63,7 +62,7 @@ class MainMenuScreen(val game: Game) : Screen {
      * @param screen Screen
      */
     fun switchScreen(screen: Screen) {
-        game.screen = screen
+        StrategoGame.screen = screen
         dispose()
     }
 }

@@ -14,11 +14,11 @@ import com.mo.stratego.model.map.Grid
 import com.mo.stratego.model.map.StartingGrid
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 //TODO desc
-//TODO exchange othersmove
 class PlayerProxy(id: PlayerId) : Player(id) {
     init {
         StrategoGame.register(this)
@@ -27,21 +27,34 @@ class PlayerProxy(id: PlayerId) : Player(id) {
     /**
      * Send move via [CommunicationHandler].
      */
-    // FIXME: move executed on the wrong side
     override var othersMove: Move? = null
         set(value) {
             value?.also {
-                // TODO put somewhere else, prettify
-                val posGrid = Grid.translatePositionToCell(it.position)
-                val pos = GridPoint2(9 - posGrid.x, 9 - posGrid.y)
-                val mov = GridPoint2(it.move.x * -1, it.move.y * -1)
-
-                CommunicationHandler.serialize(
-                        Move(Grid.translateCellToPosition(pos), mov))
+                // send move in other players perspective
+                CommunicationHandler.serialize(translateMove(it))
             }
             field = value
         }
 
+    /**
+     * Translate [Move] to the other [Player]'s perspective.
+     * @param move Move
+     * @return [Move] in the other [Player]'s perspective.
+     */
+    private fun translateMove(move: Move): Move {
+        var posGrid = Grid.translatePositionToCell(move.position)
+        val pos = GridPoint2(9 - posGrid.x, 9 - posGrid.y)
+        posGrid = Grid.translateCellToPosition(pos)
+
+        val mov = GridPoint2(move.move.x * -1, move.move.y * -1)
+        return Move(posGrid, mov)
+    }
+
+
+    /**
+     * Whether or not [Piece]'s of the player can be moved by the manually
+     * on this device. Always false.
+     */
     override var allow: Boolean = false
         get() = false
 
@@ -81,14 +94,19 @@ class PlayerProxy(id: PlayerId) : Player(id) {
         CommunicationHandler.serialize(number)
     }
 
-    //TODO desc 
+    /**
+     * Subscription of [DataReceivedEvent]'s that are broadcasted on the
+     * [EventBus]. Event occurs if the [CommunicationHandler] receives
+     * new data.
+     * @param event DataReceivedEvent
+     */
     @Subscribe(threadMode = ThreadMode.ASYNC)
     fun onDataReceived(event: DataReceivedEvent) {
         val data = event.data?.toString(Charsets.UTF_8) ?: return
         Gdx.app.log("bth", "proxy rec: $data")
 
-        val obj = CommunicationHandler.deserialize(data)
-        when (obj) {
+        // deserialize json and assign to property
+        when (val obj = CommunicationHandler.deserialize(data)) {
             is StartNumber  -> startNumber = obj
             is Move         -> move = obj
             is StartingGrid -> startingGrid = obj

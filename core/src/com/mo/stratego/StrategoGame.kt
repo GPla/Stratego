@@ -1,8 +1,10 @@
 package com.mo.stratego
 
 import com.badlogic.gdx.Game
+import com.badlogic.gdx.Gdx
 import com.mo.stratego.model.communication.CommunicationHandler
 import com.mo.stratego.model.communication.ICommunication
+import com.mo.stratego.ui.Screens
 import org.greenrobot.eventbus.EventBus
 
 //todo desc
@@ -27,6 +29,8 @@ object StrategoGame : Game() {
      * @param any Any
      */
     fun register(any: Any) {
+        if (EventBus.getDefault().isRegistered(any))
+            return
         EventBus.getDefault().register(any)
         eventBusListener.add(any)
     }
@@ -50,5 +54,22 @@ object StrategoGame : Game() {
     override fun dispose() {
         super.dispose()
         eventBusListener.forEach { EventBus.getDefault().unregister(it) }
+    }
+
+    /**
+     * Switches the screen.
+     * @param screen Screen
+     */
+    fun switchScreen(type: Screens) {
+        Gdx.app.log("game", "switch screen: ${type}")
+
+        // has to be run on the main thread, otherwise its undefined behavior
+        // or simply does not work
+        Gdx.app.postRunnable {
+            // switch to screen
+            val oldScreen = this.screen
+            this.screen = type.createInstance()
+            oldScreen.dispose()
+        }
     }
 }

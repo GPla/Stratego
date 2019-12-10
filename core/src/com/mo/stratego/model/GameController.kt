@@ -5,10 +5,11 @@ import com.badlogic.gdx.Gdx
 import com.mo.stratego.MainMenuScreen
 import com.mo.stratego.StrategoGame
 import com.mo.stratego.model.communication.OnErrorEvent
+import com.mo.stratego.model.communication.StateEvent
 import com.mo.stratego.model.player.Player
 import com.mo.stratego.model.player.PlayerId
 import com.mo.stratego.model.player.PlayerType
-import com.mo.stratego.util.StateEvent
+import com.mo.stratego.ui.Screens
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -32,7 +33,6 @@ object GameController {
      * Init the object with this method. If not called before usage
      * an exception is thrown.
      * @param engine Engine
-     * @param player1 Type of player 1
      * @param player2 Type of player 2
      */
     fun init(engine: Engine, player2: PlayerType): GameController {
@@ -48,9 +48,10 @@ object GameController {
                              players[1] to PieceFactory.generateSet(players[1]))
 
         StrategoGame.register(this)
+
+        state = GameState.INIT_PLAYER_1
         return this
     }
-
 
     /**
      * This method runs and updates the [GameState].
@@ -79,7 +80,9 @@ object GameController {
             state++
             // post state change to hudcontroller
             state.title?.run {
-                EventBus.getDefault().post(StateEvent(this))
+                EventBus.getDefault().post(
+                        StateEvent(
+                                this))
             }
         }
     }
@@ -193,15 +196,12 @@ object GameController {
     }
 
     /**
-     * TODO
-     * Returns to [MainMenuScreen] if an error occurs.
-     * @param event
+     * Returns to [MainMenuScreen] if a communication error occurs.
+     * @param event OnErrorEvent
      */
-    //FIXME: switch back does not work 
+    // TODO show connection lost dialog
     @Subscribe(threadMode = ThreadMode.ASYNC)
     fun onErrorEvent(event: OnErrorEvent) {
-        Gdx.app.log("bth", "connection lost: main menu")
-        StrategoGame.screen.dispose()
-        StrategoGame.screen = MainMenuScreen()
+        StrategoGame.switchScreen(Screens.MAINMENU)
     }
 }

@@ -12,7 +12,7 @@ import com.mo.stratego.util.Constants
 /**
  * Screen for the main menu.
  */
-class MainMenuScreen() : Screen {
+class MainMenuScreen : Screen {
 
     init {
         val stage = Stage(StretchViewport(
@@ -56,13 +56,5 @@ class MainMenuScreen() : Screen {
     override fun dispose() {
 
     }
-
-    /**
-     * Switches the [Screen].
-     * @param screen Screen
-     */
-    fun switchScreen(screen: Screen) {
-        StrategoGame.screen = screen
-        dispose()
-    }
+    
 }

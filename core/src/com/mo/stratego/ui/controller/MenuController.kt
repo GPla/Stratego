@@ -1,6 +1,5 @@
 package com.mo.stratego.ui.controller
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Table
@@ -12,6 +11,7 @@ import com.mo.stratego.MainMenuScreen
 import com.mo.stratego.StrategoGame
 import com.mo.stratego.model.Atlas
 import com.mo.stratego.model.communication.OnConnectedEvent
+import com.mo.stratego.ui.Screens
 import com.mo.stratego.ui.control.ConnectDialog
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -19,6 +19,7 @@ import org.greenrobot.eventbus.ThreadMode
 /**
  * Controller for the stage of the [MainMenuScreen].
  */
+// TODO show error/ success after connection
 object MenuController {
 
     lateinit var stage: Stage
@@ -83,13 +84,13 @@ object MenuController {
 
     }
 
+    /**
+     * Switches to [GameScreen].
+     * Event occurs if connected to other device.
+     * @param event OnConnectedEvent
+     */
     @Subscribe(threadMode = ThreadMode.ASYNC)
     fun OnConnectedEvent(event: OnConnectedEvent) {
-
-        Gdx.app.postRunnable {
-            menuScreen.switchScreen(GameScreen())
-        }
-        Gdx.app.log("game", "switch screen")
+        StrategoGame.switchScreen(Screens.GAME)
     }
-
 }

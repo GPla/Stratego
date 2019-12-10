@@ -58,6 +58,7 @@ class ConnectDialog(skin: Skin, val titleText: String = "Select a Device") :
      * Processes the button result codes.
      * @param object Result code
      */
+    //FIXME: only connect if selected, avoid crashing
     override fun result(`object`: Any?) {
         var result = `object` as Int
         when (result) {
@@ -70,7 +71,9 @@ class ConnectDialog(skin: Skin, val titleText: String = "Select a Device") :
                 cancel()
             }
             1 -> {
-                CommunicationHandler.iCom.connect(deviceList.selected)
+                deviceList.selected?.also {
+                    CommunicationHandler.iCom.connect(it)
+                }
             }
         }
 

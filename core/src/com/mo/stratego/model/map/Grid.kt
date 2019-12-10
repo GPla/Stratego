@@ -23,32 +23,42 @@ object Grid : EntityListener {
      * The y-axis is flipped compared to the camera, which has the origin
      * in the bottom left corner.
      */
-    private val matrix: Array<Array<Piece?>> =
-            Array(10) { arrayOfNulls<Piece?>(10) }
+    private lateinit var matrix: Array<Array<Piece?>>
 
     /**
      * A map that maps the rank to the number of pieces in their default
      * position, off game grid, for both [Player]s.
      */
-    val spawnMap: Map<Rank, Array<Int>> = mapOf(
-            Rank.BOMB to arrayOf(0, 0),
-            Rank.MARSHAL to arrayOf(0, 0),
-            Rank.GENERAL to arrayOf(0, 0),
-            Rank.COLONEL to arrayOf(0, 0),
-            Rank.MAJOR to arrayOf(0, 0),
-            Rank.CAPTAIN to arrayOf(0, 0),
-            Rank.LIEUTENANT to arrayOf(0, 0),
-            Rank.SERGEANT to arrayOf(0, 0),
-            Rank.MINER to arrayOf(0, 0),
-            Rank.SCOUT to arrayOf(0, 0),
-            Rank.SPY to arrayOf(0, 0),
-            Rank.BOMB to arrayOf(0, 0),
-            Rank.FLAG to arrayOf(0, 0))
+    lateinit var spawnMap: Map<Rank, Array<Int>>
+        private set
 
     private val posMapper: ComponentMapper<PositionComponent> =
             ComponentMapper.getFor(PositionComponent::class.java)
     private val moveMapper: ComponentMapper<MoveComponent> =
             ComponentMapper.getFor(MoveComponent::class.java)
+
+    /**
+     * Init Grid for new game.
+     */
+    fun init() {
+        spawnMap = mapOf(
+                Rank.BOMB to arrayOf(0, 0),
+                Rank.MARSHAL to arrayOf(0, 0),
+                Rank.GENERAL to arrayOf(0, 0),
+                Rank.COLONEL to arrayOf(0, 0),
+                Rank.MAJOR to arrayOf(0, 0),
+                Rank.CAPTAIN to arrayOf(0, 0),
+                Rank.LIEUTENANT to arrayOf(0, 0),
+                Rank.SERGEANT to arrayOf(0, 0),
+                Rank.MINER to arrayOf(0, 0),
+                Rank.SCOUT to arrayOf(0, 0),
+                Rank.SPY to arrayOf(0, 0),
+                Rank.BOMB to arrayOf(0, 0),
+                Rank.FLAG to arrayOf(0, 0))
+
+
+        matrix = Array(10) { arrayOfNulls<Piece?>(10) }
+    }
 
     /**
      * Updates the grid if a [MoveComponent] or [PositionComponent] from
@@ -79,14 +89,6 @@ object Grid : EntityListener {
             return
 
         update(entity, 0)
-    }
-
-    /**
-     * Reloads the complete grid.
-     */
-    //TODO: implement
-    fun reload() {
-
     }
 
     /**

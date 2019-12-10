@@ -9,12 +9,12 @@ import com.badlogic.gdx.utils.Align
 import com.mo.stratego.StrategoGame
 import com.mo.stratego.model.Atlas
 import com.mo.stratego.model.Rank
+import com.mo.stratego.model.communication.StateEvent
 import com.mo.stratego.model.map.GameMap
 import com.mo.stratego.model.player.PlayerId
 import com.mo.stratego.ui.control.CounterLabel
 import com.mo.stratego.ui.control.ReadyButton
 import com.mo.stratego.util.Constants
-import com.mo.stratego.util.StateEvent
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -63,8 +63,7 @@ object HudController {
 
         // lblstate
         with(lblState) {
-            updateState(
-                    "Init")
+            updateState("Init")
             this.label.setAlignment(Align.center)
             touchable = Touchable.disabled
         }

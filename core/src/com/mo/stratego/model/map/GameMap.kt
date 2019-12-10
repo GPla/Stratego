@@ -1,6 +1,5 @@
 package com.mo.stratego.model.map
 
-import com.badlogic.ashley.core.Engine
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer
@@ -24,8 +23,6 @@ object GameMap {
     val gridLeft: Int   // number of tiles from left to grid
     val tilewidth: Int
     val tileheight: Int
-
-    var engine: Engine? = null
 
     init {
         // load map and init renderer

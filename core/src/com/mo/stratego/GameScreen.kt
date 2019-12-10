@@ -72,6 +72,7 @@ class GameScreen : Screen {
         HudController.init(hudStage, engine)
 
         // Grid
+        Grid.init()
         // Grid is updated if piece witWh position component is added / removed
         // or a move component is added/ removed
         family = Family.all(PieceComponent::class.java,
@@ -79,8 +80,8 @@ class GameScreen : Screen {
                 .exclude(MoveComponent::class.java).get()
         engine.addEntityListener(family, Grid)
 
-        GameMap.engine = engine
         GameController.init(engine, PlayerType.PROXY)
+
 
         // add systems to engine
         engine.addSystem(RenderSystem(batch, camera))

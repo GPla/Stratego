@@ -29,6 +29,8 @@ object GameController {
     lateinit var playerPieces: Map<Player, List<Piece>>
         private set
 
+    private var turnCounter = TurnCounter()
+
     /**
      * Init the object with this method. If not called before usage
      * an exception is thrown.
@@ -47,9 +49,13 @@ object GameController {
         playerPieces = mapOf(players[0] to PieceFactory.generateSet(players[0]),
                              players[1] to PieceFactory.generateSet(players[1]))
 
+        // register for events on event bus
         StrategoGame.register(this)
 
+        // reset for new game
+        turnCounter = TurnCounter()
         state = GameState.INIT_PLAYER_1
+
         return this
     }
 
@@ -77,29 +83,37 @@ object GameController {
 
         // goto next state
         if (result) {
+            // update state and counter
             state++
+            turnCounter.changedState(state)
+
             // post state change to hudcontroller
             state.title?.run {
-                EventBus.getDefault().post(
-                        StateEvent(
-                                this))
+
+                EventBus.getDefault().post(StateEvent(this, turnCounter.counter))
             }
         }
     }
 
     /**
-     * Evaluate who's first.
-     * @return True
+     * Evaluate who's first. The player with the higher number will
+     * begin.
+     * @return True, go to next state.
      */
     // TODO: handle error state
     private fun getFirstTurn(): Boolean {
+        // get both player starting numbers
         val player1Num =
                 players[PlayerId.PLAYER1.id].startNumber?.number ?: return false
         val player2Num =
                 players[PlayerId.PLAYER2.id].startNumber?.number ?: return false
 
+        // player with higher number starts
         if (player2Num > player1Num) {
+            // will be incremented again in run()
             state = GameState.TURN_PLAYER_1
+            // player 2 starts
+            turnCounter.firstTurn = GameState.TURN_PLAYER_2
             return true
         }
         return true

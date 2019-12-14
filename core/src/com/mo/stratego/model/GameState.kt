@@ -6,15 +6,15 @@ import com.mo.stratego.model.player.PlayerId
  * Enum of game states
  */
 enum class GameState(val activePlayerId: PlayerId?, val title: String?) {
-    INIT_PLAYER_1(PlayerId.PLAYER1, "Init Player 1"),
-    INIT_PLAYER_2(PlayerId.PLAYER2, "Init Player 2"),
+    INIT_PLAYER_1(PlayerId.PLAYER1, "Preparation"),
+    INIT_PLAYER_2(PlayerId.PLAYER2, null),
     INIT_PREP_PLAYER_1(PlayerId.PLAYER1, null),
-    PREPARATION_PLAYER_1(PlayerId.PLAYER1, "Preparation Player 1"),
+    PREPARATION_PLAYER_1(PlayerId.PLAYER1, "Preparation"),
     INIT_PREP_PLAYER_2(PlayerId.PLAYER2, null),
-    PREPARATION_PLAYER_2(PlayerId.PLAYER2, "Preparation Player 2"),
-    GAME_START(null, "Game Start"),
-    TURN_PLAYER_1(PlayerId.PLAYER1, "Turn Player 1"),
-    TURN_PLAYER_2(PlayerId.PLAYER2, "Turn Player 2"),
+    PREPARATION_PLAYER_2(PlayerId.PLAYER2, "Opponent's Preparation"),
+    GAME_START(null, null),
+    TURN_PLAYER_1(PlayerId.PLAYER1, "Your Turn"),
+    TURN_PLAYER_2(PlayerId.PLAYER2, "Opponent's Turn"),
     GAME_OVER(null, "Game Over!");
 
     /**

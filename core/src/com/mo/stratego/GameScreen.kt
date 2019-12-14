@@ -36,7 +36,7 @@ import com.mo.stratego.util.Constants
  * game logic implemented using ECS (Entity - Component - System) design pattern
  */
 //TODO param 2nd player type
-class GameScreen : Screen {
+class GameScreen(player2: PlayerType) : Screen {
     private var camera: OrthographicCamera = OrthographicCamera()
     private val engine: Engine
     private val batch: SpriteBatch
@@ -80,7 +80,7 @@ class GameScreen : Screen {
                 .exclude(MoveComponent::class.java).get()
         engine.addEntityListener(family, Grid)
 
-        GameController.init(engine, PlayerType.PROXY)
+        GameController.init(engine, player2)
 
 
         // add systems to engine
@@ -133,8 +133,8 @@ class GameScreen : Screen {
         }
 
         HudController.stage.apply {
-            setDebugInvisible(false)
-            isDebugAll = true
+            //setDebugInvisible(false)
+            //isDebugAll = true
             act(delta)
             draw()
         }

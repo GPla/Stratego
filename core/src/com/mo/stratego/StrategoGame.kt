@@ -58,10 +58,10 @@ object StrategoGame : Game() {
 
     /**
      * Switches the screen.
-     * @param screen Screen
+     * @param type Screen
      */
     fun switchScreen(type: Screens) {
-        Gdx.app.log("game", "switch screen: ${type}")
+        Gdx.app.log("game", "switch screen: $type")
 
         // has to be run on the main thread, otherwise its undefined behavior
         // or simply does not work

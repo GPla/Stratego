@@ -1,7 +1,9 @@
 package com.mo.stratego.ui.controller
 
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
@@ -23,8 +25,7 @@ import org.greenrobot.eventbus.ThreadMode
 object MenuController {
 
     lateinit var stage: Stage
-    val bluetoothDialog = ConnectDialog(Atlas.uiSkin)
-    private lateinit var menuScreen: MainMenuScreen
+    val connectDialog = ConnectDialog(Atlas.uiSkin)
 
     /**
      * Init the object with this method. If not called before usage
@@ -32,9 +33,8 @@ object MenuController {
      * @param stage Stage
      * @return This for chaining.
      */
-    fun init(stage: Stage, menuScreen: MainMenuScreen): MenuController {
+    fun init(stage: Stage): MenuController {
         MenuController.stage = stage
-        this.menuScreen = menuScreen
         initActors()
         StrategoGame.register(this)
         return this
@@ -50,12 +50,10 @@ object MenuController {
             align(Align.center)
             setDebug(true)
 
-
-            // bluetooth mode
-            val btnStartGame = TextButton("Bluetooth", Atlas.uiSkin)
-            btnStartGame.apply {
+            // multi player
+            val btnMulti = TextButton("Bluetooth", Atlas.uiSkinBig)
+            btnMulti.apply {
                 // button layout
-                setScale(2f)
                 align(Align.center)
                 setOrigin(Align.center)
                 isTransform = true
@@ -66,19 +64,53 @@ object MenuController {
                                            y: Float, pointer: Int,
                                            button: Int): Boolean {
 
-                        bluetoothDialog.show(stage)
+                        connectDialog.show(stage)
                         return true
                     }
                 })
             }
 
-            add(btnStartGame).center()
+
+            // local 2 player mode
+            val btnLocal = TextButton("Local", Atlas.uiSkinBig)
+            btnLocal.apply {
+                align(Align.center)
+                setOrigin(Align.center)
+                isTransform = true
+
+
+                addListener(object : ClickListener() {
+                    override fun touchDown(event: InputEvent?, x: Float,
+                                           y: Float, pointer: Int,
+                                           button: Int): Boolean {
+                        StrategoGame.switchScreen(Screens.GAME_LOCAL)
+                        return true
+                    }
+                })
+            }
+
+            val btnSettings = TextButton("Settings", Atlas.uiSkinBig)
+            //TODO settings
+
+
+            add(btnLocal).padBottom(100f).width(300f)
             row()
+            add(btnMulti).width(300f).padBottom(100f)
+            row()
+            add(btnSettings).width(300f)
+
+
         }
 
+        // title font
+        val style =
+                Label.LabelStyle(Atlas.fontTitle, Color.FOREST)
+        val title = Label("STRATEGO", style)
+        title.setPosition((stage.width - title.width) / 2, stage.height - 250)
 
         // add to stage
         with(stage) {
+            addActor(title)
             addActor(table)
         }
 
@@ -91,6 +123,7 @@ object MenuController {
      */
     @Subscribe(threadMode = ThreadMode.ASYNC)
     fun OnConnectedEvent(event: OnConnectedEvent) {
-        StrategoGame.switchScreen(Screens.GAME)
+        StrategoGame.switchScreen(Screens.GAME_MULTI)
+        StrategoGame.unregister(this)
     }
 }

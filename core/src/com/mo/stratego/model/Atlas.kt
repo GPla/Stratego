@@ -1,12 +1,23 @@
 package com.mo.stratego.model
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox.CheckBoxStyle
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle
+import com.badlogic.gdx.scenes.scene2d.ui.List.ListStyle
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox.SelectBoxStyle
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle
+import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle
 import com.mo.stratego.model.component.TextureComponent
 import com.mo.stratego.model.player.PlayerId
+
 
 /**
  * Object that loads the [TextureAtlas] with all game assets.
@@ -15,8 +26,61 @@ object Atlas {
     private val atlas: TextureAtlas = TextureAtlas("pics.atlas")
     val uiSkin =
             Skin(Gdx.files.internal("ui/plain-james/skin/plain-james-ui.json"))
+    val uiSkinBig =
+            Skin(Gdx.files.internal("ui/plain-james/skin/plain-james-ui.json"))
     val defaultSkin =
             Skin(Gdx.files.internal("ui/default/skin/uiskin.json"))
+
+    var font26: BitmapFont
+    var font48: BitmapFont
+    var fontTitle: BitmapFont
+
+    init {
+        // load font for uiskin
+        val generator = FreeTypeFontGenerator(
+                Gdx.files.internal("fonts/OpenSans-Regular.ttf"))
+        val parameter = FreeTypeFontGenerator.FreeTypeFontParameter()
+        parameter.size = 26
+        font26 = generator.generateFont(parameter)
+
+        parameter.size = 48
+        font48 = generator.generateFont(parameter)
+
+        // title font
+        parameter.size = 100
+        parameter.borderColor = Color.BLACK
+        parameter.borderWidth = 5f
+        parameter.shadowColor = Color.BLACK
+        parameter.shadowOffsetX = 5
+        parameter.shadowOffsetY = 5
+        fontTitle = generator.generateFont(parameter)
+
+        generator.dispose()
+
+        //setup skins with fonts
+        with(uiSkin) {
+            get(TextButtonStyle::class.java).font = font26
+            get(ListStyle::class.java).font = font26
+            get(LabelStyle::class.java).font = font26
+            get(TextFieldStyle::class.java).font = font26
+            get(WindowStyle::class.java).titleFont = font26
+            get(CheckBoxStyle::class.java).font = font26
+            get(SelectBoxStyle::class.java).font = font26
+            get(SelectBoxStyle::class.java).listStyle.font = font26
+        }
+
+        with(uiSkinBig) {
+            get(TextButtonStyle::class.java).font = font48
+            get(ListStyle::class.java).font = font48
+            get(LabelStyle::class.java).font = font48
+            get(TextFieldStyle::class.java).font = font48
+            get(WindowStyle::class.java).titleFont = font48
+            get(CheckBoxStyle::class.java).font = font48
+            get(SelectBoxStyle::class.java).font = font48
+            get(SelectBoxStyle::class.java).listStyle.font = font48
+        }
+
+    }
 
 
     /**
@@ -27,7 +91,6 @@ object Atlas {
      * Returns null if no texture was found.
      */
     fun getPieceTexture(rank: Rank, playerId: PlayerId): TextureComponent {
-
         // get texture region from the atlas
         val atlasRegion =
                 atlas.findRegions(

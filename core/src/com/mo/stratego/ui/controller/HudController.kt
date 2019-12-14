@@ -4,16 +4,19 @@ import com.badlogic.ashley.core.PooledEngine
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.Touchable
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton
+import com.badlogic.gdx.scenes.scene2d.ui.Button
+import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.utils.Align
 import com.mo.stratego.StrategoGame
 import com.mo.stratego.model.Atlas
+import com.mo.stratego.model.GameController
+import com.mo.stratego.model.GameState
 import com.mo.stratego.model.Rank
 import com.mo.stratego.model.communication.StateEvent
-import com.mo.stratego.model.map.GameMap
 import com.mo.stratego.model.player.PlayerId
 import com.mo.stratego.ui.control.CounterLabel
 import com.mo.stratego.ui.control.ReadyButton
+import com.mo.stratego.ui.control.TimerLabel
 import com.mo.stratego.util.Constants
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -28,7 +31,10 @@ object HudController {
     private lateinit var engine: PooledEngine
 
     // actors
-    private val lblState = TextButton("Init", Atlas.uiSkin)
+    private val lblState = Label("Init", Atlas.uiSkin)
+    private val lblTurn = Label("Turn: 0", Atlas.uiSkin)
+    private val topBar = Button(Atlas.uiSkin)
+    private val lblTime = TimerLabel(Atlas.uiSkin)
 
     /**
      * Init the object with this method. If not called before usage
@@ -38,11 +44,11 @@ object HudController {
      * @return This for chaining.
      */
     fun init(stage: Stage, engine: PooledEngine) {
-        HudController.stage = stage
-        HudController.engine = engine
+        this.stage = stage
+        this.engine = engine
 
-        StrategoGame.register(this)
         initActors()
+        StrategoGame.register(this)
     }
 
     /**
@@ -58,17 +64,44 @@ object HudController {
 
         // ready btn
         val btn = ReadyButton(Atlas.uiSkin)
-        stage.addActor(btn)
 
 
         // lblstate
         with(lblState) {
-            updateState("Init")
-            this.label.setAlignment(Align.center)
-            touchable = Touchable.disabled
+            setAlignment(Align.center)
         }
-        stage.addActor(
-                lblState)
+
+        // lblTurn
+        with(lblTurn) {
+            setAlignment(Align.left)
+            isVisible = false
+        }
+
+        //lblTime
+        with(lblTime) {
+            setAlignment(Align.right)
+        }
+
+        //TODO add background
+        // center state
+        // hide turn
+        with(topBar) {
+            //setDebug(true)
+            touchable = Touchable.disabled
+            width = HudController.stage.width
+            align(Align.left)
+            setY(Constants.getUnitToPixel(17.7f), Align.center)
+            add(lblTurn).colspan(1).width(150f).left()
+            add(lblState).colspan(2).center().expand()
+            add(lblTime).colspan(1).width(150f).right()
+        }
+
+        // add to stage
+        with(stage) {
+            addActor(btn)
+            addActor(topBar)
+
+        }
     }
 
     /**
@@ -78,21 +111,16 @@ object HudController {
     @Subscribe(threadMode = ThreadMode.ASYNC)
     fun onStateEvent(msg: StateEvent) {
         Gdx.app.log("game_state", "state: ${msg.state}")
-        updateState(msg.state)
-    }
+        lblState.setText(msg.state)
 
-    /**
-     * Updates the state label's text and position.
-     * @param text Text
-     */
-    fun updateState(text: String) {
-        with(lblState) {
-            setText(text)
-            pack()
-            setPosition(Constants.getUnitToPixel(
-                    GameMap.width / 2f) - this.width / 2f,
-                        Constants.getUnitToPixel(17.3f))
+        lblTurn.isVisible = when (GameController.state) {
+            GameState.TURN_PLAYER_1, GameState.TURN_PLAYER_2 -> true
+            else                                             -> false
         }
-
+        msg.turn?.also {
+            lblTurn.setText("Turn: $it")
+        }
     }
+    
+
 }

@@ -23,6 +23,7 @@ import com.mo.stratego.ui.Screens
 import com.mo.stratego.ui.control.ConnectDialog
 import com.mo.stratego.ui.control.DeviceList
 import com.mo.stratego.ui.control.LoadLabel
+import com.mo.stratego.ui.control.TimedLabel
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -36,14 +37,13 @@ object MenuController {
     val connectDialog = ConnectDialog(Atlas.uiSkin)
 
     // actors
-    val tableMain: Table = Table()
-    val tableMulti: Table = Table()
+    private val tableMain: Table = Table()
+    private val tableMulti: Table = Table()
+    private val errorLog = TimedLabel("", 5f, Atlas.uiSkinMed)
 
     init {
         initMain()
         initMulti()
-
-
     }
 
     /**
@@ -54,8 +54,6 @@ object MenuController {
      */
     fun init(stage: Stage): MenuController {
         MenuController.stage = stage
-
-        StrategoGame.register(this)
 
         with(stage) {
             addActor(tableMain)
@@ -158,9 +156,11 @@ object MenuController {
             add(title).colspan(2).left().padLeft(150f)
             row()
             add(deviceList).expandY().fill().pad(20f).colspan(2)
-            row().padBottom(20f)
-            add(btnConnect).width(200f)
-            add(btnSearch).width(200f)
+            row()
+            add(errorLog).padBottom(20f).colspan(2)
+            row().padBottom(80f)
+            add(btnConnect).width(200f).height(70f)
+            add(btnSearch).width(200f).height(70f)
         }
     }
 
@@ -175,9 +175,14 @@ object MenuController {
         StrategoGame.unregister(this)
     }
 
+    /**
+     * Displays error message to the user.
+     * Event occurs if an error occurs in the communication handler.
+     * @param event
+     */
     @Subscribe(threadMode = ThreadMode.ASYNC)
     fun OnErrorEvent(event: OnErrorEvent) {
-        Gdx.app.log("bth", event.msg)
+        errorLog.setText(event.msg)
     }
 
     /**
@@ -199,6 +204,9 @@ object MenuController {
 
         if (mode == Mode.MULTI) {
             CommunicationHandler.iCom.startScan()
+            StrategoGame.register(this)
+        } else {
+            StrategoGame.unregister(this)
         }
     }
 

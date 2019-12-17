@@ -18,6 +18,8 @@ import com.mo.stratego.model.communication.ICommunication;
 import java.util.List;
 
 public class AndroidLauncher extends AndroidApplication {
+    private ICommunication comHandler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,10 +28,10 @@ public class AndroidLauncher extends AndroidApplication {
         config.useCompass = false;
         config.useAccelerometer = false;
 
-        ICommunication handler = new BluetoothHandler(getApplicationContext());
+        comHandler = new BluetoothHandler(getApplicationContext());
         requestPermissions();
 
-        StrategoGame.INSTANCE.init(handler);
+        StrategoGame.INSTANCE.init(comHandler);
         // run game
         initialize(StrategoGame.INSTANCE, config);
     }
@@ -58,9 +60,16 @@ public class AndroidLauncher extends AndroidApplication {
     }
 
 
+    // needed because of apk size
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(newBase);
         MultiDex.install(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        comHandler.stopService();
     }
 }

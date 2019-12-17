@@ -8,6 +8,7 @@ import com.mo.stratego.ui.Screens
 import org.greenrobot.eventbus.EventBus
 
 //todo desc
+// TODO cancel back button
 object StrategoGame : Game() {
 
     /**
@@ -54,6 +55,7 @@ object StrategoGame : Game() {
     override fun dispose() {
         super.dispose()
         eventBusListener.forEach { EventBus.getDefault().unregister(it) }
+        CommunicationHandler.iCom.disconnect()
     }
 
     /**

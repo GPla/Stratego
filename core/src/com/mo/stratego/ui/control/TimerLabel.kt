@@ -13,9 +13,9 @@ class TimerLabel(skin: Skin) : Label("Time: 00:00", skin) {
 
 
     override fun act(delta: Float) {
-        // delta is in seconds
         lastTick += delta
 
+        // delta is in seconds
         // count up every second
         if (lastTick >= 1f) {
             seconds++
@@ -26,7 +26,6 @@ class TimerLabel(skin: Skin) : Label("Time: 00:00", skin) {
             }
         }
 
-        // update text
         setText("Time: ${minutes.toString().padStart(2, '0')}" +
                 ":${seconds.toString().padStart(2, '0')}")
     }

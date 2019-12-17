@@ -26,14 +26,18 @@ object Atlas {
     private val atlas: TextureAtlas = TextureAtlas("pics.atlas")
     val uiSkin =
             Skin(Gdx.files.internal("ui/plain-james/skin/plain-james-ui.json"))
+    val uiSkinMed =
+            Skin(Gdx.files.internal("ui/plain-james/skin/plain-james-ui.json"))
     val uiSkinBig =
             Skin(Gdx.files.internal("ui/plain-james/skin/plain-james-ui.json"))
     val defaultSkin =
             Skin(Gdx.files.internal("ui/default/skin/uiskin.json"))
 
-    var font26: BitmapFont
-    var font48: BitmapFont
-    var fontTitle: BitmapFont
+    val font26: BitmapFont
+    val font32: BitmapFont
+    val font48: BitmapFont
+    val fontTitle: BitmapFont
+
 
     init {
         // load font for uiskin
@@ -42,6 +46,9 @@ object Atlas {
         val parameter = FreeTypeFontGenerator.FreeTypeFontParameter()
         parameter.size = 26
         font26 = generator.generateFont(parameter)
+
+        parameter.size = 32
+        font32 = generator.generateFont(parameter)
 
         parameter.size = 48
         font48 = generator.generateFont(parameter)
@@ -57,7 +64,7 @@ object Atlas {
 
         generator.dispose()
 
-        //setup skins with fonts
+        //setup skins with different sized fonts
         with(uiSkin) {
             get(TextButtonStyle::class.java).font = font26
             get(ListStyle::class.java).font = font26
@@ -80,6 +87,16 @@ object Atlas {
             get(SelectBoxStyle::class.java).listStyle.font = font48
         }
 
+        with(uiSkinMed) {
+            get(TextButtonStyle::class.java).font = font32
+            get(ListStyle::class.java).font = font32
+            get(LabelStyle::class.java).font = font32
+            get(TextFieldStyle::class.java).font = font32
+            get(WindowStyle::class.java).titleFont = font32
+            get(CheckBoxStyle::class.java).font = font32
+            get(SelectBoxStyle::class.java).font = font32
+            get(SelectBoxStyle::class.java).listStyle.font = font32
+        }
     }
 
 

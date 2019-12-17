@@ -60,4 +60,9 @@ interface ICommunication {
      * @param data Data to send
      */
     fun writeData(data: ByteArray)
+
+    /**
+     * Stop and dispose the service.
+     */
+    fun stopService()
 }

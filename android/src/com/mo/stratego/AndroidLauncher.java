@@ -13,12 +13,11 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.mo.stratego.bluetooth.BluetoothHandler;
-import com.mo.stratego.model.communication.ICommunication;
 
 import java.util.List;
 
 public class AndroidLauncher extends AndroidApplication {
-    private ICommunication comHandler;
+    private BluetoothHandler comHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +64,14 @@ public class AndroidLauncher extends AndroidApplication {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(newBase);
         MultiDex.install(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // close listener -> connection can only be established if both
+        // devices have the app open
+        comHandler.closeListener();
     }
 
     @Override

@@ -23,7 +23,7 @@ class BluetoothHandler(context: Context) :
     override var isConnected: Boolean = false
     override var listener: ICommunicationEventListener? = null
 
-    private lateinit var service: BluetoothService
+    private val service: BluetoothService
     private val adapter = BluetoothAdapter.getDefaultAdapter()
     private val availableDevices = mutableListOf<BluetoothDevice>()
 
@@ -138,7 +138,7 @@ class BluetoothHandler(context: Context) :
     }
 
     /**
-     * Disable bluetooth.
+     * Disables bluetooth.
      */
     override fun disable() {
         adapter.disable()
@@ -150,5 +150,12 @@ class BluetoothHandler(context: Context) :
 
     override fun stopService() {
         service.stopService()
+    }
+
+    /**
+     * Close listener. Connections to this device cannot be established.
+     */
+    fun closeListener() {
+        (service as BluetoothClassicExtendedService).closeListener()
     }
 }

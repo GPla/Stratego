@@ -153,6 +153,15 @@ public class BluetoothClassicExtendedService extends BluetoothService {
         }
     }
 
+    // TODO desc
+    public void closeListener() {
+        // Cancel any thread listening for connections
+        if (mAcceptThread != null) {
+            mAcceptThread.cancel();
+            mAcceptThread = null;
+        }
+    }
+
     /**
      * Start the ConnectedThread to begin managing a Bluetooth connection
      *

@@ -219,5 +219,6 @@ object GameController {
     @Subscribe(threadMode = ThreadMode.ASYNC)
     fun onErrorEvent(event: OnErrorEvent) {
         StrategoGame.switchScreen(Screens.MAINMENU)
+        // TODO show message dialog
     }
 }

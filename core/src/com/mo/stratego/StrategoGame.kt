@@ -9,6 +9,7 @@ import org.greenrobot.eventbus.EventBus
 
 //todo desc
 // TODO cancel back button
+// TODO put tags in constants
 object StrategoGame : Game() {
 
     /**

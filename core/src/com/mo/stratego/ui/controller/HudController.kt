@@ -105,7 +105,7 @@ object HudController {
     }
 
     /**
-     * GreenRobot Eventbus subscription.
+     * GreenRobot Eventbus subscription for [GameController] state change.
      * @param msg StateEvent
      */
     @Subscribe(threadMode = ThreadMode.ASYNC)
@@ -121,6 +121,6 @@ object HudController {
             lblTurn.setText("Turn: $it")
         }
     }
-    
+
 
 }

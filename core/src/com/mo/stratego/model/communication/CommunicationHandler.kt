@@ -67,7 +67,7 @@ object CommunicationHandler : ICommunicationEventListener {
 
         jsonData?.also {
             Gdx.app.log("bth", "data send: $it")
-            // add \n as delimiter
+            // add \n as message delimiter
             iCom.writeData(it.toByteArray() + '\n'.toByte())
         }
     }

@@ -87,16 +87,16 @@ object GameController {
             state++
             turnCounter.changedState(state)
 
-            // post state change to hudcontroller
+            // post state change to hud controller
             state.title?.run {
-
-                EventBus.getDefault().post(StateEvent(this, turnCounter.counter))
+                EventBus.getDefault()
+                        .post(StateEvent(this, turnCounter.counter))
             }
         }
     }
 
     /**
-     * Evaluate who's first. The player with the higher number will
+     * Evaluate who's first. The player with the higher starting number will
      * begin.
      * @return True, go to next state.
      */
@@ -110,9 +110,9 @@ object GameController {
 
         // player with higher number starts
         if (player2Num > player1Num) {
+            // player 2 starts
             // will be incremented again in run()
             state = GameState.TURN_PLAYER_1
-            // player 2 starts
             turnCounter.firstTurn = GameState.TURN_PLAYER_2
             return true
         }
@@ -120,12 +120,15 @@ object GameController {
     }
 
     /**
-     * Init state.
-     * Exchange starting numbers.
+     * Init state. Exchange random generated starting numbers.
+     * @param playerId Id of player
      */
     private fun init(playerId: PlayerId): Boolean {
         val id = playerId.id
 
+        // exchange starting number between players
+        // local player will generate random number
+        // proxy player will receive number via communication handler
         return players[id].startNumber?.run {
             val otherId = (id + 1) % players.size
             players[otherId].processOthersStartingNumber(this)
@@ -140,11 +143,10 @@ object GameController {
      * @return True if the move is completed.
      */
     private fun makePlayersTurn(id: Int): Boolean {
-        // id out of bound
         if (id >= players.size)
             return false
 
-        // allow player to make move
+        // allow player to make move, pieces on the grid are touchable
         players[id].allow = true
 
         // get players move and put into the other player
@@ -152,10 +154,10 @@ object GameController {
         players[otherId].othersMove = players[id].move ?: return false
         players[id].move = null
 
-        // players move is over
+        // players move is over, pieces cannot be moved
         players[id].allow = false
 
-        // present move to gui
+        // present move to gui, run in engine
         players[otherId].presentOthersMove()
 
         return true

@@ -11,7 +11,7 @@ import com.mo.stratego.util.Constants
 class ConnectDialog(skin: Skin, val titleText: String = "Select a Device") :
     Dialog("Select a Device", skin) {
 
-    private val loadLabel = LoadLabel(0.33f, '.',
+    private val loadLabel = LoadLabel("", 0.33f, '.',
                                       CommunicationHandler.iCom::isScanning,
                                       skin)
 

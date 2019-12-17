@@ -101,13 +101,15 @@ class BluetoothHandler(context: Context) :
     /**
      * Enables Bluetooth if disabled and scans for other devices.
      */
-    //FIXME: bugged sometimes on scan start is disables right after
     override fun startScan() {
         availableDevices.clear()
 
         // turn on bluetooth
         if (!adapter.isEnabled)
             adapter.enable()
+
+        if (isScanning)
+            service.stopScan()
 
         // scan for devices
         service.startScan()
@@ -144,5 +146,9 @@ class BluetoothHandler(context: Context) :
 
     override fun writeData(data: ByteArray) {
         service.write(data)
+    }
+
+    override fun stopService() {
+        service.stopService()
     }
 }

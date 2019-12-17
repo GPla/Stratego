@@ -270,7 +270,8 @@ public class BluetoothClassicExtendedService extends BluetoothService {
         mConfig.context.registerReceiver(mScanReceiver, filter);
 
         // MODIFIED: added open listener on scan
-        // Create bluetooth server
+        // Create bluetooth master
+        // opens thread to accept connections
         if (mAcceptThread == null) {
             mAcceptThread = new AcceptThread();
             mAcceptThread.start();

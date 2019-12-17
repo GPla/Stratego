@@ -48,13 +48,6 @@ class ConnectDialog(skin: Skin, val titleText: String = "Select a Device") :
     }
 
     /**
-     * Hides the dialog and disables bluetooth.
-     */
-    override fun hide() {
-        super.hide()
-    }
-
-    /**
      * Processes the button result codes.
      * @param object Result code
      */

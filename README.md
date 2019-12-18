@@ -11,5 +11,5 @@ Build with:
 
 ## Screenshots
 
-!["Bild 1"](doc/1.png =250x)
-!["Bild 2"](doc/2.png =250x)
+!["Bild 1"](doc/1.png)
+!["Bild 2"](doc/2.png)

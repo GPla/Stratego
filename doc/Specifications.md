@@ -142,7 +142,7 @@ Enables easy single player and multiplayer without chaging the engine [see](http
 - HighlightSystem (highlights possible moves for a unit)
 
 - [Command pattern](http://gameprogrammingpatterns.com/command.html) for
-  movement 
+  movement
 
 ## Ideas
 

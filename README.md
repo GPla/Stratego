@@ -11,5 +11,5 @@ Build with:
 
 ## Screenshots
 
-!["Bild 1"](doc/1.png)
-!["Bild 2"](doc/2.png)
+<img src="doc/2.png" height="500">
+<img src="doc/1.png" height="500">

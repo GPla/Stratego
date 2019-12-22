@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.IteratingSystem
 import com.badlogic.gdx.math.GridPoint2
+import com.mo.stratego.model.HighlightType
 import com.mo.stratego.model.MoveType
 import com.mo.stratego.model.Piece
 import com.mo.stratego.model.component.*
@@ -64,11 +65,15 @@ class MoveSystem : IteratingSystem(
                                  piece.owner)) {
             0 -> piece.remove(MoveComponent::class.java) // invalid move
             1 -> {
+                highlightMovement(piece, position, move)
+
                 //move to new position
                 position.add(move)
                 piece.remove(MoveComponent::class.java)
             }
             2 -> {
+                highlightMovement(piece, position, move)
+
                 val enemy = Grid[newPoint]
                 enemy?.run {
                     // show front side texture
@@ -80,6 +85,7 @@ class MoveSystem : IteratingSystem(
                 }
             }
         }
+
     }
 
     /**
@@ -92,5 +98,26 @@ class MoveSystem : IteratingSystem(
         // adding one, that is already existing, overwrites it.
         piece.add(PositionComponent(move))
         piece.remove(MoveComponent::class.java)
+    }
+
+    /**
+     * Highlights the old and new position.
+     * @param piece Piece
+     * @param position old position
+     * @param move move
+     */
+    private fun highlightMovement(piece: Piece, position: GridPoint2,
+                                  move: GridPoint2) {
+        HighlightType.deleteHighlight(engine)
+
+        arrayOf(Entity(), Entity()).forEachIndexed { index, entity ->
+            HighlightType.createHightlight(entity, piece, HighlightType.SQUARE,
+                                           null)
+            when (index) {
+                0 -> entity.add(PositionComponent(position.cpy(), -1))
+                1 -> entity.add(PositionComponent(position.cpy().add(move), -1))
+            }
+            engine.addEntity(entity)
+        }
     }
 }

@@ -18,9 +18,9 @@ import com.mo.stratego.StrategoGame
 import com.mo.stratego.model.Atlas
 import com.mo.stratego.model.communication.CommunicationHandler
 import com.mo.stratego.model.communication.OnConnectedEvent
+import com.mo.stratego.model.communication.OnConnectingEvent
 import com.mo.stratego.model.communication.OnErrorEvent
 import com.mo.stratego.ui.Screens
-import com.mo.stratego.ui.control.ConnectDialog
 import com.mo.stratego.ui.control.DeviceList
 import com.mo.stratego.ui.control.LoadLabel
 import com.mo.stratego.ui.control.TimedLabel
@@ -34,12 +34,11 @@ import org.greenrobot.eventbus.ThreadMode
 object MenuController {
 
     lateinit var stage: Stage
-    val connectDialog = ConnectDialog(Atlas.uiSkin)
 
     // actors
     private val tableMain: Table = Table()
     private val tableMulti: Table = Table()
-    private val errorLog = TimedLabel("", 5f, Atlas.uiSkinMed)
+    private val log = TimedLabel("", 5f, Atlas.uiSkinMed)
 
     init {
         initMain()
@@ -93,6 +92,12 @@ object MenuController {
             }
 
             val btnSettings = TextButton("Settings", Atlas.uiSkinBig)
+            btnSettings.addListener(object : ClickListener() {
+                override fun touchDown(event: InputEvent?, x: Float, y: Float,
+                                       pointer: Int, button: Int): Boolean {
+                    return true
+                }
+            })
             //TODO settings
 
             val style = Label.LabelStyle(Atlas.fontTitle, Color.FOREST)
@@ -117,7 +122,7 @@ object MenuController {
         with(tableMulti) {
             setFillParent(true)
             align(Align.center)
-            setDebug(true)
+            //setDebug(true)
 
             val btnBack = ImageButton(TextureRegionDrawable(
                     Texture(Gdx.files.internal("ui/arrow_left.png"))))
@@ -157,7 +162,7 @@ object MenuController {
             row()
             add(deviceList).expandY().fill().pad(20f).colspan(2)
             row()
-            add(errorLog).padBottom(20f).colspan(2)
+            add(log).padBottom(20f).colspan(2)
             row().padBottom(80f)
             add(btnConnect).width(200f).height(70f)
             add(btnSearch).width(200f).height(70f)
@@ -178,11 +183,20 @@ object MenuController {
     /**
      * Displays error message to the user.
      * Event occurs if an error occurs in the communication handler.
-     * @param event
+     * @param event Event
      */
     @Subscribe(threadMode = ThreadMode.ASYNC)
     fun OnErrorEvent(event: OnErrorEvent) {
-        errorLog.setText(event.msg)
+        log.setText(event.msg)
+    }
+
+    /**
+     * Displays connection attempt to user.
+     * @param event Event
+     */
+    @Subscribe(threadMode = ThreadMode.ASYNC)
+    fun onConnectingEvent(event: OnConnectingEvent) {
+        log.setText("Connecting...")
     }
 
     /**
@@ -204,6 +218,7 @@ object MenuController {
 
         if (mode == Mode.MULTI) {
             CommunicationHandler.iCom.startScan()
+            log.setText("")
             StrategoGame.register(this)
         } else {
             StrategoGame.unregister(this)

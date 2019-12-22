@@ -7,6 +7,8 @@ object Constants {
     // scale: 64 pixels equals 1 game unit
     const val TILESCALE: Float = 64f
     const val UNITSCALE: Float = 1 / TILESCALE
+    const val screenWidth: Float = TILESCALE * 10
+
 
     /**
      *  Calculates the world unit to a given pixel value.
@@ -21,4 +23,6 @@ object Constants {
      * @return The world unit as pixel value.
      */
     fun getUnitToPixel(unit: Float) = unit * TILESCALE
+
+
 }

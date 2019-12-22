@@ -29,4 +29,9 @@ class TimerLabel(skin: Skin) : Label("Time: 00:00", skin) {
         setText("Time: ${minutes.toString().padStart(2, '0')}" +
                 ":${seconds.toString().padStart(2, '0')}")
     }
+
+    fun reset() {
+        minutes = 0
+        seconds = 0
+    }
 }

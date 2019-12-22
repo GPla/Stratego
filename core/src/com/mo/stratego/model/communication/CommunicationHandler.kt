@@ -21,6 +21,9 @@ object CommunicationHandler : ICommunicationEventListener {
 
     private val json = Json(JsonConfiguration.Stable)
 
+    var connectedDeviceName: String? = null
+        private set
+
     /**
      * Init.
      * @param iCom Communication Handler
@@ -44,13 +47,15 @@ object CommunicationHandler : ICommunicationEventListener {
 
     override fun onError(msg: String) {
         EventBus.getDefault().post(OnErrorEvent(msg))
+        connectedDeviceName = null
     }
 
     override fun onConnected(name: String) {
+        connectedDeviceName = name
         EventBus.getDefault().post(OnConnectedEvent(name))
     }
 
-    // TODO: on error -> freeze game and show reconnect dialog
+    // TODO: on error -> return to main menu
     // need to save device, to restore connection? or just quit the game?
 
     /**

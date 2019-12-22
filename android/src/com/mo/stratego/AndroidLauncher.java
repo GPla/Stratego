@@ -27,10 +27,11 @@ public class AndroidLauncher extends AndroidApplication {
         config.useCompass = false;
         config.useAccelerometer = false;
 
-        comHandler = new BluetoothHandler(getApplicationContext());
+        comHandler = new BluetoothHandler(this);
         requestPermissions();
 
         StrategoGame.INSTANCE.init(comHandler);
+
         // run game
         initialize(StrategoGame.INSTANCE, config);
     }

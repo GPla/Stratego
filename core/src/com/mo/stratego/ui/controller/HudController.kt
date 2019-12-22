@@ -32,9 +32,21 @@ object HudController {
 
     // actors
     private val lblState = Label("Init", Atlas.uiSkin)
-    private val lblTurn = Label("Turn: 0", Atlas.uiSkin)
+    private var lblTurn = Label("Turn: 0", Atlas.uiSkin)
     private val topBar = Button(Atlas.uiSkin)
     private val lblTime = TimerLabel(Atlas.uiSkin)
+
+    init {
+        with(topBar) {
+            //setDebug(true)
+            touchable = Touchable.disabled
+            align(Align.left)
+            setY(Constants.getUnitToPixel(17.7f), Align.center)
+            add(lblTurn).colspan(1).width(150f).left()
+            add(lblState).colspan(2).center().expand()
+            add(lblTime).colspan(1).width(150f).right()
+        }
+    }
 
     /**
      * Init the object with this method. If not called before usage
@@ -72,6 +84,7 @@ object HudController {
         }
 
         // lblTurn
+        lblTurn = Label("Turn: 0", Atlas.uiSkin)
         with(lblTurn) {
             setAlignment(Align.left)
             isVisible = false
@@ -80,21 +93,10 @@ object HudController {
         //lblTime
         with(lblTime) {
             setAlignment(Align.right)
+            reset()
         }
 
-        //TODO add background
-        // center state
-        // hide turn
-        with(topBar) {
-            //setDebug(true)
-            touchable = Touchable.disabled
-            width = HudController.stage.width
-            align(Align.left)
-            setY(Constants.getUnitToPixel(17.7f), Align.center)
-            add(lblTurn).colspan(1).width(150f).left()
-            add(lblState).colspan(2).center().expand()
-            add(lblTime).colspan(1).width(150f).right()
-        }
+        topBar.width = stage.width
 
         // add to stage
         with(stage) {

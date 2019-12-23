@@ -17,7 +17,9 @@ class MapListener(val engine: Engine) : InputAdapter() {
                            button: Int): Boolean {
 
         // remove highlights
-        HighlightType.deleteHighlight(engine)
+        HighlightType.deleteHighlight(engine,
+                                      HighlightType.SQUARE,
+                                      HighlightType.CIRCLE)
         return true
     }
 }

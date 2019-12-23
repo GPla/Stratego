@@ -26,7 +26,9 @@ class PieceInputListener(private val piece: Piece,
                      button: Int) {
 
         // delete old highlights
-        HighlightType.deleteHighlight(engine)
+        HighlightType.deleteHighlight(engine,
+                                      HighlightType.SQUARE,
+                                      HighlightType.CIRCLE)
 
         // react depending on game state
         when (GameController.state) {
@@ -39,7 +41,9 @@ class PieceInputListener(private val piece: Piece,
             }
             GameState.TURN_PLAYER_1,
             GameState.TURN_PLAYER_2        -> {
-                HighlightType.deleteHighlight(engine)
+                HighlightType.deleteHighlight(engine,
+                                              HighlightType.SQUARE,
+                                              HighlightType.CIRCLE)
                 createMoveHighlight()
             }
         }
@@ -57,8 +61,8 @@ class PieceInputListener(private val piece: Piece,
         val square =
                 engine.createEntity().add(PositionComponent(standpoint, -1))
         engine.addEntity(square)
-        HighlightType.createHightlight(square, piece, HighlightType.SQUARE,
-                                       null)
+        HighlightType.createHighlight(square, piece, HighlightType.SQUARE,
+                                      null)
 
         // highlight circles
         for (move in allowedMoves) {
@@ -66,8 +70,8 @@ class PieceInputListener(private val piece: Piece,
             val point = GridPoint2(standpoint).add(move)
             val circle = engine.createEntity().add(PositionComponent(point, 1))
             engine.addEntity(circle)
-            HighlightType.createHightlight(circle, piece, HighlightType.CIRCLE,
-                                           move)
+            HighlightType.createHighlight(circle, piece, HighlightType.CIRCLE,
+                                          move)
         }
     }
 
@@ -79,18 +83,19 @@ class PieceInputListener(private val piece: Piece,
         val cells = Grid.getFreeCellsInPlayerZone(piece.owner.id)
         val position = posMapper.get(piece)
 
-        // selected highlight square
+        // create highlight square at position of selected piece
         val square = engine.createEntity()
                 .add(PositionComponent(position.position.cpy(), -1))
         engine.addEntity(square)
-        HighlightType.createHightlight(square, piece, HighlightType.SQUARE,
-                                       null)
+        HighlightType.createHighlight(square, piece, HighlightType.SQUARE,
+                                      null)
 
+        // create highlight circle for empty fields on the grid
         for (cell in cells) {
             val circle = engine.createEntity().add(PositionComponent(cell, 1))
             engine.addEntity(circle)
-            HighlightType.createHightlight(circle, piece, HighlightType.CIRCLE,
-                                           null)
+            HighlightType.createHighlight(circle, piece, HighlightType.CIRCLE,
+                                          null)
 
         }
 

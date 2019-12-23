@@ -35,7 +35,9 @@ class HighlightInputListener(private val entity: Entity,
         }
 
         // delete highlights
-        HighlightType.deleteHighlight(engine)
+        HighlightType.deleteHighlight(engine,
+                                      HighlightType.SQUARE,
+                                      HighlightType.CIRCLE)
 
         return true
     }

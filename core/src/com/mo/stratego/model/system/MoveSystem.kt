@@ -108,11 +108,11 @@ class MoveSystem : IteratingSystem(
      */
     private fun highlightMovement(piece: Piece, position: GridPoint2,
                                   move: GridPoint2) {
-        HighlightType.deleteHighlight(engine)
+        HighlightType.deleteHighlight(engine, HighlightType.MOVE)
 
         arrayOf(Entity(), Entity()).forEachIndexed { index, entity ->
-            HighlightType.createHightlight(entity, piece, HighlightType.SQUARE,
-                                           null)
+            HighlightType.createHighlight(entity, piece, HighlightType.MOVE,
+                                          null)
             when (index) {
                 0 -> entity.add(PositionComponent(position.cpy(), -1))
                 1 -> entity.add(PositionComponent(position.cpy().add(move), -1))

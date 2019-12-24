@@ -39,17 +39,24 @@ class AttackSystem :
 
         Gdx.app.log("attack", "result: $result")
 
+        // process attack
         when (result) {
             Result.GAME_WON -> GameController.win(piece.owner)
             Result.WON      -> {
+                // attacking piece won
+                // move enemy piece to graveyard
                 piece.showDefault()
                 enemy.returnToDefaultPosition()
             }
             Result.LOST     -> {
+                // attacking piece lost
+                // move to graveyard
                 enemy.showDefault()
                 piece.returnToDefaultPosition()
             }
             Result.DRAW     -> {
+                // both pieces are dead
+                // move both to graveyard
                 enemy.returnToDefaultPosition()
                 piece.returnToDefaultPosition()
             }

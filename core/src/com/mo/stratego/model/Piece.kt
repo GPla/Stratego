@@ -58,10 +58,14 @@ class Piece(val rank: Rank, val owner: Player) :
     }
 
     /**
-     * Returns the piece to the start position.
+     * Returns the piece to the start position of the piece's [Rank] and owner.
      */
     fun returnToDefaultPosition() {
-        add(MoveComponent(rank.getDefaultPosition(owner.id), MoveType.ABSOLUTE))
+        // only move if position is not matching the default position
+        if (getComponent(PositionComponent::class.java).position !=
+                rank.getDefaultPosition(owner.id))
+            add(MoveComponent(rank.getDefaultPosition(owner.id),
+                              MoveType.ABSOLUTE))
     }
 
 

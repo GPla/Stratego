@@ -76,10 +76,10 @@ class MoveSystem : IteratingSystem(
 
                 val enemy = Grid[newPoint]
                 enemy?.run {
-                    // show front side texture
+                    // show front side texture of both pieces
                     showFront()
                     piece.showFront()
-                    // perform attack
+                    // wait 400 ms and perform attack
                     piece.add(WaitComponent(0.4f))
                     piece.add(AttackComponent(this))
                 }
@@ -94,9 +94,8 @@ class MoveSystem : IteratingSystem(
      * @param move New position
      */
     private fun moveAbsolute(piece: Piece, move: GridPoint2) {
-        // An entity can only have one instance of each component
-        // adding one, that is already existing, overwrites it.
-        piece.add(PositionComponent(move))
+        // Update to new absolute position
+        posMapper.get(piece).position.set(move)
         piece.remove(MoveComponent::class.java)
     }
 
@@ -108,13 +107,16 @@ class MoveSystem : IteratingSystem(
      */
     private fun highlightMovement(piece: Piece, position: GridPoint2,
                                   move: GridPoint2) {
+        // delete old move highlight
         HighlightType.deleteHighlight(engine, HighlightType.MOVE)
 
         arrayOf(Entity(), Entity()).forEachIndexed { index, entity ->
             HighlightType.createHighlight(entity, piece, HighlightType.MOVE,
                                           null)
             when (index) {
+                // highlight old position
                 0 -> entity.add(PositionComponent(position.cpy(), -1))
+                // highlight new position
                 1 -> entity.add(PositionComponent(position.cpy().add(move), -1))
             }
             engine.addEntity(entity)

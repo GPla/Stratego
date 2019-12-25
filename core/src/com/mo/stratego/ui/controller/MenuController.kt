@@ -30,7 +30,6 @@ import org.greenrobot.eventbus.ThreadMode
 /**
  * Controller for the stage of the [MainMenuScreen].
  */
-// TODO show error/ success after connection
 object MenuController {
 
     lateinit var stage: Stage
@@ -85,8 +84,12 @@ object MenuController {
                     override fun touchDown(event: InputEvent?, x: Float,
                                            y: Float, pointer: Int,
                                            button: Int): Boolean {
-                        StrategoGame.switchScreen(Screens.GAME_LOCAL)
                         return true
+                    }
+
+                    override fun touchUp(event: InputEvent?, x: Float, y: Float,
+                                         pointer: Int, button: Int) {
+                        StrategoGame.switchScreen(Screens.GAME_LOCAL)
                     }
                 })
             }

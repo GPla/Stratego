@@ -2,10 +2,11 @@ package com.mo.stratego.ui.controller
 
 import com.badlogic.ashley.core.PooledEngine
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.ui.Label
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
 import com.mo.stratego.StrategoGame
 import com.mo.stratego.model.Atlas
@@ -17,13 +18,14 @@ import com.mo.stratego.model.player.PlayerId
 import com.mo.stratego.ui.control.CounterLabel
 import com.mo.stratego.ui.control.ReadyButton
 import com.mo.stratego.ui.control.TimerLabel
+import com.mo.stratego.ui.provider.DialogProvider
 import com.mo.stratego.util.Constants
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 
 /**
- * Controller for ui elements.
+ * Controller for ui elements while the game is running.
  */
 object HudController {
 
@@ -31,20 +33,29 @@ object HudController {
     private lateinit var engine: PooledEngine
 
     // actors
-    private val lblState = Label("Init", Atlas.uiSkin)
-    private var lblTurn = Label("Turn: 0", Atlas.uiSkin)
     private val topBar = Button(Atlas.uiSkin)
-    private val lblTime = TimerLabel(Atlas.uiSkin)
+    private val lblState = Label("Init", Atlas.uiSkin)
+    val lblTurn = Label("Turn: 0", Atlas.uiSkin)
+    val lblTime = TimerLabel(Atlas.uiSkin)
 
     init {
         with(topBar) {
             //setDebug(true)
-            touchable = Touchable.disabled
             align(Align.left)
             setY(Constants.getUnitToPixel(17.7f), Align.center)
             add(lblTurn).colspan(1).width(150f).left()
             add(lblState).colspan(2).center().expand()
             add(lblTime).colspan(1).width(150f).right()
+
+            // shows the game menu
+            addListener(object : ClickListener() {
+                override fun touchDown(event: InputEvent?, x: Float, y: Float,
+                                       pointer: Int, button: Int): Boolean {
+                    DialogProvider.showGameMenu(HudController.stage)
+                    return true
+                }
+            })
+
         }
     }
 
@@ -84,8 +95,8 @@ object HudController {
         }
 
         // lblTurn
-        lblTurn = Label("Turn: 0", Atlas.uiSkin)
         with(lblTurn) {
+            setText("Turn: 0")
             setAlignment(Align.left)
             isVisible = false
         }
@@ -107,7 +118,7 @@ object HudController {
     }
 
     /**
-     * GreenRobot Eventbus subscription for [GameController] state change.
+     * Eventbus subscription for [GameController] state change.
      * @param msg StateEvent
      */
     @Subscribe(threadMode = ThreadMode.ASYNC)

@@ -313,11 +313,12 @@ object Grid : EntityListener {
         val last = listOf(history.last(), history[history.lastIndex - 1],
                           history[history.lastIndex - 2])
 
-        // check for repetition
+        // same moves
         if (last[2] != last[0])
             return false
         if (last[1] != Move(translateCellToPosition(cell), move))
             return false
+        // check if same piece
         if (last[2].position.cpy().add(last[2].move) != last[1].position)
             return false
         if (last[1].position.cpy().add(last[1].move) != last[0].position)

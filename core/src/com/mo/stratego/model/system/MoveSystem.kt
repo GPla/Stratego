@@ -62,7 +62,7 @@ class MoveSystem : IteratingSystem(
         // check if move is valid
         // the removal of the move component triggers an update of the game grid
         when (Grid.isCellAllowed(Grid.translatePositionToCell(newPoint),
-                                 piece.owner, false)) {
+                                 piece.owner)) {
             0 -> piece.remove(MoveComponent::class.java) // invalid move
             1 -> {
                 highlightMovement(piece, position, move)

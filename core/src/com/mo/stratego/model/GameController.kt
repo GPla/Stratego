@@ -2,14 +2,18 @@ package com.mo.stratego.model
 
 import com.badlogic.ashley.core.Engine
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.math.GridPoint2
 import com.mo.stratego.MainMenuScreen
 import com.mo.stratego.StrategoGame
 import com.mo.stratego.model.communication.OnErrorEvent
 import com.mo.stratego.model.communication.StateEvent
+import com.mo.stratego.model.component.MoveComponent
 import com.mo.stratego.model.player.Player
 import com.mo.stratego.model.player.PlayerId
 import com.mo.stratego.model.player.PlayerType
 import com.mo.stratego.ui.Screens
+import com.mo.stratego.ui.controller.HudController
+import com.mo.stratego.ui.provider.DialogProvider
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -28,8 +32,42 @@ object GameController {
         private set
     lateinit var playerPieces: Map<Player, List<Piece>>
         private set
-
     private var turnCounter = TurnCounter()
+
+    /**
+     * Contains the move history for the current game.
+     */
+    val moveHistory: MutableMap<PlayerId, MutableList<Move>> =
+            mutableMapOf(PlayerId.PLAYER1 to mutableListOf(),
+                         PlayerId.PLAYER2 to mutableListOf())
+
+    //TODO remove debug
+    private fun setupForDebug(playerId: PlayerId): Boolean {
+        val p1 = playerPieces[players[0]]
+        val p2 = playerPieces[players[1]]
+
+        // player 1
+        if (playerId == PlayerId.PLAYER1) {
+
+            var y = 4
+            p1?.forEachIndexed { index, piece ->
+                if ((index % 10 == 0))
+                    y++
+                piece.add(MoveComponent(GridPoint2(index % 10, y - 1),
+                                        MoveType.ABSOLUTE))
+            }
+        } else {
+            // player 2
+            var y = 10
+            p2?.forEachIndexed { index, piece ->
+                if (index % 10 == 0)
+                    y++
+                piece.add(MoveComponent(GridPoint2(index % 10, y - 1),
+                                        MoveType.ABSOLUTE))
+            }
+        }
+        return true
+    }
 
     /**
      * Init the object with this method. If not called before usage
@@ -55,6 +93,9 @@ object GameController {
         // reset for new game
         turnCounter = TurnCounter()
         state = GameState.INIT_PLAYER_1
+        moveHistory[PlayerId.PLAYER1]!!.clear()
+        moveHistory[PlayerId.PLAYER2]!!.clear()
+
 
         return this
     }
@@ -70,14 +111,14 @@ object GameController {
             GameState.INIT_PLAYER_1        -> init(PlayerId.PLAYER1)
             GameState.INIT_PLAYER_2        -> init(PlayerId.PLAYER2)
             GameState.INIT_PREP_PLAYER_1   -> spawnPieces(players[0])
-            GameState.PREPARATION_PLAYER_1 ->
-                makePlayersPreparation(PlayerId.PLAYER1)
+            GameState.PREPARATION_PLAYER_1 -> setupForDebug(PlayerId.PLAYER1)
+            //makePlayersPreparation(PlayerId.PLAYER1)
             GameState.INIT_PREP_PLAYER_2   -> spawnPieces(players[1])
-            GameState.PREPARATION_PLAYER_2 ->
-                makePlayersPreparation(PlayerId.PLAYER2)
+            GameState.PREPARATION_PLAYER_2 -> setupForDebug(PlayerId.PLAYER2)
+            //makePlayersPreparation(PlayerId.PLAYER2)
             GameState.GAME_START           -> getFirstTurn()
-            GameState.TURN_PLAYER_1        -> makePlayersTurn(0)
-            GameState.TURN_PLAYER_2        -> makePlayersTurn(1)
+            GameState.TURN_PLAYER_1        -> makePlayersTurn(PlayerId.PLAYER1)
+            GameState.TURN_PLAYER_2        -> makePlayersTurn(PlayerId.PLAYER2)
             GameState.GAME_OVER            -> false
         }
 
@@ -139,19 +180,21 @@ object GameController {
 
     /**
      * Make players turn.
-     * @param id Id of active player
+     * @param playerId Id of active player
      * @return True if the move is completed.
      */
-    private fun makePlayersTurn(id: Int): Boolean {
-        if (id >= players.size)
-            return false
+    private fun makePlayersTurn(playerId: PlayerId): Boolean {
+        val id = playerId.id
 
         // allow player to make move, pieces on the grid are touchable
         players[id].allow = true
 
         // get players move and put into the other player
         val otherId = (id + 1) % players.size
-        players[otherId].othersMove = players[id].move ?: return false
+        players[id].move?.also {
+            players[otherId].othersMove = it
+            moveHistory[playerId]!!.add(it)
+        } ?: return false
         players[id].move = null
 
         // players move is over, pieces cannot be moved
@@ -205,20 +248,24 @@ object GameController {
      * The game freezes and a popup is displayed.
      * @param player Player that won the game
      */
-    // TODO sent event to hud
+    // TODO sent event to hud / Dialogprovider
     fun win(player: Player) {
-        Gdx.app.log("dtag", "player ${player.id} won the game!")
+        Gdx.app.log("result", "player ${player.id} won the game!")
         state = GameState.GAME_OVER
+        StrategoGame.switchScreen(if (player.id == PlayerId.PLAYER1)
+                                      Screens.GAME_WON
+                                  else Screens.GAME_LOST)
     }
 
     /**
      * Returns to [MainMenuScreen] if a communication error occurs.
      * @param event OnErrorEvent
      */
-    // TODO show connection lost dialog
+    // TODO make event with this and win / event type -> connection lost, game over etc.
+    // TODO move to hud
     @Subscribe(threadMode = ThreadMode.ASYNC)
     fun onErrorEvent(event: OnErrorEvent) {
-        StrategoGame.switchScreen(Screens.MAINMENU)
-        // TODO show message dialog
+        // show dialog and return to main
+        DialogProvider.showConnectionLost(HudController.stage)
     }
 }

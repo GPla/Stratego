@@ -4,15 +4,19 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.mo.stratego.StrategoGame
 import com.mo.stratego.model.Atlas
 import com.mo.stratego.ui.Screens
+import com.mo.stratego.ui.control.GameMenuDialog
 import com.mo.stratego.ui.control.OneButtonDialog
 
 /**
- * Provider class for defined dialogs.
+ * Provider class for dialogs.
  */
 object DialogProvider {
 
+    private val gameMenu = GameMenuDialog(Atlas.uiSkinMed)
+
     /**
-     * TODO
+     * Shows the connection lost dialog. Upon accepting, the main
+     * menu is shown.
      */
     fun showConnectionLost(stage: Stage) {
         OneButtonDialog("Connection lost",
@@ -22,5 +26,9 @@ object DialogProvider {
                         Atlas.uiSkinMed).apply {
             show(stage)
         }
+    }
+
+    fun showGameMenu(stage: Stage) {
+        gameMenu.show(stage)
     }
 }

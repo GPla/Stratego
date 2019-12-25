@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.EntityListener
 import com.badlogic.gdx.math.GridPoint2
 import com.mo.stratego.model.GameController
+import com.mo.stratego.model.Move
 import com.mo.stratego.model.Piece
 import com.mo.stratego.model.Rank
 import com.mo.stratego.model.component.MoveComponent
@@ -244,7 +245,8 @@ object Grid : EntityListener {
 
             // check which moves are valid
             moves.forEachIndexed { index, move ->
-                if (!blocked[index]) {
+                if (!blocked[index] &&
+                    !areMovesRepeating(standpoint, move, piece.owner.id)) {
                     when (isCellAllowed(standpoint.cpy().add(move),
                                         piece.owner)) {
                         0 -> blocked[index] = true
@@ -272,8 +274,7 @@ object Grid : EntityListener {
      * @return Whether or not the cell can be occupied by a [Piece].
      * A 2 indicates that the cell is occupied by an opponent's [Piece].
      */
-    fun isCellAllowed(point: GridPoint2, owner: Player,
-                      history: Boolean = true): Int {
+    fun isCellAllowed(point: GridPoint2, owner: Player): Int {
         //out of bound
         if (point.x < 0 || point.x >= matrix.size ||
             point.y < 0 || point.y >= matrix.size)
@@ -285,48 +286,48 @@ object Grid : EntityListener {
 
         // check if cell is blocked by a piece of the same owner
         // if null is returned, the cell is empty -> return 1
-        val owner2 = matrix[point.x][point.y]?.owner
-                     ?: return if (history) checkForRepetition(point, owner.id)
-                     else 1
+        val owner2 = matrix[point.x][point.y]?.owner ?: return 1
 
         // the 2 indicates that the next move in this direction is blocked
         return if (owner != owner2) 2 else 0
     }
 
     /**
-     * Check for move repetition.
+     * Check for move repetition. Two square rule:
+     * No piece can move back and forth between two square for more than
+     * three consecutive turns.
      *
-     * @param point
-     * @param playerId
-     * @return
+     * @param cell Current cell
+     * @param playerId Player id
+     * @return Whether or not the next move would violate the two square rule.
      */
-    // FIXME: 3 instead of 2
-    private fun checkForRepetition(point: GridPoint2, playerId: PlayerId): Int {
-        val history = GameController.moveHistory[playerId] ?: return 1
+    private fun areMovesRepeating(cell: GridPoint2, move: GridPoint2,
+                                  playerId: PlayerId): Boolean {
+        val history = GameController.moveHistory[playerId] ?: return false
 
         // history not long enough
         if (history.size < 3)
-            return 1
+            return false
 
-        // position in last move is same as point
-        val last1 = history.last()
-        val last2 = history[history.lastIndex - 1]
-        
-        // moves in opposite direction
-        if (last1.move.cpy().add(last2.move) != GridPoint2(0, 0))
-            return 1
+        // last 3 moves
+        val last = listOf(history.last(), history[history.lastIndex - 1],
+                          history[history.lastIndex - 2])
 
-        // last move was made from same position as point
-        val pos1 = translatePositionToCell(last1.position)
-        if (pos1 != point)
-            return 1
+        // check for repetition
+        if (last[2] != last[0])
+            return false
+        if (last[1] != Move(translateCellToPosition(cell), move))
+            return false
+        if (last[2].position.cpy().add(last[2].move) != last[1].position)
+            return false
+        if (last[1].position.cpy().add(last[1].move) != last[0].position)
+            return false
+        if (translatePositionToCell(last[0].position) == cell)
+            return false
+        if (last[0].move.cpy().add(move) != GridPoint2(0, 0))
+            return false
 
-        // second last move is the same move as point will make
-        val pos2 = translatePositionToCell(last2.position)
-        if (pos2.cpy().add(last2.move) == point)
-            return 0
-
-        return 1
+        return true
     }
 
     /**

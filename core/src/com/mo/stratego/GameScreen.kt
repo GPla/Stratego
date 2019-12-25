@@ -35,7 +35,6 @@ import com.mo.stratego.util.Constants
  *
  * game logic implemented using ECS (Entity - Component - System) design pattern
  */
-//TODO param 2nd player type
 class GameScreen(player2: PlayerType) : Screen {
     private var camera: OrthographicCamera = OrthographicCamera()
     private val engine: Engine
@@ -93,7 +92,7 @@ class GameScreen(player2: PlayerType) : Screen {
         // objectStage receive events, if not handled they get passed to
         // the map stage
         Gdx.input.inputProcessor =
-                InputMultiplexer(objectStage, hudStage, MapListener(engine))
+                InputMultiplexer(hudStage, objectStage, MapListener(engine))
     }
 
 
@@ -150,6 +149,7 @@ class GameScreen(player2: PlayerType) : Screen {
     }
 
     override fun dispose() {
+
     }
 
 }

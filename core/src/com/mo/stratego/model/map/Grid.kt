@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.ComponentMapper
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.EntityListener
 import com.badlogic.gdx.math.GridPoint2
+import com.mo.stratego.model.GameController
 import com.mo.stratego.model.Piece
 import com.mo.stratego.model.Rank
 import com.mo.stratego.model.component.MoveComponent
@@ -98,7 +99,7 @@ object Grid : EntityListener {
      */
     private fun update(piece: Piece, type: Int) {
         val position = posMapper.get(piece)?.position
-        val result = removePiece(piece)
+        val result = removePiece(piece) // remove from old position
 
         position?.also {
             // add piece to board
@@ -126,7 +127,6 @@ object Grid : EntityListener {
      * @param piece Piece
      * @return Whether or not the [Piece] was found and removed from the grid.
      */
-    // TODO: improve performance?
     private fun removePiece(piece: Piece): Boolean {
         for (y in 0..9) {
             for (x in 0..9) {
@@ -229,14 +229,13 @@ object Grid : EntityListener {
      * @return A list of allowed moves in horizontal and vertical direction.
      */
     fun getAllowedMoves(piece: Piece): List<GridPoint2> {
-
-        // check if piece is on board
         val position = posMapper.get(piece)?.position ?: return emptyList()
         val standpoint = translatePositionToCell(position)
 
         val allowedMoves: MutableList<GridPoint2> = mutableListOf()
-        var blocked = BooleanArray(4) // blocked direction
+        var blocked = BooleanArray(4) // blocked directions
 
+        // iterate over the pieces range in all directions
         for (r in 1..piece.range.range) {
             // possible moves in all directions
             val moves =
@@ -266,13 +265,15 @@ object Grid : EntityListener {
         return allowedMoves
     }
 
+
     /**
      * @param point Grid position of the [Piece]
      * @param owner owner of the [Piece]
      * @return Whether or not the cell can be occupied by a [Piece].
      * A 2 indicates that the cell is occupied by an opponent's [Piece].
      */
-    fun isCellAllowed(point: GridPoint2, owner: Player): Int {
+    fun isCellAllowed(point: GridPoint2, owner: Player,
+                      history: Boolean = true): Int {
         //out of bound
         if (point.x < 0 || point.x >= matrix.size ||
             point.y < 0 || point.y >= matrix.size)
@@ -283,9 +284,49 @@ object Grid : EntityListener {
             return 0
 
         // check if cell is blocked by a piece of the same owner
-        val owner2 = matrix[point.x][point.y]?.owner ?: return 1
+        // if null is returned, the cell is empty -> return 1
+        val owner2 = matrix[point.x][point.y]?.owner
+                     ?: return if (history) checkForRepetition(point, owner.id)
+                     else 1
+
         // the 2 indicates that the next move in this direction is blocked
         return if (owner != owner2) 2 else 0
+    }
+
+    /**
+     * Check for move repetition.
+     *
+     * @param point
+     * @param playerId
+     * @return
+     */
+    // FIXME: 3 instead of 2
+    private fun checkForRepetition(point: GridPoint2, playerId: PlayerId): Int {
+        val history = GameController.moveHistory[playerId] ?: return 1
+
+        // history not long enough
+        if (history.size < 3)
+            return 1
+
+        // position in last move is same as point
+        val last1 = history.last()
+        val last2 = history[history.lastIndex - 1]
+        
+        // moves in opposite direction
+        if (last1.move.cpy().add(last2.move) != GridPoint2(0, 0))
+            return 1
+
+        // last move was made from same position as point
+        val pos1 = translatePositionToCell(last1.position)
+        if (pos1 != point)
+            return 1
+
+        // second last move is the same move as point will make
+        val pos2 = translatePositionToCell(last2.position)
+        if (pos2.cpy().add(last2.move) == point)
+            return 0
+
+        return 1
     }
 
     /**
@@ -315,7 +356,7 @@ object Grid : EntityListener {
     private fun getPlayersZone(playerId: PlayerId): IntRange {
         return when (playerId) {
             PlayerId.PLAYER1 -> 0..3
-            PlayerId.PLAYER2 -> 6..9 // nice
+            PlayerId.PLAYER2 -> 6..9
         }
     }
 }

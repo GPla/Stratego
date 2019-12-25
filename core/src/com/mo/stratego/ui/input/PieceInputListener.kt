@@ -105,10 +105,6 @@ class PieceInputListener(private val piece: Piece,
      * Returns [Piece] to default position.
      */
     private fun returnToDefaultPosition() {
-        val pos = posMapper.get(piece)?.position ?: return
-
-        // avoid unnecessary movement
-        if (pos != piece.rank.getDefaultPosition(piece.owner.id))
-            piece.returnToDefaultPosition()
+        piece.returnToDefaultPosition()
     }
 }

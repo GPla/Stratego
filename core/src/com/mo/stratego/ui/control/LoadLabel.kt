@@ -4,17 +4,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 
 /**
- *  Label that displays a load animation.
+ *  Label that displays a load animation. The animation consists of the
+ *  repetition of the defined symbol. Each frame adds another instance of the
+ *  symbol and lasts for the defined deltaTime.
+ *  One cycle is deltaTime * maxCount long.
  *
  * @property deltaTime Time between frames
  * @property symbol Symbol to display
- * @property maxCount Maximum number of symbol
- * @property showLabel Function if true show, otherwise hide
+ * @property maxCount Maximum number of repetitions
+ * @property showProgress Function if true show, otherwise hide animation only
  * @param skin Skin
  */
-//TODO desc
 class LoadLabel(val defaultText: String, val deltaTime: Float, val symbol: Char,
-                val showProgess: () -> Boolean, skin: Skin,
+                val showProgress: () -> Boolean, skin: Skin,
                 var maxCount: Int = 3) :
     Label(defaultText, skin) {
 
@@ -26,7 +28,7 @@ class LoadLabel(val defaultText: String, val deltaTime: Float, val symbol: Char,
     private var elapsedTime: Float = 0f
 
     override fun act(delta: Float) {
-        if (!showProgess()) {
+        if (!showProgress()) {
             setText(defaultText)
             return
         }

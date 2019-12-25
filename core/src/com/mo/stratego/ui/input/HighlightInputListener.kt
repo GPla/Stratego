@@ -58,7 +58,7 @@ class HighlightInputListener(private val entity: Entity,
 
         // set move for player
         position?.run {
-            highlight.piece.owner.move = Move(this, highlight.move)
+            highlight.piece.owner.move = Move(this.cpy(), highlight.move.cpy())
         }
 
     }

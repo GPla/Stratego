@@ -6,7 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.utils.Array
 import com.mo.stratego.model.communication.CommunicationHandler
 
-//TODO desc
+/**
+ * List that shows all devices found by the [CommunicationHandler].
+ * @param skin Skin
+ */
 class DeviceList(skin: Skin) : List<String>(skin) {
     override fun act(delta: Float) {
         try {

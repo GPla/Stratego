@@ -1,8 +1,10 @@
 package com.mo.stratego.ui
 
 import com.badlogic.gdx.Screen
+import com.mo.stratego.EndScreen
 import com.mo.stratego.GameScreen
 import com.mo.stratego.MainMenuScreen
+import com.mo.stratego.model.player.PlayerId
 import com.mo.stratego.model.player.PlayerType
 
 /**
@@ -11,7 +13,9 @@ import com.mo.stratego.model.player.PlayerType
 enum class Screens {
     MAINMENU,
     GAME_LOCAL,
-    GAME_MULTI;
+    GAME_MULTI,
+    GAME_WON,
+    GAME_LOST;
 
     /**
      * @return Instance of the corresponding [Screen].
@@ -21,6 +25,8 @@ enum class Screens {
             MAINMENU   -> MainMenuScreen()
             GAME_LOCAL -> GameScreen(PlayerType.LOCAL)
             GAME_MULTI -> GameScreen(PlayerType.PROXY)
+            GAME_WON   -> EndScreen(PlayerId.PLAYER1)
+            GAME_LOST  -> EndScreen(PlayerId.PLAYER2)
         }
     }
 }

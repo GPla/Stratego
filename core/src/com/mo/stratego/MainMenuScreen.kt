@@ -31,12 +31,17 @@ class MainMenuScreen : Screen {
     }
 
     override fun render(delta: Float) {
-        Gdx.gl.glClearColor(1f, 1f, 1f, 1f)
+        Gdx.gl.glClearColor(0.1875f, 0.1875f, 0.1875f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
+
         MenuController.stage.apply {
-            setDebugInvisible(false)
-            isDebugAll = true
+            batch.begin()
+            MenuController.getBackground()?.draw(batch)
+            batch.end()
+
+            //setDebugInvisible(false)
+            //isDebugAll = true
             act(delta)
             draw()
         }
@@ -54,7 +59,6 @@ class MainMenuScreen : Screen {
     }
 
     override fun dispose() {
-
     }
 
 }

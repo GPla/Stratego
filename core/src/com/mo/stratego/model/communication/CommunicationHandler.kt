@@ -34,6 +34,8 @@ object CommunicationHandler : ICommunicationEventListener {
     }
 
     override fun onDataReceived(data: ByteArray?) {
+        val data = data?.toString(Charsets.UTF_8) ?: return
+        Gdx.app.log("bth", "proxy rec: $data")
         EventBus.getDefault().post(DataReceivedEvent(data))
     }
 
@@ -55,25 +57,27 @@ object CommunicationHandler : ICommunicationEventListener {
         EventBus.getDefault().post(OnConnectedEvent(name))
     }
 
-    // TODO: on error -> return to main menu
-    // need to save device, to restore connection? or just quit the game?
-
     /**
-     * Serialize object to json object.
+     * Serialize object to json and sends it via iCom, if connected.
      * @param obj Object
      */
     fun serialize(obj: Any) {
+        if (!iCom.isConnected)
+            return
+
         var jsonData = when (obj) {
-            is StartNumber  -> json.stringify(StartNumber.serializer(), obj)
-            is Move         -> json.stringify(Move.serializer(), obj)
-            is StartingGrid -> json.stringify(StartingGrid.serializer(), obj)
-            else            -> null
+            is StartNumber    -> json.stringify(StartNumber.serializer(), obj)
+            is Move           -> json.stringify(Move.serializer(), obj)
+            is StartingGrid   -> json.stringify(StartingGrid.serializer(), obj)
+            is ControlMessage -> json.stringify(ControlMessage.serializer(),
+                                                obj)
+            else              -> null
         }
 
         jsonData?.also {
-            Gdx.app.log("bth", "data send: $it")
             // add \n as message delimiter
             iCom.writeData(it.toByteArray() + '\n'.toByte())
+            Gdx.app.log("bth", "data send: $it")
         }
     }
 
@@ -87,15 +91,16 @@ object CommunicationHandler : ICommunicationEventListener {
         val jsonData = json.parseJson(str).jsonObject
         try {
             val name = jsonData["className"]?.primitive?.contentOrNull
-
             return when (name) {
-                StartNumber::class.java.name  ->
+                StartNumber::class.java.name    ->
                     json.parse(StartNumber.serializer(), str)
-                Move::class.java.name         ->
+                Move::class.java.name           ->
                     json.parse(Move.serializer(), str)
-                StartingGrid::class.java.name ->
+                StartingGrid::class.java.name   ->
                     json.parse(StartingGrid.serializer(), str)
-                else                          -> null
+                ControlMessage::class.java.name ->
+                    json.parse(ControlMessage.serializer(), str)
+                else                            -> null
             }
         } catch (e: Exception) {
             Gdx.app.log("bth", "parse error: $e")

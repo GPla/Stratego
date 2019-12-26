@@ -19,7 +19,6 @@ import com.mo.stratego.ui.control.CounterLabel
 import com.mo.stratego.ui.control.ReadyButton
 import com.mo.stratego.ui.control.TimerLabel
 import com.mo.stratego.ui.provider.DialogProvider
-import com.mo.stratego.util.Constants
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -41,11 +40,9 @@ object HudController {
     init {
         with(topBar) {
             //setDebug(true)
-            align(Align.left)
-            setY(Constants.getUnitToPixel(17.7f), Align.center)
             add(lblTurn).colspan(1).width(150f).left()
             add(lblState).colspan(2).center().expand()
-            add(lblTime).colspan(1).width(150f).right()
+            add(lblTime).colspan(1).width(150f).padRight(5f).right()
 
             // shows the game menu
             addListener(object : ClickListener() {
@@ -107,13 +104,18 @@ object HudController {
             reset()
         }
 
-        topBar.width = stage.width
+
+        with(topBar) {
+            width = HudController.stage.width
+            height = 50f
+            y = HudController.stage.height - height
+        }
+
 
         // add to stage
         with(stage) {
             addActor(btn)
             addActor(topBar)
-
         }
     }
 

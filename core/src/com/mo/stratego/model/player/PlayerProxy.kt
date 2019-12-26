@@ -1,6 +1,5 @@
 package com.mo.stratego.model.player
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.GridPoint2
 import com.mo.stratego.StrategoGame
 import com.mo.stratego.model.Move
@@ -102,16 +101,12 @@ class PlayerProxy(id: PlayerId) : Player(id) {
      */
     @Subscribe(threadMode = ThreadMode.ASYNC)
     fun onDataReceived(event: DataReceivedEvent) {
-        val data = event.data?.toString(Charsets.UTF_8) ?: return
-        Gdx.app.log("bth", "proxy rec: $data")
-
         // deserialize json and assign to property
-        when (val obj = CommunicationHandler.deserialize(data)) {
+        when (val obj = CommunicationHandler.deserialize(event.data)) {
             is StartNumber  -> startNumber = obj
             is Move         -> move = obj
             is StartingGrid -> startingGrid = obj
         }
-
     }
 
 }

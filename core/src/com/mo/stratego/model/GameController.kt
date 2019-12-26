@@ -5,11 +5,11 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.GridPoint2
 import com.mo.stratego.MainMenuScreen
 import com.mo.stratego.StrategoGame
-import com.mo.stratego.model.communication.OnErrorEvent
-import com.mo.stratego.model.communication.StateEvent
+import com.mo.stratego.model.communication.*
 import com.mo.stratego.model.component.MoveComponent
 import com.mo.stratego.model.player.Player
 import com.mo.stratego.model.player.PlayerId
+import com.mo.stratego.model.player.PlayerProxy
 import com.mo.stratego.model.player.PlayerType
 import com.mo.stratego.ui.Screens
 import com.mo.stratego.ui.controller.HudController
@@ -111,11 +111,11 @@ object GameController {
             GameState.INIT_PLAYER_1        -> init(PlayerId.PLAYER1)
             GameState.INIT_PLAYER_2        -> init(PlayerId.PLAYER2)
             GameState.INIT_PREP_PLAYER_1   -> spawnPieces(players[0])
-            GameState.PREPARATION_PLAYER_1 -> setupForDebug(PlayerId.PLAYER1)
-            //makePlayersPreparation(PlayerId.PLAYER1)
+            GameState.PREPARATION_PLAYER_1 -> //setupForDebug(PlayerId.PLAYER1)
+                makePlayersPreparation(PlayerId.PLAYER1)
             GameState.INIT_PREP_PLAYER_2   -> spawnPieces(players[1])
-            GameState.PREPARATION_PLAYER_2 -> setupForDebug(PlayerId.PLAYER2)
-            //makePlayersPreparation(PlayerId.PLAYER2)
+            GameState.PREPARATION_PLAYER_2 -> //setupForDebug(PlayerId.PLAYER2)
+                makePlayersPreparation(PlayerId.PLAYER2)
             GameState.GAME_START           -> getFirstTurn()
             GameState.TURN_PLAYER_1        -> makePlayersTurn(PlayerId.PLAYER1)
             GameState.TURN_PLAYER_2        -> makePlayersTurn(PlayerId.PLAYER2)
@@ -248,24 +248,67 @@ object GameController {
      * The game freezes and a popup is displayed.
      * @param player Player that won the game
      */
-    // TODO sent event to hud / Dialogprovider
     fun win(player: Player) {
         Gdx.app.log("result", "player ${player.id} won the game!")
         state = GameState.GAME_OVER
-        StrategoGame.switchScreen(if (player.id == PlayerId.PLAYER1)
-                                      Screens.GAME_WON
-                                  else Screens.GAME_LOST)
+
+        if (players[1] is PlayerProxy) {
+            // unregister from event bus
+            StrategoGame.unregister(players[1])
+            // close connection
+            if (CommunicationHandler.iCom.isConnected) {
+                CommunicationHandler.iCom.disconnect()
+            }
+        }
+
+        // switch to end game screen
+        if (player.id == PlayerId.PLAYER1)
+            StrategoGame.switchScreen(Screens.GAME_WON)
+        else
+            StrategoGame.switchScreen(Screens.GAME_LOST)
+    }
+
+
+    /**
+     *  Surrenders the current game.
+     */
+    fun surrender() {
+        CommunicationHandler.serialize(ControlMessage(ControlEvent.SURRENDER))
+        win(players[1])
     }
 
     /**
-     * Returns to [MainMenuScreen] if a communication error occurs.
+     * [CommunicationHandler] event occurs the connection was lost.
+     * Show connection lost dialog and returns to [MainMenuScreen].
      * @param event OnErrorEvent
      */
-    // TODO make event with this and win / event type -> connection lost, game over etc.
-    // TODO move to hud
     @Subscribe(threadMode = ThreadMode.ASYNC)
     fun onErrorEvent(event: OnErrorEvent) {
         // show dialog and return to main
-        DialogProvider.showConnectionLost(HudController.stage)
+        if (state != GameState.GAME_OVER)
+            DialogProvider.showConnectionLost(HudController.stage)
+    }
+
+    /**
+     * [CommunicationHandler] event if data was received.
+     * @param event Event
+     */
+    @Subscribe(threadMode = ThreadMode.ASYNC)
+    fun OnDataReceivedEvent(event: DataReceivedEvent) {
+        Gdx.app.log("bth", "con rec: ${event.data}")
+        when (val obj = CommunicationHandler.deserialize(event.data)) {
+            is ControlMessage -> processControlEvent(obj.event)
+        }
+    }
+
+    /**
+     * Processes control events.
+     * @param event Event
+     */
+    private fun processControlEvent(event: ControlEvent) {
+        Gdx.app.log("bth", "evt: ${event.name}")
+        when (event) {
+            ControlEvent.SURRENDER -> win(players[0])
+        }
     }
 }

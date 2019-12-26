@@ -1,12 +1,11 @@
 package com.mo.stratego.ui.controller
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
-import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
@@ -33,6 +32,11 @@ import org.greenrobot.eventbus.ThreadMode
 object MenuController {
 
     lateinit var stage: Stage
+    private var mode = Mode.MAIN
+
+    // backgrounds 
+    private val mainBackground = Sprite(Atlas.mainMenu)
+    private val plainBackground = Sprite(Atlas.plainMenu)
 
     // actors
     private val tableMain: Table = Table()
@@ -103,17 +107,12 @@ object MenuController {
             })
             //TODO settings
 
-            val style = Label.LabelStyle(Atlas.fontTitle, Color.FOREST)
-            val title = Label("STRATEGO", style)
 
-
-            add(title).pad(100f, 0f, 200f, 0f)
+            add(btnLocal).width(580f).pad(700f, 30f, 10f, 30f)
             row()
-            add(btnLocal).padBottom(100f).width(300f)
+            add(btnMulti).width(580f).pad(10f, 30f, 10f, 30f)
             row()
-            add(btnMulti).width(300f).padBottom(100f)
-            row()
-            add(btnSettings).width(300f)
+            add(btnSettings).width(580f).pad(10f, 30f, 50f, 30f)
         }
     }
 
@@ -167,8 +166,8 @@ object MenuController {
             row()
             add(log).padBottom(20f).colspan(2)
             row().padBottom(80f)
-            add(btnConnect).width(200f).height(70f)
-            add(btnSearch).width(200f).height(70f)
+            add(btnConnect).width(300f).height(70f)
+            add(btnSearch).width(300f).height(70f)
         }
     }
 
@@ -216,6 +215,8 @@ object MenuController {
      * @param mode Mode
      */
     private fun show(mode: Mode) {
+        this.mode = mode
+
         tableMain.isVisible = mode == Mode.MAIN
         tableMulti.isVisible = mode == Mode.MULTI
 
@@ -227,5 +228,14 @@ object MenuController {
             StrategoGame.unregister(this)
         }
     }
+
+    /**
+     * @return The background image for the current mode.
+     */
+    fun getBackground(): Sprite? =
+            when (mode) {
+                Mode.MAIN -> mainBackground
+                else      -> null
+            }
 
 }

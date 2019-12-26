@@ -2,6 +2,7 @@ package com.mo.stratego
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Label
@@ -30,9 +31,10 @@ class EndScreen(private val playerId: PlayerId) : Screen {
         with(tblContent) {
             setFillParent(true)
 
-            val resultLabel =
-                    Label(if (playerId == PlayerId.PLAYER1) "You Won!" else "You Lost!",
-                          Atlas.uiSkinBig)
+            val style = Label.LabelStyle(Atlas.font100, Color.WHITE)
+            val resultLabel = Label(if (playerId == PlayerId.PLAYER1) "You Won!"
+                                    else "You Lost!", style)
+            
             val bLabel = BlinkLabel(1f, "Tap to continue!", Atlas.uiSkinBig)
 
             add(resultLabel).expand()
@@ -54,19 +56,19 @@ class EndScreen(private val playerId: PlayerId) : Screen {
     }
 
     override fun render(delta: Float) {
-        Gdx.gl.glClearColor(1f, 1f, 1f, 1f)
+        Gdx.gl.glClearColor(0.1875f, 0.1875f, 0.1875f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
 
         with(stage) {
-            setDebugInvisible(false)
-            isDebugAll = true
+            //setDebugInvisible(false)
+            //isDebugAll = true
             act(delta)
             draw()
         }
 
         // on touch return to main menu
-        if (Gdx.input.isTouched)
+        if (Gdx.input.justTouched())
             StrategoGame.switchScreen(Screens.MAINMENU)
     }
 

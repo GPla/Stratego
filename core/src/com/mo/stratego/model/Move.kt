@@ -18,8 +18,25 @@ class Move(val position: GridPoint2, val move: GridPoint2) {
     private val className = Move::class.java.name
 
     /**
+     * Override of == operator.
+     * @param other Any?
+     * @return True if equal.
+     */
+    override fun equals(other: Any?): Boolean {
+        return other?.let {
+            if (it !is Move)
+                return false
+
+            if (it.move == this.move && it.position == this.position)
+                return true
+            false
+        } ?: false
+    }
+
+    /**
      * Custom serializer for [Move] class.
-     * From https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/custom_serializers.md
+     * Adapted from https://github.com/Kotlin/kotlinx.serialization/blob/
+     * master/docs/custom_serializers.md
      */
     @Serializer(forClass = Move::class)
     companion object : KSerializer<Move> {

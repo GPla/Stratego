@@ -7,8 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Align
-import com.mo.stratego.StrategoGame
-import com.mo.stratego.ui.Screens
+import com.mo.stratego.model.GameController
 
 /**
  * Game menu dialog. Allows the player to change settings and
@@ -44,7 +43,7 @@ class GameMenuDialog(skin: Skin) : Dialog("Menu", skin) {
             add(lblMusic).padRight(5f)
             add(btnMusic)
             row()
-            button("Return to Main Menu", 0)
+            button("Surrender", 0)
 
             align(Align.left)
             pad(20f)
@@ -52,9 +51,10 @@ class GameMenuDialog(skin: Skin) : Dialog("Menu", skin) {
     }
 
 
+    // TODO IMPORTANT handle in multi and abort connection
     override fun result(`object`: Any?) {
         when (`object` as Int) {
-            0 -> StrategoGame.switchScreen(Screens.MAINMENU)
+            0 -> GameController.surrender()
         }
     }
 }

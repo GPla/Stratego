@@ -1,7 +1,6 @@
 package com.mo.stratego.model
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
@@ -24,20 +23,26 @@ import com.mo.stratego.model.player.PlayerId
  */
 object Atlas {
     private val atlas: TextureAtlas = TextureAtlas("pics.atlas")
+
+    private const val folder = "shade"
+    private const val json = "uiskin.json"
+
     val uiSkin =
-            Skin(Gdx.files.internal("ui/plain-james/skin/plain-james-ui.json"))
+            Skin(Gdx.files.internal("ui/$folder/skin/$json"))
     val uiSkinMed =
-            Skin(Gdx.files.internal("ui/plain-james/skin/plain-james-ui.json"))
+            Skin(Gdx.files.internal("ui/$folder/skin/$json"))
     val uiSkinBig =
-            Skin(Gdx.files.internal("ui/plain-james/skin/plain-james-ui.json"))
+            Skin(Gdx.files.internal("ui/$folder/skin/$json"))
     val defaultSkin =
             Skin(Gdx.files.internal("ui/default/skin/uiskin.json"))
+
+    val mainMenu = Texture(Gdx.files.internal("ui/menu/mainmenu.png"))
+    val plainMenu = Texture(Gdx.files.internal("ui/menu/plainmenu.png"))
 
     val font26: BitmapFont
     val font32: BitmapFont
     val font48: BitmapFont
-    val fontTitle: BitmapFont
-
+    val font100: BitmapFont
 
     init {
         // load font for uiskin
@@ -53,14 +58,8 @@ object Atlas {
         parameter.size = 48
         font48 = generator.generateFont(parameter)
 
-        // title font
         parameter.size = 100
-        parameter.borderColor = Color.BLACK
-        parameter.borderWidth = 5f
-        parameter.shadowColor = Color.BLACK
-        parameter.shadowOffsetX = 5
-        parameter.shadowOffsetY = 5
-        fontTitle = generator.generateFont(parameter)
+        font100 = generator.generateFont(parameter)
 
         generator.dispose()
 

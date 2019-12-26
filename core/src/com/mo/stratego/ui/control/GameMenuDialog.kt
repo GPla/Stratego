@@ -7,7 +7,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.*
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Align
+import com.mo.stratego.model.Atlas
 import com.mo.stratego.model.GameController
+import com.mo.stratego.ui.controller.HudController
+import com.mo.stratego.ui.provider.DialogProvider
 
 /**
  * Game menu dialog. Allows the player to change settings and
@@ -27,7 +30,6 @@ class GameMenuDialog(skin: Skin) : Dialog("Menu", skin) {
             btnClose.addListener(object : ClickListener() {
                 override fun touchDown(event: InputEvent?, x: Float, y: Float,
                                        pointer: Int, button: Int): Boolean {
-
                     hide()
                     return true
                 }
@@ -40,21 +42,31 @@ class GameMenuDialog(skin: Skin) : Dialog("Menu", skin) {
             val lblMusic = Label("Music", skin)
             val btnMusic = Button(skin)
 
-            add(lblMusic).padRight(5f)
-            add(btnMusic)
-            row()
-            button("Surrender", 0)
 
-            align(Align.left)
-            pad(20f)
-        }
-    }
+            val btnSurrender = TextButton("Surrender", skin)
+            // surrender on click
+            btnSurrender.addListener(object : ClickListener() {
+                override fun touchDown(event: InputEvent?, x: Float, y: Float,
+                                       pointer: Int, button: Int): Boolean {
+                    DialogProvider.showConfirmationDialog(
+                            "Are you sure you want to\nsurrender?",
+                            { GameController.surrender() }, Atlas.uiSkinMed,
+                            HudController.stage)
+                    return true
+                }
+            })
 
+            val innerTable = Table()
+            with(innerTable) {
+                add(lblMusic).padRight(30f)
+                add(btnMusic).width(50f).height(50f)
+            }
 
-    // TODO IMPORTANT handle in multi and abort connection
-    override fun result(`object`: Any?) {
-        when (`object` as Int) {
-            0 -> GameController.surrender()
+            add(innerTable).align(Align.left)
+            row().padTop(30f)
+            add(btnSurrender).width(300f).colspan(2)
+
+            pad(30f, 80f, 20f, 80f)
         }
     }
 }

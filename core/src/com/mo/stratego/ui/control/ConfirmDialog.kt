@@ -11,11 +11,12 @@ class ConfirmDialog(msg: String, val callback: () -> Unit, skin: Skin) :
         isResizable = false
 
         with(contentTable) {
-
             add(msg)
             row()
             button("Confirm", 1)
             button("Cancel", 0)
+
+            pad(20f, 30f, 20f, 30f)
         }
     }
 

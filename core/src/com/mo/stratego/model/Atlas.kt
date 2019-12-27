@@ -21,6 +21,7 @@ import com.mo.stratego.model.player.PlayerId
 /**
  * Object that loads the [TextureAtlas] with all game assets.
  */
+// TODO static ressource handling
 object Atlas {
     private val atlas: TextureAtlas = TextureAtlas("pics.atlas")
 
@@ -36,8 +37,10 @@ object Atlas {
     val defaultSkin =
             Skin(Gdx.files.internal("ui/default/skin/uiskin.json"))
 
-    val mainMenu = Texture(Gdx.files.internal("ui/menu/mainmenu.png"))
-    val plainMenu = Texture(Gdx.files.internal("ui/menu/plainmenu.png"))
+    private const val backPath = "ui/background"
+    val mainMenu = Texture(Gdx.files.internal("$backPath/mainmenu.png"))
+    val endLost = Texture(Gdx.files.internal("$backPath/endgame_lost.png"))
+    val endWon = Texture(Gdx.files.internal("$backPath/endgame_won.png"))
 
     val font26: BitmapFont
     val font32: BitmapFont

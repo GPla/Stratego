@@ -36,7 +36,6 @@ object MenuController {
 
     // backgrounds 
     private val mainBackground = Sprite(Atlas.mainMenu)
-    private val plainBackground = Sprite(Atlas.plainMenu)
 
     // actors
     private val tableMain: Table = Table()

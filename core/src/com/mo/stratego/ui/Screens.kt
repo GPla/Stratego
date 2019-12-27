@@ -4,7 +4,7 @@ import com.badlogic.gdx.Screen
 import com.mo.stratego.EndScreen
 import com.mo.stratego.GameScreen
 import com.mo.stratego.MainMenuScreen
-import com.mo.stratego.model.player.PlayerId
+import com.mo.stratego.model.GameResult
 import com.mo.stratego.model.player.PlayerType
 
 /**
@@ -25,8 +25,8 @@ enum class Screens {
             MAINMENU   -> MainMenuScreen()
             GAME_LOCAL -> GameScreen(PlayerType.LOCAL)
             GAME_MULTI -> GameScreen(PlayerType.PROXY)
-            GAME_WON   -> EndScreen(PlayerId.PLAYER1)
-            GAME_LOST  -> EndScreen(PlayerId.PLAYER2)
+            GAME_WON   -> EndScreen(GameResult.WON)
+            GAME_LOST  -> EndScreen(GameResult.LOST)
         }
     }
 }

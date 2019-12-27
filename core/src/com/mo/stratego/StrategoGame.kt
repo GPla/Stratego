@@ -2,6 +2,7 @@ package com.mo.stratego
 
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Preferences
 import com.mo.stratego.model.communication.CommunicationHandler
 import com.mo.stratego.model.communication.ICommunication
 import com.mo.stratego.ui.Screens
@@ -13,7 +14,14 @@ import org.greenrobot.eventbus.EventBus
 object StrategoGame : Game() {
 
     /**
-     * Initialize.
+     * Persistent user settings.
+     */
+    val preferences: Preferences by lazy {
+        Gdx.app.getPreferences("Settings")
+    }
+
+    /**
+     * Initialize the game.
      * @param iCom Communication handler
      */
     fun init(iCom: ICommunication) {
@@ -22,9 +30,10 @@ object StrategoGame : Game() {
 
     /**
      * List that contains registered [EventBus] listener, that do
-     * not manage their lifespan.
+     * not manage their own lifespan. On app dispose() all instances
+     * will be unregistered.
      */
-    val eventBusListener: MutableList<Any> = mutableListOf()
+    private val eventBusListener: MutableList<Any> = mutableListOf()
 
     /**
      * Registers for the [EventBus].
@@ -55,6 +64,9 @@ object StrategoGame : Game() {
 
     override fun dispose() {
         super.dispose()
+        // save preferences to disk
+        preferences.flush()
+        // unregister all instances from the event bus
         eventBusListener.forEach { EventBus.getDefault().unregister(it) }
         CommunicationHandler.iCom.disconnect()
     }

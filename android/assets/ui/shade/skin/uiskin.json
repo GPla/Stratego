@@ -27,7 +27,7 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	default: {
 		font: font-button,
 		fontColor: { a: 1, b: 1, g: 1, r: 1 },
-		downFontColor: { a: 1, b: 1, g: 0.2, r: 1 },
+		downFontColor: { a: 1, b: 0, g: 0.84375, r: 1 },
 		disabledFontColor: { a: 1, b: 0.8, g: 0.8, r: 0.8 },
 		up: button,
 		down: button-down
@@ -144,7 +144,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
 	default: {
 		font: font-label,
-		fontColorSelected: { a: 1, b: 1, g: 0.2, r: 1 },
+		fontColorSelected: { a: 1, b: 0, g: 0.84375, r: 1 },
 		fontColorUnselected: { a: 1, b: 1, g: 1, r: 1 },
 		selection: list-selection
 	},

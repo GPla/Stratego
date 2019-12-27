@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Align
 import com.mo.stratego.model.Atlas
 import com.mo.stratego.model.GameController
+import com.mo.stratego.model.sound.SoundProvider
 import com.mo.stratego.ui.controller.HudController
 import com.mo.stratego.ui.provider.DialogProvider
 
@@ -40,8 +41,8 @@ class GameMenuDialog(skin: Skin) : Dialog("Menu", skin) {
 
         with(contentTable) {
             val lblMusic = Label("Music", skin)
-            val btnMusic = Button(skin)
-
+            val btnMusic = ToggleButton(SoundProvider::isTurnedOn,
+                                        Atlas.uiSkinMed)
 
             val btnSurrender = TextButton("Surrender", skin)
             // surrender on click
@@ -55,11 +56,11 @@ class GameMenuDialog(skin: Skin) : Dialog("Menu", skin) {
                     return true
                 }
             })
-
+            
             val innerTable = Table()
             with(innerTable) {
-                add(lblMusic).padRight(30f)
-                add(btnMusic).width(50f).height(50f)
+                add(lblMusic).padRight(20f)
+                add(btnMusic).width(80f).height(50f)
             }
 
             add(innerTable).align(Align.left)

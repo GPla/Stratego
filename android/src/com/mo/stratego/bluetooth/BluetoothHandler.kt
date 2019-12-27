@@ -86,11 +86,13 @@ class BluetoothHandler(context: Context) :
             }
 
             override fun onToast(message: String?) {
+                isConnected = false
                 Gdx.app.log("bth", "message: $message")
                 listener?.onError(message ?: "Error")
             }
 
             override fun onDeviceName(deviceName: String?) {
+                isConnected = true
                 Gdx.app.log("bth", "device name: $deviceName")
                 listener?.onConnected(deviceName ?: "")
             }

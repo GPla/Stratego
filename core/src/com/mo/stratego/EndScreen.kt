@@ -2,26 +2,30 @@ package com.mo.stratego
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
+import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.StretchViewport
 import com.mo.stratego.model.Atlas
+import com.mo.stratego.model.GameResult
 import com.mo.stratego.model.map.GameMap
-import com.mo.stratego.model.player.PlayerId
 import com.mo.stratego.ui.Screens
 import com.mo.stratego.ui.control.BlinkLabel
 import com.mo.stratego.ui.controller.HudController
 import com.mo.stratego.util.Constants
 
 // TODO
-class EndScreen(private val playerId: PlayerId) : Screen {
+class EndScreen(result: GameResult) : Screen {
     private val stage = Stage(StretchViewport(
             Constants.getUnitToPixel(GameMap.width.toFloat()),
             Constants.getUnitToPixel(GameMap.height.toFloat())))
+
+    private val background: Sprite = when (result) {
+        GameResult.WON  -> Sprite(Atlas.endWon)
+        GameResult.LOST -> Sprite(Atlas.endLost)
+    }
 
     init {
         val turns: String = HudController.lblTurn.text.toString()
@@ -31,15 +35,11 @@ class EndScreen(private val playerId: PlayerId) : Screen {
         with(tblContent) {
             setFillParent(true)
 
-            val style = Label.LabelStyle(Atlas.font100, Color.WHITE)
-            val resultLabel = Label(if (playerId == PlayerId.PLAYER1) "You Won!"
-                                    else "You Lost!", style)
-            
+
             val bLabel = BlinkLabel(1f, "Tap to continue!", Atlas.uiSkinBig)
 
-            add(resultLabel).expand()
-            row()
-            add(turns).pad(20f, 50f, 20f, 0f).align(Align.left)
+            row().expandX()
+            add(turns).pad(600f, 50f, 20f, 0f).align(Align.left)
             row()
             add(time).pad(20f, 50f, 20f, 0f).align(Align.left)
             row().padTop(300f)
@@ -63,6 +63,12 @@ class EndScreen(private val playerId: PlayerId) : Screen {
         with(stage) {
             //setDebugInvisible(false)
             //isDebugAll = true
+
+            // draw background
+            batch.begin()
+            background.draw(batch)
+            batch.end()
+
             act(delta)
             draw()
         }

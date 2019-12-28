@@ -1,6 +1,5 @@
 package com.mo.stratego.ui.control
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
@@ -27,10 +26,8 @@ class ToggleButton(val prop: KMutableProperty0<Boolean>, skin: Skin) :
 
             override fun touchUp(event: InputEvent?, x: Float, y: Float,
                                  pointer: Int, button: Int) {
-                Gdx.app.log("music", "before: ${prop.get()}")
+                // toggle
                 prop.set(!prop.get())
-                Gdx.app.log("music", "after: ${prop.get()}")
-
             }
         })
     }

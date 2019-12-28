@@ -19,6 +19,7 @@ import com.mo.stratego.ui.control.CounterLabel
 import com.mo.stratego.ui.control.ReadyButton
 import com.mo.stratego.ui.control.TimerLabel
 import com.mo.stratego.ui.provider.DialogProvider
+import com.mo.stratego.util.Constants
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -125,7 +126,7 @@ object HudController {
      */
     @Subscribe(threadMode = ThreadMode.ASYNC)
     fun onStateEvent(msg: StateEvent) {
-        Gdx.app.log("game_state", "state: ${msg.state}")
+        Gdx.app.log(Constants.TAG_GAME, "state: ${msg.state}")
         lblState.setText(msg.state)
 
         lblTurn.isVisible = when (GameController.state) {

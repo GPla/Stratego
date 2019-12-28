@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.List
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.utils.Array
 import com.mo.stratego.model.communication.CommunicationHandler
+import com.mo.stratego.util.Constants
 
 /**
  * List that shows all devices found by the [CommunicationHandler].
@@ -17,7 +18,7 @@ class DeviceList(skin: Skin) : List<String>(skin) {
             setItems(Array<String>(
                     CommunicationHandler.iCom.getAvailableDevices().toTypedArray()))
         } catch (e: Exception) {
-            Gdx.app.log("Error", e.message)
+            Gdx.app.log(Constants.TAG_ERROR, e.message)
         }
     }
 }

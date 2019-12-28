@@ -1,6 +1,6 @@
 package com.mo.stratego.model.communication
 
-import com.mo.stratego.model.GameController
+import com.mo.stratego.model.game.GameController
 import kotlinx.serialization.*
 import kotlinx.serialization.internal.StringDescriptor
 
@@ -9,6 +9,7 @@ import kotlinx.serialization.internal.StringDescriptor
  * the [GameController]s.
  */
 enum class ControlEvent {
+    OFFER_DRAW,
     SURRENDER;
 
     /**

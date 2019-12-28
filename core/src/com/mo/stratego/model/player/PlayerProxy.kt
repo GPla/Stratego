@@ -17,7 +17,16 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-//TODO desc
+/**
+ * This class is a proxy for a player that's connected via the
+ * [CommunicationHandler]. The proxy will send actions made by the
+ * local player and receives the actions made by the local player of the
+ * connected device. The Architecture is symmetric and as follows
+ * Local - Device 1 - Proxy - Network - Proxy - Device 2 - Local for a
+ * 2 player game over the network.
+ *
+ * @param id Player id
+ */
 class PlayerProxy(id: PlayerId) : Player(id) {
     init {
         StrategoGame.register(this)

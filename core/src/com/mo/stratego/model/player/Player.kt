@@ -14,8 +14,6 @@ import com.mo.stratego.model.map.StartingGrid
  * The [GameController] corresponds to the referee in the paper.
  * This class is a blueprint for a player.
  */
-// TODO ready when pieces placed
-// TODO exchange pieces
 abstract class Player(val id: PlayerId) {
     /**
      * Whether or not the player is allowed to make his move.

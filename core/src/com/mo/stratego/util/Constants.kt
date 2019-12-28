@@ -8,6 +8,12 @@ object Constants {
     const val TILESCALE: Float = 64f
     const val UNITSCALE: Float = 1 / TILESCALE
 
+    // Logging Tags
+    const val TAG_BLUETOOTH = "bluetooth"
+    const val TAG_MAP = "map"
+    const val TAG_GAME = "game"
+    const val TAG_ERROR = "error"
+
     /**
      *  Calculates the world unit to a given pixel value.
      * @param pixel Float
@@ -21,12 +27,5 @@ object Constants {
      * @return The world unit as pixel value.
      */
     fun getUnitToPixel(unit: Float) = unit * TILESCALE
-
-
-    //LOGGING
-    const val TAG_BLUETOOTH = "bluetooth"
-    const val TAG_MAP = "map"
-    const val TAG_GAME = "game"
-    const val TAG_ERROR = "error"
 
 }

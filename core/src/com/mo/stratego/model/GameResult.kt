@@ -5,5 +5,6 @@ package com.mo.stratego.model
  */
 enum class GameResult {
     WON,
+    DRAW,
     LOST;
 }

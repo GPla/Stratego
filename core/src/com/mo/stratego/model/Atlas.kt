@@ -19,38 +19,45 @@ import com.mo.stratego.model.player.PlayerId
 
 
 /**
- * Object that loads the [TextureAtlas] with all game assets.
+ * Object that provides all textures for the ui and the game. All textures
+ * are loaded through this class.
  */
 // TODO static ressource handling
 object Atlas {
     private val atlas: TextureAtlas = TextureAtlas("pics.atlas")
 
-    private const val folder = "shade"
+    // ui path constants
+    private const val folder = "shade" // skin folder
     private const val json = "uiskin.json"
 
-    val uiSkin =
-            Skin(Gdx.files.internal("ui/$folder/skin/$json"))
-    val uiSkinMed =
-            Skin(Gdx.files.internal("ui/$folder/skin/$json"))
-    val uiSkinBig =
-            Skin(Gdx.files.internal("ui/$folder/skin/$json"))
-    val defaultSkin =
-            Skin(Gdx.files.internal("ui/default/skin/uiskin.json"))
+    private const val fontPath = "fonts/OpenSans-Regular.ttf"
+    private const val bgPath = "ui/background"
 
-    private const val backPath = "ui/background"
-    val mainMenu = Texture(Gdx.files.internal("$backPath/mainmenu.png"))
-    val endLost = Texture(Gdx.files.internal("$backPath/endgame_lost.png"))
-    val endWon = Texture(Gdx.files.internal("$backPath/endgame_won.png"))
+    private val skinHandle = Gdx.files.internal("ui/$folder/skin/$json")
+    private val defaultHandle = Gdx.files.internal("ui/default/skin/$json")
 
+    // skins
+    val uiSkin = Skin(skinHandle)
+    val uiSkinMed = Skin(skinHandle)
+    val uiSkinBig = Skin(skinHandle)
+    val defaultSkin = Skin(defaultHandle)
+
+    // textures
+    val mainMenu = Texture(Gdx.files.internal("$bgPath/mainmenu.png"))
+    val endLost = Texture(Gdx.files.internal("$bgPath/endgame_lost.png"))
+    val endWon = Texture(Gdx.files.internal("$bgPath/endgame_won.png"))
+    val endDraw = Texture(Gdx.files.internal("$bgPath/endgame_draw.png"))
+    val backArrow = Texture(Gdx.files.internal("ui/arrow_left.png"))
+
+    // fonts
     val font26: BitmapFont
     val font32: BitmapFont
     val font48: BitmapFont
     val font100: BitmapFont
 
     init {
-        // load font for uiskin
-        val generator = FreeTypeFontGenerator(
-                Gdx.files.internal("fonts/OpenSans-Regular.ttf"))
+        // generate different font sizes
+        val generator = FreeTypeFontGenerator(Gdx.files.internal(fontPath))
         val parameter = FreeTypeFontGenerator.FreeTypeFontParameter()
         parameter.size = 26
         font26 = generator.generateFont(parameter)
@@ -103,19 +110,18 @@ object Atlas {
 
 
     /**
-     * Loads the appropriate texture from the atlas.
+     * Loads the appropriate frontside texture from the atlas.
      * @param rank Rank
-     * @param owner Player
+     * @param playerId Player id
      * @return A [TextureComponent] with the [Piece]'s texture.
      * Returns null if no texture was found.
      */
     fun getPieceTexture(rank: Rank, playerId: PlayerId): TextureComponent {
         // get texture region from the atlas
-        val atlasRegion =
-                atlas.findRegions(
-                        "${rank.rank.toLowerCase()}_${rank.title.toLowerCase()}")
+        val atlasRegion = atlas.findRegions(
+                "${rank.rank.toLowerCase()}_${rank.title.toLowerCase()}")
 
-        // no valid texture
+        // no valid texture, replace with not found texture
         if (atlasRegion == null ||
             playerId.id >= atlasRegion.size ||
             atlasRegion.size == 0)
@@ -125,7 +131,7 @@ object Atlas {
     }
 
     /**
-     * Loads the backside texture for the playerId.
+     * Loads the backside texture from the atlas for the playerId.
      * @param playerId Int
      * @return A [TextureComponent] with the backside texture for the playerId.
      * Returns dummy texture if no texture was found.

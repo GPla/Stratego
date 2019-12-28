@@ -15,6 +15,7 @@ enum class Screens {
     GAME_LOCAL,
     GAME_MULTI,
     GAME_WON,
+    GAME_DRAW,
     GAME_LOST;
 
     /**
@@ -26,6 +27,7 @@ enum class Screens {
             GAME_LOCAL -> GameScreen(PlayerType.LOCAL)
             GAME_MULTI -> GameScreen(PlayerType.PROXY)
             GAME_WON   -> EndScreen(GameResult.WON)
+            GAME_DRAW  -> EndScreen(GameResult.DRAW)
             GAME_LOST  -> EndScreen(GameResult.LOST)
         }
     }

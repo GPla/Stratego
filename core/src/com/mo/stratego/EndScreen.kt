@@ -21,6 +21,7 @@ import com.mo.stratego.util.Constants
  *
  * @param result Game result
  */
+// ADD result draw
 class EndScreen(result: GameResult) : Screen {
     private val stage = Stage(StretchViewport(
             Constants.getUnitToPixel(GameMap.width.toFloat()),
@@ -29,6 +30,7 @@ class EndScreen(result: GameResult) : Screen {
     private val background: Sprite = when (result) {
         GameResult.WON  -> Sprite(Atlas.endWon)
         GameResult.LOST -> Sprite(Atlas.endLost)
+        GameResult.DRAW -> Sprite(Atlas.endDraw)
     }
 
     init {

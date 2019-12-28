@@ -8,9 +8,11 @@ import com.mo.stratego.model.communication.ICommunication
 import com.mo.stratego.ui.Screens
 import org.greenrobot.eventbus.EventBus
 
-//todo desc
 // TODO cancel back button
 // TODO put tags in constants
+/**
+ * LibGDX entry point. Class that handles the currently displayed screen.
+ */
 object StrategoGame : Game() {
 
     /**

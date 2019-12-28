@@ -78,7 +78,6 @@ class PieceInputListener(private val piece: Piece,
     /**
      * Creates highlights for possible placements on the [Grid].
      */
-    //TODO: after placement, select same kind
     private fun createPlacementHighlight() {
         val cells = Grid.getFreeCellsInPlayerZone(piece.owner.id)
         val position = posMapper.get(piece)

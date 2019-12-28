@@ -6,7 +6,12 @@ import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.IteratingSystem
 import com.mo.stratego.model.component.WaitComponent
 
-//TODO desc
+/**
+ * This system process Entities with a [WaitComponent]. After the waitTime,
+ * that's specified in the [WaitComponent], is elapsed, the [WaitComponent]
+ * is removed. The [WaitComponent] is used to delay the processing of other
+ * components through other systems.
+ */
 class WaitSystem :
     IteratingSystem(Family.all(WaitComponent::class.java).get()) {
 

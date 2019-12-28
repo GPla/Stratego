@@ -16,7 +16,11 @@ import com.mo.stratego.ui.control.BlinkLabel
 import com.mo.stratego.ui.controller.HudController
 import com.mo.stratego.util.Constants
 
-// TODO
+/**
+ * Displays the [GameResult] as well as other statistics to the user.
+ *
+ * @param result Game result
+ */
 class EndScreen(result: GameResult) : Screen {
     private val stage = Stage(StretchViewport(
             Constants.getUnitToPixel(GameMap.width.toFloat()),

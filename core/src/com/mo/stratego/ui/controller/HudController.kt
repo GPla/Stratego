@@ -9,12 +9,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
 import com.mo.stratego.StrategoGame
-import com.mo.stratego.model.Atlas
-import com.mo.stratego.model.GameController
-import com.mo.stratego.model.GameState
 import com.mo.stratego.model.Rank
 import com.mo.stratego.model.communication.StateEvent
+import com.mo.stratego.model.game.GameController
+import com.mo.stratego.model.game.GameState
 import com.mo.stratego.model.player.PlayerId
+import com.mo.stratego.ui.Atlas
 import com.mo.stratego.ui.control.CounterLabel
 import com.mo.stratego.ui.control.ReadyButton
 import com.mo.stratego.ui.control.TimerLabel
@@ -33,7 +33,8 @@ object HudController {
     private lateinit var engine: PooledEngine
 
     // actors
-    private val topBar = Button(Atlas.uiSkin)
+    private val topBar = Button(
+            Atlas.uiSkin)
     private val lblState = Label("Init", Atlas.uiSkin)
     val lblTurn = Label("Turn: 0", Atlas.uiSkin)
     val lblTime = TimerLabel(Atlas.uiSkin)
@@ -84,7 +85,8 @@ object HudController {
         }
 
         // ready btn
-        val btn = ReadyButton(Atlas.uiSkin)
+        val btn = ReadyButton(
+                Atlas.uiSkin)
 
 
         // lblstate

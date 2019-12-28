@@ -5,10 +5,15 @@ import com.badlogic.ashley.core.Engine
 import com.badlogic.ashley.core.Entity
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
-import com.mo.stratego.model.*
+import com.mo.stratego.model.HighlightType
+import com.mo.stratego.model.Move
+import com.mo.stratego.model.MoveType
+import com.mo.stratego.model.Piece
 import com.mo.stratego.model.component.HighlightComponent
 import com.mo.stratego.model.component.MoveComponent
 import com.mo.stratego.model.component.PositionComponent
+import com.mo.stratego.model.game.GameController
+import com.mo.stratego.model.game.GameState
 import com.mo.stratego.model.system.MoveSystem
 
 /**

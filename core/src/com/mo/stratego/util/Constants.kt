@@ -14,6 +14,9 @@ object Constants {
     const val TAG_GAME = "game"
     const val TAG_ERROR = "error"
 
+    // paths
+    const val rulesPath = "rules.txt"
+
     /**
      *  Calculates the world unit to a given pixel value.
      * @param pixel Float
@@ -27,5 +30,6 @@ object Constants {
      * @return The world unit as pixel value.
      */
     fun getUnitToPixel(unit: Float) = unit * TILESCALE
+
 
 }

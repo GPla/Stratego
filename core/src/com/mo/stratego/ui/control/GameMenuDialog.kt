@@ -7,9 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.*
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Align
-import com.mo.stratego.model.Atlas
-import com.mo.stratego.model.GameController
+import com.mo.stratego.model.game.GameController
 import com.mo.stratego.model.sound.SoundProvider
+import com.mo.stratego.ui.Atlas
 import com.mo.stratego.ui.controller.HudController
 import com.mo.stratego.ui.provider.DialogProvider
 
@@ -56,7 +56,8 @@ class GameMenuDialog(skin: Skin) : Dialog("Menu", skin) {
                     return true
                 }
             })
-            
+
+
             val innerTable = Table()
             with(innerTable) {
                 add(lblMusic).padRight(20f)

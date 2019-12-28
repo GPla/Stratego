@@ -4,8 +4,8 @@ import com.badlogic.gdx.Screen
 import com.mo.stratego.EndScreen
 import com.mo.stratego.GameScreen
 import com.mo.stratego.MainMenuScreen
-import com.mo.stratego.model.GameResult
-import com.mo.stratego.model.player.PlayerType
+import com.mo.stratego.model.game.GameMode
+import com.mo.stratego.model.game.GameResult
 
 /**
  * Enum of screens.
@@ -24,8 +24,8 @@ enum class Screens {
     fun createInstance(): Screen {
         return when (this) {
             MAINMENU   -> MainMenuScreen()
-            GAME_LOCAL -> GameScreen(PlayerType.LOCAL)
-            GAME_MULTI -> GameScreen(PlayerType.PROXY)
+            GAME_LOCAL -> GameScreen(GameMode.LOCAL)
+            GAME_MULTI -> GameScreen(GameMode.MULTI)
             GAME_WON   -> EndScreen(GameResult.WON)
             GAME_DRAW  -> EndScreen(GameResult.DRAW)
             GAME_LOST  -> EndScreen(GameResult.LOST)

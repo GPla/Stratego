@@ -5,9 +5,9 @@ import com.badlogic.gdx.scenes.scene2d.EventListener
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
-import com.mo.stratego.model.GameController
-import com.mo.stratego.model.GameState
 import com.mo.stratego.model.Rank
+import com.mo.stratego.model.game.GameController
+import com.mo.stratego.model.game.GameState
 import com.mo.stratego.model.map.Grid
 import com.mo.stratego.model.map.StartingGrid
 import com.mo.stratego.util.Constants
@@ -27,8 +27,9 @@ class ReadyButton(skin: Skin) : TextButton("Ready!", skin), EventListener {
     override fun act(delta: Float) {
         isVisible = GameController.state.let {
             // only visible in prep state
-            if (it in arrayOf(GameState.PREPARATION_PLAYER_1,
-                              GameState.PREPARATION_PLAYER_2))
+            if (it in arrayOf(
+                            GameState.PREPARATION_PLAYER_1,
+                            GameState.PREPARATION_PLAYER_2))
             // check if all pieces are on the grid
                 it.activePlayerId?.let {
                     Grid.spawnMap.values.map { x -> x[it.id] }.sum() == 0

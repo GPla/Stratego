@@ -5,11 +5,11 @@ import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.IteratingSystem
 import com.badlogic.gdx.Gdx
-import com.mo.stratego.model.GameController
 import com.mo.stratego.model.Result
 import com.mo.stratego.model.component.AttackComponent
 import com.mo.stratego.model.component.PieceComponent
 import com.mo.stratego.model.component.WaitComponent
+import com.mo.stratego.model.game.GameController
 import com.mo.stratego.util.Constants
 
 /**

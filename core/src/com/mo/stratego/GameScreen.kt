@@ -12,15 +12,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.viewport.StretchViewport
-import com.mo.stratego.model.GameController
-import com.mo.stratego.model.GameState
 import com.mo.stratego.model.component.HighlightComponent
 import com.mo.stratego.model.component.MoveComponent
 import com.mo.stratego.model.component.PieceComponent
 import com.mo.stratego.model.component.PositionComponent
+import com.mo.stratego.model.game.GameController
+import com.mo.stratego.model.game.GameMode
+import com.mo.stratego.model.game.GameState
 import com.mo.stratego.model.map.GameMap
 import com.mo.stratego.model.map.Grid
-import com.mo.stratego.model.player.PlayerType
 import com.mo.stratego.model.system.AttackSystem
 import com.mo.stratego.model.system.MoveSystem
 import com.mo.stratego.model.system.RenderSystem
@@ -35,7 +35,7 @@ import com.mo.stratego.util.Constants
  *
  * game logic implemented using ECS (Entity - Component - System) design pattern
  */
-class GameScreen(player2: PlayerType) : Screen {
+class GameScreen(gameMode: GameMode) : Screen {
     private var camera: OrthographicCamera = OrthographicCamera()
     private val engine: Engine
     private val batch: SpriteBatch
@@ -79,7 +79,7 @@ class GameScreen(player2: PlayerType) : Screen {
                 .exclude(MoveComponent::class.java).get()
         engine.addEntityListener(family, Grid)
 
-        GameController.init(engine, player2)
+        GameController.init(engine, gameMode)
 
 
         // add systems to engine

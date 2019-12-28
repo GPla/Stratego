@@ -1,10 +1,10 @@
 package com.mo.stratego.model.player
 
-import com.mo.stratego.model.GameController
 import com.mo.stratego.model.Move
 import com.mo.stratego.model.MoveType
 import com.mo.stratego.model.Piece
 import com.mo.stratego.model.component.MoveComponent
+import com.mo.stratego.model.game.GameController
 import com.mo.stratego.model.map.Grid
 import com.mo.stratego.model.map.StartingGrid
 

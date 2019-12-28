@@ -14,6 +14,7 @@ import com.mo.stratego.model.player.PlayerType
 import com.mo.stratego.ui.Screens
 import com.mo.stratego.ui.controller.HudController
 import com.mo.stratego.ui.provider.DialogProvider
+import com.mo.stratego.util.Constants
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -104,8 +105,6 @@ object GameController {
      * This method runs and updates the [GameState].
      * It should be called every frame by the game loop.
      */
-    //FIXME: bug sometimes hangs in INIT_PLAYER_2
-    //TODO: error handling
     fun run() {
         val result = when (state) {
             GameState.INIT_PLAYER_1        -> init(PlayerId.PLAYER1)
@@ -141,7 +140,6 @@ object GameController {
      * begin.
      * @return True, go to next state.
      */
-    // TODO: handle error state
     private fun getFirstTurn(): Boolean {
         // get both player starting numbers
         val player1Num =
@@ -249,7 +247,7 @@ object GameController {
      * @param player Player that won the game
      */
     fun win(player: Player) {
-        Gdx.app.log("result", "player ${player.id} won the game!")
+        Gdx.app.log(Constants.TAG_GAME, "player ${player.id} won the game!")
         state = GameState.GAME_OVER
 
         if (players[1] is PlayerProxy) {
@@ -295,7 +293,6 @@ object GameController {
      */
     @Subscribe(threadMode = ThreadMode.ASYNC)
     fun OnDataReceivedEvent(event: DataReceivedEvent) {
-        Gdx.app.log("bth", "con rec: ${event.data}")
         when (val obj = CommunicationHandler.deserialize(event.data)) {
             is ControlMessage -> processControlEvent(obj.event)
         }
@@ -306,7 +303,6 @@ object GameController {
      * @param event Event
      */
     private fun processControlEvent(event: ControlEvent) {
-        Gdx.app.log("bth", "evt: ${event.name}")
         when (event) {
             ControlEvent.SURRENDER -> win(players[0])
         }

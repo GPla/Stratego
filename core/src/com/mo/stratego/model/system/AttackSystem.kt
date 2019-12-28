@@ -10,6 +10,7 @@ import com.mo.stratego.model.Result
 import com.mo.stratego.model.component.AttackComponent
 import com.mo.stratego.model.component.PieceComponent
 import com.mo.stratego.model.component.WaitComponent
+import com.mo.stratego.util.Constants
 
 /**
  * A system that processes entities with a [PieceComponent] and a
@@ -37,7 +38,7 @@ class AttackSystem :
 
         val result = piece.rank.attacks(enemy.rank)
 
-        Gdx.app.log("attack", "result: $result")
+        Gdx.app.log(Constants.TAG_GAME, "result: $result")
 
         // process attack
         when (result) {

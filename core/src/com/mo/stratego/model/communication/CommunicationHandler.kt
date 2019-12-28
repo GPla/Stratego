@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx
 import com.mo.stratego.model.Move
 import com.mo.stratego.model.map.StartingGrid
 import com.mo.stratego.model.player.StartNumber
+import com.mo.stratego.util.Constants
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
 import org.greenrobot.eventbus.EventBus
@@ -35,7 +36,7 @@ object CommunicationHandler : ICommunicationEventListener {
 
     override fun onDataReceived(data: ByteArray?) {
         val data = data?.toString(Charsets.UTF_8) ?: return
-        Gdx.app.log("bth", "proxy rec: $data")
+        Gdx.app.log(Constants.TAG_BLUETOOTH, "proxy rec: $data")
         EventBus.getDefault().post(DataReceivedEvent(data))
     }
 
@@ -77,7 +78,7 @@ object CommunicationHandler : ICommunicationEventListener {
         jsonData?.also {
             // add \n as message delimiter
             iCom.writeData(it.toByteArray() + '\n'.toByte())
-            Gdx.app.log("bth", "data send: $it")
+            Gdx.app.log(Constants.TAG_BLUETOOTH, "data send: $it")
         }
     }
 
@@ -103,7 +104,7 @@ object CommunicationHandler : ICommunicationEventListener {
                 else                            -> null
             }
         } catch (e: Exception) {
-            Gdx.app.log("bth", "parse error: $e")
+            Gdx.app.log(Constants.TAG_BLUETOOTH, "parse error: $e")
             return null
         }
 

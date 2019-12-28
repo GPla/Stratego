@@ -6,6 +6,7 @@ import com.badlogic.gdx.Preferences
 import com.mo.stratego.model.communication.CommunicationHandler
 import com.mo.stratego.model.communication.ICommunication
 import com.mo.stratego.ui.Screens
+import com.mo.stratego.util.Constants
 import org.greenrobot.eventbus.EventBus
 
 // TODO cancel back button
@@ -78,7 +79,7 @@ object StrategoGame : Game() {
      * @param type Screen
      */
     fun switchScreen(type: Screens) {
-        Gdx.app.log("game", "switch screen: $type")
+        Gdx.app.log(Constants.TAG_GAME, "switch screen: $type")
 
         // has to be run on the main thread, otherwise its undefined behavior
         // or simply does not work

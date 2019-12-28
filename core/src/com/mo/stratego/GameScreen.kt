@@ -104,10 +104,11 @@ class GameScreen(player2: PlayerType) : Screen {
     }
 
     override fun render(delta: Float) {
-        Gdx.app.log("field", Grid.toString())
+        Gdx.app.log(Constants.TAG_MAP, Grid.toString())
         //Gdx.app.log("state", GameController.state.toString())
         Grid.spawnMap.forEach {
-            Gdx.app.log("spawn", "${it.key}: ${it.value[0]}, ${it.value[1]}")
+            Gdx.app.log(Constants.TAG_MAP,
+                        "${it.key}: ${it.value[0]}, ${it.value[1]}")
         }
 
         GameController.run()

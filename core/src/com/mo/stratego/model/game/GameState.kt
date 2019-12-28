@@ -1,4 +1,4 @@
-package com.mo.stratego.model
+package com.mo.stratego.model.game
 
 import com.mo.stratego.model.player.PlayerId
 

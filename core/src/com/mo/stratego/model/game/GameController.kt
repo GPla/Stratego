@@ -3,6 +3,7 @@ package com.mo.stratego.model.game
 import com.badlogic.ashley.core.Engine
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.GridPoint2
+import com.mo.stratego.EndScreen
 import com.mo.stratego.MainMenuScreen
 import com.mo.stratego.StrategoGame
 import com.mo.stratego.model.Move
@@ -13,8 +14,8 @@ import com.mo.stratego.model.communication.*
 import com.mo.stratego.model.component.MoveComponent
 import com.mo.stratego.model.player.Player
 import com.mo.stratego.model.player.PlayerId
-import com.mo.stratego.model.player.PlayerProxy
 import com.mo.stratego.model.player.PlayerType
+import com.mo.stratego.ui.Atlas
 import com.mo.stratego.ui.Screens
 import com.mo.stratego.ui.controller.HudController
 import com.mo.stratego.ui.provider.DialogProvider
@@ -33,13 +34,13 @@ object GameController {
     private lateinit var engine: Engine
     lateinit var players: Array<Player>
         private set
-    var state: GameState =
-            GameState.INIT_PLAYER_1
+    var state: GameState = GameState.INIT_PLAYER_1
         private set
     lateinit var playerPieces: Map<Player, List<Piece>>
         private set
-    private var turnCounter =
-            TurnCounter()
+    private var turnCounter = TurnCounter()
+    var gameMode: GameMode = GameMode.MULTI
+        private set
 
     /**
      * Contains the move history for the current game.
@@ -83,6 +84,7 @@ object GameController {
      * @param player2 Type of player 2
      */
     fun init(engine: Engine, gameMode: GameMode): GameController {
+        this.gameMode = gameMode
         GameController.engine = engine
 
         // create players of given type
@@ -92,19 +94,15 @@ object GameController {
 
         // create pieces for player
         playerPieces = mapOf(
-                players[0] to PieceFactory.generateSet(
-                        players[0]),
-                players[1] to PieceFactory.generateSet(
-                        players[1]))
+                players[0] to PieceFactory.generateSet(players[0]),
+                players[1] to PieceFactory.generateSet(players[1]))
 
         // register for events on event bus
         StrategoGame.register(this)
 
         // reset for new game
-        turnCounter =
-                TurnCounter()
-        state =
-                GameState.INIT_PLAYER_1
+        turnCounter = TurnCounter()
+        state = GameState.INIT_PLAYER_1
         moveHistory[PlayerId.PLAYER1]!!.clear()
         moveHistory[PlayerId.PLAYER2]!!.clear()
 
@@ -118,25 +116,17 @@ object GameController {
      */
     fun run() {
         val result = when (state) {
-            GameState.INIT_PLAYER_1        -> init(
-                    PlayerId.PLAYER1)
-            GameState.INIT_PLAYER_2        -> init(
-                    PlayerId.PLAYER2)
-            GameState.INIT_PREP_PLAYER_1   -> spawnPieces(
-                    players[0])
+            GameState.INIT_PLAYER_1        -> init(PlayerId.PLAYER1)
+            GameState.INIT_PLAYER_2        -> init(PlayerId.PLAYER2)
+            GameState.INIT_PREP_PLAYER_1   -> spawnPieces(players[0])
             GameState.PREPARATION_PLAYER_1 -> //setupForDebug(PlayerId.PLAYER1)
-                makePlayersPreparation(
-                        PlayerId.PLAYER1)
-            GameState.INIT_PREP_PLAYER_2   -> spawnPieces(
-                    players[1])
+                makePlayersPreparation(PlayerId.PLAYER1)
+            GameState.INIT_PREP_PLAYER_2   -> spawnPieces(players[1])
             GameState.PREPARATION_PLAYER_2 -> //setupForDebug(PlayerId.PLAYER2)
-                makePlayersPreparation(
-                        PlayerId.PLAYER2)
+                makePlayersPreparation(PlayerId.PLAYER2)
             GameState.GAME_START           -> getFirstTurn()
-            GameState.TURN_PLAYER_1        -> makePlayersTurn(
-                    PlayerId.PLAYER1)
-            GameState.TURN_PLAYER_2        -> makePlayersTurn(
-                    PlayerId.PLAYER2)
+            GameState.TURN_PLAYER_1        -> makePlayersTurn(PlayerId.PLAYER1)
+            GameState.TURN_PLAYER_2        -> makePlayersTurn(PlayerId.PLAYER2)
             GameState.GAME_OVER            -> false
         }
 
@@ -144,8 +134,7 @@ object GameController {
         if (result) {
             // update state and counter
             state++
-            turnCounter.changedState(
-                    state)
+            turnCounter.changedState(state)
 
             // post state change to hud controller
             state.title?.run {
@@ -171,10 +160,8 @@ object GameController {
         if (player2Num > player1Num) {
             // player 2 starts
             // will be incremented again in run()
-            state =
-                    GameState.TURN_PLAYER_1
-            turnCounter.firstTurn =
-                    GameState.TURN_PLAYER_2
+            state = GameState.TURN_PLAYER_1
+            turnCounter.firstTurn = GameState.TURN_PLAYER_2
             return true
         }
         return true
@@ -243,9 +230,7 @@ object GameController {
             return false
 
         players[id].allow = false
-        players[id].presentGrid(
-                playerPieces.getValue(
-                        players[id]))
+        players[id].presentGrid(playerPieces.getValue(players[id]))
 
         // process the other players grid
         val otherId = (id + 1) % players.size
@@ -267,40 +252,56 @@ object GameController {
 
     /**
      * This method is called when a player won the game.
-     * The game freezes and a popup is displayed.
-     * @param player Player that won the game
+     * The game freezes and the [EndScreen] is displayed.
+     * @param gameResult Result of the game
      */
-    fun win(player: Player) {
-        Gdx.app.log(Constants.TAG_GAME, "player ${player.id} won the game!")
-        state =
-                GameState.GAME_OVER
+    fun end(gameResult: GameResult) {
+        Gdx.app.log(Constants.TAG_GAME, "the game result is: $gameResult")
+        state = GameState.GAME_OVER
 
-        if (players[1] is PlayerProxy) {
+        if (gameMode == GameMode.MULTI) {
             // unregister from event bus
-            StrategoGame.unregister(
-                    players[1])
+            StrategoGame.unregister(players[1])
             // close connection
             if (CommunicationHandler.iCom.isConnected) {
                 CommunicationHandler.iCom.disconnect()
             }
         }
 
-        // switch to end game screen
-        if (player.id == PlayerId.PLAYER1)
-            StrategoGame.switchScreen(Screens.GAME_WON)
-        else
-            StrategoGame.switchScreen(Screens.GAME_LOST)
+        when (gameResult) {
+            GameResult.WON  -> StrategoGame.switchScreen(Screens.GAME_WON)
+            GameResult.DRAW -> StrategoGame.switchScreen(Screens.GAME_DRAW)
+            GameResult.LOST -> StrategoGame.switchScreen(Screens.GAME_LOST)
+        }
     }
 
 
     /**
-     *  Surrenders the current game.
+     *  Surrenders the current game. The game is lost.
      */
     fun surrender() {
-        CommunicationHandler.serialize(ControlMessage(ControlEvent.SURRENDER))
-        win(
-                players[1])
+        if (gameMode == GameMode.MULTI)
+            CommunicationHandler.serialize(
+                    ControlMessage(ControlEvent.SURRENDER))
+
+        end(GameResult.LOST)
     }
+
+    /**
+     * Accepts the draw and ends the game.
+     */
+    fun acceptDraw() {
+        CommunicationHandler.serialize(ControlMessage(ControlEvent.ACCEPT_DRAW))
+        end(GameResult.DRAW)
+    }
+
+    /**
+     * Offers a draw to the other player.
+     */
+    fun offerDraw() {
+        CommunicationHandler.serialize(ControlMessage(ControlEvent.OFFER_DRAW))
+    }
+
 
     /**
      * [CommunicationHandler] event occurs the connection was lost.
@@ -321,8 +322,7 @@ object GameController {
     @Subscribe(threadMode = ThreadMode.ASYNC)
     fun OnDataReceivedEvent(event: DataReceivedEvent) {
         when (val obj = CommunicationHandler.deserialize(event.data)) {
-            is ControlMessage -> processControlEvent(
-                    obj.event)
+            is ControlMessage -> processControlEvent(obj.event)
         }
     }
 
@@ -332,8 +332,21 @@ object GameController {
      */
     private fun processControlEvent(event: ControlEvent) {
         when (event) {
-            ControlEvent.SURRENDER -> win(
-                    players[0])
+            ControlEvent.SURRENDER   -> end(GameResult.WON)
+            ControlEvent.OFFER_DRAW  -> processOffer()
+            ControlEvent.ACCEPT_DRAW -> acceptDraw()
         }
+    }
+
+    /**
+     * Shows a dialog to the user to accept or decline the draw offer.
+     */
+    private fun processOffer() {
+        DialogProvider.showConfirmationDialog(
+                "The other players offers a draw.\n" +
+                "Do you want to accept the offer?",
+                { acceptDraw() },
+                Atlas.uiSkinMed,
+                HudController.stage)
     }
 }

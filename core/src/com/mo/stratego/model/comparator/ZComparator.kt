@@ -1,4 +1,4 @@
-package com.mo.stratego.util
+package com.mo.stratego.model.comparator
 
 import com.badlogic.ashley.core.ComponentMapper
 import com.badlogic.ashley.core.Entity
@@ -6,11 +6,10 @@ import com.mo.stratego.model.component.PositionComponent
 
 
 /**
- * Compares z axis of two entities
+ * Compares z axis of two entities.
  */
 class ZComparator : Comparator<Entity> {
-    private val pm: ComponentMapper<PositionComponent> =
-            ComponentMapper.getFor(PositionComponent::class.java)
+    private val pm = ComponentMapper.getFor(PositionComponent::class.java)
 
     /**
      * Compares z axis of two entities with a [PositionComponent]

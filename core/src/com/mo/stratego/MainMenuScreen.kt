@@ -14,8 +14,8 @@ import com.mo.stratego.util.Constants
 class MainMenuScreen : Screen {
 
     init {
-        val stage = Stage(StretchViewport(Constants.screenWidth,
-                                          Constants.screenHeight))
+        val stage = Stage(StretchViewport(Constants.SCREEN_WIDTH,
+                                          Constants.SCREEN_HEIGHT))
         MenuController.init(stage)
 
         Gdx.input.inputProcessor = stage

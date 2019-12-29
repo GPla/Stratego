@@ -205,7 +205,7 @@ object MenuController {
             val lblTitle = Label("Rules", Atlas.uiSkinBig)
 
             // content
-            val rules = Gdx.files.internal(Constants.rulesPath)
+            val rules = Gdx.files.internal(Constants.RULES_PATH)
             val rulesTable = MarkdownParser.parseMarkdownToScene2D(rules)
             val scrollPane = ScrollPane(rulesTable)
 
@@ -285,7 +285,7 @@ object MenuController {
     fun getBackground(): Sprite? =
             when (mode) {
                 Mode.MAIN -> mainBackground
-                else      -> null
+                else -> null
             }
 
 }

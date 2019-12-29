@@ -3,24 +3,27 @@ package com.mo.stratego.model.system
 import com.badlogic.ashley.core.ComponentMapper
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
-import com.badlogic.ashley.systems.IteratingSystem
+import com.badlogic.ashley.systems.SortedIteratingSystem
 import com.badlogic.gdx.math.GridPoint2
 import com.mo.stratego.model.HighlightType
 import com.mo.stratego.model.MoveType
 import com.mo.stratego.model.Piece
+import com.mo.stratego.model.comparator.MoveTypeComparator
 import com.mo.stratego.model.component.*
 import com.mo.stratego.model.map.Grid
+import com.mo.stratego.model.sound.SoundType
 
 /**
  * System that processes entities with a [PieceComponent], a [PositionComponent]
  * and a [MoveComponent]. This system moves the entities to their new position,
  * if an opponent's [Piece] occupies the target position an attack is initiated.
  */
-class MoveSystem : IteratingSystem(
+class MoveSystem : SortedIteratingSystem(
         Family.all(PieceComponent::class.java, PositionComponent::class.java,
                    MoveComponent::class.java)
                 .exclude(AttackComponent::class.java,
-                         WaitComponent::class.java).get()) {
+                         WaitComponent::class.java).get(),
+        MoveTypeComparator()) {
 
     // component mapper
     private val posMapper =
@@ -66,6 +69,7 @@ class MoveSystem : IteratingSystem(
             0 -> piece.remove(MoveComponent::class.java) // invalid move
             1 -> {
                 highlightMovement(piece, position, move)
+                createSound(piece)
 
                 //move to new position
                 position.add(move)
@@ -75,6 +79,13 @@ class MoveSystem : IteratingSystem(
                 highlightMovement(piece, position, move)
 
                 val enemy = Grid[newPoint]
+
+                // check if position is still correct,
+                // if move than one entity is moved, grid will be updated after
+                // system has finshed (entitylistener not async)
+                if (posMapper.get(enemy).position != newPoint)
+                    return
+
                 enemy?.run {
                     // show front side texture of both pieces
                     showFront()
@@ -110,7 +121,8 @@ class MoveSystem : IteratingSystem(
         // delete old move highlight
         HighlightType.deleteHighlight(engine, HighlightType.MOVE)
 
-        arrayOf(Entity(), Entity()).forEachIndexed { index, entity ->
+        arrayOf(engine.createEntity(),
+                engine.createEntity()).forEachIndexed { index, entity ->
             HighlightType.createHighlight(entity, piece, HighlightType.MOVE,
                                           null)
             when (index) {
@@ -121,5 +133,13 @@ class MoveSystem : IteratingSystem(
             }
             engine.addEntity(entity)
         }
+    }
+
+    /**
+     * Creates sound for movement.
+     * @param piece  Piece
+     */
+    private fun createSound(piece: Piece) {
+        piece.add(SoundComponent(SoundType.MOVE))
     }
 }

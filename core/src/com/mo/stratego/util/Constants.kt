@@ -1,5 +1,8 @@
 package com.mo.stratego.util
 
+import com.badlogic.gdx.graphics.Color
+import com.mo.stratego.model.map.GameMap
+
 /**
  * Class that contains game constants.
  */
@@ -8,14 +11,23 @@ object Constants {
     const val TILESCALE: Float = 64f
     const val UNITSCALE: Float = 1 / TILESCALE
 
+    // screen
+    val screenWidth = Constants.getUnitToPixel(GameMap.width.toFloat())
+    val screenHeight = Constants.getUnitToPixel(GameMap.height.toFloat())
+
     // Logging Tags
-    const val TAG_BLUETOOTH = "bluetooth"
-    const val TAG_MAP = "map"
-    const val TAG_GAME = "game"
-    const val TAG_ERROR = "error"
+    const val TAG_BLUETOOTH = "stratego_bluetooth"
+    const val TAG_MAP = "stratego_map"
+    const val TAG_GAME = "stratego_game"
+    const val TAG_ERROR = "stratego_error"
 
     // paths
-    const val rulesPath = "rules.txt"
+    const val rulesPath = "rules/rules.md"
+
+
+    // colors
+    val YELLOW = Color(1f, 0.84375f, 0f, 1f)
+    val BLACK = Color(0.1875f, 0.1875f, 0.1875f, 1f)
 
     /**
      *  Calculates the world unit to a given pixel value.

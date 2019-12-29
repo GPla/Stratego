@@ -104,7 +104,6 @@ public class BluetoothClassicExtendedService extends BluetoothService {
     private ConnectThread mConnectThread;
     private ConnectedThread mConnectedThread;
 
-
     protected BluetoothClassicExtendedService(BluetoothConfiguration config) {
         super(config);
         mAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -270,9 +269,16 @@ public class BluetoothClassicExtendedService extends BluetoothService {
                 }
             });
 
+
         // Register for broadcasts when a device is discovered
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         mConfig.context.registerReceiver(mScanReceiver, filter);
+
+        // MODIFIED: added discovery
+        Intent discoverableIntent =
+                new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+        discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 30);
+//        mConfig.context.startActivity(discoverableIntent);
 
         // Register for broadcasts when discovery has finished
         filter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);

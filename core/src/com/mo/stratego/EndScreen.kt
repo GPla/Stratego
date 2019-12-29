@@ -10,6 +10,8 @@ import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.StretchViewport
 import com.mo.stratego.model.game.GameResult
 import com.mo.stratego.model.map.GameMap
+import com.mo.stratego.model.sound.MusicType
+import com.mo.stratego.model.sound.SoundProvider
 import com.mo.stratego.ui.Atlas
 import com.mo.stratego.ui.Screens
 import com.mo.stratego.ui.control.BlinkLabel
@@ -22,7 +24,7 @@ import com.mo.stratego.util.Constants
  * @param result Game result
  */
 // ADD result draw
-class EndScreen(result: GameResult) : Screen {
+class EndScreen(private val result: GameResult) : Screen {
     private val stage = Stage(StretchViewport(
             Constants.getUnitToPixel(GameMap.width.toFloat()),
             Constants.getUnitToPixel(GameMap.height.toFloat())))
@@ -32,6 +34,11 @@ class EndScreen(result: GameResult) : Screen {
         GameResult.LOST -> Sprite(Atlas.endLost)
         GameResult.DRAW -> Sprite(Atlas.endDraw)
     }
+
+    /**
+     * Music handle of the music played through the [SoundProvider].
+     */
+    private var musicHandle: Int? = null
 
     init {
         val turns: String = HudController.lblTurn.text.toString()
@@ -59,6 +66,11 @@ class EndScreen(result: GameResult) : Screen {
     }
 
     override fun show() {
+        // start the music
+        musicHandle = when (result) {
+            GameResult.WON -> SoundProvider.playMusic(MusicType.VICTORY)
+            else -> SoundProvider.playMusic(MusicType.DEFEAT)
+        }
     }
 
     override fun render(delta: Float) {
@@ -94,5 +106,9 @@ class EndScreen(result: GameResult) : Screen {
     }
 
     override fun dispose() {
+        // stop the music
+        musicHandle?.apply {
+            SoundProvider.stopMusic(this)
+        }
     }
 }

@@ -10,6 +10,7 @@ import kotlinx.serialization.internal.StringDescriptor
  */
 enum class ControlEvent {
     OFFER_DRAW,
+    ACCEPT_DRAW,
     SURRENDER;
 
     /**

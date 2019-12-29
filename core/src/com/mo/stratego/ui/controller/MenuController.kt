@@ -1,28 +1,27 @@
 package com.mo.stratego.ui.controller
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
-import com.badlogic.gdx.scenes.scene2d.ui.Table
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton
+import com.badlogic.gdx.scenes.scene2d.ui.*
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Align
 import com.mo.stratego.GameScreen
 import com.mo.stratego.MainMenuScreen
 import com.mo.stratego.StrategoGame
-import com.mo.stratego.model.Atlas
 import com.mo.stratego.model.communication.CommunicationHandler
 import com.mo.stratego.model.communication.OnConnectedEvent
 import com.mo.stratego.model.communication.OnConnectingEvent
 import com.mo.stratego.model.communication.OnErrorEvent
+import com.mo.stratego.ui.Atlas
 import com.mo.stratego.ui.Screens
 import com.mo.stratego.ui.control.DeviceList
 import com.mo.stratego.ui.control.LoadLabel
 import com.mo.stratego.ui.control.TimedLabel
+import com.mo.stratego.util.Constants
+import com.mo.stratego.util.MarkdownParser
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -35,16 +34,19 @@ object MenuController {
     private var mode = Mode.MAIN
 
     // backgrounds 
-    private val mainBackground = Sprite(Atlas.mainMenu)
+    private val mainBackground = Sprite(
+            Atlas.mainMenu)
 
     // actors
     private val tableMain: Table = Table()
     private val tableMulti: Table = Table()
+    private val tableRules: Table = Table()
     private val log = TimedLabel("", 5f, Atlas.uiSkinMed)
 
     init {
         initMain()
         initMulti()
+        initRules()
     }
 
     /**
@@ -59,6 +61,7 @@ object MenuController {
         with(stage) {
             addActor(tableMain)
             addActor(tableMulti)
+            addActor(tableRules)
         }
         show(Mode.MAIN)
 
@@ -107,11 +110,23 @@ object MenuController {
             //TODO settings
 
 
+            // rules
+            val btnRules = TextButton("Rules", Atlas.uiSkinBig)
+            btnRules.addListener(object : ClickListener() {
+                override fun touchDown(event: InputEvent?, x: Float, y: Float,
+                                       pointer: Int, button: Int): Boolean {
+                    show(Mode.RULES)
+                    return true
+                }
+            })
+
             add(btnLocal).width(580f).pad(700f, 30f, 10f, 30f)
             row()
             add(btnMulti).width(580f).pad(10f, 30f, 10f, 30f)
             row()
-            add(btnSettings).width(580f).pad(10f, 30f, 50f, 30f)
+            add(btnSettings).width(580f).pad(10f, 30f, 10f, 30f)
+            row()
+            add(btnRules).width(580f).pad(10f, 30f, 10f, 30f)
         }
     }
 
@@ -122,11 +137,11 @@ object MenuController {
     private fun initMulti() {
         with(tableMulti) {
             setFillParent(true)
-            align(Align.center)
+            align(Align.top)
             //setDebug(true)
 
             val btnBack = ImageButton(TextureRegionDrawable(
-                    Texture(Gdx.files.internal("ui/arrow_left.png"))))
+                    Atlas.backArrow))
             btnBack.addListener(object : ClickListener() {
                 override fun clicked(event: InputEvent?, x: Float, y: Float) {
                     CommunicationHandler.iCom.disconnect()
@@ -138,7 +153,8 @@ object MenuController {
                                   CommunicationHandler.iCom::isScanning,
                                   Atlas.uiSkinBig)
 
-            val deviceList = DeviceList(Atlas.uiSkinMed)
+            val deviceList = DeviceList(
+                    Atlas.uiSkinMed)
 
             val btnSearch = TextButton("Refresh", Atlas.uiSkinMed)
             btnSearch.addListener(object : ClickListener() {
@@ -167,6 +183,39 @@ object MenuController {
             row().padBottom(80f)
             add(btnConnect).width(300f).height(70f)
             add(btnSearch).width(300f).height(70f)
+        }
+    }
+
+    /**
+     * Initializes RULES mode.
+     */
+    fun initRules() {
+        with(tableRules) {
+            setFillParent(true)
+            align(Align.top)
+
+            val btnBack = ImageButton(TextureRegionDrawable(
+                    Atlas.backArrow))
+            btnBack.addListener(object : ClickListener() {
+                override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                    show(Mode.MAIN)
+                }
+            })
+
+            val lblTitle = Label("Rules", Atlas.uiSkinBig)
+
+            // content
+            val rules = Gdx.files.internal(Constants.rulesPath)
+            val rulesTable = MarkdownParser.parseMarkdownToScene2D(rules)
+            val scrollPane = ScrollPane(rulesTable)
+
+            row().expandX()
+            add(btnBack).size(70f).left().pad(20f, 20f, 0f, 0f)
+            row()
+            add(lblTitle).align(Align.center)
+            row().padTop(10f)
+            add(scrollPane).align(Align.topLeft).expand()
+
         }
     }
 
@@ -206,7 +255,8 @@ object MenuController {
     private enum class Mode {
         MAIN,
         MULTI,
-        SETTINGS;
+        SETTINGS,
+        RULES;
     }
 
     /**
@@ -218,6 +268,7 @@ object MenuController {
 
         tableMain.isVisible = mode == Mode.MAIN
         tableMulti.isVisible = mode == Mode.MULTI
+        tableRules.isVisible = mode == Mode.RULES
 
         if (mode == Mode.MULTI) {
             CommunicationHandler.iCom.startScan()

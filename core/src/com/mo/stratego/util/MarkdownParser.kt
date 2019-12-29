@@ -14,7 +14,7 @@ import com.mo.stratego.ui.Atlas
  */
 object MarkdownParser {
     private val allowExtensions = arrayOf("md", "txt")
-    private val sWidth: Float = Constants.screenWidth - 40f
+    private val sWidth: Float = Constants.SCREEN_WIDTH - 40f
     private val lineBreaks = arrayOf("\n", "\r", "\r\n", "")
 
     /**
@@ -29,7 +29,7 @@ object MarkdownParser {
 
         val resultTable = Table()
         resultTable.align(Align.top)
-        resultTable.width = Constants.screenWidth
+        resultTable.width = Constants.SCREEN_WIDTH
 
         // parent folder
         val folder = file.parent().path()

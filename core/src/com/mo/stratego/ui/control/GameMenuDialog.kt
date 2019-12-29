@@ -44,6 +44,7 @@ class GameMenuDialog(skin: Skin) : Dialog("Menu", skin) {
             val btnMusic = ToggleButton(SoundProvider::isTurnedOn,
                                         Atlas.uiSkinMed)
 
+            // SURRENDER
             val btnSurrender = TextButton("Surrender", skin)
             // surrender on click
             btnSurrender.addListener(object : ClickListener() {
@@ -57,6 +58,15 @@ class GameMenuDialog(skin: Skin) : Dialog("Menu", skin) {
                 }
             })
 
+            // DRAW
+            val btnDraw = TextButton("Offer Draw", skin)
+            btnDraw.addListener(object : ClickListener() {
+                override fun touchDown(event: InputEvent?, x: Float, y: Float,
+                                       pointer: Int, button: Int): Boolean {
+                    GameController.offerDraw()
+                    return true
+                }
+            })
 
             val innerTable = Table()
             with(innerTable) {
@@ -65,6 +75,8 @@ class GameMenuDialog(skin: Skin) : Dialog("Menu", skin) {
             }
 
             add(innerTable).align(Align.left)
+            row().padTop(30f)
+            add(btnDraw).width(300f).colspan(2)
             row().padTop(30f)
             add(btnSurrender).width(300f).colspan(2)
 

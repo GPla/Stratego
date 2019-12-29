@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Preferences
 import com.mo.stratego.model.communication.CommunicationHandler
 import com.mo.stratego.model.communication.ICommunication
+import com.mo.stratego.model.sound.SoundProvider
 import com.mo.stratego.ui.Screens
 import com.mo.stratego.util.Constants
 import org.greenrobot.eventbus.EventBus
@@ -62,6 +63,7 @@ object StrategoGame : Game() {
     }
 
     override fun create() {
+        SoundProvider.init()
         setScreen(MainMenuScreen())
     }
 
@@ -87,6 +89,7 @@ object StrategoGame : Game() {
             // switch to screen
             val oldScreen = this.screen
             this.screen = type.createInstance()
+            this.screen.show()
             oldScreen.dispose()
         }
     }

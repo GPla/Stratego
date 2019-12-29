@@ -8,9 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.StretchViewport
-import com.mo.stratego.model.Atlas
-import com.mo.stratego.model.GameResult
+import com.mo.stratego.model.game.GameResult
 import com.mo.stratego.model.map.GameMap
+import com.mo.stratego.ui.Atlas
 import com.mo.stratego.ui.Screens
 import com.mo.stratego.ui.control.BlinkLabel
 import com.mo.stratego.ui.controller.HudController
@@ -28,7 +28,7 @@ class EndScreen(result: GameResult) : Screen {
             Constants.getUnitToPixel(GameMap.height.toFloat())))
 
     private val background: Sprite = when (result) {
-        GameResult.WON  -> Sprite(Atlas.endWon)
+        GameResult.WON -> Sprite(Atlas.endWon)
         GameResult.LOST -> Sprite(Atlas.endLost)
         GameResult.DRAW -> Sprite(Atlas.endDraw)
     }

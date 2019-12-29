@@ -7,11 +7,11 @@ import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.SortedIteratingSystem
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.mo.stratego.model.comparator.ZComparator
 import com.mo.stratego.model.component.InvisibleComponent
 import com.mo.stratego.model.component.PositionComponent
 import com.mo.stratego.model.component.TextureComponent
 import com.mo.stratego.util.Constants
-import com.mo.stratego.util.ZComparator
 
 /**
  * System that renders all entities with a [PositionComponent] and a

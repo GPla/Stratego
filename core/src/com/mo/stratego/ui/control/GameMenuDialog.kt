@@ -40,7 +40,7 @@ class GameMenuDialog(skin: Skin) : Dialog("Menu", skin) {
         }
 
         with(contentTable) {
-            val lblMusic = Label("Music", skin)
+            val lblMusic = Label("Sound", skin)
             val btnMusic = ToggleButton(SoundProvider::isTurnedOn,
                                         Atlas.uiSkinMed)
 

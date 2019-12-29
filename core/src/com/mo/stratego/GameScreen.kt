@@ -53,9 +53,8 @@ class GameScreen(gameMode: GameMode) : Screen {
 
         val objectStage = Stage(StretchViewport(camera.viewportWidth,
                                                 camera.viewportHeight))
-        val hudStage = Stage(StretchViewport(
-                Constants.getUnitToPixel(GameMap.width.toFloat()),
-                Constants.getUnitToPixel(GameMap.height.toFloat())))
+        val hudStage = Stage(StretchViewport(Constants.screenWidth,
+                                             Constants.screenHeight))
         engine = PooledEngine()
 
         // add listeners to engine
@@ -64,8 +63,7 @@ class GameScreen(gameMode: GameMode) : Screen {
         FieldController.init(objectStage, engine)
         var family = Family.one(PieceComponent::class.java,
                                 HighlightComponent::class.java).get()
-        engine.addEntityListener(family,
-                                 FieldController)
+        engine.addEntityListener(family, FieldController)
 
         // HudController
         HudController.init(hudStage, engine)

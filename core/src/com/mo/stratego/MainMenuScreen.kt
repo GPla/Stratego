@@ -5,7 +5,6 @@ import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.viewport.StretchViewport
-import com.mo.stratego.model.map.GameMap
 import com.mo.stratego.ui.controller.MenuController
 import com.mo.stratego.util.Constants
 
@@ -15,9 +14,8 @@ import com.mo.stratego.util.Constants
 class MainMenuScreen : Screen {
 
     init {
-        val stage = Stage(StretchViewport(
-                Constants.getUnitToPixel(GameMap.width.toFloat()),
-                Constants.getUnitToPixel(GameMap.height.toFloat())))
+        val stage = Stage(StretchViewport(Constants.screenWidth,
+                                          Constants.screenHeight))
         MenuController.init(stage)
 
         Gdx.input.inputProcessor = stage

@@ -21,10 +21,7 @@ import com.mo.stratego.model.game.GameMode
 import com.mo.stratego.model.game.GameState
 import com.mo.stratego.model.map.GameMap
 import com.mo.stratego.model.map.Grid
-import com.mo.stratego.model.system.AttackSystem
-import com.mo.stratego.model.system.MoveSystem
-import com.mo.stratego.model.system.RenderSystem
-import com.mo.stratego.model.system.WaitSystem
+import com.mo.stratego.model.system.*
 import com.mo.stratego.ui.controller.FieldController
 import com.mo.stratego.ui.controller.HudController
 import com.mo.stratego.ui.input.MapListener
@@ -53,8 +50,8 @@ class GameScreen(gameMode: GameMode) : Screen {
 
         val objectStage = Stage(StretchViewport(camera.viewportWidth,
                                                 camera.viewportHeight))
-        val hudStage = Stage(StretchViewport(Constants.screenWidth,
-                                             Constants.screenHeight))
+        val hudStage = Stage(StretchViewport(Constants.SCREEN_WIDTH,
+                                             Constants.SCREEN_HEIGHT))
         engine = PooledEngine()
 
         // add listeners to engine
@@ -85,6 +82,7 @@ class GameScreen(gameMode: GameMode) : Screen {
         engine.addSystem(MoveSystem())
         engine.addSystem(WaitSystem())
         engine.addSystem(AttackSystem())
+        engine.addSystem(SoundSystem())
 
         // handle user input with stage
         // objectStage receive events, if not handled they get passed to

@@ -10,6 +10,8 @@ import com.mo.stratego.model.component.AttackComponent
 import com.mo.stratego.model.component.PieceComponent
 import com.mo.stratego.model.component.WaitComponent
 import com.mo.stratego.model.game.GameController
+import com.mo.stratego.model.game.GameResult
+import com.mo.stratego.model.player.PlayerId
 import com.mo.stratego.util.Constants
 
 /**
@@ -42,7 +44,12 @@ class AttackSystem :
 
         // process attack
         when (result) {
-            Result.GAME_WON -> GameController.win(piece.owner)
+            Result.GAME_WON -> {
+                when (piece.owner.id) {
+                    PlayerId.PLAYER1 -> GameController.end(GameResult.WON)
+                    PlayerId.PLAYER2 -> GameController.end(GameResult.LOST)
+                }
+            }
             Result.WON      -> {
                 // attacking piece won
                 // move enemy piece to graveyard

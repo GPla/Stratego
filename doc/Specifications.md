@@ -18,7 +18,7 @@ A simple android game version of the popular strategic game [Stratego](https://e
 
 ## Gameplay
 
-- Players alternate moving; red moves first
+- Players alternate moving
 - Each players moves one piece per turn
 - A player must move a piece in his turn
 - Pieces cannot be placed or moved into the lakes

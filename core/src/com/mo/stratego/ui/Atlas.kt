@@ -60,8 +60,7 @@ object Atlas {
 
     init {
         // generate different font sizes
-        val generator = FreeTypeFontGenerator(Gdx.files.internal(
-                fontPath))
+        val generator = FreeTypeFontGenerator(Gdx.files.internal(fontPath))
         val parameter = FreeTypeFontGenerator.FreeTypeFontParameter()
         parameter.size = 26
         font26 = generator.generateFont(parameter)
@@ -79,60 +78,36 @@ object Atlas {
 
         //setup skins with different sized fonts
         with(uiSkin) {
-            get(TextButtonStyle::class.java).font =
-                    font26
-            get(ListStyle::class.java).font =
-                    font26
-            get(LabelStyle::class.java).font =
-                    font26
-            get(TextFieldStyle::class.java).font =
-                    font26
-            get(WindowStyle::class.java).titleFont =
-                    font26
-            get(CheckBoxStyle::class.java).font =
-                    font26
-            get(SelectBoxStyle::class.java).font =
-                    font26
-            get(SelectBoxStyle::class.java).listStyle.font =
-                    font26
+            get(TextButtonStyle::class.java).font = font26
+            get(ListStyle::class.java).font = font26
+            get(LabelStyle::class.java).font = font26
+            get(TextFieldStyle::class.java).font = font26
+            get(WindowStyle::class.java).titleFont = font26
+            get(CheckBoxStyle::class.java).font = font26
+            get(SelectBoxStyle::class.java).font = font26
+            get(SelectBoxStyle::class.java).listStyle.font = font26
         }
 
         with(uiSkinBig) {
-            get(TextButtonStyle::class.java).font =
-                    font48
-            get(ListStyle::class.java).font =
-                    font48
-            get(LabelStyle::class.java).font =
-                    font48
-            get(TextFieldStyle::class.java).font =
-                    font48
-            get(WindowStyle::class.java).titleFont =
-                    font48
-            get(CheckBoxStyle::class.java).font =
-                    font48
-            get(SelectBoxStyle::class.java).font =
-                    font48
-            get(SelectBoxStyle::class.java).listStyle.font =
-                    font48
+            get(TextButtonStyle::class.java).font = font48
+            get(ListStyle::class.java).font = font48
+            get(LabelStyle::class.java).font = font48
+            get(TextFieldStyle::class.java).font = font48
+            get(WindowStyle::class.java).titleFont = font48
+            get(CheckBoxStyle::class.java).font = font48
+            get(SelectBoxStyle::class.java).font = font48
+            get(SelectBoxStyle::class.java).listStyle.font = font48
         }
 
         with(uiSkinMed) {
-            get(TextButtonStyle::class.java).font =
-                    font32
-            get(ListStyle::class.java).font =
-                    font32
-            get(LabelStyle::class.java).font =
-                    font32
-            get(TextFieldStyle::class.java).font =
-                    font32
-            get(WindowStyle::class.java).titleFont =
-                    font32
-            get(CheckBoxStyle::class.java).font =
-                    font32
-            get(SelectBoxStyle::class.java).font =
-                    font32
-            get(SelectBoxStyle::class.java).listStyle.font =
-                    font32
+            get(TextButtonStyle::class.java).font = font32
+            get(ListStyle::class.java).font = font32
+            get(LabelStyle::class.java).font = font32
+            get(TextFieldStyle::class.java).font = font32
+            get(WindowStyle::class.java).titleFont = font32
+            get(CheckBoxStyle::class.java).font = font32
+            get(SelectBoxStyle::class.java).font = font32
+            get(SelectBoxStyle::class.java).listStyle.font = font32
         }
     }
 

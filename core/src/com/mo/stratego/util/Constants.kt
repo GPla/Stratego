@@ -12,18 +12,18 @@ object Constants {
     const val UNITSCALE: Float = 1 / TILESCALE
 
     // screen
-    val screenWidth = Constants.getUnitToPixel(GameMap.width.toFloat())
-    val screenHeight = Constants.getUnitToPixel(GameMap.height.toFloat())
+    val SCREEN_WIDTH = getUnitToPixel(GameMap.width.toFloat())
+    val SCREEN_HEIGHT = getUnitToPixel(GameMap.height.toFloat())
 
     // Logging Tags
     const val TAG_BLUETOOTH = "stratego_bluetooth"
     const val TAG_MAP = "stratego_map"
     const val TAG_GAME = "stratego_game"
     const val TAG_ERROR = "stratego_error"
+    const val TAG_SOUND = "stratego_sound"
 
     // paths
-    const val rulesPath = "rules/rules.md"
-
+    const val RULES_PATH = "rules/rules.md"
 
     // colors
     val YELLOW = Color(1f, 0.84375f, 0f, 1f)

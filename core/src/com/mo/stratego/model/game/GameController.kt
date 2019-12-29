@@ -116,18 +116,18 @@ object GameController {
      */
     fun run() {
         val result = when (state) {
-            GameState.INIT_PLAYER_1        -> init(PlayerId.PLAYER1)
-            GameState.INIT_PLAYER_2        -> init(PlayerId.PLAYER2)
-            GameState.INIT_PREP_PLAYER_1   -> spawnPieces(players[0])
+            GameState.INIT_PLAYER_1 -> init(PlayerId.PLAYER1)
+            GameState.INIT_PLAYER_2 -> init(PlayerId.PLAYER2)
+            GameState.INIT_PREP_PLAYER_1 -> spawnPieces(players[0])
             GameState.PREPARATION_PLAYER_1 -> //setupForDebug(PlayerId.PLAYER1)
                 makePlayersPreparation(PlayerId.PLAYER1)
-            GameState.INIT_PREP_PLAYER_2   -> spawnPieces(players[1])
+            GameState.INIT_PREP_PLAYER_2 -> spawnPieces(players[1])
             GameState.PREPARATION_PLAYER_2 -> //setupForDebug(PlayerId.PLAYER2)
                 makePlayersPreparation(PlayerId.PLAYER2)
-            GameState.GAME_START           -> getFirstTurn()
-            GameState.TURN_PLAYER_1        -> makePlayersTurn(PlayerId.PLAYER1)
-            GameState.TURN_PLAYER_2        -> makePlayersTurn(PlayerId.PLAYER2)
-            GameState.GAME_OVER            -> false
+            GameState.GAME_START -> getFirstTurn()
+            GameState.TURN_PLAYER_1 -> makePlayersTurn(PlayerId.PLAYER1)
+            GameState.TURN_PLAYER_2 -> makePlayersTurn(PlayerId.PLAYER2)
+            GameState.GAME_OVER -> false
         }
 
         // goto next state
@@ -269,7 +269,7 @@ object GameController {
         }
 
         when (gameResult) {
-            GameResult.WON  -> StrategoGame.switchScreen(Screens.GAME_WON)
+            GameResult.WON -> StrategoGame.switchScreen(Screens.GAME_WON)
             GameResult.DRAW -> StrategoGame.switchScreen(Screens.GAME_DRAW)
             GameResult.LOST -> StrategoGame.switchScreen(Screens.GAME_LOST)
         }
@@ -332,8 +332,8 @@ object GameController {
      */
     private fun processControlEvent(event: ControlEvent) {
         when (event) {
-            ControlEvent.SURRENDER   -> end(GameResult.WON)
-            ControlEvent.OFFER_DRAW  -> processOffer()
+            ControlEvent.SURRENDER -> end(GameResult.WON)
+            ControlEvent.OFFER_DRAW -> processOffer()
             ControlEvent.ACCEPT_DRAW -> acceptDraw()
         }
     }

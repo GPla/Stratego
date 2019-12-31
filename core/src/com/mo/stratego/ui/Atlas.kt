@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle
 import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle
 import com.mo.stratego.model.HighlightType
+import com.mo.stratego.model.Piece
 import com.mo.stratego.model.Rank
 import com.mo.stratego.model.component.TextureComponent
 import com.mo.stratego.model.player.PlayerId

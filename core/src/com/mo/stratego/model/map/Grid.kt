@@ -190,7 +190,6 @@ object Grid : EntityListener {
 
     /**
      * Overload of the bracket operator. Expects map coordinates.
-     * Call: Grid[Gridpoint2(x, y)]
      * @param position GridPoint2
      * @return [Piece] in the grid cell. Returns null if cell is empty or
      * indices are out of bound.

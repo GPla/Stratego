@@ -15,11 +15,13 @@ import com.mo.stratego.model.communication.CommunicationHandler
 import com.mo.stratego.model.communication.OnConnectedEvent
 import com.mo.stratego.model.communication.OnConnectingEvent
 import com.mo.stratego.model.communication.OnErrorEvent
+import com.mo.stratego.model.sound.SoundProvider
 import com.mo.stratego.ui.Atlas
 import com.mo.stratego.ui.Screens
 import com.mo.stratego.ui.control.DeviceList
 import com.mo.stratego.ui.control.LoadLabel
 import com.mo.stratego.ui.control.TimedLabel
+import com.mo.stratego.ui.control.ToggleButton
 import com.mo.stratego.util.Constants
 import com.mo.stratego.util.MarkdownParser
 import org.greenrobot.eventbus.Subscribe
@@ -41,12 +43,14 @@ object MenuController {
     private val tableMain: Table = Table()
     private val tableMulti: Table = Table()
     private val tableRules: Table = Table()
+    private val tableSettings: Table = Table()
     private val log = TimedLabel("", 5f, Atlas.uiSkinMed)
 
     init {
         initMain()
         initMulti()
         initRules()
+        initSettings()
     }
 
     /**
@@ -62,6 +66,7 @@ object MenuController {
             addActor(tableMain)
             addActor(tableMulti)
             addActor(tableRules)
+            addActor(tableSettings)
         }
         show(Mode.MAIN)
 
@@ -100,15 +105,15 @@ object MenuController {
                 })
             }
 
+            // settings
             val btnSettings = TextButton("Settings", Atlas.uiSkinBig)
             btnSettings.addListener(object : ClickListener() {
                 override fun touchDown(event: InputEvent?, x: Float, y: Float,
                                        pointer: Int, button: Int): Boolean {
+                    show(Mode.SETTINGS)
                     return true
                 }
             })
-            //TODO settings
-
 
             // rules
             val btnRules = TextButton("Rules", Atlas.uiSkinBig)
@@ -183,6 +188,54 @@ object MenuController {
             row().padBottom(80f)
             add(btnConnect).width(300f).height(70f)
             add(btnSearch).width(300f).height(70f)
+        }
+    }
+
+    /**
+     * Initializes the settings menu.
+     */
+    private fun initSettings() {
+        with(tableSettings) {
+            setFillParent(true)
+            align(Align.top)
+
+            // back
+            val btnBack = ImageButton(TextureRegionDrawable(Atlas.backArrow))
+            btnBack.addListener(object : ClickListener() {
+                override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                    show(Mode.MAIN)
+                }
+            })
+
+            // title
+            val lblTitle = Label("Settings", Atlas.uiSkinBig)
+
+
+            // content
+            // sound
+            val lblSound = Label("Sound", Atlas.uiSkinMed)
+            val btnSound = ToggleButton(SoundProvider::isTurnedOn,
+                                        Atlas.uiSkinMed)
+            val tblSound = Table()
+
+            with(tblSound) {
+                add(lblSound).padRight(20f)
+                add(btnSound)
+            }
+
+            // game modifier
+            val subHeaderStyle = Label.LabelStyle(Atlas.font32,
+                                                  Constants.YELLOW)
+            val lblModifier = Label("Game Modifier", subHeaderStyle)
+
+            add(btnBack).size(70f).left().pad(20f, 20f, 0f, 0f)
+            row()
+            add(lblTitle).center().expandX()
+            row()
+            add(tblSound).left().pad(30f, 100f, 20f, 0f)
+            //row()
+            //add(lblModifier).left().pad(20f, 50f, 30f, 0f)
+
         }
     }
 
@@ -269,6 +322,7 @@ object MenuController {
         tableMain.isVisible = mode == Mode.MAIN
         tableMulti.isVisible = mode == Mode.MULTI
         tableRules.isVisible = mode == Mode.RULES
+        tableSettings.isVisible = mode == Mode.SETTINGS
 
         if (mode == Mode.MULTI) {
             CommunicationHandler.iCom.startScan()

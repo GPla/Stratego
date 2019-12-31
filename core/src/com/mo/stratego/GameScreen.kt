@@ -25,6 +25,7 @@ import com.mo.stratego.model.system.*
 import com.mo.stratego.ui.controller.FieldController
 import com.mo.stratego.ui.controller.HudController
 import com.mo.stratego.ui.input.MapListener
+import com.mo.stratego.ui.provider.DialogProvider
 import com.mo.stratego.util.Constants
 
 /**
@@ -75,7 +76,7 @@ class GameScreen(gameMode: GameMode) : Screen {
         engine.addEntityListener(family, Grid)
 
         GameController.init(engine, gameMode)
-
+        DialogProvider.init()
 
         // add systems to engine
         engine.addSystem(RenderSystem(batch, camera))

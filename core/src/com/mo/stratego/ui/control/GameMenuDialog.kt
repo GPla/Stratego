@@ -19,6 +19,9 @@ import com.mo.stratego.ui.provider.DialogProvider
  * @param skin Skin
  */
 class GameMenuDialog(skin: Skin) : Dialog("Menu", skin) {
+
+    private val btnDraw: TimerButton
+
     init {
         isModal = true
         isMovable = false
@@ -59,14 +62,9 @@ class GameMenuDialog(skin: Skin) : Dialog("Menu", skin) {
             })
 
             // DRAW
-            val btnDraw = TextButton("Offer Draw", skin)
-            btnDraw.addListener(object : ClickListener() {
-                override fun touchDown(event: InputEvent?, x: Float, y: Float,
-                                       pointer: Int, button: Int): Boolean {
-                    GameController.offerDraw()
-                    return true
-                }
-            })
+            btnDraw = TimerButton("Offer Draw",
+                                  { GameController.offerDraw() }, 60f, skin)
+
 
             val innerTable = Table()
             with(innerTable) {
@@ -82,5 +80,9 @@ class GameMenuDialog(skin: Skin) : Dialog("Menu", skin) {
 
             pad(30f, 80f, 20f, 80f)
         }
+    }
+
+    override fun reset() {
+        btnDraw.reset()
     }
 }

@@ -14,8 +14,14 @@ import com.mo.stratego.ui.control.OneButtonDialog
  */
 object DialogProvider {
 
-    private val gameMenu = GameMenuDialog(
-            Atlas.uiSkinMed)
+    private val gameMenu = GameMenuDialog(Atlas.uiSkinMed)
+
+    /**
+     * Initializes for a new game.
+     */
+    fun init() {
+        gameMenu.reset()
+    }
 
     /**
      * Shows the connection lost dialog. Upon accepting, the main

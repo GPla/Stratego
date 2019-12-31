@@ -166,3 +166,4 @@ need any other information about the entity to correctly draw the texture.
 - [Ashley](https://github.com/libgdx/ashley)
 - [GreenRobot EventBus](https://github.com/greenrobot/EventBus)
 - [Bluetooth](https://github.com/douglasjunior/AndroidBluetoothLibrary)
+- [Dexter](https://github.com/Karumi/Dexter)

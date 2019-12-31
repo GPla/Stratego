@@ -8,6 +8,7 @@ Build with:
 - [Ashley](https://github.com/libgdx/ashley)
 - [GreenRobot EventBus](https://github.com/greenrobot/EventBus)
 - [AndroidBluetoothLibrary](https://github.com/douglasjunior/AndroidBluetoothLibrary)
+- [Dexter](https://github.com/Karumi/Dexter)
 
 ## Screenshots
 

@@ -55,7 +55,7 @@ The Sergeant can capture any lower ranked piece.
 The Miner can defuse bombs and capture any lower ranked piece.
 
 ## 2 - Scout (8x) ![](pieces/2_scout_1.png)
-The Scout can move any distance in a straigt line without leaping over pieces or the lakes. It can capture the Spy.
+The Scout can move any distance in a straigth line without leaping over pieces or the lakes. It can capture the Spy.
 
 ## 1 - Spy (1x) ![](pieces/1_spy_1.png)
 The Spy can defeat the Marshal but only if the Spy makes the attack.

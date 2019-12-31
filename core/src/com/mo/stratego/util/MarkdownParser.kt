@@ -25,7 +25,7 @@ object MarkdownParser {
      */
     fun parseMarkdownToScene2D(file: FileHandle): Table {
         if (file.extension() !in allowExtensions)
-            throw Exception("Unsupported extension.")
+            throw Throwable("Unsupported extension.")
 
         val resultTable = Table()
         resultTable.align(Align.top)
@@ -47,7 +47,7 @@ object MarkdownParser {
                     val innerTable = Table()
                     with(innerTable) {
                         add(processHeader(line.substringBefore("!")))
-                                .pad(10f, 0f, 0f, 10f)
+                                .pad(10f, 20f, 0f, 10f)
                         add(processImage(line.substringAfter("!"), folder))
                     }
 

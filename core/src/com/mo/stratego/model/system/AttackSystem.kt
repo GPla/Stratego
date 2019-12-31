@@ -79,15 +79,19 @@ class AttackSystem :
                     SoundType.SPY_CAPTURE
                 else if (piece.rank == Rank.MINER && enemy.rank == Rank.BOMB)
                     SoundType.DEFUSE_BOMB
-                else
+                else if (piece.owner.id == PlayerId.PLAYER1)
                     SoundType.BATTLE_WON
-            }
-            Result.LOST, Result.DRAW -> {
-                if (enemy.rank == Rank.BOMB)
-                    SoundType.EXPLOSION
                 else
                     SoundType.BATTLE_LOST
             }
+            Result.LOST -> {
+                when {
+                    enemy.rank == Rank.BOMB -> SoundType.EXPLOSION
+                    enemy.owner.id == PlayerId.PLAYER1 -> SoundType.BATTLE_WON
+                    else -> SoundType.BATTLE_LOST
+                }
+            }
+            Result.DRAW -> SoundType.BATTLE_LOST
             else -> null
         }
 

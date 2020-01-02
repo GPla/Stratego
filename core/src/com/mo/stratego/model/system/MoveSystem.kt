@@ -91,7 +91,7 @@ class MoveSystem : SortedIteratingSystem(
                     showFront()
                     piece.showFront()
                     // wait 400 ms and perform attack
-                    piece.add(WaitComponent(0.4f))
+                    piece.add(WaitComponent(1f))
                     piece.add(AttackComponent(this))
                 }
             }

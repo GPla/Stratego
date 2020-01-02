@@ -20,7 +20,7 @@ object CommunicationHandler : ICommunicationEventListener {
     lateinit var iCom: ICommunication
         private set
 
-    private val json = Json(JsonConfiguration.Stable)
+    private lateinit var json: Json
 
     var connectedDeviceName: String? = null
         private set
@@ -32,6 +32,7 @@ object CommunicationHandler : ICommunicationEventListener {
     fun init(iCom: ICommunication) {
         this.iCom = iCom
         iCom.listener = this
+        json = Json(JsonConfiguration.Stable)
     }
 
     override fun onDataReceived(data: ByteArray?) {
@@ -67,12 +68,12 @@ object CommunicationHandler : ICommunicationEventListener {
             return
 
         var jsonData = when (obj) {
-            is StartNumber    -> json.stringify(StartNumber.serializer(), obj)
-            is Move           -> json.stringify(Move.serializer(), obj)
-            is StartingGrid   -> json.stringify(StartingGrid.serializer(), obj)
+            is StartNumber -> json.stringify(StartNumber.serializer(), obj)
+            is Move -> json.stringify(Move.serializer(), obj)
+            is StartingGrid -> json.stringify(StartingGrid.serializer(), obj)
             is ControlMessage -> json.stringify(ControlMessage.serializer(),
                                                 obj)
-            else              -> null
+            else -> null
         }
 
         jsonData?.also {
@@ -93,15 +94,15 @@ object CommunicationHandler : ICommunicationEventListener {
         try {
             val name = jsonData["className"]?.primitive?.contentOrNull
             return when (name) {
-                StartNumber::class.java.name    ->
+                StartNumber::class.java.name ->
                     json.parse(StartNumber.serializer(), str)
-                Move::class.java.name           ->
+                Move::class.java.name ->
                     json.parse(Move.serializer(), str)
-                StartingGrid::class.java.name   ->
+                StartingGrid::class.java.name ->
                     json.parse(StartingGrid.serializer(), str)
                 ControlMessage::class.java.name ->
                     json.parse(ControlMessage.serializer(), str)
-                else                            -> null
+                else -> null
             }
         } catch (e: Exception) {
             Gdx.app.log(Constants.TAG_BLUETOOTH, "parse error: $e")

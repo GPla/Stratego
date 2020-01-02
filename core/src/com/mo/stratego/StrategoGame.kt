@@ -2,11 +2,14 @@ package com.mo.stratego
 
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input
 import com.badlogic.gdx.Preferences
 import com.mo.stratego.model.communication.CommunicationHandler
 import com.mo.stratego.model.communication.ICommunication
-import com.mo.stratego.model.sound.SoundProvider
+import com.mo.stratego.model.map.GameMap
+import com.mo.stratego.ui.BackButtonHandler
 import com.mo.stratego.ui.Screens
+import com.mo.stratego.util.AssetsManager
 import com.mo.stratego.util.Constants
 import org.greenrobot.eventbus.EventBus
 
@@ -15,7 +18,7 @@ import org.greenrobot.eventbus.EventBus
 /**
  * LibGDX entry point. Class that handles the currently displayed screen.
  */
-object StrategoGame : Game() {
+object StrategoGame : Game(), BackButtonHandler {
 
     /**
      * Persistent user settings.
@@ -63,17 +66,22 @@ object StrategoGame : Game() {
     }
 
     override fun create() {
-        SoundProvider.init()
+        GameMap.init()
+        AssetsManager.init()
+        Gdx.input.setCatchKey(Input.Keys.BACK, true)
         setScreen(MainMenuScreen())
     }
 
     override fun dispose() {
         super.dispose()
+        // dispose resources
+        GameMap.dispose()
+        AssetsManager.dispose()
         // save preferences to disk
         preferences.flush()
         // unregister all instances from the event bus
         eventBusListener.forEach { EventBus.getDefault().unregister(it) }
-        CommunicationHandler.iCom.disconnect()
+        CommunicationHandler.iCom.stopService()
     }
 
     /**
@@ -92,5 +100,9 @@ object StrategoGame : Game() {
             this.screen.show()
             oldScreen.dispose()
         }
+    }
+
+    override fun handleBackButton() {
+
     }
 }

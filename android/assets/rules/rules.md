@@ -15,17 +15,18 @@ Pieces move 1 square per turn, horizontally or vertically. Only the scout can mo
 
 ![](game.png)
 
-A piece can only be moved during the player's turn by tapping on it. An orange highlights apprear to indicate the the allowed moves for the selected piece. Another tap on an highlight moves the piece. 
+A piece can only be moved during the player's turn by tapping on it. An orange highlights apprear to indicate the the allowed moves for the selected piece. Another tap on an highlight moves the piece.
 
 # Game Menu
 
-In the game menu, which appears by clicking on the top bar, the game can be surrendered or a draw offer to other player can be made. 
+In the game menu, which appears by clicking on the top bar, the game can be surrendered or a draw offer to other player can be made.
 
 ![](menu.png)
 
 # Ranks
 
 ## B - Bomb (6x) ![](pieces/b_bomb_1.png)
+
 The Bomb is immovable. It defeats any attacking piece except the Miner.
 
 ## 10 - Marshal (1x) ![](pieces/10_marshal_1.png)
@@ -34,32 +35,40 @@ The Marshal is the highest ranked piece in the game. It can capture all other pi
 
 ## 9 - General (1x) ![](pieces/9_general_1.png)
 
-The General can capture any lower ranked piece. 
+The General can capture any lower ranked piece.
 
 ## 8 - Colonel (2x) ![](pieces/8_colonel_1.png)
+
 The Colonel can capture any lower ranked piece.
 
 ## 7 - Major (3x) ![](pieces/7_major_1.png)
+
 The Major can capture any lower ranked piece.
 
 ## 6 - Captain (4x) ![](pieces/6_captain_1.png)
+
 The Captain can capture any lower ranked piece.
 
 ## 5 - Lieutenant (4x) ![](pieces/5_lieutenant_1.png)
+
 The Lieutenant can capture any lower ranked piece.
 
 ## 4 - Sergeant (4x) ![](pieces/4_sergeant_1.png)
+
 The Sergeant can capture any lower ranked piece.
 
 ## 3 - Miner (5x) ![](pieces/3_miner_1.png)
+
 The Miner can defuse bombs and capture any lower ranked piece.
 
 ## 2 - Scout (8x) ![](pieces/2_scout_1.png)
+
 The Scout can move any distance in a straigth line without leaping over pieces or the lakes. It can capture the Spy.
 
 ## 1 - Spy (1x) ![](pieces/1_spy_1.png)
+
 The Spy can defeat the Marshal but only if the Spy makes the attack.
 
 ## F - Flag (1x) ![](pieces/f_flag_1.png) 
-The Flag is immovable. It can be captured by any movable piece. Its capture ends the game.
 
+The Flag is immovable. It can be captured by any movable piece. Its capture ends the game.

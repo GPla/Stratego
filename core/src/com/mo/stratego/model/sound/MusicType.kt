@@ -1,8 +1,8 @@
 package com.mo.stratego.model.sound
 
-import com.mo.stratego.model.sound.SoundProvider.SOUND_PATH
+import com.mo.stratego.util.Constants
 
 enum class MusicType(val path: String) {
-    VICTORY("$SOUND_PATH/victory.wav"),
-    DEFEAT("$SOUND_PATH/defeat.wav");
+    VICTORY("${Constants.SOUND_FOLDER}/victory.wav"),
+    DEFEAT("${Constants.SOUND_FOLDER}/defeat.wav");
 }

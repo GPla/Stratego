@@ -1,18 +1,18 @@
 package com.mo.stratego.model.sound
 
-import com.mo.stratego.model.sound.SoundProvider.SOUND_PATH
+import com.mo.stratego.util.Constants
 
 /**
  * Enum of available sounds.
  * @property path Path
  */
 enum class SoundType(val path: String) {
-    BATTLE_LOST("$SOUND_PATH/dying.wav"),
-    BATTLE_WON("$SOUND_PATH/win.wav"),
-    MOVE("$SOUND_PATH/move.wav"),
-    SPY_CAPTURE("$SOUND_PATH/spy.wav"),
-    EXPLOSION("$SOUND_PATH/explosion.mp3"),
-    DEFUSE_BOMB("$SOUND_PATH/defuse.wav");
+    BATTLE_LOST("${Constants.SOUND_FOLDER}/dying.wav"),
+    BATTLE_WON("${Constants.SOUND_FOLDER}/win.wav"),
+    MOVE("${Constants.SOUND_FOLDER}/move.wav"),
+    SPY_CAPTURE("${Constants.SOUND_FOLDER}/spy.wav"),
+    EXPLOSION("${Constants.SOUND_FOLDER}/explosion.mp3"),
+    DEFUSE_BOMB("${Constants.SOUND_FOLDER}/defuse.wav");
 
 
 }

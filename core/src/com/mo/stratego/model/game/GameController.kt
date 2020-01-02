@@ -15,10 +15,10 @@ import com.mo.stratego.model.component.MoveComponent
 import com.mo.stratego.model.player.Player
 import com.mo.stratego.model.player.PlayerId
 import com.mo.stratego.model.player.PlayerType
-import com.mo.stratego.ui.Atlas
 import com.mo.stratego.ui.Screens
 import com.mo.stratego.ui.controller.HudController
 import com.mo.stratego.ui.provider.DialogProvider
+import com.mo.stratego.util.AssetsManager
 import com.mo.stratego.util.Constants
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -346,7 +346,7 @@ object GameController {
                 "The other players offers a draw.\n" +
                 "Do you want to accept the offer?",
                 { acceptDraw() },
-                Atlas.uiSkinMed,
+                AssetsManager.uiSkinMed,
                 HudController.stage)
     }
 }

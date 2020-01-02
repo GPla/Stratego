@@ -3,24 +3,24 @@ package com.mo.stratego.ui.provider
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.mo.stratego.StrategoGame
-import com.mo.stratego.ui.Atlas
 import com.mo.stratego.ui.Screens
 import com.mo.stratego.ui.control.ConfirmDialog
 import com.mo.stratego.ui.control.GameMenuDialog
 import com.mo.stratego.ui.control.OneButtonDialog
+import com.mo.stratego.util.AssetsManager
 
 /**
  * Provider class for dialogs.
  */
 object DialogProvider {
 
-    private val gameMenu = GameMenuDialog(Atlas.uiSkinMed)
+    private lateinit var gameMenu: GameMenuDialog
 
     /**
      * Initializes for a new game.
      */
     fun init() {
-        gameMenu.reset()
+        gameMenu = GameMenuDialog(AssetsManager.uiSkinMed)
     }
 
     /**
@@ -33,7 +33,7 @@ object DialogProvider {
                         "You have lost the Connection.",
                         "Return to Main Menu",
                         { StrategoGame.switchScreen(Screens.MAINMENU) },
-                        Atlas.uiSkinMed).apply {
+                        AssetsManager.uiSkinMed).apply {
             show(stage)
         }
     }

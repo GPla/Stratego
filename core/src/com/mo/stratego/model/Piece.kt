@@ -6,7 +6,7 @@ import com.mo.stratego.model.component.PieceComponent
 import com.mo.stratego.model.component.PositionComponent
 import com.mo.stratego.model.player.Player
 import com.mo.stratego.model.player.PlayerId
-import com.mo.stratego.ui.Atlas
+import com.mo.stratego.util.AssetsManager
 
 /**
  * Class that represents a playing piece. It has a rank and an owner.
@@ -26,9 +26,9 @@ class Piece(val rank: Rank, val owner: Player) :
         // add texture
         when (owner.id) {
             PlayerId.PLAYER1 -> add(
-                    Atlas.getPieceTexture(rank, owner.id))
+                    AssetsManager.getPieceTexture(rank, owner.id))
             PlayerId.PLAYER2 -> add(
-                    Atlas.getPieceBacksideTexture(owner.id))
+                    AssetsManager.getPieceBacksideTexture(owner.id))
         }
     }
 
@@ -37,7 +37,7 @@ class Piece(val rank: Rank, val owner: Player) :
      */
     fun showFront() {
         if (!frontSide)
-            add(Atlas.getPieceTexture(rank, owner.id))
+            add(AssetsManager.getPieceTexture(rank, owner.id))
         frontSide = true
     }
 
@@ -46,7 +46,7 @@ class Piece(val rank: Rank, val owner: Player) :
      */
     fun showBack() {
         if (frontSide)
-            add(Atlas.getPieceBacksideTexture(owner.id))
+            add(AssetsManager.getPieceBacksideTexture(owner.id))
         frontSide = false
     }
 
@@ -56,7 +56,7 @@ class Piece(val rank: Rank, val owner: Player) :
     fun showDefault() {
         when (defaultSide) {
             Side.FRONT -> showFront()
-            Side.BACK  -> showBack()
+            Side.BACK -> showBack()
         }
     }
 

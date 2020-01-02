@@ -7,7 +7,7 @@ import com.badlogic.ashley.core.Family
 import com.badlogic.gdx.math.GridPoint2
 import com.mo.stratego.model.component.HighlightComponent
 import com.mo.stratego.model.component.TextureComponent
-import com.mo.stratego.ui.Atlas
+import com.mo.stratego.util.AssetsManager
 
 
 /**
@@ -32,7 +32,7 @@ enum class HighlightType(val fileName: String) {
                             move: GridPoint2?) {
             entity.add(HighlightComponent(type, piece, move))
             entity.add(
-                    Atlas.getHighlightTexture(type))
+                    AssetsManager.getHighlightTexture(type))
         }
 
         /**

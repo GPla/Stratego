@@ -9,9 +9,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Align
 import com.mo.stratego.model.game.GameController
 import com.mo.stratego.model.sound.SoundProvider
-import com.mo.stratego.ui.Atlas
 import com.mo.stratego.ui.controller.HudController
 import com.mo.stratego.ui.provider.DialogProvider
+import com.mo.stratego.util.AssetsManager
 
 /**
  * Game menu dialog. Allows the player to change settings and
@@ -45,7 +45,7 @@ class GameMenuDialog(skin: Skin) : Dialog("Menu", skin) {
         with(contentTable) {
             val lblMusic = Label("Sound", skin)
             val btnMusic = ToggleButton(SoundProvider::isTurnedOn,
-                                        Atlas.uiSkinMed)
+                                        AssetsManager.uiSkinMed)
 
             // SURRENDER
             val btnSurrender = TextButton("Surrender", skin)
@@ -55,7 +55,8 @@ class GameMenuDialog(skin: Skin) : Dialog("Menu", skin) {
                                        pointer: Int, button: Int): Boolean {
                     DialogProvider.showConfirmationDialog(
                             "Are you sure you want to\nsurrender?",
-                            { GameController.surrender() }, Atlas.uiSkinMed,
+                            { GameController.surrender() },
+                            AssetsManager.uiSkinMed,
                             HudController.stage)
                     return true
                 }

@@ -14,11 +14,11 @@ import com.mo.stratego.model.communication.StateEvent
 import com.mo.stratego.model.game.GameController
 import com.mo.stratego.model.game.GameState
 import com.mo.stratego.model.player.PlayerId
-import com.mo.stratego.ui.Atlas
 import com.mo.stratego.ui.control.CounterLabel
 import com.mo.stratego.ui.control.ReadyButton
 import com.mo.stratego.ui.control.TimerLabel
 import com.mo.stratego.ui.provider.DialogProvider
+import com.mo.stratego.util.AssetsManager
 import com.mo.stratego.util.Constants
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -34,10 +34,11 @@ object HudController {
 
     // actors
     private val topBar = Button(
-            Atlas.uiSkin)
-    private val lblState = Label("Init", Atlas.uiSkin)
-    val lblTurn = Label("Turn: 0", Atlas.uiSkin)
-    val lblTime = TimerLabel(Atlas.uiSkin)
+            AssetsManager.uiSkin)
+    private val lblState = Label("Init", AssetsManager.uiSkin)
+    val lblTurn = Label("Turn: 0", AssetsManager.uiSkin)
+    val lblTime = TimerLabel(
+            AssetsManager.uiSkin)
 
     init {
         with(topBar) {
@@ -80,13 +81,14 @@ object HudController {
         // init counters for pieces off grid
         for (rank in Rank.values()) {
             for (player in PlayerId.values()) {
-                stage.addActor(CounterLabel(rank, player, Atlas.defaultSkin))
+                stage.addActor(
+                        CounterLabel(rank, player, AssetsManager.defaultSkin))
             }
         }
 
         // ready btn
         val btn = ReadyButton(
-                Atlas.uiSkin)
+                AssetsManager.uiSkin)
 
 
         // lblstate
@@ -133,7 +135,7 @@ object HudController {
 
         lblTurn.isVisible = when (GameController.state) {
             GameState.TURN_PLAYER_1, GameState.TURN_PLAYER_2 -> true
-            else                                             -> false
+            else -> false
         }
         msg.turn?.also {
             lblTurn.setText("Turn: $it")

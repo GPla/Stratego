@@ -155,7 +155,6 @@ object AssetsManager : Disposable {
                         fontMap[item.second]
             }
         }
-
     }
 
     /**

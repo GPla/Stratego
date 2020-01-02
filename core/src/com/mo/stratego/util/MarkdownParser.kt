@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
-import com.mo.stratego.ui.Atlas
+import com.mo.stratego.ui.Font
 
 /**
  * Class to parse an markdown (.md) file to a scene2d representation.
@@ -84,7 +84,7 @@ object MarkdownParser {
                 line !in lineBreaks -> {
                     // start new section
                     if (contentBlock == null) {
-                        contentBlock = Label(line, Atlas.uiSkin)
+                        contentBlock = Label(line, AssetsManager.uiSkin)
                         contentBlock.setWrap(true)
 
                         with(resultTable) {
@@ -109,9 +109,9 @@ object MarkdownParser {
         val level = line.lastIndexOf('#') // header level
         val text = line.substring(level + 1) // extract text
         val font = when (level) {
-            0 -> Atlas.font48
-            1 -> Atlas.font32
-            else -> Atlas.font26
+            0 -> AssetsManager.fontMap[Font.SIZE48]
+            1 -> AssetsManager.fontMap[Font.SIZE32]
+            else -> AssetsManager.fontMap[Font.SIZE26]
         }
         val style = Label.LabelStyle(font, Constants.YELLOW)
         return Label(text, style)

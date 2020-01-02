@@ -2,8 +2,8 @@ package com.mo.stratego.model.sound
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.audio.Music
-import com.badlogic.gdx.audio.Sound
 import com.mo.stratego.StrategoGame
+import com.mo.stratego.util.AssetsManager
 import com.mo.stratego.util.Constants
 
 /**
@@ -13,33 +13,11 @@ object SoundProvider {
     // preference key
     private const val MUSIC_KEY = "Music"
     private const val DEFAULT_MUSIC = true
-    const val SOUND_PATH = "sounds"
-
-    /**
-     * Map of [SoundType] to [Sound].
-     */
-    private val soundMap = mutableMapOf<SoundType, Sound>()
 
     /**
      * Currently playing music.
      */
     private val playingMusic = mutableListOf<Music>()
-
-    /**
-     * Initialize provider.
-     */
-    fun init() {
-        loadSounds()
-    }
-
-    /**
-     * Loads all sounds defined in [SoundType].
-     */
-    private fun loadSounds() {
-        SoundType.values().forEach {
-            soundMap[it] = Gdx.audio.newSound(Gdx.files.internal(it.path))
-        }
-    }
 
     /**
      * Whether or not sounds are played. Value is saved and retrieved from
@@ -67,7 +45,7 @@ object SoundProvider {
         if (!isTurnedOn)
             return null
         Gdx.app.log(Constants.TAG_SOUND, "sound played: $soundType")
-        return soundMap[soundType]?.play()
+        return AssetsManager.soundMap[soundType]?.play()
     }
 
 

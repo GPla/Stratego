@@ -5,12 +5,11 @@ import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.SortedIteratingSystem
 import com.badlogic.gdx.math.GridPoint2
-import com.mo.stratego.model.HighlightType
-import com.mo.stratego.model.MoveType
-import com.mo.stratego.model.Piece
+import com.mo.stratego.model.*
 import com.mo.stratego.model.comparator.MoveTypeComparator
 import com.mo.stratego.model.component.*
 import com.mo.stratego.model.map.Grid
+import com.mo.stratego.model.player.PlayerId
 import com.mo.stratego.model.sound.SoundType
 
 /**
@@ -90,9 +89,11 @@ class MoveSystem : SortedIteratingSystem(
                     // show front side texture of both pieces
                     showFront()
                     piece.showFront()
-                    // wait 400 ms and perform attack
+                    // wait 1s (sound duration) and perform attack
                     piece.add(WaitComponent(1f))
                     piece.add(AttackComponent(this))
+                    //sound
+                    createAttackSound(piece, enemy)
                 }
             }
         }
@@ -141,5 +142,39 @@ class MoveSystem : SortedIteratingSystem(
      */
     private fun createSound(piece: Piece) {
         piece.add(SoundComponent(SoundType.MOVE))
+    }
+
+    /**
+     * Creates [SoundType] for the attack.
+     *
+     * @param piece Piece who attacks
+     * @param enemy piece who is attacked
+     */
+    private fun createAttackSound(piece: Piece, enemy: Piece) {
+        val sound: SoundType? = when (piece.rank.attacks(enemy.rank)) {
+            Result.WON -> {
+                if (piece.rank == Rank.SPY && enemy.rank == Rank.MARSHAL)
+                    SoundType.SPY_CAPTURE
+                else if (piece.rank == Rank.MINER && enemy.rank == Rank.BOMB)
+                    SoundType.DEFUSE_BOMB
+                else if (piece.owner.id == PlayerId.PLAYER1)
+                    SoundType.BATTLE_WON
+                else
+                    SoundType.BATTLE_LOST
+            }
+            Result.LOST -> {
+                when {
+                    enemy.rank == Rank.BOMB -> SoundType.EXPLOSION
+                    enemy.owner.id == PlayerId.PLAYER1 -> SoundType.BATTLE_WON
+                    else -> SoundType.BATTLE_LOST
+                }
+            }
+            Result.DRAW -> SoundType.BATTLE_LOST
+            else -> null
+        }
+
+        sound?.also {
+            piece.add(SoundComponent(sound))
+        }
     }
 }

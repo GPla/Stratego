@@ -5,16 +5,13 @@ import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.IteratingSystem
 import com.badlogic.gdx.Gdx
-import com.mo.stratego.model.Rank
 import com.mo.stratego.model.Result
 import com.mo.stratego.model.component.AttackComponent
 import com.mo.stratego.model.component.PieceComponent
-import com.mo.stratego.model.component.SoundComponent
 import com.mo.stratego.model.component.WaitComponent
 import com.mo.stratego.model.game.GameController
 import com.mo.stratego.model.game.GameResult
 import com.mo.stratego.model.player.PlayerId
-import com.mo.stratego.model.sound.SoundType
 import com.mo.stratego.util.Constants
 
 /**
@@ -70,33 +67,6 @@ class AttackSystem :
                 enemy.returnToDefaultPosition()
                 piece.returnToDefaultPosition()
             }
-        }
-
-        // sound
-        val sound: SoundType? = when (result) {
-            Result.WON -> {
-                if (piece.rank == Rank.SPY && enemy.rank == Rank.MARSHAL)
-                    SoundType.SPY_CAPTURE
-                else if (piece.rank == Rank.MINER && enemy.rank == Rank.BOMB)
-                    SoundType.DEFUSE_BOMB
-                else if (piece.owner.id == PlayerId.PLAYER1)
-                    SoundType.BATTLE_WON
-                else
-                    SoundType.BATTLE_LOST
-            }
-            Result.LOST -> {
-                when {
-                    enemy.rank == Rank.BOMB -> SoundType.EXPLOSION
-                    enemy.owner.id == PlayerId.PLAYER1 -> SoundType.BATTLE_WON
-                    else -> SoundType.BATTLE_LOST
-                }
-            }
-            Result.DRAW -> SoundType.BATTLE_LOST
-            else -> null
-        }
-
-        sound?.also {
-            piece.add(SoundComponent(sound))
         }
 
 

@@ -3,7 +3,7 @@ package com.mo.stratego.model.sound
 import com.mo.stratego.util.Constants
 
 /**
- * Enum of available sounds.
+ * Enum of available sounds. Sound is <= 1MB and stored in memory.
  * @property path Path
  */
 enum class SoundType(val path: String) {

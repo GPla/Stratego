@@ -8,24 +8,21 @@ import com.badlogic.ashley.systems.SortedIteratingSystem
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.mo.stratego.model.comparator.ZComparator
-import com.mo.stratego.model.component.InvisibleComponent
 import com.mo.stratego.model.component.PositionComponent
 import com.mo.stratego.model.component.TextureComponent
 import com.mo.stratego.util.Constants
 
 /**
  * System that renders all entities with a [PositionComponent] and a
- * [TextureComponent], excluding entities with a [InvisibleComponent].
- * The render order is specified through the z value of the [PositionComponent].
+ * [TextureComponent]. The render order is specified through the
+ * z value of the [PositionComponent].
  */
 class RenderSystem(private val batch: SpriteBatch,
                    private val camera: OrthographicCamera) :
     SortedIteratingSystem(
             Family.all(PositionComponent::class.java,
-                       TextureComponent::class.java)
-                    .exclude(InvisibleComponent::class.java).get(),
-            ZComparator()
-                         ) {
+                       TextureComponent::class.java).get(),
+            ZComparator()) {
 
     // component mapper to retrieve components of an entity
     private val pm: ComponentMapper<PositionComponent> =

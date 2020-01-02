@@ -45,9 +45,7 @@ public class AndroidLauncher extends AndroidApplication {
               .withListener(new MultiplePermissionsListener() {
                   @Override
                   public void onPermissionsChecked(MultiplePermissionsReport report) {
-                      if (report.areAllPermissionsGranted()) {
-
-                      } else {
+                      if (!report.areAllPermissionsGranted()) {
                           requestPermissions();
                       }
                   }
@@ -78,6 +76,5 @@ public class AndroidLauncher extends AndroidApplication {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        comHandler.stopService();
     }
 }

@@ -1,6 +1,7 @@
 package com.mo.stratego
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.Sprite
@@ -12,10 +13,12 @@ import com.mo.stratego.model.game.GameResult
 import com.mo.stratego.model.map.GameMap
 import com.mo.stratego.model.sound.MusicType
 import com.mo.stratego.model.sound.SoundProvider
-import com.mo.stratego.ui.Atlas
+import com.mo.stratego.ui.BackButtonHandler
 import com.mo.stratego.ui.Screens
 import com.mo.stratego.ui.control.BlinkLabel
 import com.mo.stratego.ui.controller.HudController
+import com.mo.stratego.ui.input.BackButtonListener
+import com.mo.stratego.util.AssetsManager
 import com.mo.stratego.util.Constants
 
 /**
@@ -24,15 +27,15 @@ import com.mo.stratego.util.Constants
  * @param result Game result
  */
 // ADD result draw
-class EndScreen(private val result: GameResult) : Screen {
+class EndScreen(private val result: GameResult) : Screen, BackButtonHandler {
     private val stage = Stage(StretchViewport(
             Constants.getUnitToPixel(GameMap.width.toFloat()),
             Constants.getUnitToPixel(GameMap.height.toFloat())))
 
     private val background: Sprite = when (result) {
-        GameResult.WON -> Sprite(Atlas.endWon)
-        GameResult.LOST -> Sprite(Atlas.endLost)
-        GameResult.DRAW -> Sprite(Atlas.endDraw)
+        GameResult.WON -> Sprite(AssetsManager.endWon)
+        GameResult.LOST -> Sprite(AssetsManager.endLost)
+        GameResult.DRAW -> Sprite(AssetsManager.endDraw)
     }
 
     /**
@@ -44,12 +47,13 @@ class EndScreen(private val result: GameResult) : Screen {
         val turns: String = HudController.lblTurn.text.toString()
         val time: String = HudController.lblTime.text.toString()
 
-        val tblContent = Table(Atlas.uiSkinBig)
+        val tblContent = Table(AssetsManager.uiSkinBig)
         with(tblContent) {
             setFillParent(true)
 
 
-            val bLabel = BlinkLabel(1f, "Tap to continue!", Atlas.uiSkinBig)
+            val bLabel =
+                    BlinkLabel(1f, "Tap to continue!", AssetsManager.uiSkinBig)
 
             row().expandX()
             add(turns).pad(600f, 50f, 20f, 0f).align(Align.left)
@@ -60,6 +64,8 @@ class EndScreen(private val result: GameResult) : Screen {
         }
 
         stage.addActor(tblContent)
+
+        Gdx.input.inputProcessor = InputMultiplexer(stage, BackButtonListener())
     }
 
     override fun hide() {
@@ -110,5 +116,12 @@ class EndScreen(private val result: GameResult) : Screen {
         musicHandle?.apply {
             SoundProvider.stopMusic(this)
         }
+    }
+
+    /**
+     * Return to main menu on back.
+     */
+    override fun handleBackButton() {
+        StrategoGame.switchScreen(Screens.MAINMENU)
     }
 }

@@ -22,8 +22,10 @@ import com.mo.stratego.model.game.GameState
 import com.mo.stratego.model.map.GameMap
 import com.mo.stratego.model.map.Grid
 import com.mo.stratego.model.system.*
+import com.mo.stratego.ui.BackButtonHandler
 import com.mo.stratego.ui.controller.FieldController
 import com.mo.stratego.ui.controller.HudController
+import com.mo.stratego.ui.input.BackButtonListener
 import com.mo.stratego.ui.input.MapListener
 import com.mo.stratego.ui.provider.DialogProvider
 import com.mo.stratego.util.Constants
@@ -33,7 +35,7 @@ import com.mo.stratego.util.Constants
  *
  * game logic implemented using ECS (Entity - Component - System) design pattern
  */
-class GameScreen(gameMode: GameMode) : Screen {
+class GameScreen(gameMode: GameMode) : Screen, BackButtonHandler {
     private var camera: OrthographicCamera = OrthographicCamera()
     private val engine: Engine
     private val batch: SpriteBatch
@@ -89,7 +91,8 @@ class GameScreen(gameMode: GameMode) : Screen {
         // objectStage receive events, if not handled they get passed to
         // the map stage
         Gdx.input.inputProcessor =
-                InputMultiplexer(hudStage, objectStage, MapListener(engine))
+                InputMultiplexer(hudStage, objectStage, MapListener(engine),
+                                 BackButtonListener())
     }
 
 
@@ -148,6 +151,13 @@ class GameScreen(gameMode: GameMode) : Screen {
 
     override fun dispose() {
 
+    }
+
+    /**
+     * Shows game menu on back.
+     */
+    override fun handleBackButton() {
+        DialogProvider.showGameMenu(HudController.stage)
     }
 
 }

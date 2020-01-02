@@ -1,24 +1,27 @@
 package com.mo.stratego
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.viewport.StretchViewport
+import com.mo.stratego.ui.BackButtonHandler
 import com.mo.stratego.ui.controller.MenuController
+import com.mo.stratego.ui.input.BackButtonListener
 import com.mo.stratego.util.Constants
 
 /**
  * Screen for the main menu.
  */
-class MainMenuScreen : Screen {
+class MainMenuScreen : Screen, BackButtonHandler {
 
     init {
         val stage = Stage(StretchViewport(Constants.SCREEN_WIDTH,
                                           Constants.SCREEN_HEIGHT))
         MenuController.init(stage)
 
-        Gdx.input.inputProcessor = stage
+        Gdx.input.inputProcessor = InputMultiplexer(stage, BackButtonListener())
     }
 
 
@@ -59,4 +62,10 @@ class MainMenuScreen : Screen {
     override fun dispose() {
     }
 
+    /**
+     * Use [MenuController]'s handler.
+     */
+    override fun handleBackButton() {
+        MenuController.handleBackButton()
+    }
 }

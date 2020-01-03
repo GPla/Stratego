@@ -56,6 +56,7 @@ import com.github.douglasjunior.bluetoothclassiclibrary.BluetoothStatus;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Method;
 
 /**
  * Code adapted from Android Open Source Project
@@ -274,15 +275,23 @@ public class BluetoothClassicExtendedService extends BluetoothService {
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         mConfig.context.registerReceiver(mScanReceiver, filter);
 
-        // MODIFIED: added discovery
-        Intent discoverableIntent =
-                new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-        discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 30);
-//        mConfig.context.startActivity(discoverableIntent);
-
         // Register for broadcasts when discovery has finished
         filter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
         mConfig.context.registerReceiver(mScanReceiver, filter);
+
+        // MODIFIED: hacky way to make device discoverable
+        // from https://stackoverflow.com/a/30269261/7938503
+        Method method;
+        try {
+            method = mAdapter.getClass().getMethod("setScanMode", int.class,
+                                                   int.class);
+            method.invoke(mAdapter,
+                          BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE,
+                          120);
+            Log.e("invoke", "method invoke successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // MODIFIED: added open listener on scan
         // Create bluetooth master

@@ -1,0 +1,184 @@
+---
+title: "Presentation"
+header-includes: 
+    - \usepackage{tikz}
+    - \usetikzlibrary{shapes, calc, positioning,arrows, arrows.meta, shapes.symbols}
+    - \usepackage{makecell}
+    - \usepackage{ifthen}
+output:
+    pdf_document
+lang: de
+---
+\renewcommand\descriptionlabel[1]{$\bullet$ #1}
+\newcommand{\parttwo}[1]{\nodepart{two}\strut\descriptionlabel{#1}}
+
+\begin{tikzpicture}[line width=0.2mm]
+    \tikzstyle{class}=[rectangle split,rectangle split parts=2, rectangle split
+    part fill={blue!40, white},draw,rounded corners, minimum width=4cm,
+    align=left]
+    \node at (0,0)[class](baseclass){BaseClass\parttwo{Position}};
+    \node at (-5, -4)[class](base){Base\parttwo{Health}};
+    \node at (0, -4)[class](tower){Tower\parttwo{Range}};
+    \node at (5, -4)[class](enemy){Enemy\parttwo{Velocity}};
+    \draw[-{Latex[length=2mm, width=2mm]}] 
+    (baseclass) edge (tower) (baseclass) edge (base) (baseclass) edge (enemy);
+\end{tikzpicture}
+
+
+\begin{tikzpicture}[line width=0.2mm]
+    \tikzstyle{class}=[rectangle split,rectangle split parts=2, rectangle split
+    part fill={blue!40, white},draw,rounded corners, minimum width=4cm,
+    align=left]
+    \node at (0,0)[class](baseclass){BaseClass\parttwo{Position}};
+    \node at (-5,-3)[class](base){Base\parttwo{Health}};
+    \node at (0,-3)[class](tower){Tower\parttwo{Range}};
+    \node at (5,-3)[class](enemy){Enemy\parttwo{Velocity}};
+    \node at (2.5,-6)[class](senemy){Shooting Enemy\nodepart{two}\strut};
+    
+    \draw[-{Latex[length=2mm, width=2mm]}] (baseclass) edge (tower) 
+    (baseclass) edge (base) (baseclass) edge (enemy); 
+    
+    \draw[-{Latex[length=2mm, width=2mm]}, dashed](tower) edge (senemy) 
+    (enemy) edge (senemy);
+
+    % question mark
+    \node at (2.5,-4.5)[red, line
+    width=1mm,font=\fontfamily{ppl}\fontsize{2cm}{2cm}\selectfont]{?};
+\end{tikzpicture}
+
+\begin{tikzpicture}[line width=0.2mm]
+    \tikzstyle{class}=[rectangle split,rectangle split parts=2, rectangle split
+    part fill={blue!40, white},draw,rounded corners, minimum width=4cm,
+    align=left]
+    \node at (0,0)[class](baseclass){BaseClass\nodepart{two}
+        \makecell{$\bullet$ Position\\$\bullet$ Velocity\\$\bullet$ Range}
+    };
+    \node at (-5,-3)[class](base){Base\parttwo{Health}};
+    \node at (0,-3)[class](tower){Tower\nodepart{two}\strut};
+    \node at (5,-3)[class](enemy){Enemy\nodepart{two}\strut};
+    \node at (5,-6)[class](senemy){Shooting Enemy\nodepart{two}\strut};
+    
+    \draw[-{Latex[length=2mm, width=2mm]}] (baseclass) edge (tower) 
+    (baseclass) edge (base) (baseclass) edge (enemy) (enemy) edge (senemy);
+\end{tikzpicture}
+
+\begin{tikzpicture}
+    \def\w{2.5  }
+    \tikzstyle{class}=[rectangle split,rectangle split parts=2, rectangle split
+    part fill={blue!40, white},draw,rounded corners, minimum width=\w cm,
+    align=left]
+
+    \pgfmathsetmacro\start{-\w/2 -.5}
+    \pgfmathsetmacro\endr{\w*5 }
+    \fill[gray!30] (\start, 1.5) rectangle ++(\endr, -2.5)
+    node[black,above=.5cm, midway]{\large{Entities}};
+
+    \pgfmathsetmacro\start{-\w/2 -2}
+    \pgfmathsetmacro\endr{\w*6 + .5}
+    \fill[gray!30] (\start, -3) rectangle ++(\endr, -2.6) node[black,below=.3cm, midway]{\large{Components}};
+
+
+    \foreach \t/\n [count=\i from 0] in {Base/base,Enemy/enemy,Tower/tower, 
+    Shooting Enemy/senemy}{
+        \pgfmathsetmacro\x{(\w+.5)*\i}
+        \node at (\x,0) [class](\n){\t};
+    }    
+
+    \foreach \t/\n [count=\i from 0] in
+    { Health/health, Position/position, Texture/texture, Range/range,
+    Velocity/velocity}{
+        \pgfmathsetmacro\x{(\w+.5)*\i}
+        \ifthenelse{\i=1}{
+            \node at (\x-1.5,-4) [class](\n){\t\parttwo{x, y}};
+        }{
+            \ifthenelse{\i=2}{
+                \node at (\x-1.5,-4) [class](\n){\t\parttwo{image}};
+            }{
+                \node at (\x-1.5,-4) [class](\n){\t};
+            }
+        }
+    }   
+
+    \foreach \s/\e/\c in {
+        base/{health, position, texture}/blue,
+        enemy/{position, texture, velocity}/green,
+        tower/{position,texture,range}/black,
+        senemy/{position,texture,velocity,range}/red}
+    {
+        \foreach \ee in \e{
+            \draw[-{Latex[length=2mm, width=2mm]}, \c] (\s) -- (\ee);
+        }
+    }
+    
+\end{tikzpicture}
+
+
+\begin{tikzpicture}
+    \def\w{2.5}
+    \tikzstyle{class}=[rectangle split,rectangle split parts=2, rectangle split
+    part fill={blue!40, white},draw,rounded corners, minimum width=\w cm,
+    align=left]
+
+    \pgfmathsetmacro\start{-\w/2 -.5}
+    \pgfmathsetmacro\endr{\w*5 }
+    \fill[gray!30] (\start, 1.5) rectangle ++(\endr, -2.5)
+    node[black,above=.5cm, midway]{\large{Entities}};
+
+    \pgfmathsetmacro\start{-\w/2 -2}
+    \pgfmathsetmacro\endr{\w*6 + .5}
+    \fill[gray!30] (\start, -3) rectangle ++(\endr, -2.6) node[black,below=1.5cm,
+    very near start]{\large{Components}};
+    
+    \pgfmathsetmacro\start{1}
+    \pgfmathsetmacro\endr{\w*2 + 2}
+    \fill[gray!30] (\start, -7) rectangle ++(\endr, -2.6) node[black,below=.3cm, midway]{\large{Systems}};
+
+
+
+    \foreach \t/\n [count=\i from 0] in {Base/base,Enemy/enemy,Tower/tower, 
+    Shooting Enemy/senemy}{
+        \pgfmathsetmacro\x{(\w+.5)*\i}
+        \node at (\x,0) [class](\n){\t};
+    }    
+
+    \foreach \t/\n [count=\i from 0] in
+    { Health/health, Position/position, Texture/texture, Range/range,
+    Velocity/velocity}{
+        \pgfmathsetmacro\x{(\w+.5)*\i}
+        \ifthenelse{\i=1}{
+            \node at (\x-1.5,-4) [class](\n){\t\parttwo{x, y}};
+        }{
+            \ifthenelse{\i=2}{
+                \node at (\x-1.5,-4) [class](\n){\t\parttwo{image}};
+            }{
+                \node at (\x-1.5,-4) [class](\n){\t};
+            }
+        }
+    }   
+
+    \foreach \s/\e/\c in {
+        base/{position, texture}/blue,
+        enemy/{position, texture}/green,
+        tower/{position,texture}/black,
+        senemy/{position,texture}/red}
+    {
+        \foreach \ee in \e{
+            \draw[-{Latex[length=2mm, width=2mm]}, \c] (\s) -- (\ee);
+        }
+    }
+    
+    \foreach \t/\n [count=\i from 0] in {Render/render,Physics/physics}{
+        \pgfmathsetmacro\x{(\w+.5)*\i}
+        \node at (\x + 3,-8) [class](\n){\t};
+    }    
+    
+    \foreach \s/\e/\c in {
+        render/{position,texture}/black,
+    }
+    {
+        \foreach \ee in \e{
+            \draw[-{Latex[length=2mm, width=2mm]}, \c] (\s) -- (\ee);
+        }
+    }
+
+\end{tikzpicture}

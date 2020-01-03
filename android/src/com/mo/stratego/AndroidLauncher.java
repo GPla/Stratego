@@ -58,10 +58,10 @@ public class AndroidLauncher extends AndroidApplication {
     }
 
 
-    // needed because of apk size
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(newBase);
+        // needed because of apk size
         MultiDex.install(this);
     }
 

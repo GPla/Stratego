@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>BackButtonHandler - core</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">core</a>&nbsp;/&nbsp;<a href="../index.html">com.mo.stratego.ui</a>&nbsp;/&nbsp;<a href="./index.html">BackButtonHandler</a><br/>
+<br/>
+<h1>BackButtonHandler</h1>
+<code><span class="keyword">interface </span><span class="identifier">BackButtonHandler</span></code>
+<p>Handle android's back button.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="handle-back-button.html">handleBackButton</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">handleBackButton</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="../../com.mo.stratego/-end-screen/index.html">EndScreen</a></h4>
+</td>
+<td>
+<p>Displays the <a href="../../com.mo.stratego.model.game/-game-result/index.html">GameResult</a> as well as other statistics to the user.</p>
+<code><span class="keyword">class </span><span class="identifier">EndScreen</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Screen</span><span class="symbol">, </span><a href="./index.html"><span class="identifier">BackButtonHandler</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../com.mo.stratego/-game-screen/index.html">GameScreen</a></h4>
+</td>
+<td>
+<p>Game screen</p>
+<code><span class="keyword">class </span><span class="identifier">GameScreen</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Screen</span><span class="symbol">, </span><a href="./index.html"><span class="identifier">BackButtonHandler</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../com.mo.stratego/-main-menu-screen/index.html">MainMenuScreen</a></h4>
+</td>
+<td>
+<p>Screen for the main menu.</p>
+<code><span class="keyword">class </span><span class="identifier">MainMenuScreen</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Screen</span><span class="symbol">, </span><a href="./index.html"><span class="identifier">BackButtonHandler</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../com.mo.stratego.ui.controller/-menu-controller/index.html">MenuController</a></h4>
+</td>
+<td>
+<p>Controller for the stage of the <a href="../../com.mo.stratego/-main-menu-screen/index.html">MainMenuScreen</a>.</p>
+<code><span class="keyword">object </span><span class="identifier">MenuController</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">BackButtonHandler</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../com.mo.stratego/-stratego-game/index.html">StrategoGame</a></h4>
+</td>
+<td>
+<p>LibGDX entry point. Class that handles the currently displayed screen.</p>
+<code><span class="keyword">object </span><span class="identifier">StrategoGame</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Game</span><span class="symbol">, </span><a href="./index.html"><span class="identifier">BackButtonHandler</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

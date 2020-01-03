@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>com.mo.stratego.model.player - core</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">core</a>&nbsp;/&nbsp;<a href="./index.html">com.mo.stratego.model.player</a><br/>
+<br/>
+<h2>Package com.mo.stratego.model.player</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-player/index.html">Player</a></h4>
+</td>
+<td>
+<p>Inspired by https://pdfs.semanticscholar.org/f35c/df2b5cb1a36d703ab6c4a4d80cbaaf3cc603.pdf
+The <a href="../com.mo.stratego.model.game/-game-controller/index.html">GameController</a> corresponds to the referee in the paper.
+This class is a blueprint for a player.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">Player</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-player-id/index.html">PlayerId</a></h4>
+</td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">PlayerId</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-player-local/index.html">PlayerLocal</a></h4>
+</td>
+<td>
+<p>Player, that operate on the running device.</p>
+<code><span class="keyword">class </span><span class="identifier">PlayerLocal</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-player/index.html"><span class="identifier">Player</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-player-proxy/index.html">PlayerProxy</a></h4>
+</td>
+<td>
+<p>This class is a proxy for a player that's connected via the
+<a href="../com.mo.stratego.model.communication/-communication-handler/index.html">CommunicationHandler</a>. The proxy will send actions made by the
+local player and receives the actions made by the local player of the
+connected device. The Architecture is symmetric and as follows
+Local - Device 1 - Proxy - Network - Proxy - Device 2 - Local for a
+2 player game over the network.</p>
+<code><span class="keyword">class </span><span class="identifier">PlayerProxy</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-player/index.html"><span class="identifier">Player</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-player-type/index.html">PlayerType</a></h4>
+</td>
+<td>
+<p>Enum of player types</p>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">PlayerType</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-start-number/index.html">StartNumber</a></h4>
+</td>
+<td>
+<p>Starting number that determines the starting order.</p>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">StartNumber</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,120 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Grid - core</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">core</a>&nbsp;/&nbsp;<a href="../index.html">com.mo.stratego.model.map</a>&nbsp;/&nbsp;<a href="./index.html">Grid</a><br/>
+<br/>
+<h1>Grid</h1>
+<code><span class="keyword">object </span><span class="identifier">Grid</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">EntityListener</span></code>
+<p>This class represents the game grid. The EntityListener is
+triggered if a <a href="../../com.mo.stratego.model/-piece/index.html">Piece</a> has a <a href="../../com.mo.stratego.model.component/-position-component/index.html">PositionComponent</a> and
+independently, another time, if it has a <a href="../../com.mo.stratego.model.component/-move-component/index.html">MoveComponent</a>.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="spawn-map.html">spawnMap</a></h4>
+</td>
+<td>
+<p>A map that maps the rank to the number of pieces in their default
+position, off game grid, for both <a href="../../com.mo.stratego.model.player/-player/index.html">Player</a>s.</p>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">spawnMap</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><a href="../../com.mo.stratego.model/-rank/index.html"><span class="identifier">Rank</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="entity-added.html">entityAdded</a></h4>
+</td>
+<td>
+<p>Updates the grid if a <a href="../../com.mo.stratego.model/-piece/index.html">Piece</a> with <a href="../../com.mo.stratego.model.component/-position-component/index.html">PositionComponent</a> and
+no <a href="../../com.mo.stratego.model.component/-move-component/index.html">MoveComponent</a> was added.</p>
+<code><span class="keyword">fun </span><span class="identifier">entityAdded</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.map.Grid$entityAdded(com.badlogic.ashley.core.Entity)/entity">entity</span><span class="symbol">:</span>&nbsp;<span class="identifier">Entity</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="entity-removed.html">entityRemoved</a></h4>
+</td>
+<td>
+<p>Updates the grid if a <a href="../../com.mo.stratego.model.component/-move-component/index.html">MoveComponent</a> or <a href="../../com.mo.stratego.model.component/-position-component/index.html">PositionComponent</a> from
+a <a href="../../com.mo.stratego.model/-piece/index.html">Piece</a> is removed.</p>
+<code><span class="keyword">fun </span><span class="identifier">entityRemoved</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.map.Grid$entityRemoved(com.badlogic.ashley.core.Entity)/entity">entity</span><span class="symbol">:</span>&nbsp;<span class="identifier">Entity</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get.html">get</a></h4>
+</td>
+<td>
+<p>Overload of the bracket operator. Expects map coordinates.</p>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="identifier">get</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.map.Grid$get(com.badlogic.gdx.math.GridPoint2)/position">position</span><span class="symbol">:</span>&nbsp;<span class="identifier">GridPoint2</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.mo.stratego.model/-piece/index.html"><span class="identifier">Piece</span></a><span class="symbol">?</span></code>
+<p>Overload of the bracket operator. Expects matrix coordinates.</p>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="identifier">get</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.map.Grid$get(kotlin.Int, kotlin.Int)/x">x</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.mo.stratego.model.map.Grid$get(kotlin.Int, kotlin.Int)/y">y</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.mo.stratego.model/-piece/index.html"><span class="identifier">Piece</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-allowed-moves.html">getAllowedMoves</a></h4>
+</td>
+<td>
+<p>Checks for possible moves for a <a href="../../com.mo.stratego.model/-piece/index.html">Piece</a> in horizontal
+and vertical direction.</p>
+<code><span class="keyword">fun </span><span class="identifier">getAllowedMoves</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.map.Grid$getAllowedMoves(com.mo.stratego.model.Piece)/piece">piece</span><span class="symbol">:</span>&nbsp;<a href="../../com.mo.stratego.model/-piece/index.html"><span class="identifier">Piece</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><span class="identifier">GridPoint2</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-free-cells-in-player-zone.html">getFreeCellsInPlayerZone</a></h4>
+</td>
+<td>
+<p>Collects the free cells in the <a href="../../com.mo.stratego.model.player/-player/index.html">Player</a>'s placement zone.</p>
+<code><span class="keyword">fun </span><span class="identifier">getFreeCellsInPlayerZone</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.map.Grid$getFreeCellsInPlayerZone(com.mo.stratego.model.player.PlayerId)/playerId">playerId</span><span class="symbol">:</span>&nbsp;<a href="../../com.mo.stratego.model.player/-player-id/index.html"><span class="identifier">PlayerId</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><span class="identifier">GridPoint2</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="init.html">init</a></h4>
+</td>
+<td>
+<p>Init Grid for new game.</p>
+<code><span class="keyword">fun </span><span class="identifier">init</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="is-cell-allowed.html">isCellAllowed</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">isCellAllowed</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.map.Grid$isCellAllowed(com.badlogic.gdx.math.GridPoint2, com.mo.stratego.model.player.Player)/point">point</span><span class="symbol">:</span>&nbsp;<span class="identifier">GridPoint2</span><span class="symbol">, </span><span class="identifier" id="com.mo.stratego.model.map.Grid$isCellAllowed(com.badlogic.gdx.math.GridPoint2, com.mo.stratego.model.player.Player)/owner">owner</span><span class="symbol">:</span>&nbsp;<a href="../../com.mo.stratego.model.player/-player/index.html"><span class="identifier">Player</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="to-string.html">toString</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">toString</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="translate-cell-to-position.html">translateCellToPosition</a></h4>
+</td>
+<td>
+<p>Calculates the <a href="../-game-map/index.html">GameMap</a> position; the origin is in the bottom
+left corner.</p>
+<code><span class="keyword">fun </span><span class="identifier">translateCellToPosition</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.map.Grid$translateCellToPosition(com.badlogic.gdx.math.GridPoint2)/cell">cell</span><span class="symbol">:</span>&nbsp;<span class="identifier">GridPoint2</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">GridPoint2</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="translate-position-to-cell.html">translatePositionToCell</a></h4>
+</td>
+<td>
+<p>Calculates the grid position; the origin is in the bottom left corner,
+same as camera.</p>
+<code><span class="keyword">fun </span><span class="identifier">translatePositionToCell</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.map.Grid$translatePositionToCell(com.badlogic.gdx.math.GridPoint2)/position">position</span><span class="symbol">:</span>&nbsp;<span class="identifier">GridPoint2</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">GridPoint2</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

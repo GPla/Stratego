@@ -1,0 +1,89 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MenuController - core</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">core</a>&nbsp;/&nbsp;<a href="../index.html">com.mo.stratego.ui.controller</a>&nbsp;/&nbsp;<a href="./index.html">MenuController</a><br/>
+<br/>
+<h1>MenuController</h1>
+<code><span class="keyword">object </span><span class="identifier">MenuController</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../com.mo.stratego.ui/-back-button-handler/index.html"><span class="identifier">BackButtonHandler</span></a></code>
+<p>Controller for the stage of the <a href="../../com.mo.stratego/-main-menu-screen/index.html">MainMenuScreen</a>.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="stage.html">stage</a></h4>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">stage</span><span class="symbol">: </span><span class="identifier">Stage</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="get-background.html">getBackground</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getBackground</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Sprite</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="handle-back-button.html">handleBackButton</a></h4>
+</td>
+<td>
+<p>Quits the game if in main mode, otherwise returns to main.</p>
+<code><span class="keyword">fun </span><span class="identifier">handleBackButton</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="init.html">init</a></h4>
+</td>
+<td>
+<p>Init the object with this method. If not called before usage
+an error will be thrown.</p>
+<code><span class="keyword">fun </span><span class="identifier">init</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.ui.controller.MenuController$init(com.badlogic.gdx.scenes.scene2d.Stage)/stage">stage</span><span class="symbol">:</span>&nbsp;<span class="identifier">Stage</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">MenuController</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="init-rules.html">initRules</a></h4>
+</td>
+<td>
+<p>Initializes RULES mode.</p>
+<code><span class="keyword">fun </span><span class="identifier">initRules</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-on-connected-event.html">OnConnectedEvent</a></h4>
+</td>
+<td>
+<p>Switches to <a href="../../com.mo.stratego/-game-screen/index.html">GameScreen</a>.
+Event occurs if connected to other device.</p>
+<code><span class="keyword">fun </span><span class="identifier">OnConnectedEvent</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.ui.controller.MenuController$OnConnectedEvent(com.mo.stratego.model.communication.OnConnectedEvent)/event">event</span><span class="symbol">:</span>&nbsp;<a href="../../com.mo.stratego.model.communication/-on-connected-event/index.html"><span class="identifier">OnConnectedEvent</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-connecting-event.html">onConnectingEvent</a></h4>
+</td>
+<td>
+<p>Displays connection attempt to user.</p>
+<code><span class="keyword">fun </span><span class="identifier">onConnectingEvent</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.ui.controller.MenuController$onConnectingEvent(com.mo.stratego.model.communication.OnConnectingEvent)/event">event</span><span class="symbol">:</span>&nbsp;<a href="../../com.mo.stratego.model.communication/-on-connecting-event/index.html"><span class="identifier">OnConnectingEvent</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-on-error-event.html">OnErrorEvent</a></h4>
+</td>
+<td>
+<p>Displays error message to the user.
+Event occurs if an error occurs in the communication handler.</p>
+<code><span class="keyword">fun </span><span class="identifier">OnErrorEvent</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.ui.controller.MenuController$OnErrorEvent(com.mo.stratego.model.communication.OnErrorEvent)/event">event</span><span class="symbol">:</span>&nbsp;<a href="../../com.mo.stratego.model.communication/-on-error-event/index.html"><span class="identifier">OnErrorEvent</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,97 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Piece - core</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">core</a>&nbsp;/&nbsp;<a href="../index.html">com.mo.stratego.model</a>&nbsp;/&nbsp;<a href="./index.html">Piece</a><br/>
+<br/>
+<h1>Piece</h1>
+<code><span class="keyword">class </span><span class="identifier">Piece</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Entity</span></code>
+<p>Class that represents a playing piece. It has a rank and an owner.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>Class that represents a playing piece. It has a rank and an owner.</p>
+<code><span class="identifier">Piece</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.Piece$<init>(com.mo.stratego.model.Rank, com.mo.stratego.model.player.Player)/rank">rank</span><span class="symbol">:</span>&nbsp;<a href="../-rank/index.html"><span class="identifier">Rank</span></a><span class="symbol">, </span><span class="identifier" id="com.mo.stratego.model.Piece$<init>(com.mo.stratego.model.Rank, com.mo.stratego.model.player.Player)/owner">owner</span><span class="symbol">:</span>&nbsp;<a href="../../com.mo.stratego.model.player/-player/index.html"><span class="identifier">Player</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="owner.html">owner</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">owner</span><span class="symbol">: </span><a href="../../com.mo.stratego.model.player/-player/index.html"><span class="identifier">Player</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="range.html">range</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">range</span><span class="symbol">: </span><a href="../-range/index.html"><span class="identifier">Range</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="rank.html">rank</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">rank</span><span class="symbol">: </span><a href="../-rank/index.html"><span class="identifier">Rank</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="is-touchable.html">isTouchable</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">isTouchable</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="return-to-default-position.html">returnToDefaultPosition</a></h4>
+</td>
+<td>
+<p>Returns the piece to the start position of the piece's <a href="../-rank/index.html">Rank</a> and owner.</p>
+<code><span class="keyword">fun </span><span class="identifier">returnToDefaultPosition</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="show-back.html">showBack</a></h4>
+</td>
+<td>
+<p>Shows back side texture</p>
+<code><span class="keyword">fun </span><span class="identifier">showBack</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="show-default.html">showDefault</a></h4>
+</td>
+<td>
+<p>Shows default side texture</p>
+<code><span class="keyword">fun </span><span class="identifier">showDefault</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="show-front.html">showFront</a></h4>
+</td>
+<td>
+<p>Shows front side texture</p>
+<code><span class="keyword">fun </span><span class="identifier">showFront</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

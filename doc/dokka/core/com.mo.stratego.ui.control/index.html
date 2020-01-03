@@ -1,0 +1,125 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>com.mo.stratego.ui.control - core</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">core</a>&nbsp;/&nbsp;<a href="./index.html">com.mo.stratego.ui.control</a><br/>
+<br/>
+<h2>Package com.mo.stratego.ui.control</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-blink-label/index.html">BlinkLabel</a></h4>
+</td>
+<td>
+<p>Label with blinking text.</p>
+<code><span class="keyword">class </span><span class="identifier">BlinkLabel</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Label</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-confirm-dialog/index.html">ConfirmDialog</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ConfirmDialog</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Dialog</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-counter-label/index.html">CounterLabel</a></h4>
+</td>
+<td>
+<p>Custom label class, that display the count of stacked pieces.</p>
+<code><span class="keyword">class </span><span class="identifier">CounterLabel</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Label</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-device-list/index.html">DeviceList</a></h4>
+</td>
+<td>
+<p>List that shows all devices found by the <a href="../com.mo.stratego.model.communication/-communication-handler/index.html">CommunicationHandler</a>.</p>
+<code><span class="keyword">class </span><span class="identifier">DeviceList</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-game-menu-dialog/index.html">GameMenuDialog</a></h4>
+</td>
+<td>
+<p>Game menu dialog. Allows the player to change settings and
+to surrender the current game.</p>
+<code><span class="keyword">class </span><span class="identifier">GameMenuDialog</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Dialog</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-load-label/index.html">LoadLabel</a></h4>
+</td>
+<td>
+<p>Label that displays a load animation. The animation consists of the
+repetition of the defined symbol. Each frame adds another instance of the
+symbol and lasts for the defined deltaTime.
+One cycle is deltaTime * maxCount long.</p>
+<code><span class="keyword">class </span><span class="identifier">LoadLabel</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Label</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-message-dialog/index.html">MessageDialog</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">MessageDialog</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Dialog</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-one-button-dialog/index.html">OneButtonDialog</a></h4>
+</td>
+<td>
+<p>Dialog with one Button, a Message and a result action.</p>
+<code><span class="keyword">class </span><span class="identifier">OneButtonDialog</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Dialog</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-ready-button/index.html">ReadyButton</a></h4>
+</td>
+<td>
+<p>This Button's job is to confirm that the active player's preparation is done.</p>
+<code><span class="keyword">class </span><span class="identifier">ReadyButton</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">TextButton</span><span class="symbol">, </span><span class="identifier">EventListener</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-timed-label/index.html">TimedLabel</a></h4>
+</td>
+<td>
+<p>Label that shows a text for the set time.</p>
+<code><span class="keyword">class </span><span class="identifier">TimedLabel</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Label</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-timer-button/index.html">TimerButton</a></h4>
+</td>
+<td>
+<p>Button that disables after being pressed for the defined timeout. The action
+is run when the button is pressed.</p>
+<code><span class="keyword">class </span><span class="identifier">TimerButton</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">TextButton</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-timer-label/index.html">TimerLabel</a></h4>
+</td>
+<td>
+<p>Label, that shows the time since rendered first.</p>
+<code><span class="keyword">class </span><span class="identifier">TimerLabel</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Label</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-toggle-button/index.html">ToggleButton</a></h4>
+</td>
+<td>
+<p>Toggle button with state bound to given property. Property will be toggled
+if button gets pressed.</p>
+<code><span class="keyword">class </span><span class="identifier">ToggleButton</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">TextButton</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

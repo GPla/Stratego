@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>com.mo.stratego.model.system - core</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">core</a>&nbsp;/&nbsp;<a href="./index.html">com.mo.stratego.model.system</a><br/>
+<br/>
+<h2>Package com.mo.stratego.model.system</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-attack-system/index.html">AttackSystem</a></h4>
+</td>
+<td>
+<p>A system that processes entities with a <a href="../com.mo.stratego.model.component/-piece-component/index.html">PieceComponent</a> and a
+<a href="../com.mo.stratego.model.component/-attack-component/index.html">AttackComponent</a>.</p>
+<code><span class="keyword">class </span><span class="identifier">AttackSystem</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">IteratingSystem</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-move-system/index.html">MoveSystem</a></h4>
+</td>
+<td>
+<p>System that processes entities with a <a href="../com.mo.stratego.model.component/-piece-component/index.html">PieceComponent</a>, a <a href="../com.mo.stratego.model.component/-position-component/index.html">PositionComponent</a>
+and a <a href="../com.mo.stratego.model.component/-move-component/index.html">MoveComponent</a>. This system moves the entities to their new position,
+if an opponent's <a href="../com.mo.stratego.model/-piece/index.html">Piece</a> occupies the target position an attack is initiated.</p>
+<code><span class="keyword">class </span><span class="identifier">MoveSystem</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">SortedIteratingSystem</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-render-system/index.html">RenderSystem</a></h4>
+</td>
+<td>
+<p>System that renders all entities with a <a href="../com.mo.stratego.model.component/-position-component/index.html">PositionComponent</a> and a
+<a href="../com.mo.stratego.model.component/-texture-component/index.html">TextureComponent</a>. The render order is specified through the
+z value of the <a href="../com.mo.stratego.model.component/-position-component/index.html">PositionComponent</a>.</p>
+<code><span class="keyword">class </span><span class="identifier">RenderSystem</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">SortedIteratingSystem</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-sound-system/index.html">SoundSystem</a></h4>
+</td>
+<td>
+<p>TODO</p>
+<code><span class="keyword">class </span><span class="identifier">SoundSystem</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">IteratingSystem</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-wait-system/index.html">WaitSystem</a></h4>
+</td>
+<td>
+<p>This system process Entities with a <a href="../com.mo.stratego.model.component/-wait-component/index.html">WaitComponent</a>. After the waitTime,
+that's specified in the <a href="../com.mo.stratego.model.component/-wait-component/index.html">WaitComponent</a>, is elapsed, the <a href="../com.mo.stratego.model.component/-wait-component/index.html">WaitComponent</a>
+is removed. The <a href="../com.mo.stratego.model.component/-wait-component/index.html">WaitComponent</a> is used to delay the processing of other
+components through other systems.</p>
+<code><span class="keyword">class </span><span class="identifier">WaitSystem</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">IteratingSystem</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

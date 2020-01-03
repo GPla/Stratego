@@ -1,0 +1,388 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>alltypes - core</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<h3>All Types</h3>
+<table>
+<tbody>
+<tr>
+<h5><a href="../com.mo.stratego.util/-assets-manager/index.html">com.mo.stratego.util.AssetsManager</a></h5>
+<p>Object that provides and manages all assets for the game.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.component/-attack-component/index.html">com.mo.stratego.model.component.AttackComponent</a></h5>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.system/-attack-system/index.html">com.mo.stratego.model.system.AttackSystem</a></h5>
+<p>A system that processes entities with a <a href="../com.mo.stratego.model.component/-piece-component/index.html">PieceComponent</a> and a
+<a href="../com.mo.stratego.model.component/-attack-component/index.html">AttackComponent</a>.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.ui/-back-button-handler/index.html">com.mo.stratego.ui.BackButtonHandler</a></h5>
+<p>Handle android's back button.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.ui.input/-back-button-listener/index.html">com.mo.stratego.ui.input.BackButtonListener</a></h5>
+<p>Listener for androids back button.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.ui.control/-blink-label/index.html">com.mo.stratego.ui.control.BlinkLabel</a></h5>
+<p>Label with blinking text.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.communication/-communication-handler/index.html">com.mo.stratego.model.communication.CommunicationHandler</a></h5>
+<p>Handles the communication between the core module and the platform specific
+modules. Provides wrapper methods for the <a href="../com.mo.stratego.model.communication/-i-communication/index.html">ICommunication</a> interface with
+additional features. Broadcasts <a href="../com.mo.stratego.model.communication/-i-communication-event-listener/index.html">ICommunicationEventListener</a> event's on the
+EventBus.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.ui.control/-confirm-dialog/index.html">com.mo.stratego.ui.control.ConfirmDialog</a></h5>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.util/-constants/index.html">com.mo.stratego.util.Constants</a></h5>
+<p>Class that contains game constants.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.communication/-control-event/index.html">com.mo.stratego.model.communication.ControlEvent</a></h5>
+<p>Enum of control events. For communication between
+the <a href="../com.mo.stratego.model.game/-game-controller/index.html">GameController</a>s.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.communication/-control-message/index.html">com.mo.stratego.model.communication.ControlMessage</a></h5>
+<p>Wrapper for <a href="../com.mo.stratego.model.communication/-control-event/index.html">ControlEvent</a>. Enum cannot directly be serialized with KotlinX.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.ui.control/-counter-label/index.html">com.mo.stratego.ui.control.CounterLabel</a></h5>
+<p>Custom label class, that display the count of stacked pieces.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.communication/-data-received-event/index.html">com.mo.stratego.model.communication.DataReceivedEvent</a></h5>
+<p>Wrapper for <a href="../com.mo.stratego.model.communication/-communication-handler/index.html">CommunicationHandler</a> data received event.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.communication/-data-write-event/index.html">com.mo.stratego.model.communication.DataWriteEvent</a></h5>
+<p><a href="../com.mo.stratego.model.communication/-communication-handler/index.html">CommunicationHandler</a> data write event.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.ui.control/-device-list/index.html">com.mo.stratego.ui.control.DeviceList</a></h5>
+<p>List that shows all devices found by the <a href="../com.mo.stratego.model.communication/-communication-handler/index.html">CommunicationHandler</a>.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.ui.provider/-dialog-provider/index.html">com.mo.stratego.ui.provider.DialogProvider</a></h5>
+<p>Provider class for dialogs.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego/-end-screen/index.html">com.mo.stratego.EndScreen</a></h5>
+<p>Displays the <a href="../com.mo.stratego.model.game/-game-result/index.html">GameResult</a> as well as other statistics to the user.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.ui/-field-actor/index.html">com.mo.stratego.ui.FieldActor</a></h5>
+<p>Scene2d actor for the Entity class. This class links an Entity instance
+with an Actor instance to handle the user input. It does not draw on the
+screen.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.ui.controller/-field-controller/index.html">com.mo.stratego.ui.controller.FieldController</a></h5>
+<p>Singleton class that controls the Actor's displayed on the Stage.
+Implements EntityListener to add a <a href="../com.mo.stratego.ui/-field-actor/index.html">FieldActor</a>'s to the Stage if
+a <a href="../com.mo.stratego.model/-piece/index.html">Piece</a> or <a href="../com.mo.stratego.model.component/-highlight-component/index.html">HighlightComponent</a> is added to the Engine.</p>
+</tr>
+<tr>
+ (extensions in package com.mo.stratego.util)
+<h5><a href="../com.mo.stratego.util/kotlin.-float/index.html">kotlin.Float</a></h5>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.ui/-font/index.html">com.mo.stratego.ui.Font</a></h5>
+<p>Enum of available fonts.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.game/-game-controller/index.html">com.mo.stratego.model.game.GameController</a></h5>
+<p>This object handles the game flow and <a href="../com.mo.stratego.model.game/-game-state/index.html">GameState</a>.
+This class represents the referee mentioned in this paper,
+see https://pdfs.semanticscholar.org/f35c/df2b5cb1a36d703ab6c4a4d80cbaaf3cc603.pdf</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.map/-game-map/index.html">com.mo.stratego.model.map.GameMap</a></h5>
+<p>Singleton Class that loads and renders the Map</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.ui.control/-game-menu-dialog/index.html">com.mo.stratego.ui.control.GameMenuDialog</a></h5>
+<p>Game menu dialog. Allows the player to change settings and
+to surrender the current game.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.game/-game-mode/index.html">com.mo.stratego.model.game.GameMode</a></h5>
+<p>Enum of game modes.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.game/-game-result/index.html">com.mo.stratego.model.game.GameResult</a></h5>
+<p>Enum of game results.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego/-game-screen/index.html">com.mo.stratego.GameScreen</a></h5>
+<p>Game screen</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.game/-game-state/index.html">com.mo.stratego.model.game.GameState</a></h5>
+<p>Enum of game states</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.map/-grid/index.html">com.mo.stratego.model.map.Grid</a></h5>
+<p>This class represents the game grid. The EntityListener is
+triggered if a <a href="../com.mo.stratego.model/-piece/index.html">Piece</a> has a <a href="../com.mo.stratego.model.component/-position-component/index.html">PositionComponent</a> and
+independently, another time, if it has a <a href="../com.mo.stratego.model.component/-move-component/index.html">MoveComponent</a>.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.component/-highlight-component/index.html">com.mo.stratego.model.component.HighlightComponent</a></h5>
+<p>Class that marks an Entity as highlight. An highlight is a visual
+cue that marks a possible move for a Piece.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.ui.input/-highlight-input-listener/index.html">com.mo.stratego.ui.input.HighlightInputListener</a></h5>
+<p>Input listener that handles the user input for <a href="../com.mo.stratego.model.component/-highlight-component/index.html">HighlightComponent</a>s.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model/-highlight-type/index.html">com.mo.stratego.model.HighlightType</a></h5>
+<p>Enum of highlight types</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.ui.controller/-hud-controller/index.html">com.mo.stratego.ui.controller.HudController</a></h5>
+<p>Controller for ui elements while the game is running.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.communication/-i-communication/index.html">com.mo.stratego.model.communication.ICommunication</a></h5>
+<p>Interface for inter-device communication.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.communication/-i-communication-event-listener/index.html">com.mo.stratego.model.communication.ICommunicationEventListener</a></h5>
+<p>Events of the communication interface.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.ui.control/-load-label/index.html">com.mo.stratego.ui.control.LoadLabel</a></h5>
+<p>Label that displays a load animation. The animation consists of the
+repetition of the defined symbol. Each frame adds another instance of the
+symbol and lasts for the defined deltaTime.
+One cycle is deltaTime * maxCount long.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego/-main-menu-screen/index.html">com.mo.stratego.MainMenuScreen</a></h5>
+<p>Screen for the main menu.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.ui.input/-map-listener/index.html">com.mo.stratego.ui.input.MapListener</a></h5>
+<p>Listener that is activated if a click is not handled by
+the <a href="../com.mo.stratego.ui.controller/-field-controller/index.html">FieldController</a>'s stage.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.util/-markdown-parser/index.html">com.mo.stratego.util.MarkdownParser</a></h5>
+<p>Class to parse an markdown (.md) file to a scene2d representation.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.ui.controller/-menu-controller/index.html">com.mo.stratego.ui.controller.MenuController</a></h5>
+<p>Controller for the stage of the <a href="../com.mo.stratego/-main-menu-screen/index.html">MainMenuScreen</a>.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.ui.control/-message-dialog/index.html">com.mo.stratego.ui.control.MessageDialog</a></h5>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model/-move/index.html">com.mo.stratego.model.Move</a></h5>
+<p>Class that represents a move on the playing field.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.component/-move-component/index.html">com.mo.stratego.model.component.MoveComponent</a></h5>
+<p>This component defines a move action for a <a href="../com.mo.stratego.model/-piece/index.html">Piece</a>. The
+move property will be added to the <a href="../com.mo.stratego.model/-piece/index.html">Piece</a>'s position.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.system/-move-system/index.html">com.mo.stratego.model.system.MoveSystem</a></h5>
+<p>System that processes entities with a <a href="../com.mo.stratego.model.component/-piece-component/index.html">PieceComponent</a>, a <a href="../com.mo.stratego.model.component/-position-component/index.html">PositionComponent</a>
+and a <a href="../com.mo.stratego.model.component/-move-component/index.html">MoveComponent</a>. This system moves the entities to their new position,
+if an opponent's <a href="../com.mo.stratego.model/-piece/index.html">Piece</a> occupies the target position an attack is initiated.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model/-move-type/index.html">com.mo.stratego.model.MoveType</a></h5>
+<p>Enum of move types.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.comparator/-move-type-comparator/index.html">com.mo.stratego.model.comparator.MoveTypeComparator</a></h5>
+<p>Compares two entities with <a href="../com.mo.stratego.model.component/-move-component/index.html">MoveComponent</a>s.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.sound/-music-type/index.html">com.mo.stratego.model.sound.MusicType</a></h5>
+<p>Enum of music. Music has a file size &gt; 1MB and is streamed from
+disk, not stored in memory.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.communication/-on-connected-event/index.html">com.mo.stratego.model.communication.OnConnectedEvent</a></h5>
+<p><a href="../com.mo.stratego.model.communication/-communication-handler/index.html">CommunicationHandler</a> on connected event.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.communication/-on-connecting-event/index.html">com.mo.stratego.model.communication.OnConnectingEvent</a></h5>
+<p><a href="../com.mo.stratego.model.communication/-communication-handler/index.html">CommunicationHandler</a> on connecting event.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.ui.control/-one-button-dialog/index.html">com.mo.stratego.ui.control.OneButtonDialog</a></h5>
+<p>Dialog with one Button, a Message and a result action.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.communication/-on-error-event/index.html">com.mo.stratego.model.communication.OnErrorEvent</a></h5>
+<p><a href="../com.mo.stratego.model.communication/-communication-handler/index.html">CommunicationHandler</a> on error event.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model/-piece/index.html">com.mo.stratego.model.Piece</a></h5>
+<p>Class that represents a playing piece. It has a rank and an owner.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.component/-piece-component/index.html">com.mo.stratego.model.component.PieceComponent</a></h5>
+<p>Wrapper component for the <a href="../com.mo.stratego.model/-piece/index.html">Piece</a> class. Used as flag for filtering.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model/-piece-factory/index.html">com.mo.stratego.model.PieceFactory</a></h5>
+<p>Factory for generating <a href="../com.mo.stratego.model/-piece/index.html">Piece</a>s</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.ui.input/-piece-input-listener/index.html">com.mo.stratego.ui.input.PieceInputListener</a></h5>
+<p>Input listener that handles the user input for the <a href="../com.mo.stratego.model/-piece/index.html">Piece</a> class.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.player/-player/index.html">com.mo.stratego.model.player.Player</a></h5>
+<p>Inspired by https://pdfs.semanticscholar.org/f35c/df2b5cb1a36d703ab6c4a4d80cbaaf3cc603.pdf
+The <a href="../com.mo.stratego.model.game/-game-controller/index.html">GameController</a> corresponds to the referee in the paper.
+This class is a blueprint for a player.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.player/-player-id/index.html">com.mo.stratego.model.player.PlayerId</a></h5>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.player/-player-local/index.html">com.mo.stratego.model.player.PlayerLocal</a></h5>
+<p>Player, that operate on the running device.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.player/-player-proxy/index.html">com.mo.stratego.model.player.PlayerProxy</a></h5>
+<p>This class is a proxy for a player that's connected via the
+<a href="../com.mo.stratego.model.communication/-communication-handler/index.html">CommunicationHandler</a>. The proxy will send actions made by the
+local player and receives the actions made by the local player of the
+connected device. The Architecture is symmetric and as follows
+Local - Device 1 - Proxy - Network - Proxy - Device 2 - Local for a
+2 player game over the network.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.player/-player-type/index.html">com.mo.stratego.model.player.PlayerType</a></h5>
+<p>Enum of player types</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.component/-position-component/index.html">com.mo.stratego.model.component.PositionComponent</a></h5>
+<p>A component that specifies the map position at which an entity
+is rendered. The z component is used to determine the render order.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model/-range/index.html">com.mo.stratego.model.Range</a></h5>
+<p>Enum of ranges.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model/-rank/index.html">com.mo.stratego.model.Rank</a></h5>
+<p>Enum with of all piece ranks</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.ui.control/-ready-button/index.html">com.mo.stratego.ui.control.ReadyButton</a></h5>
+<p>This Button's job is to confirm that the active player's preparation is done.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.system/-render-system/index.html">com.mo.stratego.model.system.RenderSystem</a></h5>
+<p>System that renders all entities with a <a href="../com.mo.stratego.model.component/-position-component/index.html">PositionComponent</a> and a
+<a href="../com.mo.stratego.model.component/-texture-component/index.html">TextureComponent</a>. The render order is specified through the
+z value of the <a href="../com.mo.stratego.model.component/-position-component/index.html">PositionComponent</a>.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model/-result/index.html">com.mo.stratego.model.Result</a></h5>
+<p>Enum of all battle results</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.ui/-screens/index.html">com.mo.stratego.ui.Screens</a></h5>
+<p>Enum of screens.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model/-side/index.html">com.mo.stratego.model.Side</a></h5>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.component/-sound-component/index.html">com.mo.stratego.model.component.SoundComponent</a></h5>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.sound/-sound-provider/index.html">com.mo.stratego.model.sound.SoundProvider</a></h5>
+<p>Provider class for music and sound effects.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.system/-sound-system/index.html">com.mo.stratego.model.system.SoundSystem</a></h5>
+<p>TODO</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.sound/-sound-type/index.html">com.mo.stratego.model.sound.SoundType</a></h5>
+<p>Enum of available sounds. Sound is &lt;= 1MB and stored in memory.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.map/-starting-grid/index.html">com.mo.stratego.model.map.StartingGrid</a></h5>
+<p>A Grid representing the <a href="../com.mo.stratego.model.player/-player/index.html">Player</a>s starting formation.
+It has the size of an 4 x 10 array.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.player/-start-number/index.html">com.mo.stratego.model.player.StartNumber</a></h5>
+<p>Starting number that determines the starting order.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.communication/-state-event/index.html">com.mo.stratego.model.communication.StateEvent</a></h5>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego/-stratego-game/index.html">com.mo.stratego.StrategoGame</a></h5>
+<p>LibGDX entry point. Class that handles the currently displayed screen.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.component/-texture-component/index.html">com.mo.stratego.model.component.TextureComponent</a></h5>
+<p>Components for drawing a texture on the screen</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.ui.control/-timed-label/index.html">com.mo.stratego.ui.control.TimedLabel</a></h5>
+<p>Label that shows a text for the set time.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.ui.control/-timer-button/index.html">com.mo.stratego.ui.control.TimerButton</a></h5>
+<p>Button that disables after being pressed for the defined timeout. The action
+is run when the button is pressed.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.ui.control/-timer-label/index.html">com.mo.stratego.ui.control.TimerLabel</a></h5>
+<p>Label, that shows the time since rendered first.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.ui.control/-toggle-button/index.html">com.mo.stratego.ui.control.ToggleButton</a></h5>
+<p>Toggle button with state bound to given property. Property will be toggled
+if button gets pressed.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.game/-turn-counter/index.html">com.mo.stratego.model.game.TurnCounter</a></h5>
+<p>Class that keeps track of the current turn.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.component/-wait-component/index.html">com.mo.stratego.model.component.WaitComponent</a></h5>
+<p>Delays the execution of other Components. The executing system must exclude
+entities with the <a href="../com.mo.stratego.model.component/-wait-component/index.html">WaitComponent</a>. After the wait time is elapsed, the
+WaitComponent is removed and the execution of other components can continue.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.system/-wait-system/index.html">com.mo.stratego.model.system.WaitSystem</a></h5>
+<p>This system process Entities with a <a href="../com.mo.stratego.model.component/-wait-component/index.html">WaitComponent</a>. After the waitTime,
+that's specified in the <a href="../com.mo.stratego.model.component/-wait-component/index.html">WaitComponent</a>, is elapsed, the <a href="../com.mo.stratego.model.component/-wait-component/index.html">WaitComponent</a>
+is removed. The <a href="../com.mo.stratego.model.component/-wait-component/index.html">WaitComponent</a> is used to delay the processing of other
+components through other systems.</p>
+</tr>
+<tr>
+<h5><a href="../com.mo.stratego.model.comparator/-z-comparator/index.html">com.mo.stratego.model.comparator.ZComparator</a></h5>
+<p>Compares z axis of two entities.</p>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

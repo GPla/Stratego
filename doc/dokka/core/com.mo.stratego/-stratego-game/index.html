@@ -1,0 +1,85 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>StrategoGame - core</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">core</a>&nbsp;/&nbsp;<a href="../index.html">com.mo.stratego</a>&nbsp;/&nbsp;<a href="./index.html">StrategoGame</a><br/>
+<br/>
+<h1>StrategoGame</h1>
+<code><span class="keyword">object </span><span class="identifier">StrategoGame</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Game</span><span class="symbol">, </span><a href="../../com.mo.stratego.ui/-back-button-handler/index.html"><span class="identifier">BackButtonHandler</span></a></code>
+<p>LibGDX entry point. Class that handles the currently displayed screen.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="preferences.html">preferences</a></h4>
+</td>
+<td>
+<p>Persistent user settings.</p>
+<code><span class="keyword">val </span><span class="identifier">preferences</span><span class="symbol">: </span><span class="identifier">Preferences</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="create.html">create</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">create</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="dispose.html">dispose</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">dispose</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="handle-back-button.html">handleBackButton</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">handleBackButton</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="init.html">init</a></h4>
+</td>
+<td>
+<p>Initialize the game.</p>
+<code><span class="keyword">fun </span><span class="identifier">init</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.StrategoGame$init(com.mo.stratego.model.communication.ICommunication)/iCom">iCom</span><span class="symbol">:</span>&nbsp;<a href="../../com.mo.stratego.model.communication/-i-communication/index.html"><span class="identifier">ICommunication</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="register.html">register</a></h4>
+</td>
+<td>
+<p>Registers for the EventBus.</p>
+<code><span class="keyword">fun </span><span class="identifier">register</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.StrategoGame$register(kotlin.Any)/any">any</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="switch-screen.html">switchScreen</a></h4>
+</td>
+<td>
+<p>Switches the screen.</p>
+<code><span class="keyword">fun </span><span class="identifier">switchScreen</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.StrategoGame$switchScreen(com.mo.stratego.ui.Screens)/type">type</span><span class="symbol">:</span>&nbsp;<a href="../../com.mo.stratego.ui/-screens/index.html"><span class="identifier">Screens</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="unregister.html">unregister</a></h4>
+</td>
+<td>
+<p>Unregister from the EventBus.</p>
+<code><span class="keyword">fun </span><span class="identifier">unregister</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.StrategoGame$unregister(kotlin.Any)/any">any</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,105 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CommunicationHandler - core</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">core</a>&nbsp;/&nbsp;<a href="../index.html">com.mo.stratego.model.communication</a>&nbsp;/&nbsp;<a href="./index.html">CommunicationHandler</a><br/>
+<br/>
+<h1>CommunicationHandler</h1>
+<code><span class="keyword">object </span><span class="identifier">CommunicationHandler</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-i-communication-event-listener/index.html"><span class="identifier">ICommunicationEventListener</span></a></code>
+<p>Handles the communication between the core module and the platform specific
+modules. Provides wrapper methods for the <a href="../-i-communication/index.html">ICommunication</a> interface with
+additional features. Broadcasts <a href="../-i-communication-event-listener/index.html">ICommunicationEventListener</a> event's on the
+EventBus.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="connected-device-name.html">connectedDeviceName</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">connectedDeviceName</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="i-com.html">iCom</a></h4>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">iCom</span><span class="symbol">: </span><a href="../-i-communication/index.html"><span class="identifier">ICommunication</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="deserialize.html">deserialize</a></h4>
+</td>
+<td>
+<p>Deserialize json object to class instance.</p>
+<code><span class="keyword">fun </span><span class="identifier">deserialize</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.communication.CommunicationHandler$deserialize(kotlin.String)/str">str</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="init.html">init</a></h4>
+</td>
+<td>
+<p>Init.</p>
+<code><span class="keyword">fun </span><span class="identifier">init</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.communication.CommunicationHandler$init(com.mo.stratego.model.communication.ICommunication)/iCom">iCom</span><span class="symbol">:</span>&nbsp;<a href="../-i-communication/index.html"><span class="identifier">ICommunication</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-connected.html">onConnected</a></h4>
+</td>
+<td>
+<p>Connection has been established to another device.</p>
+<code><span class="keyword">fun </span><span class="identifier">onConnected</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.communication.CommunicationHandler$onConnected(kotlin.String)/name">name</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-connecting.html">onConnecting</a></h4>
+</td>
+<td>
+<p>Connection is trying to be established.</p>
+<code><span class="keyword">fun </span><span class="identifier">onConnecting</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-data-received.html">onDataReceived</a></h4>
+</td>
+<td>
+<p>Data received from connected device.</p>
+<code><span class="keyword">fun </span><span class="identifier">onDataReceived</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.communication.CommunicationHandler$onDataReceived(kotlin.ByteArray)/data">data</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html"><span class="identifier">ByteArray</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-data-write.html">onDataWrite</a></h4>
+</td>
+<td>
+<p>Sending data to connected device.</p>
+<code><span class="keyword">fun </span><span class="identifier">onDataWrite</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-error.html">onError</a></h4>
+</td>
+<td>
+<p>An error occurred.</p>
+<code><span class="keyword">fun </span><span class="identifier">onError</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.communication.CommunicationHandler$onError(kotlin.String)/msg">msg</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="serialize.html">serialize</a></h4>
+</td>
+<td>
+<p>Serialize object to json and sends it via iCom, if connected.</p>
+<code><span class="keyword">fun </span><span class="identifier">serialize</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.communication.CommunicationHandler$serialize(kotlin.Any)/obj">obj</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

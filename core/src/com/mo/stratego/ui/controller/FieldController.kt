@@ -1,6 +1,9 @@
 package com.mo.stratego.ui.controller
 
-import com.badlogic.ashley.core.*
+import com.badlogic.ashley.core.ComponentMapper
+import com.badlogic.ashley.core.Entity
+import com.badlogic.ashley.core.EntityListener
+import com.badlogic.ashley.core.PooledEngine
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.mo.stratego.model.HighlightType
@@ -11,9 +14,9 @@ import com.mo.stratego.ui.input.HighlightInputListener
 import com.mo.stratego.ui.input.PieceInputListener
 
 /**
- * Singleton class that controls the [Actor]'s displayed on the [Stage].
- * Implements [EntityListener] to add a [FieldActor]'s to the [Stage] if
- * a [Piece] or [HighlightComponent] is added to the [Engine].
+ * Singleton class that controls the Actor's displayed on the Stage.
+ * Implements EntityListener to add a [FieldActor]'s to the Stage if
+ * a [Piece] or [HighlightComponent] is added to the Engine.
  */
 object FieldController : EntityListener {
 

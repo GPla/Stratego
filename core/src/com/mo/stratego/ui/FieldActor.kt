@@ -4,7 +4,6 @@ import com.badlogic.ashley.core.ComponentMapper
 import com.badlogic.ashley.core.Entity
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.scenes.scene2d.Actor
-import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.mo.stratego.model.Piece
 import com.mo.stratego.model.component.PositionComponent
@@ -13,8 +12,8 @@ import com.mo.stratego.model.system.RenderSystem
 import com.mo.stratego.util.Constants
 
 /**
- * Scene2d actor for the [Entity] class. This class links an [Entity] instance
- * with an [Actor] instance to handle the user input. It does not draw on the
+ * Scene2d actor for the Entity class. This class links an Entity instance
+ * with an Actor instance to handle the user input. It does not draw on the
  * screen.
  */
 class FieldActor(val entity: Entity) : Actor() {
@@ -26,9 +25,9 @@ class FieldActor(val entity: Entity) : Actor() {
             ComponentMapper.getFor(TextureComponent::class.java)
 
     /**
-     * This method updates the bounds to the position and dimensions of the [Entity],
-     * so that the [InputListener] receives the relevant user input, i.e touch events.
-     * It does not draw the texture of the [Entity], this is done by the [RenderSystem].
+     * This method updates the bounds to the position and dimensions of the Entity,
+     * so that the InputListener receives the relevant user input, i.e touch events.
+     * It does not draw the texture of the Entity, this is done by the [RenderSystem].
      */
     override fun draw(batch: Batch?, parentAlpha: Float) {
         // get necessary components for drawing

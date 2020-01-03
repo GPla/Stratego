@@ -19,16 +19,16 @@ enum class Screens {
     GAME_LOST;
 
     /**
-     * @return Instance of the corresponding [Screen].
+     * @return Instance of the corresponding Screen.
      */
     fun createInstance(): Screen {
         return when (this) {
-            MAINMENU   -> MainMenuScreen()
+            MAINMENU -> MainMenuScreen()
             GAME_LOCAL -> GameScreen(GameMode.LOCAL)
             GAME_MULTI -> GameScreen(GameMode.MULTI)
-            GAME_WON   -> EndScreen(GameResult.WON)
-            GAME_DRAW  -> EndScreen(GameResult.DRAW)
-            GAME_LOST  -> EndScreen(GameResult.LOST)
+            GAME_WON -> EndScreen(GameResult.WON)
+            GAME_DRAW -> EndScreen(GameResult.DRAW)
+            GAME_LOST -> EndScreen(GameResult.LOST)
         }
     }
 }

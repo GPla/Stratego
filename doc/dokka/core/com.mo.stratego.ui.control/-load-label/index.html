@@ -1,0 +1,89 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>LoadLabel - core</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">core</a>&nbsp;/&nbsp;<a href="../index.html">com.mo.stratego.ui.control</a>&nbsp;/&nbsp;<a href="./index.html">LoadLabel</a><br/>
+<br/>
+<h1>LoadLabel</h1>
+<code><span class="keyword">class </span><span class="identifier">LoadLabel</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Label</span></code>
+<p>Label that displays a load animation. The animation consists of the
+repetition of the defined symbol. Each frame adds another instance of the
+symbol and lasts for the defined deltaTime.
+One cycle is deltaTime * maxCount long.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>Label that displays a load animation. The animation consists of the
+repetition of the defined symbol. Each frame adds another instance of the
+symbol and lasts for the defined deltaTime.
+One cycle is deltaTime * maxCount long.</p>
+<code><span class="identifier">LoadLabel</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.ui.control.LoadLabel$<init>(kotlin.String, kotlin.Float, kotlin.Char, kotlin.Function0((kotlin.Boolean)), com.badlogic.gdx.scenes.scene2d.ui.Skin, kotlin.Int)/defaultText">defaultText</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.mo.stratego.ui.control.LoadLabel$<init>(kotlin.String, kotlin.Float, kotlin.Char, kotlin.Function0((kotlin.Boolean)), com.badlogic.gdx.scenes.scene2d.ui.Skin, kotlin.Int)/deltaTime">deltaTime</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">, </span><span class="identifier" id="com.mo.stratego.ui.control.LoadLabel$<init>(kotlin.String, kotlin.Float, kotlin.Char, kotlin.Function0((kotlin.Boolean)), com.badlogic.gdx.scenes.scene2d.ui.Skin, kotlin.Int)/symbol">symbol</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char/index.html"><span class="identifier">Char</span></a><span class="symbol">, </span><span class="identifier" id="com.mo.stratego.ui.control.LoadLabel$<init>(kotlin.String, kotlin.Float, kotlin.Char, kotlin.Function0((kotlin.Boolean)), com.badlogic.gdx.scenes.scene2d.ui.Skin, kotlin.Int)/showProgress">showProgress</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="com.mo.stratego.ui.control.LoadLabel$<init>(kotlin.String, kotlin.Float, kotlin.Char, kotlin.Function0((kotlin.Boolean)), com.badlogic.gdx.scenes.scene2d.ui.Skin, kotlin.Int)/skin">skin</span><span class="symbol">:</span>&nbsp;<span class="identifier">Skin</span><span class="symbol">, </span><span class="identifier" id="com.mo.stratego.ui.control.LoadLabel$<init>(kotlin.String, kotlin.Float, kotlin.Char, kotlin.Function0((kotlin.Boolean)), com.badlogic.gdx.scenes.scene2d.ui.Skin, kotlin.Int)/maxCount">maxCount</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a>&nbsp;<span class="symbol">=</span>&nbsp;3<span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="default-text.html">defaultText</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">defaultText</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="delta-time.html">deltaTime</a></h4>
+</td>
+<td>
+<p>Time between frames</p>
+<code><span class="keyword">val </span><span class="identifier">deltaTime</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="max-count.html">maxCount</a></h4>
+</td>
+<td>
+<p>Maximum number of repetitions</p>
+<code><span class="keyword">var </span><span class="identifier">maxCount</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="show-progress.html">showProgress</a></h4>
+</td>
+<td>
+<p>Function if true show, otherwise hide animation only</p>
+<code><span class="keyword">val </span><span class="identifier">showProgress</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="symbol.html">symbol</a></h4>
+</td>
+<td>
+<p>Symbol to display</p>
+<code><span class="keyword">val </span><span class="identifier">symbol</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char/index.html"><span class="identifier">Char</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="act.html">act</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">act</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.ui.control.LoadLabel$act(kotlin.Float)/delta">delta</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

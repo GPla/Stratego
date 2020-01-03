@@ -14,7 +14,7 @@ import com.mo.stratego.model.player.Player
 import com.mo.stratego.model.player.PlayerId
 
 /**
- * This class represents the game grid. The [EntityListener] is
+ * This class represents the game grid. The EntityListener is
  * triggered if a [Piece] has a [PositionComponent] and
  * independently, another time, if it has a [MoveComponent].
  */
@@ -207,7 +207,6 @@ object Grid : EntityListener {
 
     /**
      * Overload of the bracket operator. Expects matrix coordinates.
-     * Call: Grid[x, y]
      * @param x X
      * @param y Y
      * @return [Piece] in the grid cell. Returns null if cell is empty or

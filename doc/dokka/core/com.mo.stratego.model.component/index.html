@@ -1,0 +1,84 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>com.mo.stratego.model.component - core</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">core</a>&nbsp;/&nbsp;<a href="./index.html">com.mo.stratego.model.component</a><br/>
+<br/>
+<h2>Package com.mo.stratego.model.component</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-attack-component/index.html">AttackComponent</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">AttackComponent</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Component</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-highlight-component/index.html">HighlightComponent</a></h4>
+</td>
+<td>
+<p>Class that marks an Entity as highlight. An highlight is a visual
+cue that marks a possible move for a Piece.</p>
+<code><span class="keyword">class </span><span class="identifier">HighlightComponent</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Component</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-move-component/index.html">MoveComponent</a></h4>
+</td>
+<td>
+<p>This component defines a move action for a <a href="../com.mo.stratego.model/-piece/index.html">Piece</a>. The
+move property will be added to the <a href="../com.mo.stratego.model/-piece/index.html">Piece</a>'s position.</p>
+<code><span class="keyword">class </span><span class="identifier">MoveComponent</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Component</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-piece-component/index.html">PieceComponent</a></h4>
+</td>
+<td>
+<p>Wrapper component for the <a href="../com.mo.stratego.model/-piece/index.html">Piece</a> class. Used as flag for filtering.</p>
+<code><span class="keyword">class </span><span class="identifier">PieceComponent</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Component</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-position-component/index.html">PositionComponent</a></h4>
+</td>
+<td>
+<p>A component that specifies the map position at which an entity
+is rendered. The z component is used to determine the render order.</p>
+<code><span class="keyword">class </span><span class="identifier">PositionComponent</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Component</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-sound-component/index.html">SoundComponent</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">SoundComponent</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Component</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-texture-component/index.html">TextureComponent</a></h4>
+</td>
+<td>
+<p>Components for drawing a texture on the screen</p>
+<code><span class="keyword">class </span><span class="identifier">TextureComponent</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Component</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-wait-component/index.html">WaitComponent</a></h4>
+</td>
+<td>
+<p>Delays the execution of other Components. The executing system must exclude
+entities with the <a href="-wait-component/index.html">WaitComponent</a>. After the wait time is elapsed, the
+WaitComponent is removed and the execution of other components can continue.</p>
+<code><span class="keyword">class </span><span class="identifier">WaitComponent</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Component</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

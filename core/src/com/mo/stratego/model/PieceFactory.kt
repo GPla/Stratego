@@ -38,7 +38,7 @@ object PieceFactory {
     }
 
     /**
-     * Increments the x-axis value of a [GridPoint2]. If a row is full,
+     * Increments the x-axis value of a GridPoint2. If a row is full,
      * 10 pieces per row, the coordinates are set to the first column of the
      * next row.
      * @param point Point

@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>FieldActor - core</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">core</a>&nbsp;/&nbsp;<a href="../index.html">com.mo.stratego.ui</a>&nbsp;/&nbsp;<a href="./index.html">FieldActor</a><br/>
+<br/>
+<h1>FieldActor</h1>
+<code><span class="keyword">class </span><span class="identifier">FieldActor</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Actor</span></code>
+<p>Scene2d actor for the Entity class. This class links an Entity instance
+with an Actor instance to handle the user input. It does not draw on the
+screen.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>Scene2d actor for the Entity class. This class links an Entity instance
+with an Actor instance to handle the user input. It does not draw on the
+screen.</p>
+<code><span class="identifier">FieldActor</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.ui.FieldActor$<init>(com.badlogic.ashley.core.Entity)/entity">entity</span><span class="symbol">:</span>&nbsp;<span class="identifier">Entity</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="entity.html">entity</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">entity</span><span class="symbol">: </span><span class="identifier">Entity</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="draw.html">draw</a></h4>
+</td>
+<td>
+<p>This method updates the bounds to the position and dimensions of the Entity,
+so that the InputListener receives the relevant user input, i.e touch events.
+It does not draw the texture of the Entity, this is done by the <a href="../../com.mo.stratego.model.system/-render-system/index.html">RenderSystem</a>.</p>
+<code><span class="keyword">fun </span><span class="identifier">draw</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.ui.FieldActor$draw(com.badlogic.gdx.graphics.g2d.Batch, kotlin.Float)/batch">batch</span><span class="symbol">:</span>&nbsp;<span class="identifier">Batch</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.mo.stratego.ui.FieldActor$draw(com.badlogic.gdx.graphics.g2d.Batch, kotlin.Float)/parentAlpha">parentAlpha</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

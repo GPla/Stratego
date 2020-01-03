@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>PieceFactory - core</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">core</a>&nbsp;/&nbsp;<a href="../index.html">com.mo.stratego.model</a>&nbsp;/&nbsp;<a href="./index.html">PieceFactory</a><br/>
+<br/>
+<h1>PieceFactory</h1>
+<code><span class="keyword">object </span><span class="identifier">PieceFactory</span></code>
+<p>Factory for generating <a href="../-piece/index.html">Piece</a>s</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="generate-pieces.html">generatePieces</a></h4>
+</td>
+<td>
+<p>Generates the given amount of <a href="../-piece/index.html">Piece</a>s of the same <a href="../-rank/index.html">Rank</a>.</p>
+<code><span class="keyword">fun </span><span class="identifier">generatePieces</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.PieceFactory$generatePieces(com.mo.stratego.model.Rank, com.mo.stratego.model.player.Player, kotlin.Int)/rank">rank</span><span class="symbol">:</span>&nbsp;<a href="../-rank/index.html"><span class="identifier">Rank</span></a><span class="symbol">, </span><span class="identifier" id="com.mo.stratego.model.PieceFactory$generatePieces(com.mo.stratego.model.Rank, com.mo.stratego.model.player.Player, kotlin.Int)/owner">owner</span><span class="symbol">:</span>&nbsp;<a href="../../com.mo.stratego.model.player/-player/index.html"><span class="identifier">Player</span></a><span class="symbol">, </span><span class="identifier" id="com.mo.stratego.model.PieceFactory$generatePieces(com.mo.stratego.model.Rank, com.mo.stratego.model.player.Player, kotlin.Int)/count">count</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-piece/index.html"><span class="identifier">Piece</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="generate-set.html">generateSet</a></h4>
+</td>
+<td>
+<p>Generates a full set of <a href="../-piece/index.html">Piece</a>s for a given <a href="../../com.mo.stratego.model.player/-player/index.html">Player</a>.</p>
+<code><span class="keyword">fun </span><span class="identifier">generateSet</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.PieceFactory$generateSet(com.mo.stratego.model.player.Player)/owner">owner</span><span class="symbol">:</span>&nbsp;<a href="../../com.mo.stratego.model.player/-player/index.html"><span class="identifier">Player</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-piece/index.html"><span class="identifier">Piece</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="increment-point.html">incrementPoint</a></h4>
+</td>
+<td>
+<p>Increments the x-axis value of a GridPoint2. If a row is full,
+10 pieces per row, the coordinates are set to the first column of the
+next row.</p>
+<code><span class="keyword">fun </span><span class="identifier">incrementPoint</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.PieceFactory$incrementPoint(com.badlogic.gdx.math.GridPoint2, kotlin.Boolean)/point">point</span><span class="symbol">:</span>&nbsp;<span class="identifier">GridPoint2</span><span class="symbol">, </span><span class="identifier" id="com.mo.stratego.model.PieceFactory$incrementPoint(com.badlogic.gdx.math.GridPoint2, kotlin.Boolean)/yDown">yDown</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a>&nbsp;<span class="symbol">=</span>&nbsp;false<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

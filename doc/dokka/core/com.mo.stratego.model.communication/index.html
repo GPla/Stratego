@@ -1,0 +1,108 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>com.mo.stratego.model.communication - core</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">core</a>&nbsp;/&nbsp;<a href="./index.html">com.mo.stratego.model.communication</a><br/>
+<br/>
+<h2>Package com.mo.stratego.model.communication</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-communication-handler/index.html">CommunicationHandler</a></h4>
+</td>
+<td>
+<p>Handles the communication between the core module and the platform specific
+modules. Provides wrapper methods for the <a href="-i-communication/index.html">ICommunication</a> interface with
+additional features. Broadcasts <a href="-i-communication-event-listener/index.html">ICommunicationEventListener</a> event's on the
+EventBus.</p>
+<code><span class="keyword">object </span><span class="identifier">CommunicationHandler</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-communication-event-listener/index.html"><span class="identifier">ICommunicationEventListener</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-control-event/index.html">ControlEvent</a></h4>
+</td>
+<td>
+<p>Enum of control events. For communication between
+the <a href="../com.mo.stratego.model.game/-game-controller/index.html">GameController</a>s.</p>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">ControlEvent</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-control-message/index.html">ControlMessage</a></h4>
+</td>
+<td>
+<p>Wrapper for <a href="-control-event/index.html">ControlEvent</a>. Enum cannot directly be serialized with KotlinX.</p>
+<code><span class="keyword">class </span><span class="identifier">ControlMessage</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-data-received-event/index.html">DataReceivedEvent</a></h4>
+</td>
+<td>
+<p>Wrapper for <a href="-communication-handler/index.html">CommunicationHandler</a> data received event.</p>
+<code><span class="keyword">class </span><span class="identifier">DataReceivedEvent</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-data-write-event/index.html">DataWriteEvent</a></h4>
+</td>
+<td>
+<p><a href="-communication-handler/index.html">CommunicationHandler</a> data write event.</p>
+<code><span class="keyword">class </span><span class="identifier">DataWriteEvent</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-i-communication/index.html">ICommunication</a></h4>
+</td>
+<td>
+<p>Interface for inter-device communication.</p>
+<code><span class="keyword">interface </span><span class="identifier">ICommunication</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-i-communication-event-listener/index.html">ICommunicationEventListener</a></h4>
+</td>
+<td>
+<p>Events of the communication interface.</p>
+<code><span class="keyword">interface </span><span class="identifier">ICommunicationEventListener</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-on-connected-event/index.html">OnConnectedEvent</a></h4>
+</td>
+<td>
+<p><a href="-communication-handler/index.html">CommunicationHandler</a> on connected event.</p>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">OnConnectedEvent</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-on-connecting-event/index.html">OnConnectingEvent</a></h4>
+</td>
+<td>
+<p><a href="-communication-handler/index.html">CommunicationHandler</a> on connecting event.</p>
+<code><span class="keyword">class </span><span class="identifier">OnConnectingEvent</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-on-error-event/index.html">OnErrorEvent</a></h4>
+</td>
+<td>
+<p><a href="-communication-handler/index.html">CommunicationHandler</a> on error event.</p>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">OnErrorEvent</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-state-event/index.html">StateEvent</a></h4>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">StateEvent</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

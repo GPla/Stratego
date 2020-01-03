@@ -1,7 +1,6 @@
 package com.mo.stratego.model.system
 
 import com.badlogic.ashley.core.ComponentMapper
-import com.badlogic.ashley.core.Engine
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.SortedIteratingSystem
@@ -31,7 +30,7 @@ class RenderSystem(private val batch: SpriteBatch,
             ComponentMapper.getFor(TextureComponent::class.java)
 
     /**
-     * Called every frame by the [Engine]
+     * Called every frame by the Engine.
      */
     override fun update(deltaTime: Float) {
         batch.projectionMatrix = camera.combined
@@ -43,7 +42,7 @@ class RenderSystem(private val batch: SpriteBatch,
     }
 
     /**
-     * Draw [Entity] on screen by the defined texture of the [TextureComponent]
+     * Draw Entity on screen by the defined texture of the [TextureComponent]
      * at the position defined by the [PositionComponent].
      */
     override fun processEntity(entity: Entity?, deltaTime: Float) {

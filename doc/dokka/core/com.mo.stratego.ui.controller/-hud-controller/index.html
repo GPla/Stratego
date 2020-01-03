@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>HudController - core</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">core</a>&nbsp;/&nbsp;<a href="../index.html">com.mo.stratego.ui.controller</a>&nbsp;/&nbsp;<a href="./index.html">HudController</a><br/>
+<br/>
+<h1>HudController</h1>
+<code><span class="keyword">object </span><span class="identifier">HudController</span></code>
+<p>Controller for ui elements while the game is running.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="lbl-time.html">lblTime</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">lblTime</span><span class="symbol">: </span><a href="../../com.mo.stratego.ui.control/-timer-label/index.html"><span class="identifier">TimerLabel</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="lbl-turn.html">lblTurn</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">lblTurn</span><span class="symbol">: </span><span class="identifier">Label</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="stage.html">stage</a></h4>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">stage</span><span class="symbol">: </span><span class="identifier">Stage</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="init.html">init</a></h4>
+</td>
+<td>
+<p>Init the object with this method. If not called before usage
+an error will be thrown.</p>
+<code><span class="keyword">fun </span><span class="identifier">init</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.ui.controller.HudController$init(com.badlogic.gdx.scenes.scene2d.Stage, com.badlogic.ashley.core.PooledEngine)/stage">stage</span><span class="symbol">:</span>&nbsp;<span class="identifier">Stage</span><span class="symbol">, </span><span class="identifier" id="com.mo.stratego.ui.controller.HudController$init(com.badlogic.gdx.scenes.scene2d.Stage, com.badlogic.ashley.core.PooledEngine)/engine">engine</span><span class="symbol">:</span>&nbsp;<span class="identifier">PooledEngine</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-state-event.html">onStateEvent</a></h4>
+</td>
+<td>
+<p>Eventbus subscription for <a href="../../com.mo.stratego.model.game/-game-controller/index.html">GameController</a> state change.</p>
+<code><span class="keyword">fun </span><span class="identifier">onStateEvent</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.ui.controller.HudController$onStateEvent(com.mo.stratego.model.communication.StateEvent)/msg">msg</span><span class="symbol">:</span>&nbsp;<a href="../../com.mo.stratego.model.communication/-state-event/index.html"><span class="identifier">StateEvent</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

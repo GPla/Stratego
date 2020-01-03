@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>SoundProvider - core</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">core</a>&nbsp;/&nbsp;<a href="../index.html">com.mo.stratego.model.sound</a>&nbsp;/&nbsp;<a href="./index.html">SoundProvider</a><br/>
+<br/>
+<h1>SoundProvider</h1>
+<code><span class="keyword">object </span><span class="identifier">SoundProvider</span></code>
+<p>Provider class for music and sound effects.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="is-turned-on.html">isTurnedOn</a></h4>
+</td>
+<td>
+<p>Whether or not sounds are played. Value is saved and retrieved from
+the persistent game preferences.</p>
+<code><span class="keyword">var </span><span class="identifier">isTurnedOn</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="play-music.html">playMusic</a></h4>
+</td>
+<td>
+<p>Plays music in a loop.</p>
+<code><span class="keyword">fun </span><span class="identifier">playMusic</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.sound.SoundProvider$playMusic(com.mo.stratego.model.sound.MusicType)/musicType">musicType</span><span class="symbol">:</span>&nbsp;<a href="../-music-type/index.html"><span class="identifier">MusicType</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="play-sound.html">playSound</a></h4>
+</td>
+<td>
+<p>Plays a sound.</p>
+<code><span class="keyword">fun </span><span class="identifier">playSound</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.sound.SoundProvider$playSound(com.mo.stratego.model.sound.SoundType)/soundType">soundType</span><span class="symbol">:</span>&nbsp;<a href="../-sound-type/index.html"><span class="identifier">SoundType</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="stop-music.html">stopMusic</a></h4>
+</td>
+<td>
+<p>Stops music.</p>
+<code><span class="keyword">fun </span><span class="identifier">stopMusic</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.sound.SoundProvider$stopMusic(kotlin.Int)/musicHandle">musicHandle</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a>&nbsp;<span class="symbol">=</span>&nbsp;0<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

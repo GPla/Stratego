@@ -13,7 +13,7 @@ import org.greenrobot.eventbus.EventBus
  * Handles the communication between the core module and the platform specific
  * modules. Provides wrapper methods for the [ICommunication] interface with
  * additional features. Broadcasts [ICommunicationEventListener] event's on the
- * [EventBus].
+ * EventBus.
  */
 object CommunicationHandler : ICommunicationEventListener {
 

@@ -1,0 +1,20 @@
+$dokka.format:html
+$dokka.linkExtension:html
+$dokka.location:com.mo.stratego.util$formatNoDecimal(kotlin.Float)com.mo.stratego.util/kotlin.-float/format-no-decimal.html
+$dokka.location:com.mo.stratego.util$formatNoDecimal(kotlin.Float, kotlin.Int)com.mo.stratego.util/kotlin.-float/format-no-decimal.html
+com.mo.stratego
+com.mo.stratego.model
+com.mo.stratego.model.communication
+com.mo.stratego.model.comparator
+com.mo.stratego.model.component
+com.mo.stratego.model.game
+com.mo.stratego.model.map
+com.mo.stratego.model.player
+com.mo.stratego.model.sound
+com.mo.stratego.model.system
+com.mo.stratego.ui
+com.mo.stratego.ui.control
+com.mo.stratego.ui.controller
+com.mo.stratego.ui.input
+com.mo.stratego.ui.provider
+com.mo.stratego.util

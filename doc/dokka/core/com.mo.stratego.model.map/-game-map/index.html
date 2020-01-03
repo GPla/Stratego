@@ -1,0 +1,96 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>GameMap - core</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">core</a>&nbsp;/&nbsp;<a href="../index.html">com.mo.stratego.model.map</a>&nbsp;/&nbsp;<a href="./index.html">GameMap</a><br/>
+<br/>
+<h1>GameMap</h1>
+<code><span class="keyword">object </span><span class="identifier">GameMap</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Disposable</span></code>
+<p>Singleton Class that loads and renders the Map</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="grid-bottom.html">gridBottom</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">gridBottom</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="grid-left.html">gridLeft</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">gridLeft</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="height.html">height</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">height</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="tileheight.html">tileheight</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">tileheight</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="tilewidth.html">tilewidth</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">tilewidth</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="width.html">width</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">width</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="dispose.html">dispose</a></h4>
+</td>
+<td>
+<p>Disposes loaded resources.</p>
+<code><span class="keyword">fun </span><span class="identifier">dispose</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="init.html">init</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">init</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="render.html">render</a></h4>
+</td>
+<td>
+<p>Renders the map</p>
+<code><span class="keyword">fun </span><span class="identifier">render</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.map.GameMap$render(com.badlogic.gdx.graphics.OrthographicCamera)/camera">camera</span><span class="symbol">:</span>&nbsp;<span class="identifier">OrthographicCamera</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="scale.html">scale</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">scale</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.map.GameMap$scale(kotlin.Int, kotlin.Int)/dim">dim</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.mo.stratego.model.map.GameMap$scale(kotlin.Int, kotlin.Int)/tiledim">tiledim</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

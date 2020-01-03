@@ -1,0 +1,44 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MoveSystem - core</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">core</a>&nbsp;/&nbsp;<a href="../index.html">com.mo.stratego.model.system</a>&nbsp;/&nbsp;<a href="./index.html">MoveSystem</a><br/>
+<br/>
+<h1>MoveSystem</h1>
+<code><span class="keyword">class </span><span class="identifier">MoveSystem</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">SortedIteratingSystem</span></code>
+<p>System that processes entities with a <a href="../../com.mo.stratego.model.component/-piece-component/index.html">PieceComponent</a>, a <a href="../../com.mo.stratego.model.component/-position-component/index.html">PositionComponent</a>
+and a <a href="../../com.mo.stratego.model.component/-move-component/index.html">MoveComponent</a>. This system moves the entities to their new position,
+if an opponent's <a href="../../com.mo.stratego.model/-piece/index.html">Piece</a> occupies the target position an attack is initiated.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>System that processes entities with a <a href="../../com.mo.stratego.model.component/-piece-component/index.html">PieceComponent</a>, a <a href="../../com.mo.stratego.model.component/-position-component/index.html">PositionComponent</a>
+and a <a href="../../com.mo.stratego.model.component/-move-component/index.html">MoveComponent</a>. This system moves the entities to their new position,
+if an opponent's <a href="../../com.mo.stratego.model/-piece/index.html">Piece</a> occupies the target position an attack is initiated.</p>
+<code><span class="identifier">MoveSystem</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="process-entity.html">processEntity</a></h4>
+</td>
+<td>
+<p>Process the movement.</p>
+<code><span class="keyword">fun </span><span class="identifier">processEntity</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.system.MoveSystem$processEntity(com.badlogic.ashley.core.Entity, kotlin.Float)/entity">entity</span><span class="symbol">:</span>&nbsp;<span class="identifier">Entity</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.mo.stratego.model.system.MoveSystem$processEntity(com.badlogic.ashley.core.Entity, kotlin.Float)/deltaTime">deltaTime</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

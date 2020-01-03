@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>WaitSystem - core</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">core</a>&nbsp;/&nbsp;<a href="../index.html">com.mo.stratego.model.system</a>&nbsp;/&nbsp;<a href="./index.html">WaitSystem</a><br/>
+<br/>
+<h1>WaitSystem</h1>
+<code><span class="keyword">class </span><span class="identifier">WaitSystem</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">IteratingSystem</span></code>
+<p>This system process Entities with a <a href="../../com.mo.stratego.model.component/-wait-component/index.html">WaitComponent</a>. After the waitTime,
+that's specified in the <a href="../../com.mo.stratego.model.component/-wait-component/index.html">WaitComponent</a>, is elapsed, the <a href="../../com.mo.stratego.model.component/-wait-component/index.html">WaitComponent</a>
+is removed. The <a href="../../com.mo.stratego.model.component/-wait-component/index.html">WaitComponent</a> is used to delay the processing of other
+components through other systems.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>This system process Entities with a <a href="../../com.mo.stratego.model.component/-wait-component/index.html">WaitComponent</a>. After the waitTime,
+that's specified in the <a href="../../com.mo.stratego.model.component/-wait-component/index.html">WaitComponent</a>, is elapsed, the <a href="../../com.mo.stratego.model.component/-wait-component/index.html">WaitComponent</a>
+is removed. The <a href="../../com.mo.stratego.model.component/-wait-component/index.html">WaitComponent</a> is used to delay the processing of other
+components through other systems.</p>
+<code><span class="identifier">WaitSystem</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="wait-mapper.html">waitMapper</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">waitMapper</span><span class="symbol">: </span><span class="identifier">ComponentMapper</span><span class="symbol">&lt;</span><a href="../../com.mo.stratego.model.component/-wait-component/index.html"><span class="identifier">WaitComponent</span></a><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="process-entity.html">processEntity</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">processEntity</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.system.WaitSystem$processEntity(com.badlogic.ashley.core.Entity, kotlin.Float)/entity">entity</span><span class="symbol">:</span>&nbsp;<span class="identifier">Entity</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.mo.stratego.model.system.WaitSystem$processEntity(com.badlogic.ashley.core.Entity, kotlin.Float)/deltaTime">deltaTime</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

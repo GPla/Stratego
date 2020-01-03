@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>RenderSystem - core</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">core</a>&nbsp;/&nbsp;<a href="../index.html">com.mo.stratego.model.system</a>&nbsp;/&nbsp;<a href="./index.html">RenderSystem</a><br/>
+<br/>
+<h1>RenderSystem</h1>
+<code><span class="keyword">class </span><span class="identifier">RenderSystem</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">SortedIteratingSystem</span></code>
+<p>System that renders all entities with a <a href="../../com.mo.stratego.model.component/-position-component/index.html">PositionComponent</a> and a
+<a href="../../com.mo.stratego.model.component/-texture-component/index.html">TextureComponent</a>. The render order is specified through the
+z value of the <a href="../../com.mo.stratego.model.component/-position-component/index.html">PositionComponent</a>.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>System that renders all entities with a <a href="../../com.mo.stratego.model.component/-position-component/index.html">PositionComponent</a> and a
+<a href="../../com.mo.stratego.model.component/-texture-component/index.html">TextureComponent</a>. The render order is specified through the
+z value of the <a href="../../com.mo.stratego.model.component/-position-component/index.html">PositionComponent</a>.</p>
+<code><span class="identifier">RenderSystem</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.system.RenderSystem$<init>(com.badlogic.gdx.graphics.g2d.SpriteBatch, com.badlogic.gdx.graphics.OrthographicCamera)/batch">batch</span><span class="symbol">:</span>&nbsp;<span class="identifier">SpriteBatch</span><span class="symbol">, </span><span class="identifier" id="com.mo.stratego.model.system.RenderSystem$<init>(com.badlogic.gdx.graphics.g2d.SpriteBatch, com.badlogic.gdx.graphics.OrthographicCamera)/camera">camera</span><span class="symbol">:</span>&nbsp;<span class="identifier">OrthographicCamera</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="process-entity.html">processEntity</a></h4>
+</td>
+<td>
+<p>Draw Entity on screen by the defined texture of the <a href="../../com.mo.stratego.model.component/-texture-component/index.html">TextureComponent</a>
+at the position defined by the <a href="../../com.mo.stratego.model.component/-position-component/index.html">PositionComponent</a>.</p>
+<code><span class="keyword">fun </span><span class="identifier">processEntity</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.system.RenderSystem$processEntity(com.badlogic.ashley.core.Entity, kotlin.Float)/entity">entity</span><span class="symbol">:</span>&nbsp;<span class="identifier">Entity</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.mo.stratego.model.system.RenderSystem$processEntity(com.badlogic.ashley.core.Entity, kotlin.Float)/deltaTime">deltaTime</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="update.html">update</a></h4>
+</td>
+<td>
+<p>Called every frame by the Engine.</p>
+<code><span class="keyword">fun </span><span class="identifier">update</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.system.RenderSystem$update(kotlin.Float)/deltaTime">deltaTime</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

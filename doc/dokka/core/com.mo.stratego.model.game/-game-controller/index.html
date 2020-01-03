@@ -1,0 +1,130 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>GameController - core</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">core</a>&nbsp;/&nbsp;<a href="../index.html">com.mo.stratego.model.game</a>&nbsp;/&nbsp;<a href="./index.html">GameController</a><br/>
+<br/>
+<h1>GameController</h1>
+<code><span class="keyword">object </span><span class="identifier">GameController</span></code>
+<p>This object handles the game flow and <a href="../-game-state/index.html">GameState</a>.
+This class represents the referee mentioned in this paper,
+see https://pdfs.semanticscholar.org/f35c/df2b5cb1a36d703ab6c4a4d80cbaaf3cc603.pdf</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="game-mode.html">gameMode</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">gameMode</span><span class="symbol">: </span><a href="../-game-mode/index.html"><span class="identifier">GameMode</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="move-history.html">moveHistory</a></h4>
+</td>
+<td>
+<p>Contains the move history for the current game.</p>
+<code><span class="keyword">val </span><span class="identifier">moveHistory</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/index.html"><span class="identifier">MutableMap</span></a><span class="symbol">&lt;</span><a href="../../com.mo.stratego.model.player/-player-id/index.html"><span class="identifier">PlayerId</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html"><span class="identifier">MutableList</span></a><span class="symbol">&lt;</span><a href="../../com.mo.stratego.model/-move/index.html"><span class="identifier">Move</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="player-pieces.html">playerPieces</a></h4>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">playerPieces</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><a href="../../com.mo.stratego.model.player/-player/index.html"><span class="identifier">Player</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.mo.stratego.model/-piece/index.html"><span class="identifier">Piece</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="players.html">players</a></h4>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">players</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><a href="../../com.mo.stratego.model.player/-player/index.html"><span class="identifier">Player</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="state.html">state</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">state</span><span class="symbol">: </span><a href="../-game-state/index.html"><span class="identifier">GameState</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="accept-draw.html">acceptDraw</a></h4>
+</td>
+<td>
+<p>Accepts the draw and ends the game.</p>
+<code><span class="keyword">fun </span><span class="identifier">acceptDraw</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="end.html">end</a></h4>
+</td>
+<td>
+<p>This method is called when a player won the game.
+The game freezes and the <a href="../../com.mo.stratego/-end-screen/index.html">EndScreen</a> is displayed.</p>
+<code><span class="keyword">fun </span><span class="identifier">end</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.game.GameController$end(com.mo.stratego.model.game.GameResult)/gameResult">gameResult</span><span class="symbol">:</span>&nbsp;<a href="../-game-result/index.html"><span class="identifier">GameResult</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="init.html">init</a></h4>
+</td>
+<td>
+<p>Init the object with this method. If not called before usage
+an exception is thrown.</p>
+<code><span class="keyword">fun </span><span class="identifier">init</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.game.GameController$init(com.badlogic.ashley.core.Engine, com.mo.stratego.model.game.GameMode)/engine">engine</span><span class="symbol">:</span>&nbsp;<span class="identifier">Engine</span><span class="symbol">, </span><span class="identifier" id="com.mo.stratego.model.game.GameController$init(com.badlogic.ashley.core.Engine, com.mo.stratego.model.game.GameMode)/gameMode">gameMode</span><span class="symbol">:</span>&nbsp;<a href="../-game-mode/index.html"><span class="identifier">GameMode</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">GameController</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="offer-draw.html">offerDraw</a></h4>
+</td>
+<td>
+<p>Offers a draw to the other player.</p>
+<code><span class="keyword">fun </span><span class="identifier">offerDraw</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-on-data-received-event.html">OnDataReceivedEvent</a></h4>
+</td>
+<td>
+<p><a href="../../com.mo.stratego.model.communication/-communication-handler/index.html">CommunicationHandler</a> event if data was received.</p>
+<code><span class="keyword">fun </span><span class="identifier">OnDataReceivedEvent</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.game.GameController$OnDataReceivedEvent(com.mo.stratego.model.communication.DataReceivedEvent)/event">event</span><span class="symbol">:</span>&nbsp;<a href="../../com.mo.stratego.model.communication/-data-received-event/index.html"><span class="identifier">DataReceivedEvent</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-error-event.html">onErrorEvent</a></h4>
+</td>
+<td>
+<p><a href="../../com.mo.stratego.model.communication/-communication-handler/index.html">CommunicationHandler</a> event occurs the connection was lost.
+Show connection lost dialog and returns to <a href="../../com.mo.stratego/-main-menu-screen/index.html">MainMenuScreen</a>.</p>
+<code><span class="keyword">fun </span><span class="identifier">onErrorEvent</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.game.GameController$onErrorEvent(com.mo.stratego.model.communication.OnErrorEvent)/event">event</span><span class="symbol">:</span>&nbsp;<a href="../../com.mo.stratego.model.communication/-on-error-event/index.html"><span class="identifier">OnErrorEvent</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="run.html">run</a></h4>
+</td>
+<td>
+<p>This method runs and updates the <a href="../-game-state/index.html">GameState</a>.
+It should be called every frame by the game loop.</p>
+<code><span class="keyword">fun </span><span class="identifier">run</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="surrender.html">surrender</a></h4>
+</td>
+<td>
+<p>Surrenders the current game. The game is lost.</p>
+<code><span class="keyword">fun </span><span class="identifier">surrender</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

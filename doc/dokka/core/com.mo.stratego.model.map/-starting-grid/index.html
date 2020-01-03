@@ -1,0 +1,121 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>StartingGrid - core</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">core</a>&nbsp;/&nbsp;<a href="../index.html">com.mo.stratego.model.map</a>&nbsp;/&nbsp;<a href="./index.html">StartingGrid</a><br/>
+<br/>
+<h1>StartingGrid</h1>
+<code><span class="keyword">class </span><span class="identifier">StartingGrid</span></code>
+<p>A Grid representing the <a href="../../com.mo.stratego.model.player/-player/index.html">Player</a>s starting formation.
+It has the size of an 4 x 10 array.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>A Grid representing the <a href="../../com.mo.stratego.model.player/-player/index.html">Player</a>s starting formation.
+It has the size of an 4 x 10 array.</p>
+<code><span class="identifier">StartingGrid</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="matrix.html">matrix</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">matrix</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><a href="../../com.mo.stratego.model/-rank/index.html"><span class="identifier">Rank</span></a><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="size-x.html">sizeX</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">sizeX</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="size-y.html">sizeY</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">sizeY</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="for-each-indexed.html">forEachIndexed</a></h4>
+</td>
+<td>
+<p>ForEachIndexed extension method. Iterates through the grid with
+the parameters being x, y, <a href="../../com.mo.stratego.model/-rank/index.html">Rank</a>?.</p>
+<code><span class="keyword">fun </span><span class="identifier">forEachIndexed</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.map.StartingGrid$forEachIndexed(kotlin.Function3((kotlin.Int, , com.mo.stratego.model.Rank, kotlin.Unit)))/action">action</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">,</span>&nbsp;<a href="../../com.mo.stratego.model/-rank/index.html"><span class="identifier">Rank</span></a><span class="symbol">?</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="for-each-indexed-set.html">forEachIndexedSet</a></h4>
+</td>
+<td>
+<p>ForEachIndexed extension method. The Grid can be fully initialized
+with this method. Parameters are x, y with return value of <a href="../../com.mo.stratego.model/-rank/index.html">Rank</a>.</p>
+<code><span class="keyword">fun </span><span class="identifier">forEachIndexedSet</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.map.StartingGrid$forEachIndexedSet(kotlin.Function2((kotlin.Int, , com.mo.stratego.model.Rank)))/action">action</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../com.mo.stratego.model/-rank/index.html"><span class="identifier">Rank</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="for-each-indexed-transposed.html">forEachIndexedTransposed</a></h4>
+</td>
+<td>
+<p>ForEachIndexed extension method. Iterates through the transposed matrix.
+Parameters are x, y, <a href="../../com.mo.stratego.model/-rank/index.html">Rank</a>?.</p>
+<code><span class="keyword">fun </span><span class="identifier">forEachIndexedTransposed</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.map.StartingGrid$forEachIndexedTransposed(kotlin.Function3((kotlin.Int, , com.mo.stratego.model.Rank, kotlin.Unit)))/action">action</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">,</span>&nbsp;<a href="../../com.mo.stratego.model/-rank/index.html"><span class="identifier">Rank</span></a><span class="symbol">?</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get.html">get</a></h4>
+</td>
+<td>
+<p>Overload of [] operator.</p>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="identifier">get</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.map.StartingGrid$get(com.badlogic.gdx.math.GridPoint2)/point">point</span><span class="symbol">:</span>&nbsp;<span class="identifier">GridPoint2</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.mo.stratego.model/-rank/index.html"><span class="identifier">Rank</span></a><span class="symbol">?</span></code><br/>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="identifier">get</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.map.StartingGrid$get(kotlin.Int, kotlin.Int)/x">x</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.mo.stratego.model.map.StartingGrid$get(kotlin.Int, kotlin.Int)/y">y</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.mo.stratego.model/-rank/index.html"><span class="identifier">Rank</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="is-valid.html">isValid</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">isValid</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="set.html">set</a></h4>
+</td>
+<td>
+<p>Overload of [] operator. Sets the value at point.x, point.y.</p>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="identifier">set</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.map.StartingGrid$set(com.badlogic.gdx.math.GridPoint2, com.mo.stratego.model.Rank)/point">point</span><span class="symbol">:</span>&nbsp;<span class="identifier">GridPoint2</span><span class="symbol">, </span><span class="identifier" id="com.mo.stratego.model.map.StartingGrid$set(com.badlogic.gdx.math.GridPoint2, com.mo.stratego.model.Rank)/value">value</span><span class="symbol">:</span>&nbsp;<a href="../../com.mo.stratego.model/-rank/index.html"><span class="identifier">Rank</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Overload of [] operator. Sets the value at x,y.</p>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="identifier">set</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.map.StartingGrid$set(kotlin.Int, kotlin.Int, com.mo.stratego.model.Rank)/x">x</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.mo.stratego.model.map.StartingGrid$set(kotlin.Int, kotlin.Int, com.mo.stratego.model.Rank)/y">y</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.mo.stratego.model.map.StartingGrid$set(kotlin.Int, kotlin.Int, com.mo.stratego.model.Rank)/value">value</span><span class="symbol">:</span>&nbsp;<a href="../../com.mo.stratego.model/-rank/index.html"><span class="identifier">Rank</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="transpose.html">transpose</a></h4>
+</td>
+<td>
+<p>Transposes the grid.</p>
+<code><span class="keyword">fun </span><span class="identifier">transpose</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">StartingGrid</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

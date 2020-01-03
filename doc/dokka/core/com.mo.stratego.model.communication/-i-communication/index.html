@@ -1,0 +1,112 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ICommunication - core</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">core</a>&nbsp;/&nbsp;<a href="../index.html">com.mo.stratego.model.communication</a>&nbsp;/&nbsp;<a href="./index.html">ICommunication</a><br/>
+<br/>
+<h1>ICommunication</h1>
+<code><span class="keyword">interface </span><span class="identifier">ICommunication</span></code>
+<p>Interface for inter-device communication.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="is-connected.html">isConnected</a></h4>
+</td>
+<td>
+<p>Whether or not the communication service is connected to another device.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">var </span><span class="identifier">isConnected</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="is-scanning.html">isScanning</a></h4>
+</td>
+<td>
+<p>Whether or not the communication service is currently scanning for
+other devices.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">var </span><span class="identifier">isScanning</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="listener.html">listener</a></h4>
+</td>
+<td>
+<p>Event listener.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">var </span><span class="identifier">listener</span><span class="symbol">: </span><a href="../-i-communication-event-listener/index.html"><span class="identifier">ICommunicationEventListener</span></a><span class="symbol">?</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="connect.html">connect</a></h4>
+</td>
+<td>
+<p>Connect to another device.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">connect</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.communication.ICommunication$connect(kotlin.String)/device">device</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="disable.html">disable</a></h4>
+</td>
+<td>
+<p>DisableS service.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">disable</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="disconnect.html">disconnect</a></h4>
+</td>
+<td>
+<p>Disconnect from other devices.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">disconnect</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-available-devices.html">getAvailableDevices</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getAvailableDevices</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="start-scan.html">startScan</a></h4>
+</td>
+<td>
+<p>Start scanning for other devices.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">startScan</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="stop-scan.html">stopScan</a></h4>
+</td>
+<td>
+<p>Stop scanning for other devices.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">stopScan</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="stop-service.html">stopService</a></h4>
+</td>
+<td>
+<p>Stop and dispose the service.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">stopService</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="write-data.html">writeData</a></h4>
+</td>
+<td>
+<p>Write data to the output stream.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">writeData</span><span class="symbol">(</span><span class="identifier" id="com.mo.stratego.model.communication.ICommunication$writeData(kotlin.ByteArray)/data">data</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html"><span class="identifier">ByteArray</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

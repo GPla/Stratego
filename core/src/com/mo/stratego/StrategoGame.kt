@@ -36,14 +36,14 @@ object StrategoGame : Game(), BackButtonHandler {
     }
 
     /**
-     * List that contains registered [EventBus] listener, that do
+     * List that contains registered EventBus listener, that do
      * not manage their own lifespan. On app dispose() all instances
      * will be unregistered.
      */
     private val eventBusListener: MutableList<Any> = mutableListOf()
 
     /**
-     * Registers for the [EventBus].
+     * Registers for the EventBus.
      * @param any Any
      */
     fun register(any: Any) {
@@ -54,7 +54,7 @@ object StrategoGame : Game(), BackButtonHandler {
     }
 
     /**
-     * Unregister from the [EventBus].
+     * Unregister from the EventBus.
      * @param any Any
      */
     fun unregister(any: Any) {

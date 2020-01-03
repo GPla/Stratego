@@ -13,7 +13,6 @@ import com.mo.stratego.model.map.Grid
 import com.mo.stratego.model.map.StartingGrid
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
-import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -104,7 +103,7 @@ class PlayerProxy(id: PlayerId) : Player(id) {
 
     /**
      * Subscription of [DataReceivedEvent]'s that are broadcasted on the
-     * [EventBus]. Event occurs if the [CommunicationHandler] receives
+     * EventBus. Event occurs if the [CommunicationHandler] receives
      * new data.
      * @param event DataReceivedEvent
      */
@@ -112,8 +111,8 @@ class PlayerProxy(id: PlayerId) : Player(id) {
     fun onDataReceived(event: DataReceivedEvent) {
         // deserialize json and assign to property
         when (val obj = CommunicationHandler.deserialize(event.data)) {
-            is StartNumber  -> startNumber = obj
-            is Move         -> move = obj
+            is StartNumber -> startNumber = obj
+            is Move -> move = obj
             is StartingGrid -> startingGrid = obj
         }
     }

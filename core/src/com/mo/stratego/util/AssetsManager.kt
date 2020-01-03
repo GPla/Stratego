@@ -65,12 +65,12 @@ object AssetsManager : Disposable {
         private set
 
     /**
-     * Map of [Font] to [BitmapFont].
+     * Map of Font to BitmapFont.
      */
     lateinit var fontMap: MutableMap<Font, BitmapFont>
 
     /**
-     * Map of [SoundType] to [Sound].
+     * Map of [SoundType] to Sound.
      */
     lateinit var soundMap: MutableMap<SoundType, Sound>
         private set

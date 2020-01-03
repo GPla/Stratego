@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.content.Context
 import com.badlogic.gdx.Gdx
+import com.github.douglasjunior.bluetoothclassiclibrary.BluetoothClassicExtendedService
 import com.github.douglasjunior.bluetoothclassiclibrary.BluetoothConfiguration
 import com.github.douglasjunior.bluetoothclassiclibrary.BluetoothService
 import com.github.douglasjunior.bluetoothclassiclibrary.BluetoothService.OnBluetoothScanCallback
@@ -31,6 +32,10 @@ class BluetoothHandler(context: Context) :
     /**
      * Initializes the bluetooth service.
      * From https://github.com/douglasjunior/AndroidBluetoothLibrary.
+     *
+     * The BluetoothClassicExtendedService is a modified and extended version
+     * of the original BluetoothClassicService and hosted in my personal GitHub
+     * https://github.com/GPla/AndroidBluetoothLibrary.
      */
     init {
         val conf = BluetoothConfiguration()

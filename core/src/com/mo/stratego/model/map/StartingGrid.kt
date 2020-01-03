@@ -112,7 +112,6 @@ class StartingGrid {
     /**
      * @return Returns if all values are set.
      */
-    // TODO check for number per piece
     fun isValid() = matrix.all { it.all { r -> r != null } }
 
 

@@ -49,7 +49,9 @@ object GameController {
             mutableMapOf(PlayerId.PLAYER1 to mutableListOf(),
                          PlayerId.PLAYER2 to mutableListOf())
 
-    //TODO remove debug
+    /**
+     * Debug method.
+     */
     private fun setupForDebug(playerId: PlayerId): Boolean {
         val p1 = playerPieces[players[0]]
         val p2 = playerPieces[players[1]]

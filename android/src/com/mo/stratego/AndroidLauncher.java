@@ -36,7 +36,9 @@ public class AndroidLauncher extends AndroidApplication {
         initialize(StrategoGame.INSTANCE, config);
     }
 
-    //TODO cleanup
+    /**
+     * Request the permissions necessary for Bluetooth communication.
+     */
     private void requestPermissions() {
         Dexter.withActivity(this).withPermissions(
                 Manifest.permission.BLUETOOTH,

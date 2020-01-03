@@ -13,8 +13,6 @@ import com.mo.stratego.util.AssetsManager
 import com.mo.stratego.util.Constants
 import org.greenrobot.eventbus.EventBus
 
-// TODO cancel back button
-// TODO put tags in constants
 /**
  * LibGDX entry point. Class that handles the currently displayed screen.
  */

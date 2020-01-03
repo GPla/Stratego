@@ -40,7 +40,6 @@ class GameScreen(gameMode: GameMode) : Screen, BackButtonHandler {
     private val engine: Engine
     private val batch: SpriteBatch
 
-    //TODO: fix comments and cleanup
     init {
         //set camera to map dimensions, to show full map
         camera.setToOrtho(false, GameMap.width.toFloat(),

@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.StretchViewport
 import com.mo.stratego.model.game.GameResult
-import com.mo.stratego.model.map.GameMap
 import com.mo.stratego.model.sound.MusicType
 import com.mo.stratego.model.sound.SoundProvider
 import com.mo.stratego.ui.BackButtonHandler
@@ -23,14 +22,12 @@ import com.mo.stratego.util.Constants
 
 /**
  * Displays the [GameResult] as well as other statistics to the user.
- *
  * @param result Game result
  */
-// ADD result draw
 class EndScreen(private val result: GameResult) : Screen, BackButtonHandler {
-    private val stage = Stage(StretchViewport(
-            Constants.getUnitToPixel(GameMap.width.toFloat()),
-            Constants.getUnitToPixel(GameMap.height.toFloat())))
+    // pixel dimensions of the screen will always be the same
+    private val stage = Stage(StretchViewport(Constants.SCREEN_WIDTH,
+                                              Constants.SCREEN_HEIGHT))
 
     private val background: Sprite = when (result) {
         GameResult.WON -> Sprite(AssetsManager.endWon)

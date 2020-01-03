@@ -17,6 +17,7 @@ import com.mo.stratego.util.Constants
 class MainMenuScreen : Screen, BackButtonHandler {
 
     init {
+        // pixel dimensions of the screen will always be the same
         val stage = Stage(StretchViewport(Constants.SCREEN_WIDTH,
                                           Constants.SCREEN_HEIGHT))
         MenuController.init(stage)

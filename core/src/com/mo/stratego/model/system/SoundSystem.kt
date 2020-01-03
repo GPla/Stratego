@@ -6,10 +6,12 @@ import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.IteratingSystem
 import com.mo.stratego.model.component.SoundComponent
 import com.mo.stratego.model.sound.SoundProvider
+import com.mo.stratego.model.sound.SoundType
 
 /**
- * TODO
- *
+ * System that processes Entities with a [SoundComponent].
+ * Plays the [SoundType] associates with the component with the help of
+ * the [SoundProvider].
  */
 class SoundSystem :
     IteratingSystem(Family.all(SoundComponent::class.java).get()) {

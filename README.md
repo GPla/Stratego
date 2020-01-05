@@ -7,7 +7,7 @@ Build with:
 - [LibGDX](https://github.com/libgdx/libgdx)
 - [Ashley](https://github.com/libgdx/ashley)
 - [GreenRobot EventBus](https://github.com/greenrobot/EventBus)
-- [AndroidBluetoothLibrary](https://github.com/douglasjunior/AndroidBluetoothLibrary)
+- [AndroidBluetoothLibrary](https://github.com/GPla/AndroidBluetoothLibrary)
 - [Dexter](https://github.com/Karumi/Dexter)
 
 ## Screenshots

@@ -91,6 +91,7 @@ object MenuController : BackButtonHandler {
                 }
             })
 
+            /*
             val btnLocal = TextButton("Local", AssetsManager.uiSkinBig)
             btnLocal.apply {
                 addListener(object : ClickListener() {
@@ -105,7 +106,7 @@ object MenuController : BackButtonHandler {
                         StrategoGame.switchScreen(Screens.GAME_LOCAL)
                     }
                 })
-            }
+            } */
 
             // settings
             val btnSettings = TextButton("Settings", AssetsManager.uiSkinBig)
@@ -127,9 +128,10 @@ object MenuController : BackButtonHandler {
                 }
             })
 
+            /*
             add(btnLocal).width(580f).pad(700f, 30f, 10f, 30f)
-            row()
-            add(btnMulti).width(580f).pad(10f, 30f, 10f, 30f)
+            row() */
+            add(btnMulti).width(580f).pad(730f, 30f, 10f, 30f)
             row()
             add(btnSettings).width(580f).pad(10f, 30f, 10f, 30f)
             row()

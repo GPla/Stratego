@@ -153,8 +153,10 @@ class MoveSystem : SortedIteratingSystem(
     private fun createAttackSound(piece: Piece, enemy: Piece) {
         val sound: SoundType? = when (piece.rank.attacks(enemy.rank)) {
             Result.WON -> {
+                // spy captures mashal
                 if (piece.rank == Rank.SPY && enemy.rank == Rank.MARSHAL)
                     SoundType.SPY_CAPTURE
+                // bomb defuse
                 else if (piece.rank == Rank.MINER && enemy.rank == Rank.BOMB)
                     SoundType.DEFUSE_BOMB
                 else if (piece.owner.id == PlayerId.PLAYER1)

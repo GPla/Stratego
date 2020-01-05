@@ -8,5 +8,6 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 class ControlMessage(val event: ControlEvent) {
+    // for serialization
     private val className = ControlMessage::class.java.name
 }

@@ -14,8 +14,8 @@ class MoveTypeComparator : Comparator<Entity> {
 
     /**
      * Compares two entities with [MoveComponent]s.
-     * @param p0 Entity
-     * @param p1 Entiy
+     * @param p0 Entity 1
+     * @param p1 Entity 2
      * @return Result of compareTo of [MoveType].
      */
     override fun compare(p0: Entity?, p1: Entity?): Int {

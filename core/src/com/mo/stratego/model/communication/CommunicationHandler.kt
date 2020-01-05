@@ -37,7 +37,7 @@ object CommunicationHandler : ICommunicationEventListener {
 
     override fun onDataReceived(data: ByteArray?) {
         val data = data?.toString(Charsets.UTF_8) ?: return
-        Gdx.app.log(Constants.TAG_BLUETOOTH, "proxy rec: $data")
+        Gdx.app.log(Constants.TAG_BLUETOOTH, "rec: $data")
         EventBus.getDefault().post(DataReceivedEvent(data))
     }
 
@@ -76,6 +76,7 @@ object CommunicationHandler : ICommunicationEventListener {
             else -> null
         }
 
+        // send data
         jsonData?.also {
             // add \n as message delimiter
             iCom.writeData(it.toByteArray() + '\n'.toByte())

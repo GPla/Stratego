@@ -4,6 +4,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Dialog
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 
+/**
+ * Simple dialog with a message and a confirm button.
+ * @param title Title of the dialog
+ * @param msg Message to display
+ * @param skin Skin
+ */
 class MessageDialog(title: String, val msg: String, skin: Skin) :
     Dialog(title, skin) {
     init {

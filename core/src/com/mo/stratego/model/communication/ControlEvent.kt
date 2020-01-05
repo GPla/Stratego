@@ -14,7 +14,8 @@ enum class ControlEvent {
     SURRENDER;
 
     /**
-     * Serializer for [ControlEvent].
+     * Serializer for [ControlEvent]. Adapted from
+     * https://ahsensaeed.com/enum-class-serialization-kotlinx-serialization-library/
      */
     @Serializer(forClass = ControlEvent::class)
     companion object : KSerializer<ControlEvent> {
@@ -30,6 +31,4 @@ enum class ControlEvent {
         }
 
     }
-
-    private val className = ControlEvent::class.java.name
 }

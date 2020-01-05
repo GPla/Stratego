@@ -17,7 +17,6 @@ import com.mo.stratego.model.communication.OnConnectingEvent
 import com.mo.stratego.model.communication.OnErrorEvent
 import com.mo.stratego.model.sound.SoundProvider
 import com.mo.stratego.ui.BackButtonHandler
-import com.mo.stratego.ui.Font
 import com.mo.stratego.ui.Screens
 import com.mo.stratego.ui.control.DeviceList
 import com.mo.stratego.ui.control.LoadLabel
@@ -228,20 +227,20 @@ object MenuController : BackButtonHandler {
                 add(btnSound)
             }
 
-            // game modifier
-            val subHeaderStyle =
-                    Label.LabelStyle(AssetsManager.fontMap[Font.SIZE32],
-                                     Constants.YELLOW)
-            val lblModifier = Label("Game Modifier", subHeaderStyle)
+            val lblCredits =
+                    Label("Made for the course Mobile Systeme(MO) " +
+                          "at the TH OWL in Lemgo\n" +
+                          "Created by Gorden Platz (15384078)",
+                          AssetsManager.defaultSkin)
+
 
             add(btnBack).size(70f).left().pad(20f, 20f, 0f, 0f)
             row()
             add(lblTitle).center().expandX()
             row()
             add(tblSound).left().pad(30f, 100f, 20f, 0f)
-            //row()
-            //add(lblModifier).left().pad(20f, 50f, 30f, 0f)
-
+            row()
+            add(lblCredits).expandY().bottom()
         }
     }
 

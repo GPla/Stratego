@@ -1,6 +1,6 @@
 # Stratego
 
-A simple android game based on the board game stratego.
+A simple android game based on the board game stratego. A two player multiplayer game via bluetooth. 
 
 Build with:
 
